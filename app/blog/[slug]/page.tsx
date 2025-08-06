@@ -26,13 +26,15 @@ async function getData(slug: string) {
   return data;
 }
 
-export default async function BlogArticle({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const data: Blog = await getData(params?.slug);
-  console.log(data);
+// ✅ Tipamos bien los props de la página
+interface BlogArticleProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default async function BlogArticle({ params }: BlogArticleProps) {
+  const data: Blog = await getData(params.slug);
 
   return (
     <div className="mt-8">
