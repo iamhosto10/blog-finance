@@ -27,37 +27,40 @@ async function getData(slug: string) {
 }
 
 // ✅ Tipamos bien los props de la página
-interface BlogArticleProps {
-  params: {
-    slug: string;
-  };
+interface MyPageProps {
+  params: Promise<{
+    slug?: string;
+  }>;
+  searchParams: Promise<Record<string, string>>;
 }
 
-export default async function BlogArticle({ params }: BlogArticleProps) {
-  const data: Blog = await getData(params.slug);
+export default async function BlogArticle(props: MyPageProps) {
+  const params = await props.params;
+  const data: Blog = await getData(params?.slug || "");
 
   return (
     <div className="mt-8">
       <h1>
         <span className="block text-base text-center text-primary font-semibold tracking-wide uppercase">
-          {data.categories ? data.categories[0].title : ""} - Blog
+          {data?.categories ? data?.categories[0]?.title : ""} - Blog
         </span>
         <span className="mt-2 block text-3xl text-center leading-8 font-bold tracking-tight sm:text-4xl">
-          {data.title}
+          {data?.title}
         </span>
       </h1>
-
-      <Image
-        src={urlFor(data.mainImage).url()}
-        width={800}
-        height={800}
-        alt="Title Image"
-        priority
-        className="rounded-lg mt-8 border"
-      />
+      {data?.mainImage && (
+        <Image
+          src={urlFor(data?.mainImage).url()}
+          width={800}
+          height={800}
+          alt="Title Image"
+          priority
+          className="rounded-lg mt-8 border"
+        />
+      )}
 
       <div className="mt-16 prose prose-blue prose-lg dark:prose-invert prose-li:marker:text-primary prose-a:text-primary">
-        <PortableText value={data.body} />
+        <PortableText value={data?.body} />
       </div>
     </div>
   );

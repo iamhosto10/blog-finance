@@ -1,16 +1,5 @@
 "use client";
 
-// import Image from "next/image";
-// import { useState } from "react";
-// import Link from "next/link";
-
-// const menuItems = [
-//   { label: "BLOG", href: "/blog" },
-//   { label: "NOTICIAS", href: "/noticias" },
-//   { label: "TIPS & HACKS", href: "/tips-hacks" },
-//   { label: "HERRAMIENTAS", href: "/herramientas" },
-// ];
-
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -77,22 +66,6 @@ export default function Navbar() {
 
       {/* Menú */}
       <div className="w-full flex gap-6 bg-primary px-8 py-2 rounded-lg rounded-l-none relative justify-between self-end top-[-50px]">
-        {menuItems.map((item) => (
-          // <Link
-          //   key={item.label}
-          //   href={item.href}
-          //   onClick={() => setActive(item.label)}
-          //   className={`relative font-semibold text-white drop-shadow-md transition
-          //     ${active === item.label ? "text-white" : "text-gray-100"}`}
-          // >
-          //   {item.label}
-          //   {/* Triángulo indicador */}
-          //   {active === item.label && (
-          //     <span className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-background" />
-          //   )}
-          // </Link>
-          <></>
-        ))}
         {menuItems.map((item, index) => (
           <div
             key={item.label}
@@ -137,87 +110,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
-// import { useEffect, useState } from "react";
-// import Link from "next/link";
-// import { usePathname } from "next/navigation";
-// import clsx from "clsx";
-// import { ModeToggle } from "./ModeToggle";
-
-// export default function Navbar() {
-//   const pathname = usePathname();
-//   const [scrolled, setScrolled] = useState(false);
-
-//   useEffect(() => {
-//     const handleScroll = () => {
-//       setScrolled(window.scrollY > 10);
-//     };
-
-//     window.addEventListener("scroll", handleScroll);
-//     return () => window.removeEventListener("scroll", handleScroll);
-//   }, []);
-
-//   const navItems = [
-//     { href: "/", label: "Inicio" },
-//     { href: "/about", label: "Sobre mí" },
-//     { href: "/blog", label: "Blog" },
-//   ];
-
-//   return (
-//     <header className="sticky top-0 z-50 bg-accent shadow-md transition-all">
-//       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-//         <Link href="/">
-//           <div className="flex items-center space-x-2 transition-all duration-300">
-//             <img
-//               src={"/next.svg"} // Cambia esto por tu ruta real
-//               alt="Logo"
-//               className={clsx(
-//                 "transition-all duration-300"
-//                 // scrolled ? "w-8" : "w-12"
-//               )}
-//             />
-//             {/* <span
-//               className={clsx(
-//                 "font-bold transition-all duration-300",
-//                 scrolled ? "text-lg" : "text-2xl"
-//               )}
-//             >
-//               MiSitio
-//             </span> */}
-//           </div>
-//         </Link>
-
-//         <nav className="flex items-center space-x-4">
-//           {navItems.map((item) => (
-//             <Link
-//               key={item.href}
-//               href={item.href}
-//               className={clsx(
-//                 "text-xl px-2 py-1 rounded transition-colors",
-//                 pathname === item.href
-//                   ? "bg-primary text-secondary font-semibold "
-//                   : "text-primary hover:bg-primary hover:text-secondary hover:font-semibold"
-//               )}
-//             >
-//               <h2>{item.label}</h2>
-//             </Link>
-//           ))}
-//         </nav>
-
-//         <ModeToggle />
-//       </div>
-//     </header>
-//   );
-// }
-
-// export default function Navbar() {
-//   return (
-//     <nav className="w-full relative flex items-center justify-between max-w-2xl mx-auto px-4 py-5">
-//       <Link href="/" className="font-bold text-3xl">
-//         Finance<span className="text-primary">Blog</span>
-//       </Link>
-
-//       <ModeToggle />
-//     </nav>
-//   );
-// }
