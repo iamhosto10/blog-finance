@@ -3,7 +3,7 @@
 import { ReactSVG } from "react-svg";
 const SocialMedia = () => {
   return (
-    <div className="mx-16 px-6 py-8 flex flex-row flex-wrap items-end justify-end gap-2 max-w-full bg-background rounded-b-4xl">
+    <div className="hidden mx-16 px-6 py-8 lg:flex flex-row flex-wrap items-end justify-end gap-2 max-w-full bg-background rounded-b-4xl">
       <p className="text-accent">Siguenos</p>
       <ReactSVG
         src="/assets/Layout/Facebook.svg"
