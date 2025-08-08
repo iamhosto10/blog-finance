@@ -33,9 +33,9 @@ const LatestNewsCard = (props: ILatestNewsCard) => {
         src={urlFor(image).url()}
         alt="image"
         height={500}
-        className="rounded-lg object-cover w-full h-52 xl:h-72"
+        className="rounded-lg object-cover w-full h-48 xl:h-64"
       />
-      <p className="line-clamp-4 text-sm mt-2 text-tertiary font-canva-sans">
+      <p className="line-clamp-4 text-sm mt-2 text-tertiary font-canva-sans text-justify">
         {excerpt}
       </p>
     </Link>

@@ -4,6 +4,8 @@ import { client, urlFor } from "./lib/sanity";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import LatestNews from "./components/LatestNews/LatestNews";
+import RecommendedTags from "./components/RecomendedTags/RecomendedTags";
+import ArticleHome from "./components/ArticleHome/ArticleHome";
 
 export const revalidate = 30; // revalidate at most 30 seconds
 
@@ -35,6 +37,10 @@ export default async function Home() {
   return (
     <div>
       <LatestNews />
+      <div className="flex flex-col lg:flex-row py-10 gap-8">
+        <ArticleHome />
+        <RecommendedTags />
+      </div>
       {/* {data.map((post, idx) => (
         <div className="w-full flex flex-col">
           <h2 className="text-lg line-clamp-2 text-tertiary font-agrandir font-bold">

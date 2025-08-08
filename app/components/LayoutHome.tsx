@@ -9,9 +9,9 @@ const LayoutHome = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <SocialMedia />
-      <div className="my-6 mx-5 pb-10 lg:my-10 lg:mx-16 bg-background rounded-4xl">
+      <div className="my-6 mx-5 pb-10 lg:my-10 lg:mx-12 bg-background rounded-4xl">
         <Navbar open={open} setOpen={setOpen} />
-        {!open && <main className="w-full mx-auto px-4">{children}</main>}
+        {!open && <main className="w-full mx-auto px-10">{children}</main>}
       </div>
     </>
   );
