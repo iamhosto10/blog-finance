@@ -37,7 +37,7 @@ export default function RootLayout({
             <Navbar />
             <main className="max-w-2xl mx-auto px-4">{children}</main>
           </div> */}
-          <div className="h-40 bg-background">
+          <div className="h-40 bg-background self-end">
             <h1 className="text-3xl">
               Aqui ira el footer no te asustes solo lo dejo para guiarme
               visualmente

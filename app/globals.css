@@ -4,6 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-agrandir: var(--agrandir);
+  --font-canva-sans: var(--canva-sans);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -29,6 +31,7 @@
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
+  --color-tertiary: var(--tertiary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
@@ -44,6 +47,8 @@
 }
 
 :root {
+  --agrandir: "Agrandir", sans-serif;
+  --canva-sans: "CanvaSans", sans-serif;
   --radius: 0.65rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
@@ -55,6 +60,7 @@
   --primary-foreground: oklch(0.421 0.095 57.708);
   --secondary: oklch(0.52 0.19 282.7);
   --secondary-foreground: oklch(0.21 0.006 285.885);
+  --tertiary: oklch(0.22 0.14 284.7);
   --muted: oklch(0.967 0.001 286.375);
   --muted-foreground: oklch(0.552 0.016 285.938);
   --accent: oklch(0.78 0 0);
@@ -79,6 +85,8 @@
 }
 
 .dark {
+  --font-agrandir: var(--agrandir);
+  --font-canva-sans: var(--canvaSans);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -104,6 +112,7 @@
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
+  --color-tertiary: var(--tertiary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
@@ -144,4 +153,36 @@ body {
   .bg-background-transparent {
     background-color: color-mix(in oklch, var(--background), transparent 20%);
   }
+}
+
+@font-face {
+  font-family: "Agrandir";
+  src: url("/fonts/agrandir/Agrandir-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Agrandir";
+  src: url("/fonts/agrandir/Agrandir-TextBold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "CanvaSans";
+  src: url("/fonts/canvasans/Canva-Sans-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "CanvaSans";
+  src: url("/fonts/canvasans/Canva-Sans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
