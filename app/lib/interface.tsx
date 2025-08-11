@@ -2,6 +2,8 @@ export interface Blog {
   _id: string;
   _type: "blog";
   title: string;
+  continueTitle?: string;
+  focusTitle?: string;
   slug: {
     current: string;
   };

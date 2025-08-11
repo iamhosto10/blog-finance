@@ -6,6 +6,8 @@ export async function GET() {
     const blogs = await client.fetch(`*[_type == "blog"]{
       _id,
       title,
+      focusTitle,
+      continueTitle,
       slug,
       publishedAt,
       mainImage,

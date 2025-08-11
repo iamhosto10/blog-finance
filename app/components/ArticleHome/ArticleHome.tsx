@@ -1,27 +1,73 @@
+import { urlFor } from "@/app/lib/sanity";
+import { PortableText } from "next-sanity";
 import React from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
-const ArticleHome = () => {
+interface IProps {
+  title: string;
+  focusTitle?: string;
+  continueTitle?: string;
+  publishedAt: string;
+  category: string;
+  slug: string;
+  body: Array<
+    | {
+        _type: "block";
+        children: { text: string }[];
+      }
+    | {
+        _type: "image";
+        asset: {
+          _ref: string;
+        };
+      }
+  >;
+  mainImage?: {
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+  };
+}
+
+const ArticleHome = ({
+  body,
+  publishedAt,
+  slug,
+  title,
+  continueTitle,
+  focusTitle,
+  mainImage,
+  category,
+}: IProps) => {
   return (
     <div className="flex flex-col gap-4 w-full lg:w-2/3">
       <h2 className="font-agrandir font-bold text-2xl lg:text-3xl text-secondary text-left line-clamp-3 lg:line-clamp-2 ">
-        ¿POR CUANTOS AÑOS DEBO AHORRAR PARA TENER
-        <span className="text-primary"> VIVIENDA PROPIA</span>?
+        {title}
+        <span className="text-primary"> {focusTitle}</span>
+        {continueTitle}
       </h2>
       <div className="flex flex-row w-full justify-start gap-2">
         <h3 className="text-sm lg:text-md bg-primary text-background px-2 py-1 rounded-full font-agrandir font-bold">
-          Noticias
+          {category}
         </h3>
         <p className="text-sm text-tertiary my-auto font-canva-sans font-bold">
-          01/08/2025
+          {new Date(publishedAt.slice(0, 10)).toLocaleDateString("es-ES", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          })}
         </p>
       </div>
       <div className="relative max-w-4/5 mx-auto p-6">
-        <img
-          src="/assets/ArticleHome/imagenCasa.png"
-          alt="Casa protegida con dinero"
-          className="rounded-md"
-        />
-
+        {mainImage && (
+          <img
+            src={urlFor(mainImage).url()}
+            alt={title + " " + (focusTitle || "") + " " + (continueTitle || "")}
+            className="rounded-md"
+          />
+        )}
         <div className="absolute -top-1 -right-1 md:-top-1.5 md:-right-1.5 size-20 md:size-32">
           <img
             src="/assets/ArticleHome/icontest.png"
@@ -30,17 +76,14 @@ const ArticleHome = () => {
           />
         </div>
       </div>
-      <p className="font-canva-sans text-tertiary text-md text-justify">
-        Ahorrar para una vivienda propia es uno de los grandes retos financieros
-        de la vida adulta. La respuesta a cuántos años necesitas dependerá de tu
-        ingreso, tus hábitos de ahorro y el precio del inmueble que deseas. Si
-        logras destinar entre el 20% y 30% de tu salario mensual a una cuenta de
-        ahorro, podrías reunir la cuota inicial en unos 5 a 10 años. Sin
-        embargo, si accedes a un crédito hipotecario, podrías alcanzar tu meta
-        más rápido, solo necesitando el 20% del valor total como entrada. Lo
-        importante es tener un plan claro, evitar gastos innecesarios y buscar
-        opciones de inversión que hagan crecer tu dinero.
+      <p className="font-canva-sans text-tertiary text-md text-justify line-clamp-6">
+        <PortableText value={body} />
       </p>
+      <Link href={`/blog/${slug}`} className="self-end cursor-pointer">
+        <Button variant="outline">
+          <p>leer mas {">>"} </p>
+        </Button>
+      </Link>
     </div>
   );
 };

@@ -1,32 +1,8 @@
 import { Blog } from "@/app/lib/interface";
-import { client } from "@/app/lib/sanity";
 import React from "react";
 import LatestNewsCard from "../Cards/LatestNewsCard";
-import RecommendedTags from "../RecomendedTags/RecomendedTags";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-
-// async function getData() {
-//   const query = `
-//   *[_type == "blog"] {
-//   _id,
-//     type,
-//   title,
-//   slug,
-//   publishedAt,
-//   mainImage,
-//   excerpt,
-//   body,
-//   categories[]->{
-//     _id,
-//     title
-//   }
-// }`;
-
-//   const data = await client.fetch(query);
-
-//   return data;
-// }
 
 const LatestNews = () => {
   const { blogs } = useSelector((state: RootState) => state.sanity);
@@ -44,7 +20,13 @@ const LatestNews = () => {
               excerpt={post.excerpt}
               image={post.mainImage}
               slug={post.slug}
-              title={post.title}
+              title={
+                post.title +
+                " " +
+                (post?.focusTitle || "") +
+                " " +
+                (post?.continueTitle || "")
+              }
             />
           ))}
         </div>

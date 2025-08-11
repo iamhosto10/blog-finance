@@ -22,7 +22,7 @@ export default defineType({
       name: 'continueTitle',
       title: 'Continue Title',
       type: 'string',
-      validation: (Rule) => Rule.min(5).max(100),
+      validation: (Rule) => Rule.min(1).max(100),
     },
     {
       name: 'slug',
