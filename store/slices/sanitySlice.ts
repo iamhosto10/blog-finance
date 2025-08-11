@@ -1,31 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { client } from "@/app/lib/sanity";
-import { Blog } from "@/app/lib/interface";
-
-// Tipos
-// interface Blog {
-//   _id: string;
-//   title: string;
-//   slug: { current: string };
-//   publishedAt?: string;
-//   mainImage?: any;
-//   excerpt?: string;
-//   body?: any;
-//   categories?: any[];
-// }
-
-interface Category {
-  _id: string;
-  title: string;
-  description?: string;
-  slug: { current: string };
-}
-
-interface Dolar {
-  _id: string;
-  valor: number;
-  fecha: string;
-}
+import { Blog, Category, Dolar } from "@/app/lib/interface";
 
 interface SanityState {
   blogs: Blog[];
@@ -47,41 +21,27 @@ const initialState: SanityState = {
 export const fetchBlogs = createAsyncThunk<Blog[]>(
   "sanity/fetchBlogs",
   async () => {
-    return await client.fetch(`*[_type == "blog"]{
-    _id,
-    title,
-    focusTitle,
-    continueTitle,
-    slug,
-    publishedAt,
-    mainImage,
-    excerpt,
-    body,
-    categories[]->{
-      _id,
-      title,
-      slug
-    }
-  } | order(publishedAt desc)`);
+    const res = await fetch("/api/blogs");
+    if (!res.ok) throw new Error("Error cargando blogs");
+    return await res.json();
   }
 );
 
 export const fetchCategories = createAsyncThunk<Category[]>(
   "sanity/fetchCategories",
   async () => {
-    return await client.fetch(`*[_type == "category"]{
-    _id,
-    title,
-    description,
-    slug
-  } | order(title asc)`);
+    const res = await fetch("/api/category");
+    if (!res.ok) throw new Error("Error cargando blogs");
+    return await res.json();
   }
 );
 
 export const fetchDolar = createAsyncThunk<Dolar>(
   "sanity/fetchDolar",
   async () => {
-    return await client.fetch(`*[_type == "dolar"] | order(fecha desc)[0]`);
+    const res = await fetch("/api/dolar");
+    if (!res.ok) throw new Error("Error cargando blogs");
+    return await res.json();
   }
 );
 

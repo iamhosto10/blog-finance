@@ -55,14 +55,6 @@ export default function Home() {
 
   if (loading) return <p>Cargando...</p>;
 
-  // return (
-  //   <div>
-  //     <h1>Blogs: {blogs.length}</h1>
-  //     <h2>Categorías: {categories.length}</h2>
-  //     <h3>Dólar: {dolar?.valor} COP</h3>
-  //   </div>
-  // );
-
   return (
     <div>
       <LatestNews />

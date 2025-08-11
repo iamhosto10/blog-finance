@@ -37,3 +37,8 @@ export interface Category {
     current: string;
   };
 }
+export interface Dolar {
+  _id: string;
+  valor: number;
+  fecha: string;
+}

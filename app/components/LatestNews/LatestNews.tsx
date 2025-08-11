@@ -29,16 +29,13 @@ import { RootState } from "@/store/store";
 // }
 
 const LatestNews = () => {
-  // const data: Blog[] = await getData();
-  const { blogs, error } = useSelector((state: RootState) => state.sanity);
+  const { blogs } = useSelector((state: RootState) => state.sanity);
   const data: Blog[] = blogs;
-  console.log("erorr", error);
   return (
     <div className="flex flex-col items-center w-full gap-4">
       <h2 className="text-xl lg:text-2xl bg-primary text-background px-6 lg:px-10 py-2 lg:py-3 rounded-full mx-auto font-agrandir font-bold">
         Ultimas Noticias
       </h2>
-      {error && <p>{error}</p>}
       <div className="flex flex-col lg:flex-row gap-10 w-full">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:w-2/3">
           {data.slice(0, 4).map((post, idx) => (
