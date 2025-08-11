@@ -38,7 +38,7 @@ export default function Home() {
           continueTitle={blogs[0]?.continueTitle}
           focusTitle={blogs[0]?.focusTitle}
           mainImage={blogs[0]?.mainImage}
-          //@ts-ignore
+          //@ts-expect-error
           category={blogs[0]?.categories[0]?.title ?? ""}
         />
         <RecommendedTags />
