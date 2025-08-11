@@ -38,7 +38,7 @@ export default function Home() {
           continueTitle={blogs[0]?.continueTitle}
           focusTitle={blogs[0]?.focusTitle}
           mainImage={blogs[0]?.mainImage}
-          //@ts-expect-error
+          //@ts-expect-error: esta función rompe el tipado por que categories puede ser nulo motivo
           category={blogs[0]?.categories[0]?.title ?? ""}
         />
         <RecommendedTags />
