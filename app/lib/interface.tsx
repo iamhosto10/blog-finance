@@ -27,6 +27,7 @@ export interface Blog {
   >;
   categories?: { _id: string; title: string }[];
 }
+
 export interface Category {
   _id: string;
   _type: "category";

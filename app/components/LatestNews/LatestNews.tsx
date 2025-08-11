@@ -3,31 +3,37 @@ import { client } from "@/app/lib/sanity";
 import React from "react";
 import LatestNewsCard from "../Cards/LatestNewsCard";
 import RecommendedTags from "../RecomendedTags/RecomendedTags";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
-async function getData() {
-  const query = `
-  *[_type == "blog"] {
-  _id,
-    type,
-  title,
-  slug,
-  publishedAt,
-  mainImage,
-  excerpt,
-  body,
-  categories[]->{
-    _id,
-    title
-  }
-}`;
+// async function getData() {
+//   const query = `
+//   *[_type == "blog"] {
+//   _id,
+//     type,
+//   title,
+//   slug,
+//   publishedAt,
+//   mainImage,
+//   excerpt,
+//   body,
+//   categories[]->{
+//     _id,
+//     title
+//   }
+// }`;
 
-  const data = await client.fetch(query);
+//   const data = await client.fetch(query);
 
-  return data;
-}
+//   return data;
+// }
 
-const LatestNews = async () => {
-  const data: Blog[] = await getData();
+const LatestNews = () => {
+  // const data: Blog[] = await getData();
+  const { blogs, categories, dolar, loading } = useSelector(
+    (state: RootState) => state.sanity
+  );
+  const data: Blog[] = blogs;
 
   return (
     <div className="flex flex-col items-center w-full gap-4">

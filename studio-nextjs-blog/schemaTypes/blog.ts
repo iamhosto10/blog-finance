@@ -12,21 +12,33 @@ export default defineType({
       validation: (Rule) => Rule.required().min(5).max(100),
     },
     {
+      name: 'focusTitle',
+      title: 'Focus Title',
+      type: 'string',
+
+      validation: (Rule) => Rule.min(5).max(100),
+    },
+    {
+      name: 'continueTitle',
+      title: 'Continue Title',
+      type: 'string',
+      validation: (Rule) => Rule.min(5).max(100),
+    },
+    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'title',
+        source: (doc: {title?: string; focusTitle?: string; continueTitle?: string}) => {
+          const title = doc.title ?? ''
+          const focus = doc.focusTitle ?? ''
+          const cont = doc.continueTitle ?? ''
+          return `${title} ${focus} ${cont}`
+        },
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
     },
-    // {
-    //   name: 'author',
-    //   title: 'Author',
-    //   type: 'reference',
-    //   to: [{type: 'author'}],
-    // },
     {
       name: 'publishedAt',
       title: 'Published At',

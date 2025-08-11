@@ -1,0 +1,14 @@
+{
+    "functions": {
+      "api/updateTrm.ts": {
+        "runtime": "nodejs18.x"
+      }
+    },
+    "crons": [
+      {
+        "path": "/api/updateTrm",
+        "schedule": "0 19 * * *"
+      }
+    ]
+  }
+  

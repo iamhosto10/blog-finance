@@ -1,3 +1,5 @@
+"use client";
+
 import { Blog } from "./lib/interface";
 import { client, urlFor } from "./lib/sanity";
 // import Image from "next/image";
@@ -6,8 +8,16 @@ import Link from "next/link";
 import LatestNews from "./components/LatestNews/LatestNews";
 import RecommendedTags from "./components/RecomendedTags/RecomendedTags";
 import ArticleHome from "./components/ArticleHome/ArticleHome";
+import {
+  fetchBlogs,
+  fetchCategories,
+  fetchDolar,
+} from "@/store/slices/sanitySlice";
+import { useEffect } from "react";
+import { RootState, AppDispatch } from "@/store/store";
+import { useSelector, useDispatch } from "react-redux";
 
-export const revalidate = 30; // revalidate at most 30 seconds
+// export const revalidate = 30; // revalidate at most 30 seconds
 
 async function getData() {
   const query = `
@@ -31,8 +41,27 @@ async function getData() {
   return data;
 }
 
-export default async function Home() {
-  const data: Blog[] = await getData();
+export default function Home() {
+  // const data: Blog[] = await getData();
+
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading, dolar } = useSelector((state: RootState) => state.sanity);
+
+  useEffect(() => {
+    dispatch(fetchBlogs());
+    dispatch(fetchCategories());
+    dispatch(fetchDolar());
+  }, [dispatch]);
+
+  if (loading) return <p>Cargando...</p>;
+
+  // return (
+  //   <div>
+  //     <h1>Blogs: {blogs.length}</h1>
+  //     <h2>Categorías: {categories.length}</h2>
+  //     <h3>Dólar: {dolar?.valor} COP</h3>
+  //   </div>
+  // );
 
   return (
     <div>
@@ -41,6 +70,8 @@ export default async function Home() {
         <ArticleHome />
         <RecommendedTags />
       </div>
+      <h3>Dólar: {dolar?.valor} COP</h3>
+
       {/* {data.map((post, idx) => (
         <div className="w-full flex flex-col">
           <h2 className="text-lg line-clamp-2 text-tertiary font-agrandir font-bold">

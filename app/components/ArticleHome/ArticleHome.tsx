@@ -22,11 +22,11 @@ const ArticleHome = () => {
           className="rounded-md"
         />
 
-        <div className="absolute -top-0.5 -right-0.5 size-12 lg:size-24">
+        <div className="absolute -top-1 -right-1 md:-top-1.5 md:-right-1.5 size-20 md:size-32">
           <img
             src="/assets/ArticleHome/icontest.png"
             alt="Ícono de banco"
-            className="size-12 lg:size-24"
+            className="size-20 md:size-32"
           />
         </div>
       </div>
