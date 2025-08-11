@@ -13,8 +13,10 @@ export async function GET() {
     const existing = await client.fetch(`*[_type == "dolar"]`);
 
     if (existing[0]?.fecha?.slice(0, 10) !== today) {
-      await client.delete(existing[0]._id);
-      const test = await client.create({
+      if (existing.length > 0) {
+        await client.delete(existing[0]?._id);
+      }
+      await client.create({
         _type: "dolar",
         valor: valorCOP,
         fecha: new Date().toISOString(),
