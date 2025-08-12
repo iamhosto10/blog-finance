@@ -5,7 +5,7 @@ import { ReactSVG } from "react-svg";
 
 const Footer = () => {
   return (
-    <footer className="bg-tertiary text-background px-10 md:px-20 py-10">
+    <footer className="bg-tertiary text-background px-10 md:px-20 py-10 self-end">
       <div className="container mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
         {/* Imagen */}
         <div className="flex flex-col flex-shrink-0 gap-8">
@@ -56,15 +56,15 @@ const Footer = () => {
           <span className="font-semibold font-agrandir">Síguenos</span>
           <ReactSVG
             src="/assets/Layout/Facebook.svg"
-            className="w-6 h-6 fill-background"
+            className="size-6 fill-background"
           />
           <ReactSVG
             src="/assets/Layout/Instagram.svg"
-            className="w-6 h-6 fill-background"
+            className="size-6 fill-background"
           />
           <ReactSVG
             src="/assets/Layout/Youtube.svg"
-            className="w-6 h-6 fill-background"
+            className="size-6 fill-background"
           />
         </div>
 

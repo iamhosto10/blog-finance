@@ -12,8 +12,6 @@ import { useEffect } from "react";
 import { RootState, AppDispatch } from "@/store/store";
 import { useSelector, useDispatch } from "react-redux";
 
-// export const revalidate = 30; // revalidate at most 30 seconds
-
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const { loading, blogs } = useSelector((state: RootState) => state.sanity);

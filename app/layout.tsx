@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./components/theme-provider";
-import Navbar from "./components/Navbar";
-import SocialMedia from "./components/SocialMedia";
 import LayoutHome from "./components/LayoutHome";
 import { ReduxProvider } from "@/store/provider";
 import Footer from "./components/Footer/footer";
+
+export const revalidate = 60;
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,18 +35,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <LayoutHome>{children}</LayoutHome>
-            {/* <SocialMedia />
-          <div className="my-6 mx-5 lg:my-10 lg:mx-16 bg-background rounded-4xl">
-            <Navbar />
-            <main className="max-w-2xl mx-auto px-4">{children}</main>
-          </div> */}
-            <div className="h-40 bg-background self-end">
-              <Footer />
-              {/* <h1 className="text-3xl">
-                Aqui ira el footer no te asustes solo lo dejo para guiarme
-                visualmente
-              </h1> */}
-            </div>
+            <Footer />
           </ThemeProvider>
         </body>
       </ReduxProvider>
