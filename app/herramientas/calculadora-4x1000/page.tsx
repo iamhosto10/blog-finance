@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calculator } from "@/app/components/Calculator";
-import { InfoSection } from "@/app/components/InfoSection";
-import { FAQ } from "@/app/components/FAQ";
+import { Calculator } from "@/components/Calculator";
+import { InfoSection } from "@/components/InfoSection";
+import { FAQ } from "@/components/FAQ";
 
 export const metadata: Metadata = {
   title: "Calculadora 4x1000 Colombia",

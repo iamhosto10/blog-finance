@@ -1,8 +1,8 @@
 // app/page.tsx
 
-import { client } from "@/app/lib/sanity";
+import { client } from "@/lib/sanity";
 import { SanityState } from "@/store/slices/sanitySlice";
-import Home from "./components/Home/Home";
+import Home from "../components/Home/Home";
 
 export const revalidate = 60; // cachea por 60 segundos
 

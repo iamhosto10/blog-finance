@@ -1,4 +1,4 @@
-import TextReader from "@/app/components/TextReader";
+import TextReader from "@/components/TextReader";
 
 export default function Home() {
   const contenido = `

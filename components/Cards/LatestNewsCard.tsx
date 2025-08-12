@@ -1,4 +1,4 @@
-import { urlFor } from "@/app/lib/sanity";
+import { urlFor } from "@/lib/sanity";
 import Link from "next/link";
 import React from "react";
 

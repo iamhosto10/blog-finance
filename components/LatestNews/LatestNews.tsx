@@ -1,4 +1,4 @@
-import { Blog } from "@/app/lib/interface";
+import { Blog } from "@/lib/interface";
 import React from "react";
 import LatestNewsCard from "../Cards/LatestNewsCard";
 import { useSelector } from "react-redux";

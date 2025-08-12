@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "./components/theme-provider";
-import LayoutHome from "./components/LayoutHome";
+import { ThemeProvider } from "../components/theme-provider";
+import LayoutHome from "../components/LayoutHome";
 import { ReduxProvider } from "@/store/provider";
-import Footer from "./components/Footer/footer";
+import Footer from "../components/Footer/footer";
 
 export const revalidate = 60;
 
@@ -24,10 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <ReduxProvider>
-        {/* Fondo de imagen aplicado en body */}
-        <body className={`${inter.className} bg-layout`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} bg-layout`}>
+        <ReduxProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -37,8 +36,8 @@ export default function RootLayout({
             <LayoutHome>{children}</LayoutHome>
             <Footer />
           </ThemeProvider>
-        </body>
-      </ReduxProvider>
+        </ReduxProvider>
+      </body>
     </html>
   );
 }

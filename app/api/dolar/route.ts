@@ -1,4 +1,4 @@
-import { client } from "@/app/lib/sanity";
+import { client } from "@/lib/sanity";
 import { NextResponse } from "next/server";
 
 export async function GET() {

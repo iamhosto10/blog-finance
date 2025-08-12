@@ -1,5 +1,5 @@
-import { Blog } from "@/app/lib/interface";
-import { client, urlFor } from "@/app/lib/sanity";
+import { Blog } from "@/lib/interface";
+import { client, urlFor } from "@/lib/sanity";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 

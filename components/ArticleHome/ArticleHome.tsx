@@ -1,4 +1,4 @@
-import { urlFor } from "@/app/lib/sanity";
+import { urlFor } from "@/lib/sanity";
 import { PortableText } from "next-sanity";
 import React from "react";
 import Link from "next/link";
@@ -85,9 +85,9 @@ const ArticleHome = ({
           </div>
         )}
       </div>
-      <p className="font-canva-sans text-tertiary text-md text-justify line-clamp-6">
+      <div className="font-canva-sans text-tertiary text-md text-justify line-clamp-6">
         <PortableText value={body} />
-      </p>
+      </div>
       <Link href={`/blog/${slug}`} className="self-end cursor-pointer">
         <Button variant="outline">
           <p>leer mas {">>"} </p>
