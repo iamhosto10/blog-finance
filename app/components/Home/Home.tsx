@@ -2,13 +2,17 @@
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPreloadedData } from "@/store/slices/sanitySlice";
+import { SanityState, setPreloadedData } from "@/store/slices/sanitySlice";
 import { RootState } from "@/store/store";
 import LatestNews from "../LatestNews/LatestNews";
 import ArticleHome from "../ArticleHome/ArticleHome";
 import RecommendedTags from "../RecomendedTags/RecomendedTags";
 
-export default function Home({ preloadedState }: { preloadedState: any }) {
+export default function Home({
+  preloadedState,
+}: {
+  preloadedState: SanityState;
+}) {
   const dispatch = useDispatch();
   const { loading, blogs } = useSelector((state: RootState) => state.sanity);
 
