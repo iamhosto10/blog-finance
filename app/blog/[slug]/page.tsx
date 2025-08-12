@@ -1,67 +1,71 @@
+"use client";
+
 import { Blog } from "@/lib/interface";
-import { client, urlFor } from "@/lib/sanity";
+import { urlFor } from "@/lib/sanity";
+import { RootState } from "@/store/store";
 import { PortableText } from "@portabletext/react";
-import Image from "next/image";
+import { useSelector } from "react-redux";
+import { useParams } from "next/navigation";
+import AudioPlayer from "@/components/MusicPlayer/MusicPlayer";
 
-export const revalidate = 30; // revalidate at most 30 seconds
+export default function BlogArticle() {
+  const { slug } = useParams<{ slug: string }>();
+  const { blogs } = useSelector((state: RootState) => state.sanity);
+  if (blogs.length === 0) return <p>cargando...</p>;
 
-async function getData(slug: string) {
-  const query = `
-     *[_type == "blog" && slug.current == "${slug}"] {
-  _id,
-    type,
-  title,
-  slug,
-  publishedAt,
-  mainImage,
-  excerpt,
-  body,
-  categories[]->{
-    _id,
-    title
-  }
-}[0]`;
-
-  const data = await client.fetch(query);
-  return data;
-}
-
-// ✅ Tipamos bien los props de la página
-interface MyPageProps {
-  params: Promise<{
-    slug?: string;
-  }>;
-  searchParams: Promise<Record<string, string>>;
-}
-
-export default async function BlogArticle(props: MyPageProps) {
-  const params = await props.params;
-  const data: Blog = await getData(params?.slug || "");
+  const data: Blog =
+    blogs.find((blog) => blog.slug.current === slug) || blogs[0];
 
   return (
-    <div className="mt-8">
-      <h1>
-        <span className="block text-base text-center text-primary font-semibold tracking-wide uppercase">
-          {data?.categories ? data?.categories[0]?.title : ""} - Blog
-        </span>
-        <span className="mt-2 block text-3xl text-center leading-8 font-bold tracking-tight sm:text-4xl">
-          {data?.title}
-        </span>
+    <>
+      <h1 className="font-agrandir font-bold text-secondary text-3xl md:text-4xl">
+        {data?.title} <span className="text-primary">{data?.focusTitle}</span>{" "}
+        {data?.continueTitle}
       </h1>
-      {data?.mainImage && (
-        <Image
-          src={urlFor(data?.mainImage).url()}
-          width={800}
-          height={800}
-          alt="Title Image"
-          priority
-          className="rounded-lg mt-8 border"
-        />
-      )}
+      <div className="flex flex-row w-full justify-start gap-2 mt-4">
+        <h3 className="text-sm lg:text-lg bg-primary text-background px-2 py-1 rounded-full font-agrandir font-bold">
+          {data?.categories && data?.categories[0]?.title}
+        </h3>
+        <p className="text-sm lg:text-lg text-tertiary my-auto font-canva-sans font-bold">
+          {new Date(
+            data?.publishedAt ? data?.publishedAt?.slice(0, 10) : ""
+          ).toLocaleDateString("es-ES", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          })}
+        </p>
+      </div>
 
-      <div className="mt-16 prose prose-blue prose-lg dark:prose-invert prose-li:marker:text-primary prose-a:text-primary">
+      <div className="relative w-full md:w-4/5 mx-auto mt-8">
+        {data?.mainImage && (
+          <img
+            src={urlFor(data?.mainImage).url()}
+            alt={
+              data?.title +
+              " " +
+              (data?.focusTitle || "") +
+              " " +
+              (data?.continueTitle || "")
+            }
+            className="rounded-md w-full"
+          />
+        )}
+        {data?.miniatureImage && (
+          <div className="absolute -top-8 -right-8 md:-top-10 md:-right-10 size-20 md:size-28">
+            <img
+              src={urlFor(data?.miniatureImage).url()}
+              alt="Miniature Image"
+              className="size-20 md:size-28"
+            />
+          </div>
+        )}
+      </div>
+
+      <div className="mt-12 text-tertiary font-canva-sans text-sm lg:text-lg text-justify mb-10">
         <PortableText value={data?.body} />
       </div>
-    </div>
+      {data?.audioUrl && <AudioPlayer audioUrl={data.audioUrl} />}
+    </>
   );
 }

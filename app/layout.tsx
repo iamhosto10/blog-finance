@@ -5,6 +5,8 @@ import { ThemeProvider } from "../components/theme-provider";
 import LayoutHome from "../components/LayoutHome";
 import { ReduxProvider } from "@/store/provider";
 import Footer from "../components/Footer/footer";
+import { client } from "@/lib/sanity";
+import { SanityState } from "@/store/slices/sanitySlice";
 
 export const revalidate = 60;
 
@@ -18,11 +20,49 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [blogs, categories, dolar] = await Promise.all([
+    client.fetch(
+      `*[_type == "blog"]{
+          _id,
+          title,
+          focusTitle,
+          continueTitle,
+          slug,
+          publishedAt,
+          mainImage,
+          miniatureImage,
+          "audioUrl": audio.asset->url,
+          excerpt,
+          body,
+          categories[]->{ _id, title, slug }
+        } | order(publishedAt desc)`,
+      {},
+      { cache: "force-cache" }
+    ),
+    client.fetch(
+      `*[_type == "category"]{ _id, title, slug }`,
+      {},
+      { cache: "force-cache" }
+    ),
+    client.fetch(
+      `*[_type == "dolar"] | order(fecha desc)[0]`,
+      {},
+      { cache: "force-cache" }
+    ),
+  ]);
+
+  const preloadedState: SanityState = {
+    blogs,
+    categories,
+    dolar,
+    loading: false,
+    error: null,
+  };
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} bg-layout`}>
@@ -33,7 +73,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <LayoutHome>{children}</LayoutHome>
+            <LayoutHome preloadedState={preloadedState}>{children}</LayoutHome>
             <Footer />
           </ThemeProvider>
         </ReduxProvider>

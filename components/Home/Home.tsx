@@ -1,26 +1,14 @@
 "use client";
 
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { SanityState, setPreloadedData } from "@/store/slices/sanitySlice";
+import { useSelector } from "react-redux";
+import { SanityState } from "@/store/slices/sanitySlice";
 import { RootState } from "@/store/store";
 import LatestNews from "../LatestNews/LatestNews";
 import ArticleHome from "../ArticleHome/ArticleHome";
 import RecommendedTags from "../RecomendedTags/RecomendedTags";
 
-export default function Home({
-  preloadedState,
-}: {
-  preloadedState: SanityState;
-}) {
-  const dispatch = useDispatch();
-  const { loading, blogs } = useSelector((state: RootState) => state.sanity);
-
-  useEffect(() => {
-    dispatch(setPreloadedData(preloadedState));
-  }, [dispatch, preloadedState]);
-
-  if (loading) return <p>Cargando...</p>;
+export default function Home() {
+  const { blogs } = useSelector((state: RootState) => state.sanity);
 
   return (
     <div>

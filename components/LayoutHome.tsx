@@ -1,18 +1,35 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SocialMedia from "./SocialMedia";
 import Navbar from "./Navbar/Navbar";
 import { usePathname } from "next/navigation";
+import { SanityState, setPreloadedData } from "@/store/slices/sanitySlice";
+import { useDispatch } from "react-redux";
 
-const LayoutHome = ({ children }: { children: React.ReactNode }) => {
+const LayoutHome = ({
+  children,
+  preloadedState,
+}: {
+  children: React.ReactNode;
+  preloadedState: SanityState;
+}) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname().split("/");
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setPreloadedData(preloadedState));
+  }, [dispatch, preloadedState]);
+
   return (
     <>
       <SocialMedia />
       <div className="my-6 mx-5 pb-10 lg:my-10 lg:mx-12 bg-background rounded-4xl">
         <Navbar open={open} setOpen={setOpen} pathname={pathname[1]} />
-        {!open && <main className="w-full mx-auto px-10">{children}</main>}
+        {!open && (
+          <main className="w-full mx-auto px-7 lg:px-10">{children}</main>
+        )}
       </div>
     </>
   );

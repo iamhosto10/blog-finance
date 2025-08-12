@@ -67,16 +67,16 @@ const ArticleHome = ({
           })}
         </p>
       </div>
-      <div className="relative max-w-4/5 mx-auto p-6">
+      <div className="relative w-full md:w-4/5 mx-auto mt-8">
         {mainImage && (
           <img
             src={urlFor(mainImage).url()}
             alt={title + " " + (focusTitle || "") + " " + (continueTitle || "")}
-            className="rounded-md"
+            className="rounded-md w-full"
           />
         )}
         {miniatureImage && (
-          <div className="absolute -top-1 -right-1 md:-top-4 md:-right-4 size-20 md:size-28">
+          <div className="absolute -top-8 -right-8 md:-top-10 md:-right-10 size-20 md:size-28">
             <img
               src={urlFor(miniatureImage).url()}
               alt="Miniature Image"

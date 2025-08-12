@@ -21,6 +21,7 @@ export interface Blog {
     };
   };
   excerpt?: string;
+  audioUrl?: string;
   body: Array<
     | {
         _type: "block";

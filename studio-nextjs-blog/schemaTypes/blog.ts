@@ -67,6 +67,14 @@ export default defineType({
       validation: (Rule) => Rule.max(200),
     },
     {
+      name: 'audio',
+      title: 'Archivo de audio',
+      type: 'file',
+      options: {
+        accept: 'audio/mpeg', // Esto asegura que solo acepte mp3
+      },
+    },
+    {
       name: 'body',
       title: 'Body',
       type: 'array',

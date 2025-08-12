@@ -71,6 +71,9 @@ importers:
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
+      wavesurfer.js:
+        specifier: ^7.10.1
+        version: 7.10.1
       xml2js:
         specifier: ^0.6.2
         version: 0.6.2
@@ -6124,6 +6127,9 @@ packages:
   w3c-xmlserializer@5.0.0:
     resolution: {integrity: sha512-o8qghlI8NZHU1lLPrpi2+Uq7abh4GGPpYANlalzWxyWteJOCsr/P+oPBA49TOLu5FTZO4d3F9MnWJfiMo4BkmA==}
     engines: {node: '>=18'}
+
+  wavesurfer.js@7.10.1:
+    resolution: {integrity: sha512-tF1ptFCAi8SAqKbM1e7705zouLC3z4ulXCg15kSP5dQ7VDV30Q3x/xFRcuVIYTT5+jB/PdkhiBRCfsMshZG1Ug==}
 
   wcwidth@1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
@@ -13130,6 +13136,8 @@ snapshots:
   w3c-xmlserializer@5.0.0:
     dependencies:
       xml-name-validator: 5.0.0
+
+  wavesurfer.js@7.10.1: {}
 
   wcwidth@1.0.1:
     dependencies:
