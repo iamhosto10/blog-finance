@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import SocialMedia from "./components/SocialMedia";
 import LayoutHome from "./components/LayoutHome";
 import { ReduxProvider } from "@/store/provider";
+import Footer from "./components/Footer/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,10 +41,11 @@ export default function RootLayout({
             <main className="max-w-2xl mx-auto px-4">{children}</main>
           </div> */}
             <div className="h-40 bg-background self-end">
-              <h1 className="text-3xl">
+              <Footer />
+              {/* <h1 className="text-3xl">
                 Aqui ira el footer no te asustes solo lo dejo para guiarme
                 visualmente
-              </h1>
+              </h1> */}
             </div>
           </ThemeProvider>
         </body>

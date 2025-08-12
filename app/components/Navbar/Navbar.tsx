@@ -52,7 +52,7 @@ export default function Navbar({ open, setOpen }: NavbarProps) {
   const menuLabels = menuItems.map((item) => item.label);
 
   return (
-    <>
+    <header>
       {/* Desktop */}
       <nav className="hidden lg:flex w-full items-center px-6 relative top-[-80px]">
         <Logo />
@@ -63,6 +63,6 @@ export default function Navbar({ open, setOpen }: NavbarProps) {
       <div className="block lg:hidden">
         <MobileMenu open={open} setOpen={setOpen} menuLabels={menuLabels} />
       </div>
-    </>
+    </header>
   );
 }
