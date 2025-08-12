@@ -46,9 +46,10 @@ const menuItems = [
 interface NavbarProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  pathname: string;
 }
 
-export default function Navbar({ open, setOpen }: NavbarProps) {
+export default function Navbar({ open, setOpen, pathname }: NavbarProps) {
   const menuLabels = menuItems.map((item) => item.label);
 
   return (
@@ -56,7 +57,7 @@ export default function Navbar({ open, setOpen }: NavbarProps) {
       {/* Desktop */}
       <nav className="hidden lg:flex w-full items-center px-6 relative top-[-80px]">
         <Logo />
-        <DesktopMenu menuItems={menuItems} />
+        <DesktopMenu menuItems={menuItems} pathname={pathname} />
       </nav>
 
       {/* Mobile */}

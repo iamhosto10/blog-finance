@@ -13,9 +13,10 @@ interface MenuItem {
 
 interface DesktopMenuProps {
   menuItems: MenuItem[];
+  pathname: string;
 }
 
-export default function DesktopMenu({ menuItems }: DesktopMenuProps) {
+export default function DesktopMenu({ menuItems, pathname }: DesktopMenuProps) {
   const [activeMenu, setActiveMenu] = useState("");
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
 
@@ -23,7 +24,9 @@ export default function DesktopMenu({ menuItems }: DesktopMenuProps) {
     <div className="w-full flex justify-between self-end bg-primary px-8 py-2 rounded-lg rounded-l-none relative top-[-50px]">
       {menuItems.map((item, index) => {
         const isActive =
-          activeMenu === item.label || hoveredMenu === item.label;
+          activeMenu === item.label ||
+          hoveredMenu === item.label ||
+          pathname.toLowerCase() === item.label.toLowerCase();
 
         return (
           <div
