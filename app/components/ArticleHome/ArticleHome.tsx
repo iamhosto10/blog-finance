@@ -29,6 +29,12 @@ interface IProps {
       _type: string;
     };
   };
+  miniatureImage?: {
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+  };
 }
 
 const ArticleHome = ({
@@ -39,6 +45,7 @@ const ArticleHome = ({
   continueTitle,
   focusTitle,
   mainImage,
+  miniatureImage,
   category,
 }: IProps) => {
   return (
@@ -68,13 +75,15 @@ const ArticleHome = ({
             className="rounded-md"
           />
         )}
-        <div className="absolute -top-1 -right-1 md:-top-1.5 md:-right-1.5 size-20 md:size-32">
-          <img
-            src="/assets/ArticleHome/icontest.png"
-            alt="Ícono de banco"
-            className="size-20 md:size-32"
-          />
-        </div>
+        {miniatureImage && (
+          <div className="absolute -top-1 -right-1 md:-top-4 md:-right-4 size-20 md:size-28">
+            <img
+              src={urlFor(miniatureImage).url()}
+              alt="Miniature Image"
+              className="size-20 md:size-28"
+            />
+          </div>
+        )}
       </div>
       <p className="font-canva-sans text-tertiary text-md text-justify line-clamp-6">
         <PortableText value={body} />

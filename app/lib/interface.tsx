@@ -14,6 +14,12 @@ export interface Blog {
       _type: string;
     };
   };
+  miniatureImage?: {
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+  };
   excerpt?: string;
   body: Array<
     | {

@@ -11,6 +11,7 @@ export async function GET() {
       slug,
       publishedAt,
       mainImage,
+      miniatureImage,
       excerpt,
       body,
       categories[]->{ _id, title, slug }

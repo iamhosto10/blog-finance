@@ -53,6 +53,14 @@ export default defineType({
       },
     },
     {
+      name: 'miniatureImage',
+      title: 'Miniature Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    },
+    {
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',
