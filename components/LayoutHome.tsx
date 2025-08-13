@@ -1,26 +1,13 @@
+// components/LayoutHome.tsx
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SocialMedia from "./SocialMedia";
 import Navbar from "./Navbar/Navbar";
 import { usePathname } from "next/navigation";
-import { SanityState, setPreloadedData } from "@/store/slices/sanitySlice";
-import { useDispatch } from "react-redux";
 
-const LayoutHome = ({
-  children,
-  preloadedState,
-}: {
-  children: React.ReactNode;
-  preloadedState: SanityState;
-}) => {
+const LayoutHome = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname().split("/");
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setPreloadedData(preloadedState));
-  }, [dispatch, preloadedState]);
 
   return (
     <>

@@ -1,3 +1,4 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -6,18 +7,15 @@ import LayoutHome from "../components/LayoutHome";
 import { ReduxProvider } from "@/store/provider";
 import Footer from "../components/Footer/footer";
 import { client } from "@/lib/sanity";
-import { SanityState } from "@/store/slices/sanitySlice";
 
-export const revalidate = 60;
+export const revalidate = 5400;
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Blog de Finanzas v1",
   description: "Blog generado de prueba para probar todo de nextjs",
-  icons: {
-    icon: "/favicon.ico",
-  },
+  icons: { icon: "/favicon.ico" },
 };
 
 export default async function RootLayout({
@@ -28,24 +26,15 @@ export default async function RootLayout({
   const [blogs, categories, dolar] = await Promise.all([
     client.fetch(
       `*[_type == "blog"]{
-          _id,
-          title,
-          focusTitle,
-          continueTitle,
-          slug,
-          publishedAt,
-          mainImage,
-          miniatureImage,
-          "audioUrl": audio.asset->url,
-          excerpt,
-          body[],
-          categories[]->{ _id, title, slug }
-        } | order(publishedAt desc)`,
+        _id,title,focusTitle,continueTitle,slug,publishedAt,
+        mainImage,miniatureImage,"audioUrl": audio.asset->url,
+        excerpt,body[],categories[]->{ _id,title,slug }
+      } | order(publishedAt desc)`,
       {},
       { cache: "force-cache" }
     ),
     client.fetch(
-      `*[_type == "category"]{ _id, title, slug }`,
+      `*[_type == "category"]{ _id,title,slug }`,
       {},
       { cache: "force-cache" }
     ),
@@ -56,24 +45,27 @@ export default async function RootLayout({
     ),
   ]);
 
-  const preloadedState: SanityState = {
-    blogs,
-    categories,
-    dolar,
-    loading: false,
-    error: null,
+  const preloadedState = {
+    sanity: {
+      blogs,
+      categories,
+      dolar,
+      loading: false,
+      error: null,
+    },
   };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} bg-layout`}>
-        <ReduxProvider>
+        <ReduxProvider preloadedState={preloadedState}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-            <LayoutHome preloadedState={preloadedState}>{children}</LayoutHome>
+            <LayoutHome>{children}</LayoutHome>
             <Footer />
           </ThemeProvider>
         </ReduxProvider>

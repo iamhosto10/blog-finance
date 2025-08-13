@@ -13,19 +13,7 @@ export default function Home() {
     <div>
       <LatestNews />
       <div className="flex flex-col lg:flex-row py-10 gap-8">
-        <ArticleHome
-          body={blogs[0]?.body}
-          publishedAt={blogs[0]?.publishedAt ?? ""}
-          slug={blogs[0]?.slug ?? ""}
-          title={blogs[0]?.title}
-          continueTitle={blogs[0]?.continueTitle}
-          focusTitle={blogs[0]?.focusTitle}
-          mainImage={blogs[0]?.mainImage}
-          miniatureImage={blogs[0]?.miniatureImage}
-          excerpt={blogs[0]?.excerpt}
-          //@ts-expect-error: esta función rompe el tipado por que categories puede ser nulo motivo
-          categories={blogs[0]?.categories ?? ""}
-        />
+        <ArticleHome />
         <RecommendedTags />
       </div>
     </div>

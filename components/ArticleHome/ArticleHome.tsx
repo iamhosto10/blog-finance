@@ -4,51 +4,25 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Blog } from "@/lib/interface";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
-interface IProps {
-  title: string;
-  focusTitle?: string;
-  continueTitle?: string;
-  publishedAt: string;
-  category: string;
-  slug: string;
-  body: Array<
-    | {
-        _type: "block";
-        children: { text: string }[];
-      }
-    | {
-        _type: "image";
-        asset: {
-          _ref: string;
-        };
-      }
-  >;
-  mainImage?: {
-    asset: {
-      _ref: string;
-      _type: string;
-    };
-  };
-  miniatureImage?: {
-    asset: {
-      _ref: string;
-      _type: string;
-    };
-  };
-}
-
-const ArticleHome = ({
-  publishedAt,
-  slug,
-  title,
-  continueTitle,
-  focusTitle,
-  mainImage,
-  miniatureImage,
-  categories,
-  excerpt,
-}: Blog) => {
+const ArticleHome = () => {
+  const { blogs } = useSelector((state: RootState) => state.sanity);
+  if (!blogs[0]) {
+    return <div className="w-full lg:w-2/3"></div>;
+  }
+  const {
+    publishedAt,
+    slug,
+    title,
+    continueTitle,
+    focusTitle,
+    mainImage,
+    miniatureImage,
+    categories,
+    excerpt,
+  } = blogs[0];
   return (
     <div className="flex flex-col gap-4 w-full lg:w-2/3">
       <h2 className="font-agrandir font-bold text-2xl lg:text-3xl text-secondary text-left line-clamp-3 lg:line-clamp-2 ">
