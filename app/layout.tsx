@@ -38,7 +38,7 @@ export default async function RootLayout({
           miniatureImage,
           "audioUrl": audio.asset->url,
           excerpt,
-          body,
+          body[],
           categories[]->{ _id, title, slug }
         } | order(publishedAt desc)`,
       {},

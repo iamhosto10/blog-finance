@@ -9,7 +9,7 @@ const LatestNews = () => {
   const data: Blog[] = blogs;
   return (
     <div className="flex flex-col items-center w-full gap-4">
-      <h2 className="text-xl lg:text-2xl bg-primary text-background px-6 lg:px-10 py-2 lg:py-3 rounded-full mx-auto font-agrandir font-bold">
+      <h2 className="text-xl lg:text-2xl bg-primary-foreground text-background px-6 lg:px-10 py-2 lg:py-3 rounded-full mx-auto font-agrandir font-bold text-shadow-md  text-shadow-black/20">
         Ultimas Noticias
       </h2>
       <div className="flex flex-col lg:flex-row gap-10 w-full">

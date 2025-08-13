@@ -57,7 +57,7 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.141 0.005 285.823);
   --primary: oklch(0.87 0.17 92.57);
-  --primary-foreground: oklch(0.421 0.095 57.708);
+  --primary-foreground: oklch(0.91 0.14 96.6);
   --secondary: oklch(0.52 0.19 282.7);
   --secondary-foreground: oklch(0.21 0.006 285.885);
   --tertiary: oklch(0.22 0.14 284.7);
@@ -185,4 +185,8 @@ body {
   font-weight: 700;
   font-style: normal;
   font-display: swap;
+}
+
+input[type="range"] {
+  writing-mode: sideways-lr;
 }

@@ -4,18 +4,19 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const blogs = await client.fetch(`*[_type == "blog"]{
-      _id,
-      title,
-      focusTitle,
-      continueTitle,
-      slug,
-      publishedAt,
-      mainImage,
-      miniatureImage,
-      excerpt,
-      body,
-      categories[]->{ _id, title, slug }
-    } | order(publishedAt desc)`);
+          _id,
+          title,
+          focusTitle,
+          continueTitle,
+          slug,
+          publishedAt,
+          mainImage,
+          miniatureImage,
+          "audioUrl": audio.asset->url,
+          excerpt,
+          body[],
+          categories[]->{ _id, title, slug }
+        } | order(publishedAt desc)`);
 
     return NextResponse.json(blogs);
   } catch (err) {

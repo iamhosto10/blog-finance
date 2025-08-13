@@ -3,6 +3,7 @@ import { PortableText } from "next-sanity";
 import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Blog } from "@/lib/interface";
 
 interface IProps {
   title: string;
@@ -38,7 +39,6 @@ interface IProps {
 }
 
 const ArticleHome = ({
-  body,
   publishedAt,
   slug,
   title,
@@ -46,8 +46,9 @@ const ArticleHome = ({
   focusTitle,
   mainImage,
   miniatureImage,
-  category,
-}: IProps) => {
+  categories,
+  excerpt,
+}: Blog) => {
   return (
     <div className="flex flex-col gap-4 w-full lg:w-2/3">
       <h2 className="font-agrandir font-bold text-2xl lg:text-3xl text-secondary text-left line-clamp-3 lg:line-clamp-2 ">
@@ -56,11 +57,13 @@ const ArticleHome = ({
         {continueTitle}
       </h2>
       <div className="flex flex-row w-full justify-start gap-2">
-        <h3 className="text-sm lg:text-md bg-primary text-background px-2 py-1 rounded-full font-agrandir font-bold">
-          {category}
+        <h3 className="text-sm lg:text-md bg-primary-foreground text-background px-2 py-1 rounded-full font-agrandir font-bold text-shadow-lg  text-shadow-black/20">
+          {categories && categories[0]?.title}
         </h3>
         <p className="text-sm text-tertiary my-auto font-canva-sans font-bold">
-          {new Date(publishedAt.slice(0, 10)).toLocaleDateString("es-ES", {
+          {new Date(
+            publishedAt ? publishedAt.slice(0, 10) : ""
+          ).toLocaleDateString("es-ES", {
             day: "2-digit",
             month: "2-digit",
             year: "numeric",
@@ -86,13 +89,19 @@ const ArticleHome = ({
         )}
       </div>
       <div className="font-canva-sans text-tertiary text-md text-justify line-clamp-6">
-        <PortableText value={body} />
+        <p>{excerpt}</p>
       </div>
-      <Link href={`/blog/${slug}`} className="self-end cursor-pointer">
-        <Button variant="outline">
-          <p>leer mas {">>"} </p>
-        </Button>
-      </Link>
+
+      <Button
+        className="rounded-full cursor-pointer self-end items-center"
+        asChild
+      >
+        <Link href={`/blog/${slug.current}`}>
+          <p className="text-shadow-lg  text-shadow-black/20 font-agrandir font-bold ">
+            Leer mas {">>"}
+          </p>
+        </Link>
+      </Button>
     </div>
   );
 };

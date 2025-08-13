@@ -64,7 +64,7 @@ export default defineType({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',
-      validation: (Rule) => Rule.max(200),
+      validation: (Rule) => Rule.max(500),
     },
     {
       name: 'audio',
@@ -78,7 +78,31 @@ export default defineType({
       name: 'body',
       title: 'Body',
       type: 'array',
-      of: [{type: 'block'}, {type: 'image'}],
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+            },
+            {
+              name: 'body',
+              title: 'Body Text',
+              type: 'text',
+            },
+            {
+              name: 'asset',
+              title: 'Image',
+              type: 'image',
+              options: {
+                hotspot: true,
+              },
+            },
+          ],
+        },
+      ],
     },
     {
       name: 'categories',

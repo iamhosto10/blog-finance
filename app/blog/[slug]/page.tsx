@@ -3,7 +3,6 @@
 import { Blog } from "@/lib/interface";
 import { urlFor } from "@/lib/sanity";
 import { RootState } from "@/store/store";
-import { PortableText } from "@portabletext/react";
 import { useSelector } from "react-redux";
 import { useParams } from "next/navigation";
 import AudioPlayer from "@/components/MusicPlayer/MusicPlayer";
@@ -16,9 +15,11 @@ export default function BlogArticle() {
   const data: Blog =
     blogs.find((blog) => blog.slug.current === slug) || blogs[0];
 
+  console.log("Body", data);
+
   return (
     <>
-      <h1 className="font-agrandir font-bold text-secondary text-3xl md:text-4xl">
+      <h1 className="font-agrandir font-bold text-secondary text-3xl  md:text-4xl">
         {data?.title} <span className="text-primary">{data?.focusTitle}</span>{" "}
         {data?.continueTitle}
       </h1>
@@ -37,7 +38,7 @@ export default function BlogArticle() {
         </p>
       </div>
 
-      <div className="relative w-full md:w-4/5 mx-auto mt-8">
+      <div className="relative w-full md:w-4/5 mx-auto my-8">
         {data?.mainImage && (
           <img
             src={urlFor(data?.mainImage).url()}
@@ -61,11 +62,51 @@ export default function BlogArticle() {
           </div>
         )}
       </div>
-
-      <div className="mt-12 text-tertiary font-canva-sans text-sm lg:text-lg text-justify mb-10">
-        <PortableText value={data?.body} />
-      </div>
       {data?.audioUrl && <AudioPlayer audioUrl={data.audioUrl} />}
+
+      <div className="mt-12 text-tertiary font-canva-sans text-sm lg:text-lg text-justify">
+        {data?.body &&
+          data.body.map((section, index) => (
+            <>
+              {section.title && (
+                <h2
+                  key={index}
+                  className="font-agrandir font-bold  text-secondary text-2xl mt-6 mb-2"
+                >
+                  {section.title}
+                </h2>
+              )}
+              {section.body && (
+                <p key={index} className="font-canva-sans text-tertiary mb-4">
+                  {section.body}
+                </p>
+              )}
+              {section.asset && section.asset._type === "image" && (
+                <div className="relative w-full md:w-4/5 mx-auto my-8">
+                  <img
+                    key={index}
+                    src={urlFor(section.asset).url()}
+                    alt={
+                      data?.title +
+                      " " +
+                      (data?.focusTitle || "") +
+                      " " +
+                      (data?.continueTitle || "")
+                    }
+                    className="w-full rounded-md"
+                  />
+                </div>
+              )}
+              {index % 2 === 0 && (
+                <div className="h-40 w-full bg-tertiary">
+                  <h3 className="text-3xl text-background">
+                    Aqui iria a la publicidad
+                  </h3>
+                </div>
+              )}
+            </>
+          ))}
+      </div>
     </>
   );
 }

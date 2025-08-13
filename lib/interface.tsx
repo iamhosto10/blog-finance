@@ -22,18 +22,7 @@ export interface Blog {
   };
   excerpt?: string;
   audioUrl?: string;
-  body: Array<
-    | {
-        _type: "block";
-        children: { text: string }[];
-      }
-    | {
-        _type: "image";
-        asset: {
-          _ref: string;
-        };
-      }
-  >;
+  body: BodySection[];
   categories?: { _id: string; title: string }[];
 }
 
@@ -50,4 +39,16 @@ export interface Dolar {
   _id: string;
   valor: number;
   fecha: string;
+}
+
+export interface BodySection {
+  title?: string;
+  body?: string;
+  asset?: {
+    _type: "image";
+    asset: {
+      _ref: string;
+      _type: "reference";
+    };
+  };
 }
