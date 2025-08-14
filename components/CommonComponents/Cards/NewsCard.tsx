@@ -2,7 +2,7 @@ import { urlFor } from "@/lib/sanity";
 import Link from "next/link";
 import React from "react";
 
-interface ILatestNewsCard {
+interface INewsCard {
   title?: string;
   image?: {
     asset: {
@@ -16,7 +16,7 @@ interface ILatestNewsCard {
   };
 }
 
-const LatestNewsCard = (props: ILatestNewsCard) => {
+const NewsCard = (props: INewsCard) => {
   const { title, excerpt, image, slug } = props;
   return (
     <Link
@@ -39,4 +39,4 @@ const LatestNewsCard = (props: ILatestNewsCard) => {
   );
 };
 
-export default LatestNewsCard;
+export default NewsCard;

@@ -15,7 +15,6 @@ export default defineType({
       name: 'focusTitle',
       title: 'Focus Title',
       type: 'string',
-
       validation: (Rule) => Rule.min(5).max(100),
     },
     {
@@ -29,7 +28,7 @@ export default defineType({
       title: 'Slug',
       type: 'slug',
       options: {
-        source: (doc: {title?: string; focusTitle?: string; continueTitle?: string}) => {
+        source: (doc) => {
           const title = doc.title ?? ''
           const focus = doc.focusTitle ?? ''
           const cont = doc.continueTitle ?? ''
@@ -48,17 +47,13 @@ export default defineType({
       name: 'mainImage',
       title: 'Main Image',
       type: 'image',
-      options: {
-        hotspot: true,
-      },
+      options: {hotspot: true},
     },
     {
       name: 'miniatureImage',
       title: 'Miniature Image',
       type: 'image',
-      options: {
-        hotspot: true,
-      },
+      options: {hotspot: true},
     },
     {
       name: 'excerpt',
@@ -70,9 +65,7 @@ export default defineType({
       name: 'audio',
       title: 'Archivo de audio',
       type: 'file',
-      options: {
-        accept: 'audio/mpeg', // Esto asegura que solo acepte mp3
-      },
+      options: {accept: 'audio/mpeg'},
     },
     {
       name: 'body',
@@ -82,24 +75,9 @@ export default defineType({
         {
           type: 'object',
           fields: [
-            {
-              name: 'title',
-              title: 'Title',
-              type: 'string',
-            },
-            {
-              name: 'body',
-              title: 'Body Text',
-              type: 'text',
-            },
-            {
-              name: 'asset',
-              title: 'Image',
-              type: 'image',
-              options: {
-                hotspot: true,
-              },
-            },
+            {name: 'title', title: 'Title', type: 'string'},
+            {name: 'body', title: 'Body Text', type: 'text'},
+            {name: 'asset', title: 'Image', type: 'image', options: {hotspot: true}},
           ],
         },
       ],
@@ -109,6 +87,12 @@ export default defineType({
       title: 'Categories',
       type: 'array',
       of: [{type: 'reference', to: [{type: 'category'}]}],
+    },
+    {
+      name: 'relatedNews',
+      title: 'Related News',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'blog'}]}],
     },
   ],
 })

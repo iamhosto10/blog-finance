@@ -21,7 +21,7 @@ export default function DesktopMenu({ menuItems, pathname }: DesktopMenuProps) {
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
 
   return (
-    <div className="w-full flex justify-between self-end bg-primary px-8 py-2 rounded-lg rounded-l-none relative top-[-50px]">
+    <div className="w-full flex justify-between self-end bg-primary-background px-8 py-2 rounded-lg rounded-l-none relative top-[-50px]">
       {menuItems.map((item, index) => {
         const isActive =
           activeMenu === item.label ||

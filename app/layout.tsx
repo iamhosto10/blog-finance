@@ -8,7 +8,7 @@ import { ReduxProvider } from "@/store/provider";
 import Footer from "../components/Footer/footer";
 import { client } from "@/lib/sanity";
 
-export const revalidate = 5400;
+export const revalidate = 60;
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,12 +24,40 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const [blogs, categories, dolar] = await Promise.all([
+    // client.fetch(
+    //   `*[_type == "blog"]{
+    //     _id,title,focusTitle,continueTitle,slug,publishedAt,
+    //     mainImage,miniatureImage,"audioUrl": audio.asset->url,
+    //     excerpt,body[],categories[]->{ _id,title,slug }
+    //   } | order(publishedAt desc)`,
+    //   {},
+    //   { cache: "force-cache" }
+    // ),
     client.fetch(
       `*[_type == "blog"]{
-        _id,title,focusTitle,continueTitle,slug,publishedAt,
-        mainImage,miniatureImage,"audioUrl": audio.asset->url,
-        excerpt,body[],categories[]->{ _id,title,slug }
-      } | order(publishedAt desc)`,
+  title,
+  focusTitle,
+  continueTitle,
+  slug,
+  publishedAt,
+  mainImage,
+  miniatureImage,
+  excerpt,
+  audio,
+  body,
+  categories[]->{
+    _id,
+    title
+  },
+  relatedNews[]->{
+    _id,
+    title,
+    slug,
+    mainImage,
+    excerpt,
+    publishedAt
+  }
+}| order(publishedAt desc)`,
       {},
       { cache: "force-cache" }
     ),

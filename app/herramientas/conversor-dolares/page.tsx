@@ -48,7 +48,7 @@ const Page = () => {
               </div>
             </div>
           </div>
-          <MoveRight className=" hidden md:block self-center mt-8 " />
+          <MoveRight className=" hidden md:block self-center mt-8 size-6 " />
           <MoveDown className="md:hidden " />
           <div className="flex flex-col gap-0.5">
             <h4 className="text-sm text-secondary font-canva-sans font-bold">
@@ -76,14 +76,16 @@ const Page = () => {
             </div>
           </div>
         </div>
-        <p className="font-canva-sans text-black text-sm mt-4 ml-2">
-          1 USD = <span className="text-secondary">{Number(dolar?.valor)}</span>{" "}
-          COP
-        </p>
-        <p className="font-canva-sans text-black text-sm mt-4 ml-2">
-          Tipo de cambio actualizado al Banco de la República de Colombia a las
-          8:00 a.m. del día de hoy.
-        </p>
+        <div className="mx-auto md:mx-0 w-full">
+          <p className="font-canva-sans text-black text-sm mt-4 ml-2">
+            1 USD ={" "}
+            <span className="text-secondary">{Number(dolar?.valor)}</span> COP
+          </p>
+          <p className="font-canva-sans text-black text-sm mt-4 ml-2">
+            Tipo de cambio actualizado al Banco de la República de Colombia a
+            las 8:00 a.m. del día de hoy.
+          </p>
+        </div>
       </div>
     </div>
   );

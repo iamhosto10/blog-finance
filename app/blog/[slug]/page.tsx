@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "next/navigation";
 import AudioPlayer from "@/components/MusicPlayer/MusicPlayer";
 import Tag from "@/components/CommonComponents/Tag";
+import News from "@/components/News/News";
 
 export default function BlogArticle() {
   const { slug } = useParams<{ slug: string }>();
@@ -25,9 +26,6 @@ export default function BlogArticle() {
         {data?.continueTitle}
       </h1>
       <div className="flex flex-row w-full justify-start gap-2 mt-4">
-        {/* <h3 className="text-sm lg:text-lg bg-primary text-background px-2 py-1 rounded-full font-agrandir font-bold">
-          {data?.categories && data?.categories[0]?.title}
-        </h3> */}
         <Tag title={data?.categories && data?.categories[0]?.title} />
         <p className="text-sm lg:text-lg text-tertiary my-auto font-canva-sans font-bold">
           {new Date(
@@ -40,7 +38,7 @@ export default function BlogArticle() {
         </p>
       </div>
 
-      <div className="relative w-full md:w-4/5 mx-auto my-8">
+      <div className="relative w-full md:w-[70%] mx-auto my-8">
         {data?.mainImage && (
           <img
             src={urlFor(data?.mainImage).url()}
@@ -66,13 +64,13 @@ export default function BlogArticle() {
       </div>
       {data?.audioUrl && <AudioPlayer audioUrl={data.audioUrl} />}
 
-      <div className="mt-12 text-tertiary font-canva-sans text-sm lg:text-lg text-justify">
+      <div className="my-12 text-tertiary font-canva-sans text-sm lg:text-lg text-justify">
         {data?.body &&
           data.body.map((section, index) => (
             <>
               {section.title && (
                 <h2
-                  key={index}
+                  key={section.title}
                   className="font-agrandir font-bold  text-secondary text-2xl mt-6 mb-2"
                 >
                   {section.title}
@@ -84,9 +82,9 @@ export default function BlogArticle() {
                 </p>
               )}
               {section.asset && section.asset._type === "image" && (
-                <div className="relative w-full md:w-4/5 mx-auto my-8">
+                <div className="relative w-full md:w-[70%] mx-auto my-8">
                   <img
-                    key={index}
+                    key={urlFor(section.asset).url()}
                     src={urlFor(section.asset).url()}
                     alt={
                       data?.title +
@@ -109,6 +107,9 @@ export default function BlogArticle() {
             </>
           ))}
       </div>
+      {data.relatedNews && (
+        <News title="Articulos relacionados" data={data?.relatedNews} />
+      )}
     </>
   );
 }

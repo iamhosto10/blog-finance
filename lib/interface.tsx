@@ -24,6 +24,7 @@ export interface Blog {
   audioUrl?: string;
   body: BodySection[];
   categories?: { _id: string; title: string }[];
+  relatedNews?: Blog[];
 }
 
 export interface Category {

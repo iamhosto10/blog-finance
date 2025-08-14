@@ -37,8 +37,8 @@ const menuItems = [
     label: "HERRAMIENTAS",
     href: "/herramientas",
     subCategories: [
-      { label: "Calculadoras", href: "/herramientas/calculadoras" },
-      { label: "Conversores", href: "/herramientas/conversores" },
+      { label: "Calculadora 4x1000", href: "/herramientas/calculadora-4x1000" },
+      { label: "Conversor dolar", href: "/herramientas/conversor-dolares" },
     ],
   },
 ];
@@ -50,8 +50,6 @@ interface NavbarProps {
 }
 
 export default function Navbar({ open, setOpen, pathname }: NavbarProps) {
-  const menuLabels = menuItems.map((item) => item.label);
-
   return (
     <header>
       {/* Desktop */}
@@ -62,7 +60,7 @@ export default function Navbar({ open, setOpen, pathname }: NavbarProps) {
 
       {/* Mobile */}
       <div className="block lg:hidden">
-        <MobileMenu open={open} setOpen={setOpen} menuLabels={menuLabels} />
+        <MobileMenu open={open} setOpen={setOpen} menuItems={menuItems} />
       </div>
     </header>
   );

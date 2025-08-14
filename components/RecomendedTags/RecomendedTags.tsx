@@ -1,3 +1,5 @@
+import Tag from "../CommonComponents/Tag";
+
 export default function RecommendedTags() {
   const tags = [
     { text: "opiniones", x: "20%", y: "30%" },
@@ -11,10 +13,13 @@ export default function RecommendedTags() {
 
   return (
     <div className="relative min-h-[600px] h-auto overflow-hidden bg-background w-full lg:w-1/3">
-      <div className="text-center font-bold text-2xl bg-gradient-to-r from-primary to-primary/80 text-white px-6 py-2 rounded-full shadow-md inline-block mx-auto mb-8 animate-fade-in">
+      {/* <div className="text-center font-bold text-2xl bg-gradient-to-r from-primary to-primary/80 text-white px-6 py-2 rounded-full shadow-md inline-block mx-auto mb-8 animate-fade-in">
         Recomendados para ti
-      </div>
+      </div> */}
 
+      <h3 className="text-lg lg:text-xl bg-primary-foreground text-background px-6 lg:px-10 py-2 lg:py-2 rounded-full mx-auto font-agrandir font-bold text-shadow-md  text-shadow-black/20">
+        Recomendados para ti
+      </h3>
       {tags.map((tag, index) => (
         <div
           key={index}
