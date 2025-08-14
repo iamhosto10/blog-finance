@@ -119,7 +119,7 @@ export default function InfiniteSlider() {
           <Link href="/blog" key={index}>
             <div
               key={index}
-              className="flex items-center justify-between border border-secondary rounded-xl px-4 py-3 gap-4 w-[300px] sm:w-[350px] flex-shrink-0 bg-white shadow-sm"
+              className="flex items-center justify-between border border-secondary rounded-xl px-4 py-3 gap-4 w-[300px] sm:w-[350px] flex-shrink-0 bg-white shadow-sm  hover:scale-105 transition-all"
             >
               <div className="flex items-center gap-3">
                 {/* <Image src={item.icon} alt="icon" width={32} height={32} /> */}

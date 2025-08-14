@@ -38,12 +38,14 @@ export default function DesktopMenu({ menuItems, pathname }: DesktopMenuProps) {
             <Link
               href={item.href}
               onClick={() => setActiveMenu(item.label)}
-              className="relative font-semibold text-white transition drop-shadow-md"
+              className=" font-semibold text-white  drop-shadow-md "
             >
-              {item.label}
-              {isActive && (
-                <span className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-transparent border-b-background" />
-              )}
+              <div className=" hover:text-xl transition-all">
+                {item.label}
+                {isActive && (
+                  <span className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-transparent border-b-background" />
+                )}
+              </div>
             </Link>
 
             {hoveredMenu === item.label && (

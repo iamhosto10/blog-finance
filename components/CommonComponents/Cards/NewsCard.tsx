@@ -21,7 +21,7 @@ const NewsCard = (props: INewsCard) => {
   return (
     <Link
       href={`/blog/${slug?.current}`}
-      className="w-full flex flex-col h-full justify-between gap-1"
+      className="w-full flex flex-col h-full justify-between gap-1 hover:scale-110 transition-all"
     >
       <h2 className="text-lg line-clamp-2 text-tertiary font-agrandir font-bold">
         {title}

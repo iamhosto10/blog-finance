@@ -69,7 +69,7 @@ const ArticleHome = () => {
       </div>
 
       <Button
-        className="rounded-full cursor-pointer self-end items-center"
+        className="rounded-full cursor-pointer self-end items-center hover:scale-115 transition-all"
         asChild
       >
         <Link href={`/blog/${slug.current}`}>
