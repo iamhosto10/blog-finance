@@ -8,7 +8,7 @@ import { ReduxProvider } from "@/store/provider";
 import Footer from "../components/Footer/footer";
 import { client } from "@/lib/sanity";
 
-export const revalidate = 60 * 30;
+export const revalidate = 60 * 60 * 24;
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,51 +26,34 @@ export default async function RootLayout({
   const [blogs, categories, dolar] = await Promise.all([
     client.fetch(
       `*[_type == "blog"]{
-  title,
-  focusTitle,
-  continueTitle,
-  slug,
-  publishedAt,
-  mainImage,
-  miniatureImage,
-  excerpt,
-  audio,
-  body,
-  categories[]->{
-    _id,
-    title
-  },
-  relatedNews[]->{
-    _id,
-    title,
-    slug,
-    mainImage,
-    excerpt,
-    publishedAt
-  }
-}| order(publishedAt desc)`,
+        title,
+        focusTitle,
+        continueTitle,
+        slug,
+        publishedAt,
+        mainImage,
+        miniatureImage,
+        excerpt,
+        audio,
+        body,
+        categories[]->{
+          _id,
+          title
+        },
+        relatedNews[]->{
+          _id,
+          title,
+          slug,
+          mainImage,
+          excerpt,
+          publishedAt
+        }
+      }| order(publishedAt desc)`,
       {},
-      {
-        cache: "no-cache",
-        // next: { revalidate: 60 }, // fuerza a revalidar cada 60 seg
-      }
+      {}
     ),
-    client.fetch(
-      `*[_type == "category"]{ _id,title,slug }`,
-      {},
-      {
-        cache: "no-cache",
-        // next: { revalidate: 60 }, // fuerza a revalidar cada 60 seg
-      }
-    ),
-    client.fetch(
-      `*[_type == "dolar"] | order(fecha desc)[0]`,
-      {},
-      {
-        cache: "no-cache",
-        // next: { revalidate: 60 }, // fuerza a revalidar cada 60 seg
-      }
-    ),
+    client.fetch(`*[_type == "category"]{ _id,title,slug }`, {}, {}),
+    client.fetch(`*[_type == "dolar"] | order(fecha desc)[0]`, {}, {}),
   ]);
 
   const preloadedState = {
