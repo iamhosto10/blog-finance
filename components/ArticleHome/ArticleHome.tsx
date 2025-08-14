@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Blog } from "@/lib/interface";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import Tag from "../CommonComponents/Tag";
 
 const ArticleHome = () => {
   const { blogs } = useSelector((state: RootState) => state.sanity);
@@ -31,9 +32,10 @@ const ArticleHome = () => {
         {continueTitle}
       </h2>
       <div className="flex flex-row w-full justify-start gap-2">
-        <h3 className="text-sm lg:text-md bg-primary-foreground text-background px-2 py-1 rounded-full font-agrandir font-bold text-shadow-lg  text-shadow-black/20">
+        {/* <h3 className="text-sm lg:text-md bg-primary-foreground text-background px-2 py-1 rounded-full font-agrandir font-bold text-shadow-lg  text-shadow-black/20">
           {categories && categories[0]?.title}
-        </h3>
+        </h3> */}
+        <Tag title={categories && categories[0]?.title} />
         <p className="text-sm text-tertiary my-auto font-canva-sans font-bold">
           {new Date(
             publishedAt ? publishedAt.slice(0, 10) : ""

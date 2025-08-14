@@ -21,6 +21,8 @@
     "card": "^2.5.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.534.0",
     "next": "15.4.4",

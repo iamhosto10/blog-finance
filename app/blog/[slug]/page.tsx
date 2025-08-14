@@ -6,6 +6,7 @@ import { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 import { useParams } from "next/navigation";
 import AudioPlayer from "@/components/MusicPlayer/MusicPlayer";
+import Tag from "@/components/CommonComponents/Tag";
 
 export default function BlogArticle() {
   const { slug } = useParams<{ slug: string }>();
@@ -24,9 +25,10 @@ export default function BlogArticle() {
         {data?.continueTitle}
       </h1>
       <div className="flex flex-row w-full justify-start gap-2 mt-4">
-        <h3 className="text-sm lg:text-lg bg-primary text-background px-2 py-1 rounded-full font-agrandir font-bold">
+        {/* <h3 className="text-sm lg:text-lg bg-primary text-background px-2 py-1 rounded-full font-agrandir font-bold">
           {data?.categories && data?.categories[0]?.title}
-        </h3>
+        </h3> */}
+        <Tag title={data?.categories && data?.categories[0]?.title} />
         <p className="text-sm lg:text-lg text-tertiary my-auto font-canva-sans font-bold">
           {new Date(
             data?.publishedAt ? data?.publishedAt?.slice(0, 10) : ""

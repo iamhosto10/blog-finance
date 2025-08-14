@@ -1,14 +1,11 @@
 "use client";
 
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
 import LatestNews from "../LatestNews/LatestNews";
 import ArticleHome from "../ArticleHome/ArticleHome";
 import RecommendedTags from "../RecomendedTags/RecomendedTags";
+import Simulators from "../Simulators/Simulators";
 
 export default function Home() {
-  const { blogs } = useSelector((state: RootState) => state.sanity);
-
   return (
     <div>
       <LatestNews />
@@ -16,6 +13,7 @@ export default function Home() {
         <ArticleHome />
         <RecommendedTags />
       </div>
+      <Simulators />
     </div>
   );
 }

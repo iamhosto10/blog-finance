@@ -1,6 +1,6 @@
 import { Blog } from "@/lib/interface";
 import React from "react";
-import LatestNewsCard from "../Cards/LatestNewsCard";
+import LatestNewsCard from "../CommonComponents/Cards/LatestNewsCard";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 
