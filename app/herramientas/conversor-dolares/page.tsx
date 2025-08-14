@@ -6,7 +6,7 @@ import { DollarSignIcon, FlagIcon, MoveDown, MoveRight } from "lucide-react";
 import React from "react";
 import { useSelector } from "react-redux";
 
-const page = () => {
+const Page = () => {
   const { dolar } = useSelector((state: RootState) => state.sanity);
 
   return (
@@ -89,4 +89,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
