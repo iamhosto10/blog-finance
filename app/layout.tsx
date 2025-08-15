@@ -7,6 +7,7 @@ import LayoutHome from "../components/LayoutHome";
 import { ReduxProvider } from "@/store/provider";
 import Footer from "../components/Footer/footer";
 import { client } from "@/lib/sanity";
+import { blogsQuery, categoriesQuery, dolarQuery } from "@/lib/queries";
 
 export const revalidate = 60 * 60 * 24;
 
@@ -25,35 +26,20 @@ export default async function RootLayout({
 }) {
   const [blogs, categories, dolar] = await Promise.all([
     client.fetch(
-      `*[_type == "blog"]{
-        title,
-        focusTitle,
-        continueTitle,
-        slug,
-        publishedAt,
-        mainImage,
-        miniatureImage,
-        excerpt,
-        audio,
-        body,
-        categories[]->{
-          _id,
-          title
-        },
-        relatedNews[]->{
-          _id,
-          title,
-          slug,
-          mainImage,
-          excerpt,
-          publishedAt
-        }
-      }| order(publishedAt desc)`,
+      blogsQuery,
       {},
-      {}
+      { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } }
     ),
-    client.fetch(`*[_type == "category"]{ _id,title,slug }`, {}, {}),
-    client.fetch(`*[_type == "dolar"] | order(fecha desc)[0]`, {}, {}),
+    client.fetch(
+      categoriesQuery,
+      {},
+      { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } }
+    ),
+    client.fetch(
+      dolarQuery,
+      {},
+      { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } }
+    ),
   ]);
 
   const preloadedState = {

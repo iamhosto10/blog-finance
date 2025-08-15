@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export async function GET(req: NextRequest) {
   const secret = req.nextUrl.searchParams.get("secret");
@@ -12,6 +12,7 @@ export async function GET(req: NextRequest) {
   try {
     // Si quieres revalidar TODO el sitio:
     revalidatePath("/");
+    revalidateTag("global-data");
 
     return NextResponse.json({ revalidated: true });
   } catch (err) {
