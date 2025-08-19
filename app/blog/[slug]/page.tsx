@@ -20,7 +20,7 @@ export default function BlogArticle() {
   console.log("Body", data);
 
   return (
-    <div className="md:-mt-6">
+    <div className="container md:-mt-6">
       <h1 className="font-agrandir font-bold text-secondary text-3xl  md:text-4xl">
         {data?.title} <span className="text-primary">{data?.focusTitle}</span>{" "}
         {data?.continueTitle}

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Blog } from "@/lib/interface";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import Tag from "../CommonComponents/Tag";
+import Tag from "@/components/CommonComponents/Tag";
 
 const ArticleHome = () => {
   const { blogs } = useSelector((state: RootState) => state.sanity);

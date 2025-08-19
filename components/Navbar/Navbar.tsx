@@ -53,15 +53,15 @@ export default function Navbar({ open, setOpen, pathname }: NavbarProps) {
   return (
     <header>
       {/* Desktop */}
-      <nav className="hidden lg:flex w-full items-center px-6 relative top-[-80px]">
+      <nav className="hidden lg:flex w-full items-center px-6 relative top-[-80px] z-10">
         <Logo />
         <DesktopMenu menuItems={menuItems} pathname={pathname} />
       </nav>
 
       {/* Mobile */}
-      <div className="block lg:hidden">
+      <nav className="block lg:hidden relative z-10">
         <MobileMenu open={open} setOpen={setOpen} menuItems={menuItems} />
-      </div>
+      </nav>
     </header>
   );
 }

@@ -223,3 +223,34 @@ input[type="number"] {
 .pause-animation {
   animation-play-state: paused !important;
 }
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.75rem; /* px-7 */
+  padding-right: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  /* md */
+  .container {
+    padding-left: 6rem; /* px-24 */
+    padding-right: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* lg */
+  .container {
+    padding-left: 7.5rem; /* px-30 */
+    padding-right: 7.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  /* xl */
+  .container {
+    padding-left: 10rem; /* px-40 */
+    padding-right: 10rem;
+  }
+}

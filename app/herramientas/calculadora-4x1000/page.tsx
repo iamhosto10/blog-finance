@@ -12,24 +12,26 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen p-6 md:p-6 max-w-4xl mx-auto space-y-12">
-      <section className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">¿Cuánto pagas por el 4x1000?</h1>
-        <p className="text-lg text-muted-foreground">
-          Aprende sobre este impuesto financiero en Colombia y calcula
-          fácilmente el valor.
-        </p>
-      </section>
+    <div className="container">
+      <div className="min-h-screen p-6 md:p-6 max-w-4xl mx-auto space-y-12">
+        <section className="text-center space-y-4">
+          <h1 className="text-4xl font-bold">¿Cuánto pagas por el 4x1000?</h1>
+          <p className="text-lg text-muted-foreground">
+            Aprende sobre este impuesto financiero en Colombia y calcula
+            fácilmente el valor.
+          </p>
+        </section>
 
-      <Card className="shadow-xl">
-        <CardContent className="p-6">
-          <Calculator />
-        </CardContent>
-      </Card>
+        <Card className="shadow-xl">
+          <CardContent className="p-6">
+            <Calculator />
+          </CardContent>
+        </Card>
 
-      <InfoSection />
+        <InfoSection />
 
-      <FAQ />
-    </main>
+        <FAQ />
+      </div>
+    </div>
   );
 }
