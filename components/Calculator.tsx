@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { PiggyBank } from "lucide-react";
+import { DollarSignIcon, PiggyBank } from "lucide-react";
 
 export function Calculator() {
   const [monto, setMonto] = useState(0);
@@ -26,47 +26,33 @@ export function Calculator() {
   return (
     <div className="space-y-8">
       {/* Imagen decorativa o logo provisional */}
-      <div className="flex justify-center">
-        <img
-          src="/assets/Ahorros.svg"
-          alt="Logo 4x1000"
-          className="h-16 text-accent"
-        />
-        {/* <Ahorros className="h-16" /> */}
-      </div>
 
-      {/* Ícono decorativo */}
-      <div className="flex items-center justify-center gap-2 text-yellow-500">
-        <PiggyBank className="w-6 h-6" />
-        <h2 className="text-xl font-semibold">
-          Calculadora de Impuesto 4x1000
-        </h2>
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="monto">Monto en pesos colombianos</Label>
-        <Input
-          id="monto"
-          type="number"
-          placeholder="Ej: 1000000"
-          className={cn(
-            "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-          )}
-          value={monto || ""}
-          onChange={(e) => setMonto(parseFloat(e.target.value) || 0)}
-        />
+      <div className="flex flex-col gap-0.5">
+        <h3 className="text-sm text-secondary font-canva-sans font-bold">
+          Valor a convertir
+        </h3>
+        <div className="group flex items-center gap-2 border-2 border-purple-200 rounded-lg px-3 py-2 bg-background md:w-2/5  hover:border-purple-500 focus-within:border-purple-500">
+          <DollarSignIcon />
+          {/* Campo de entrada */}
+          <input
+            type="number"
+            // value={amount}
+            // onChange={(e) => setAmount(Number(e.target.value))}
+            className="text-black font-bold w-24 outline-none"
+          />
+        </div>
       </div>
 
       <Button
         onClick={calcular}
-        className="bg-yellow-500 text-black hover:bg-yellow-400 transition-colors"
+        className="bg-primary/80 text-tertiary hover:bg-primary transition-colors cursor-pointer font-canva-sans font-bold"
       >
         Calcular 4x1000
       </Button>
 
       {resultado && (
-        <Card className="bg-yellow-100 text-black shadow-lg">
-          <CardContent className="p-4 space-y-2">
+        <Card className="bg-primary-foreground shadow-lg">
+          <CardContent className="p-4 space-y-2 font-canva-sans text-tertiary">
             <p>
               Impuesto 4x1000: <strong>${resultado.impuesto.toFixed(2)}</strong>
             </p>

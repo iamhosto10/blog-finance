@@ -234,16 +234,16 @@ input[type="number"] {
 @media (min-width: 768px) {
   /* md */
   .container {
-    padding-left: 6rem; /* px-24 */
-    padding-right: 6rem;
+    padding-left: 5rem; /* px-24 */
+    padding-right: 5rem;
   }
 }
 
 @media (min-width: 1024px) {
   /* lg */
   .container {
-    padding-left: 7.5rem; /* px-30 */
-    padding-right: 7.5rem;
+    padding-left: 6rem; /* px-30 */
+    padding-right: 6rem;
   }
 }
 
