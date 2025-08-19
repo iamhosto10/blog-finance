@@ -9,7 +9,7 @@ const Header = () => {
             EL BLOG PERFECTO
           </h2>
           <img
-            src="/assets/header/icon.png"
+            src="/assets/Header/icon.png"
             alt=""
             className="size-11 xl:size-16 self-start -ml-3 lg:-ml-4 xl:-ml-5 z-0"
           />
@@ -24,9 +24,6 @@ const Header = () => {
               PRECISA
             </span>
           </h3>
-          {/* <h2 className="md:text-4xl lg:text-6xl font-agrandir font-bold text-primary self-end mt-10 z-10">
-            PRECISA
-          </h2> */}
         </div>
       </div>
 
