@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calculator } from "@/components/Calculator";
 import { InfoSection } from "@/components/InfoSection";
-import { FAQ } from "@/components/FAQ";
+import { FAQ } from "@/components/CommonComponents/FAQ";
 import Tag from "@/components/CommonComponents/Tag";
 
 export const metadata: Metadata = {

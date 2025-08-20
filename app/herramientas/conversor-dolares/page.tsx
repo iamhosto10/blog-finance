@@ -1,6 +1,8 @@
 "use client";
 
 import Tag from "@/components/CommonComponents/Tag";
+import DolarConversor from "@/components/DolarConversor/DolarConversor";
+import { Card, CardContent } from "@/components/ui/card";
 import { RootState } from "@/store/store";
 import { DollarSignIcon, FlagIcon, MoveDown, MoveRight } from "lucide-react";
 import React from "react";
@@ -8,86 +10,41 @@ import { useSelector } from "react-redux";
 
 const Page = () => {
   const { dolar } = useSelector((state: RootState) => state.sanity);
+  if (!dolar) return null;
 
   return (
-    <div className="container">
-      <div className="flex flex-col items-center justify-center w-full gap-4 lg:-mt-10  lg:px-10">
-        <h1 className="text-2xl font-bold font-agrandir text-secondary text-center">
-          DOLARES AMERICANOS A
-          <span className="text-primary"> PESOS COLOMBIANOS</span>
-        </h1>
-        <h2 className="text-xl text-tertiary font-canva-sans w-full lg:w-1/2 text-center">
-          Convierte dólares estadounidenses (USD) a pesos colombianos (COP)
-        </h2>
-        <div className="self-start">
-          <Tag title="Herramienta" />
-        </div>
-        <div className="bg-tertiary-foreground w-full md:w-4/5 lg:w-3/4 h-auto rounded-2xl py-10 md:px-8 lg:px-12">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex flex-col gap-0.5">
-              <h4 className="text-sm text-secondary font-canva-sans font-bold">
-                Cantidad
-              </h4>
-              <div className="group flex items-center gap-2 border-2 border-purple-200 rounded-lg px-3 py-2 bg-background w-full  hover:border-purple-500 focus-within:border-purple-500">
-                <DollarSignIcon />
-                {/* Campo de entrada */}
-                <input
-                  type="number"
-                  // value={amount}
-                  // onChange={(e) => setAmount(Number(e.target.value))}
-                  className="text-black font-bold w-24 outline-none"
-                />
-
-                {/* Moneda */}
-                <div className="flex items-center gap-1">
-                  <FlagIcon className="text-xl" />
-                  <select className="bg-transparent outline-none text-gray-700 font-medium">
-                    <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
-                    <option value="COP">COP</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <MoveRight className=" hidden md:block self-center mt-8 size-6 " />
-            <MoveDown className="md:hidden " />
-            <div className="flex flex-col gap-0.5">
-              <h4 className="text-sm text-secondary font-canva-sans font-bold">
-                Convertido a
-              </h4>
-              <div className="flex items-center gap-2 border-2 border-purple-200 rounded-lg px-3 py-2 bg-background w-full hover:border-purple-500 focus-within:border-purple-500">
-                <DollarSignIcon />
-                {/* Campo de entrada */}
-                <input
-                  type="number"
-                  // value={amount}
-                  // onChange={(e) => setAmount(Number(e.target.value))}
-                  className="text-black font-bold w-24 outline-none"
-                />
-
-                {/* Moneda */}
-                <div className="flex items-center gap-1">
-                  <FlagIcon className="text-xl" />
-                  <select className="bg-transparent outline-none text-gray-700 font-medium">
-                    <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
-                    <option value="COP">COP</option>
-                  </select>
-                </div>
-              </div>
-            </div>
+    <div className="container md:-mt-6">
+      <div className="min-h-screen p-6 md:p-6 max-w-4xl mx-auto space-y-5">
+        <section className="text-center space-y-4 w-5/6 mx-auto">
+          <h1 className="font-agrandir font-bold text-secondary text-3xl  md:text-4xl">
+            DOLARES AMERICANOS A{" "}
+            <span className="text-primary">PESOS COLOMBIANOS</span>
+          </h1>
+          <p className="text-lg text-tertiary font-canva-sans">
+            Convierte dólares estadounidenses (USD) a pesos colombianos (COP)
+          </p>
+        </section>
+        <div className="flex flex-col md:flex-row max-md:gap-5 w-full justify-start">
+          <div className="h-auto flex md:block">
+            <Tag title="HERRAMIENTAS" />
           </div>
-          <div className="mx-auto md:mx-0 w-full">
-            <p className="font-canva-sans text-black text-sm mt-4 ml-2">
-              1 USD ={" "}
-              <span className="text-secondary">{Number(dolar?.valor)}</span> COP
-            </p>
-            <p className="font-canva-sans text-black text-sm mt-4 ml-2">
-              Tipo de cambio actualizado al Banco de la República de Colombia a
-              las 8:00 a.m. del día de hoy.
+          <img
+            src="/assets/convertdolar/dolartopesos.webp"
+            alt="4x1000"
+            className="mx-auto max-w-5/6 md:max-w-3/6 lg:max-w-2/6"
+          />
+          <div className="h-auto hidden md:block ">
+            <p className="text-sm lg:text-lg bg-background text-background px-2 py-1 rounded-full font-agrandir font-bold cursor-default">
+              HERRAMIENTAS
             </p>
           </div>
         </div>
+
+        <Card className="shadow-xl bg-tertiary-foreground">
+          <CardContent className="p-10">
+            <DolarConversor dolar={dolar} />
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
