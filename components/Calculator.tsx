@@ -4,9 +4,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DollarSignIcon, PiggyBank } from "lucide-react";
+import { convertStringtoNumber, validarNumero } from "@/lib/utils";
+import { convertNumbertoString } from "../lib/utils";
 
 export function Calculator() {
-  const [monto, setMonto] = useState(0);
+  const [monto, setMonto] = useState("");
   const [resultado, setResultado] = useState<null | {
     impuesto: number;
     total: number;
@@ -14,10 +16,16 @@ export function Calculator() {
   }>(null);
 
   function calcular() {
-    const impuesto = monto * 0.004;
-    const total = monto - impuesto;
-    const resultado = monto / (1 - 0.004);
+    const impuesto = Number(convertStringtoNumber(monto)) * 0.004;
+    const total = Number(convertStringtoNumber(monto)) - impuesto;
+    const resultado = Number(convertStringtoNumber(monto)) / (1 - 0.004);
     setResultado({ impuesto, total, resultado });
+  }
+
+  function handleChangeMonto(value: string) {
+    if (!validarNumero(value)) return;
+    const newValue = convertStringtoNumber(value);
+    setMonto(convertNumbertoString(newValue));
   }
 
   return (
@@ -32,9 +40,9 @@ export function Calculator() {
           <DollarSignIcon />
           {/* Campo de entrada */}
           <input
-            type="number"
-            // value={amount}
-            // onChange={(e) => setAmount(Number(e.target.value))}
+            type="string"
+            value={monto}
+            onChange={(e) => handleChangeMonto(e.target.value)}
             className="text-black font-bold w-24 outline-none"
           />
         </div>
@@ -51,15 +59,19 @@ export function Calculator() {
         <Card className="bg-primary-foreground shadow-lg">
           <CardContent className="p-4 space-y-2 font-canva-sans text-tertiary">
             <p>
-              Impuesto 4x1000: <strong>${resultado.impuesto.toFixed(2)}</strong>
+              Impuesto 4x1000:{" "}
+              <strong>${convertNumbertoString(resultado.impuesto)}</strong>
             </p>
             <p>
-              Total restante: <strong>${resultado.total.toFixed(2)}</strong>
+              Total restante:{" "}
+              <strong>${convertNumbertoString(resultado.total)}</strong>
             </p>
             <p>
               si deseas que el destinatario reciba <strong>${monto}</strong>{" "}
               pesos exactamente debes enviar:{" "}
-              <strong>${resultado.resultado.toFixed(2)}</strong>
+              <strong>
+                ${convertNumbertoString(resultado.resultado.toFixed(2))}
+              </strong>
             </p>
           </CardContent>
         </Card>
