@@ -42,7 +42,7 @@ export function splitFromEnd(str: string, size: number) {
   let i = str.length;
 
   while (i > 0) {
-    let start = Math.max(i - size, 0);
+    const start = Math.max(i - size, 0);
     result.unshift(str.slice(start, i));
     i -= size;
   }

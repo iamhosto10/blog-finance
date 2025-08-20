@@ -1,3 +1,3 @@
-export default async function NotFound() {
+export default function NotFound() {
   return <h6>pagina no encntrada</h6>;
 }
