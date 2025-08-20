@@ -31,20 +31,22 @@ export default function DesktopMenu({ menuItems, pathname }: DesktopMenuProps) {
         return (
           <div
             key={item.label}
-            className="relative"
+            className="relative w-1/4 h-full"
             onMouseEnter={() => setHoveredMenu(item.label)}
             onMouseLeave={() => setHoveredMenu(null)}
           >
             <Link
               href={item.href}
               onClick={() => setActiveMenu(item.label)}
-              className=" font-semibold text-white  drop-shadow-md "
+              className="font-semibold text-white  drop-shadow-md"
             >
-              <div className=" hover:text-xl transition-all">
-                {item.label}
-                {isActive && (
-                  <span className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-transparent border-b-background" />
-                )}
+              <div className="w-full text-center transition-all">
+                <h2 className="relativew-auto">
+                  {item.label}
+                  {isActive && (
+                    <span className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-transparent border-b-background" />
+                  )}
+                </h2>
               </div>
             </Link>
 
@@ -54,7 +56,7 @@ export default function DesktopMenu({ menuItems, pathname }: DesktopMenuProps) {
                   index >= menuItems.length / 2
                     ? "-translate-x-4/5"
                     : "-translate-x-1/5"
-                } mt-2 w-56 p-4 bg-white shadow-lg rounded-lg z-50`}
+                } -mt-0.5 w-56 p-4 bg-white shadow-lg rounded-lg z-50`}
               >
                 {item.subCategories.map((sub) => (
                   <Link
