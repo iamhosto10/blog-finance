@@ -4,7 +4,6 @@ import Tag from "@/components/CommonComponents/Tag";
 import DolarConversor from "@/components/DolarConversor/DolarConversor";
 import { Card, CardContent } from "@/components/ui/card";
 import { RootState } from "@/store/store";
-import { DollarSignIcon, FlagIcon, MoveDown, MoveRight } from "lucide-react";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -41,7 +40,7 @@ const Page = () => {
         </div>
 
         <Card className="shadow-xl bg-tertiary-foreground">
-          <CardContent className="p-10">
+          <CardContent className="p-3 md:p-5 lg:p-8">
             <DolarConversor dolar={dolar} />
           </CardContent>
         </Card>

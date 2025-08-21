@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { DollarSignIcon, PiggyBank } from "lucide-react";
+import { DollarSignIcon } from "lucide-react";
 import { convertStringtoNumber, validarNumero } from "@/lib/utils";
 import { convertNumbertoString } from "../lib/utils";
 
@@ -43,7 +43,7 @@ export function Calculator() {
             type="string"
             value={monto}
             onChange={(e) => handleChangeMonto(e.target.value)}
-            className="text-black font-bold w-24 outline-none"
+            className="text-black font-bold w-5/6 outline-none"
           />
         </div>
       </div>
