@@ -1,9 +1,7 @@
 import { urlFor } from "@/lib/sanity";
-import { PortableText } from "next-sanity";
 import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Blog } from "@/lib/interface";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import Tag from "@/components/CommonComponents/Tag";

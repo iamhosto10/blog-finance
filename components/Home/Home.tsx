@@ -9,14 +9,19 @@ import { RootState } from "@/store/store";
 import { Blog } from "@/lib/interface";
 import ArticleHome from "./ArticleHome/ArticleHome";
 import Header from "./Header/Header";
+import IntroductionSection from "../IntroductionSection/IntroductionSection";
+import PostPreviewCardHorizontal from "../PostPreviewCardHorizontal/PostPreviewCardHorizontal";
 
 export default function Home() {
   const { blogs } = useSelector((state: RootState) => state.sanity);
   const data: Blog[] = blogs;
   return (
     <>
-      <Header />
       <div className="container">
+        <Header />
+
+        <IntroductionSection />
+        <PostPreviewCardHorizontal />
         <News title={"Ultimas noticias"} data={data} />
         <div className="w-full shadow-2xl rounded-xl p-6 bg-tertiary-foreground my-6">
           <Simulators />
