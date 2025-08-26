@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableFooter,
   TableHead,
@@ -12,45 +11,26 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
+  calculateDailyGrowth,
   convertNumbertoString,
   convertStringtoNumber,
   validarNumero,
 } from "@/lib/utils";
 import { DollarSignIcon } from "lucide-react";
 import { Button } from "../ui/button";
+import { DailyGrowth } from "@/lib/interface";
 
-interface DailyGrowth {
-  day: number;
-  amount: number;
-  interest: number;
-  retencion: number;
+interface ICalculateNu {
+  profitabilityNu: number[] | undefined;
+  selected: number;
+  setSelected: Dispatch<SetStateAction<number>>;
 }
 
-const calculateDailyGrowth = (
-  initialAmount: number,
-  days: number,
-  annualRate: number
-): DailyGrowth[] => {
-  const results: DailyGrowth[] = [];
-  const dailyRate = Math.pow(1 + annualRate, 1 / 365) - 1;
-  let amount = initialAmount;
-
-  for (let i = 1; i <= days; i++) {
-    const inte = amount * (1 + dailyRate) - amount;
-    const retem = inte > 2588.58 ? parseFloat((inte * 0.07).toFixed(2)) : 0;
-    amount = amount + inte - retem;
-    results.push({
-      day: i,
-      amount: parseFloat(amount.toFixed(2)), // redondeo a 2 decimales
-      interest: parseFloat(inte.toFixed(2)),
-      retencion: retem,
-    });
-  }
-
-  return results;
-};
-
-const TableNu = () => {
+const CalculatorNu = ({
+  profitabilityNu,
+  selected,
+  setSelected,
+}: ICalculateNu) => {
   const [data, setData] = useState<DailyGrowth[]>([]);
   const [initialAmount, setInitialAmount] = useState("");
   const [days, setDays] = useState("");
@@ -61,23 +41,13 @@ const TableNu = () => {
 
     // const days = 30; // Simulación 30 días
     //   const annualRate = 0.0925; // 9.25% EA
-    const annualRate = 0.0925;
+    const annualRate = profitabilityNu ? Number(profitabilityNu[selected]) : 0;
     const growth = calculateDailyGrowth(
       Number(convertStringtoNumber(initialAmount)),
       Number(convertStringtoNumber(days)),
       annualRate
     );
     setData(growth);
-  };
-
-  const calculateFinalAmount = (
-    initialAmount: number,
-    days: number,
-    annualRate: number // ejemplo: 0.0925 para 9.25%
-  ): number => {
-    return parseFloat(
-      (initialAmount * Math.pow(1 + annualRate, days / 365)).toFixed(2)
-    );
   };
 
   function handleChangeInitialAmount(value: string) {
@@ -91,9 +61,13 @@ const TableNu = () => {
     const newValue = convertStringtoNumber(value);
     setDays(convertNumbertoString(newValue));
   }
+
+  const handleChange = (e) => {
+    setSelected(e.target.value);
+  };
   return (
     <div className="space-y-8">
-      <div className="flex flex-col gap-0.5">
+      <div className="flex flex-col  gap-0.5 ">
         <h3 className="text-sm text-secondary font-canva-sans font-bold">
           Valor a invertir
         </h3>
@@ -108,6 +82,27 @@ const TableNu = () => {
           />
         </div>
       </div>
+      {profitabilityNu && profitabilityNu?.length > 1 && (
+        <div className="flex flex-col gap-0.5">
+          <h3 className="text-sm text-secondary font-canva-sans font-bold">
+            Rentabilidad
+          </h3>
+          <div className="group flex items-center gap-2 border-2 border-purple-200 rounded-lg px-3 py-2 bg-background md:w-2/5  hover:border-purple-500 focus-within:border-purple-500">
+            {/* Campo de entrada */}
+            <select
+              className="text-black font-bold outline-none w-full"
+              onChange={handleChange}
+            >
+              {profitabilityNu?.map((item, index) => (
+                <option key={item} value={index}>
+                  {item * 100} %
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-col gap-0.5">
         <h3 className="text-sm text-secondary font-canva-sans font-bold">
           Periodo (dias)
@@ -185,4 +180,4 @@ const TableNu = () => {
   );
 };
 
-export default TableNu;
+export default CalculatorNu;

@@ -53,3 +53,22 @@ export interface BodySection {
     };
   };
 }
+
+export interface Profitability {
+  _id: string;
+  _type: "profitability";
+  nu: number[];
+  lulo: number[];
+  global66: number[];
+  popular: number[];
+  rappi: number[];
+  bold: number[];
+  pibank: number[];
+}
+
+export interface DailyGrowth {
+  day: number;
+  amount: number;
+  interest: number;
+  retencion: number;
+}

@@ -39,6 +39,7 @@ const menuItems = [
     subCategories: [
       { label: "Calculadora 4x1000", href: "/herramientas/calculadora-4x1000" },
       { label: "Conversor dolar", href: "/herramientas/conversor-dolares" },
+      { label: "Nu", href: "/herramientas/nu" },
     ],
   },
 ];

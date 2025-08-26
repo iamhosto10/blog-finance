@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { DailyGrowth } from "./interface";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -54,10 +55,7 @@ export function convertNumbertoString(number: number | string) {
   const cadena = number + "";
   const [integer, decimal] = cadena.split(".");
   const newInteger = splitFromEnd(integer, 3).join(",");
-  console.log(integer);
-  console.log(decimal, "decimaaaal");
   if (decimal === undefined) return newInteger;
-  console.log("paso");
   return newInteger + "." + decimal.substring(0, 2);
 }
 
@@ -66,3 +64,38 @@ export function validarNumero(input: string) {
   const regex = /^$|^\d+(?:,\d+)*(?:\.\d*)?$/;
   return regex.test(input);
 }
+
+export const calculateDailyGrowth = (
+  initialAmount: number,
+  days: number,
+  annualRate: number
+): DailyGrowth[] => {
+  const results: DailyGrowth[] = [];
+  const dailyRate = Math.pow(1 + annualRate, 1 / 365) - 1;
+  console.log(dailyRate);
+  let amount = initialAmount;
+
+  for (let i = 1; i <= days; i++) {
+    const inte = amount * (1 + dailyRate) - amount;
+    const retem = inte > 2588.58 ? parseFloat((inte * 0.07).toFixed(2)) : 0;
+    amount = amount + inte - retem;
+    results.push({
+      day: i,
+      amount: parseFloat(amount.toFixed(2)), // redondeo a 2 decimales
+      interest: parseFloat(inte.toFixed(2)),
+      retencion: retem,
+    });
+  }
+
+  return results;
+};
+
+export const calculateFinalAmount = (
+  initialAmount: number,
+  days: number,
+  annualRate: number
+): number => {
+  return parseFloat(
+    (initialAmount * Math.pow(1 + annualRate, days / 365)).toFixed(2)
+  );
+};

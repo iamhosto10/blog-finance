@@ -1,6 +1,11 @@
+"use client";
+
 import Tag from "@/components/CommonComponents/Tag";
 import TableNu from "@/components/nu/Table";
 import { Card, CardContent } from "@/components/ui/card";
+import { RootState } from "@/store/store";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 interface DailyGrowth {
   day: number;
@@ -34,6 +39,9 @@ const calculateDailyGrowth = (
 };
 
 export default function Page() {
+  const { profitability } = useSelector((state: RootState) => state.sanity);
+  console.log(profitability?.nu);
+  const [selected, setSelected] = useState(0);
   const calculateFinalAmount = (
     initialAmount: number,
     days: number,
@@ -53,18 +61,27 @@ export default function Page() {
               DE NU
             </h1>
             <p className="text-lg text-tertiary font-canva-sans">
-              Tasa de 9.25%
+              Tasa de {(Number(profitability?.nu[selected]) * 100).toFixed(2)} %
             </p>
           </section>
           <div className="flex flex-col md:flex-row max-md:gap-5 w-full justify-start">
             <div className="h-auto flex md:block">
               <Tag title="HERRAMIENTAS" />
             </div>
-            <img
-              src="/assets/convertdolar/dolartopesos.webp"
-              alt="4x1000"
-              className="mx-auto max-w-5/6 md:max-w-3/6 lg:max-w-2/6"
-            />
+            <div className="relative max-w-4/6 md:max-w-3/6 lg:max-w-2/6 mx-auto my-8">
+              <img
+                src="/assets/nu/logonu.png"
+                alt="nu"
+                className="mx-auto w-full"
+              />
+              <div className="absolute -top-5 -right-5 md:-top-7 md:-right-7 size-10 md:size-14">
+                <img
+                  src="/assets/nu/calculator.png"
+                  alt="Miniature Image"
+                  className="size-10 md:size-14"
+                />
+              </div>
+            </div>
             <div className="h-auto hidden md:block ">
               <p className="text-sm lg:text-lg bg-background text-background px-2 py-1 rounded-full font-agrandir font-bold cursor-default">
                 HERRAMIENTAS
@@ -74,7 +91,11 @@ export default function Page() {
 
           <Card className="shadow-xl bg-tertiary-foreground">
             <CardContent className="p-3 md:p-5 lg:p-8">
-              <TableNu />
+              <TableNu
+                profitabilityNu={profitability?.nu}
+                selected={selected}
+                setSelected={setSelected}
+              />
             </CardContent>
           </Card>
         </div>

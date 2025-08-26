@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calculator } from "@/components/Calculator";
-import { InfoSection } from "@/components/InfoSection";
-import { FAQ } from "@/components/CommonComponents/FAQ";
+import { InfoSection } from "@/components/CommonComponents/InfoSection/InfoSection";
+import { FAQ } from "@/components/CommonComponents/FAQ/FAQ";
 import Tag from "@/components/CommonComponents/Tag";
 
 export const metadata: Metadata = {
@@ -11,7 +11,53 @@ export const metadata: Metadata = {
     "Descubre qué es el 4x1000 en Colombia, cómo funciona y usa nuestra calculadora para saber cuánto debes pagar.",
 };
 
-export default function HomePage() {
+const info = [
+  {
+    title: "¿Qué es el 4x1000?",
+    description:
+      "Es un impuesto que se cobra en Colombia sobre las transacciones financieras. Por cada $1.000 que retires o transfieras desde una cuenta bancaria, el Estado cobra $4 como gravamen.",
+  },
+  {
+    title: "¿Cómo funciona?",
+    description:
+      "El impuesto se descuenta automáticamente cuando haces un retiro, transferencia, emisión de cheque o cualquier movimiento que implique salida de dinero de tus cuentas.",
+  },
+  {
+    title: "¿Quiénes están exentos?",
+    description:
+      "Puedes tener una cuenta exenta del 4x1000 si lo solicitas a tu banco. Solo una cuenta por persona puede estar exenta, y debe cumplir con condiciones como ser cuenta de ahorros o corriente y estar registrada ante la DIAN como cuenta exenta.",
+  },
+  {
+    title: "Ejemplo práctico ",
+    description:
+      "Si retiras $1.000.000 COP, pagarás $4.000 COP como impuesto. El banco te entregará $996.000 COP y $4.000 se irán al Estado como parte del gravamen.",
+  },
+  { title: "", description: "" },
+];
+
+const Faq = [
+  {
+    title: "¿Qué tipo de transacciones generan el 4x1000?",
+    description:
+      "Retiros, transferencias, pagos, cheques y cualquier salida de dinero desde cuentas bancarias.",
+  },
+  {
+    title: "¿Puedo tener más de una cuenta exenta?",
+    description:
+      "No. Solo puedes registrar una cuenta exenta por persona ante el banco y la DIAN.",
+  },
+  {
+    title: "¿Cómo evitar el 4x1000 legalmente?",
+    description:
+      "Registrando una cuenta como exenta y manteniendo transferencias internas entre cuentas propias.",
+  },
+  {
+    title: "¿Desde cuándo existe el 4x1000?",
+    description:
+      "Fue creado en 1998 como medida temporal, pero ha sido prorrogado hasta hoy.",
+  },
+];
+export default function Page() {
   return (
     <div className="container md:-mt-6">
       <div className="min-h-screen p-6 md:p-6 max-w-4xl mx-auto space-y-5">
@@ -46,9 +92,9 @@ export default function HomePage() {
           </CardContent>
         </Card>
 
-        <InfoSection />
+        <InfoSection data={info} />
 
-        <FAQ />
+        <FAQ data={Faq} />
       </div>
     </div>
   );

@@ -7,7 +7,12 @@ import LayoutHome from "../components/LayoutHome";
 import { ReduxProvider } from "@/store/provider";
 import Footer from "../components/Footer/footer";
 import { client } from "@/lib/sanity";
-import { blogsQuery, categoriesQuery, dolarQuery } from "@/lib/queries";
+import {
+  blogsQuery,
+  categoriesQuery,
+  dolarQuery,
+  profitabilityQuery,
+} from "@/lib/queries";
 
 export const revalidate = 60 * 60 * 24;
 
@@ -24,7 +29,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [blogs, categories, dolar] = await Promise.all([
+  const [blogs, categories, dolar, profitability] = await Promise.all([
     client.fetch(
       blogsQuery,
       {},
@@ -40,6 +45,11 @@ export default async function RootLayout({
       {},
       { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } }
     ),
+    client.fetch(
+      profitabilityQuery,
+      {},
+      { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } }
+    ),
   ]);
 
   const preloadedState = {
@@ -47,6 +57,7 @@ export default async function RootLayout({
       blogs,
       categories,
       dolar,
+      profitability,
       loading: false,
       error: null,
     },
