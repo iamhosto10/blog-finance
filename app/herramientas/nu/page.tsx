@@ -14,43 +14,43 @@ interface DailyGrowth {
   retencion: number;
 }
 
-const calculateDailyGrowth = (
-  initialAmount: number,
-  days: number,
-  annualRate: number
-): DailyGrowth[] => {
-  const results: DailyGrowth[] = [];
-  const dailyRate = Math.pow(1 + annualRate, 1 / 365) - 1;
-  let amount = initialAmount;
+// const calculateDailyGrowth = (
+//   initialAmount: number,
+//   days: number,
+//   annualRate: number
+// ): DailyGrowth[] => {
+//   const results: DailyGrowth[] = [];
+//   const dailyRate = Math.pow(1 + annualRate, 1 / 365) - 1;
+//   let amount = initialAmount;
 
-  for (let i = 1; i <= days; i++) {
-    const inte = amount * (1 + dailyRate) - amount;
-    const retem = inte > 2588.58 ? parseFloat((inte * 0.07).toFixed(2)) : 0;
-    amount = amount + inte - retem;
-    results.push({
-      day: i,
-      amount: parseFloat(amount.toFixed(2)), // redondeo a 2 decimales
-      interest: parseFloat(inte.toFixed(2)),
-      retencion: retem,
-    });
-  }
+//   for (let i = 1; i <= days; i++) {
+//     const inte = amount * (1 + dailyRate) - amount;
+//     const retem = inte > 2588.58 ? parseFloat((inte * 0.07).toFixed(2)) : 0;
+//     amount = amount + inte - retem;
+//     results.push({
+//       day: i,
+//       amount: parseFloat(amount.toFixed(2)), // redondeo a 2 decimales
+//       interest: parseFloat(inte.toFixed(2)),
+//       retencion: retem,
+//     });
+//   }
 
-  return results;
-};
+//   return results;
+// };
 
 export default function Page() {
   const { profitability } = useSelector((state: RootState) => state.sanity);
   console.log(profitability?.nu);
   const [selected, setSelected] = useState(0);
-  const calculateFinalAmount = (
-    initialAmount: number,
-    days: number,
-    annualRate: number // ejemplo: 0.0925 para 9.25%
-  ): number => {
-    return parseFloat(
-      (initialAmount * Math.pow(1 + annualRate, days / 365)).toFixed(2)
-    );
-  };
+  // const calculateFinalAmount = (
+  //   initialAmount: number,
+  //   days: number,
+  //   annualRate: number // ejemplo: 0.0925 para 9.25%
+  // ): number => {
+  //   return parseFloat(
+  //     (initialAmount * Math.pow(1 + annualRate, days / 365)).toFixed(2)
+  //   );
+  // };
   return (
     <div className="p-6">
       <div className="container md:-mt-6">

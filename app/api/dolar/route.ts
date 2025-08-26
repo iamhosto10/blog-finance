@@ -9,7 +9,7 @@ export async function GET() {
     return NextResponse.json(dolar);
   } catch (err) {
     return NextResponse.json(
-      { error: "Error cargando blogs" },
+      { error: "Error cargando blogs" + err },
       { status: 500 }
     );
   }

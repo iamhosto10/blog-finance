@@ -21,7 +21,7 @@ export async function GET() {
     return NextResponse.json(blogs);
   } catch (err) {
     return NextResponse.json(
-      { error: "Error cargando blogs" },
+      { error: "Error cargando blogs" + err },
       { status: 500 }
     );
   }

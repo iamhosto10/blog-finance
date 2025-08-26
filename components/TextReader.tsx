@@ -78,13 +78,13 @@ export default function TextReaderWithControls({ text }: { text: string }) {
     }
   };
 
-  const stopReading = () => {
-    window.speechSynthesis.cancel();
-    setIsReading(false);
-    setIsPaused(false);
-    setProgress(0);
-    setCurrentCharIndex(0);
-  };
+  // const stopReading = () => {
+  //   window.speechSynthesis.cancel();
+  //   setIsReading(false);
+  //   setIsPaused(false);
+  //   setProgress(0);
+  //   setCurrentCharIndex(0);
+  // };
 
   const skip = (direction: "back" | "forward") => {
     let newIndex = currentCharIndex;

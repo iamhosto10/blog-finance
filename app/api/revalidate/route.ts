@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ revalidated: true });
   } catch (err) {
     return NextResponse.json(
-      { message: "Error revalidating" },
+      { message: "Error revalidating" + err },
       { status: 500 }
     );
   }

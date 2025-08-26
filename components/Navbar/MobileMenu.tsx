@@ -67,7 +67,7 @@ export default function MobileMenu({
                 {label}
               </li>
             ))} */}
-            {menuItems.map((item, index) => {
+            {menuItems.map((item) => {
               const active = activeMenu === item.label;
               return (
                 <>

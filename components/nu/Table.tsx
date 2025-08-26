@@ -62,8 +62,8 @@ const CalculatorNu = ({
     setDays(convertNumbertoString(newValue));
   }
 
-  const handleChange = (e) => {
-    setSelected(e.target.value);
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelected(Number(e.target.value));
   };
   return (
     <div className="space-y-8">
