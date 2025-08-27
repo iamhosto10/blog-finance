@@ -21,7 +21,7 @@ const Footer = () => {
             alt="Wallet en la nube"
             width={320}
             height={320}
-            className="rounded-2xl lg:block md:hidden"
+            className="rounded-2xl lg:block hidden"
           />
           <div className="hidden md:flex gap-4">
             <span className="font-semibold font-agrandir text-xl self-end">
