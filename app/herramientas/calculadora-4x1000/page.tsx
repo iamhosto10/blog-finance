@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calculator } from "@/components/Calculator";
+import { Calculator } from "@/components/4x1000/Calculator";
 import { InfoSection } from "@/components/CommonComponents/InfoSection/InfoSection";
 import { FAQ } from "@/components/CommonComponents/FAQ/FAQ";
 import Tag from "@/components/CommonComponents/Tag";
@@ -75,9 +75,9 @@ export default function Page() {
             <Tag title="HERRAMIENTAS" />
           </div>
           <img
-            src="/assets/4x1000/4x1000.webp"
+            src="/assets/4x1000/4x1000.png"
             alt="4x1000"
-            className="mx-auto max-w-5/6 md:max-w-3/6 lg:max-w-2/6 self-"
+            className="mx-auto max-w-5/6 md:max-w-3/6 lg:max-w-2/6"
           />
           <div className="h-auto hidden md:block ">
             <p className="text-sm lg:text-lg bg-background text-background px-2 py-1 rounded-full font-agrandir font-bold cursor-default">

@@ -14,8 +14,8 @@ export default function Logo({ small = false }: LogoProps) {
         <Image
           src="/assets/Layout/Navbar/logop.png"
           alt="Logo"
-          width={small ? 80 : 180}
-          height={small ? 80 : 180}
+          width={small ? 80 : 250}
+          height={small ? 80 : 250}
           className="rounded-lg"
         />
       </Link>

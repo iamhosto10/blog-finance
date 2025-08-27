@@ -47,7 +47,7 @@ const DolarConversor = ({ dolar }: { dolar: Dolar }) => {
           <h4 className="text-sm text-secondary font-canva-sans font-bold">
             Cantidad
           </h4>
-          <div className="group flex items-center border-2 border-purple-200 rounded-lg px-3 py-2 bg-background w-full  hover:border-purple-500 focus-within:border-purple-500 pr-9 md:pr-8 xl:pr-5">
+          <div className="group flex items-center border-2 border-green-200 rounded-lg px-3 py-2 bg-background w-full  hover:border-green-500 focus-within:border-green-500 pr-9 md:pr-8 xl:pr-5">
             <DollarSignIcon strokeWidth={3} />
             {/* Campo de entrada */}
             <input
@@ -74,7 +74,7 @@ const DolarConversor = ({ dolar }: { dolar: Dolar }) => {
           <h4 className="text-sm text-secondary font-canva-sans font-bold">
             Cantidad
           </h4>
-          <div className="group flex items-center gap-2 border-2 border-purple-200 rounded-lg px-3 py-2 bg-background w-full  hover:border-purple-500 focus-within:border-purple-500 pr-9 md:pr-8 xl:pr-5">
+          <div className="group flex items-center gap-2 border-2 border-green-200 rounded-lg px-3 py-2 bg-background w-full  hover:border-green-500 focus-within:border-green-500 pr-9 md:pr-8 xl:pr-5">
             <DollarSignIcon strokeWidth={3} />
             {/* Campo de entrada */}
             <input

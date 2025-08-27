@@ -21,7 +21,7 @@ export default function BlogArticle() {
 
   return (
     <div className="container md:-mt-6">
-      <h1 className="font-agrandir font-bold text-secondary text-3xl  md:text-4xl">
+      <h1 className="font-agrandir font-bold text-secondary text-3xl  md:text-4xl text-center">
         {data?.title} <span className="text-primary">{data?.focusTitle}</span>{" "}
         {data?.continueTitle}
       </h1>

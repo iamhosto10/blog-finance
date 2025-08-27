@@ -48,7 +48,7 @@ export default function DesktopMenu({
               className="font-semibold text-white  drop-shadow-md"
             >
               <div className="w-full text-center transition-all">
-                <h2 className="relative w-auto line-clamp-1">
+                <h2 className="relative w-auto line-clamp-1 text-lg">
                   {item.label}
                   {isActive && (
                     <span className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-transparent border-b-background" />

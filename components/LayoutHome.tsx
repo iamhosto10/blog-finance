@@ -15,7 +15,7 @@ const LayoutHome = ({ children }: { children: React.ReactNode }) => {
       <div className="my-6 mx-5 pb-10 lg:my-10 lg:mx-12 bg-background rounded-4xl">
         <Navbar open={open} setOpen={setOpen} pathname={pathname[1]} />
         {!open && (
-          <main className="w-full mx-auto pt-8 lg:pt-28 md:pb-10">
+          <main className="w-full mx-auto pt-8 lg:pt-36 md:pb-10">
             {children}
           </main>
         )}

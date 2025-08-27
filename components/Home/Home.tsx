@@ -17,9 +17,9 @@ export default function Home() {
   const data: Blog[] = blogs;
   return (
     <>
-      <div className="container">
-        <Header />
+      <Header />
 
+      <div className="container">
         <IntroductionSection />
         <PostPreviewCardHorizontal />
         <News title={"Ultimas noticias"} data={data} />

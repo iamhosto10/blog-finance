@@ -71,7 +71,7 @@ const CalculatorNu = ({
         <h3 className="text-sm text-secondary font-canva-sans font-bold">
           Valor a invertir
         </h3>
-        <div className="group flex items-center gap-2 border-2 border-purple-200 rounded-lg px-3 py-2 bg-background md:w-2/5  hover:border-purple-500 focus-within:border-purple-500">
+        <div className="group flex items-center gap-2 border-2 border-green-200 rounded-lg px-3 py-2 bg-background md:w-2/5  hover:border-green-500 focus-within:border-green-500">
           <DollarSignIcon />
           {/* Campo de entrada */}
           <input
@@ -87,7 +87,7 @@ const CalculatorNu = ({
           <h3 className="text-sm text-secondary font-canva-sans font-bold">
             Rentabilidad
           </h3>
-          <div className="group flex items-center gap-2 border-2 border-purple-200 rounded-lg px-3 py-2 bg-background md:w-2/5  hover:border-purple-500 focus-within:border-purple-500">
+          <div className="group flex items-center gap-2 border-2 border-green-200 rounded-lg px-3 py-2 bg-background md:w-2/5  hover:border-green-500 focus-within:border-green-500">
             {/* Campo de entrada */}
             <select
               className="text-black font-bold outline-none w-full"
@@ -107,7 +107,7 @@ const CalculatorNu = ({
         <h3 className="text-sm text-secondary font-canva-sans font-bold">
           Periodo (dias)
         </h3>
-        <div className="group flex items-center gap-2 border-2 border-purple-200 rounded-lg px-3 py-2 bg-background md:w-2/5  hover:border-purple-500 focus-within:border-purple-500">
+        <div className="group flex items-center gap-2 border-2 border-green-200 rounded-lg px-3 py-2 bg-background md:w-2/5  hover:border-green-500 focus-within:border-green-500">
           <input
             type="string"
             value={days}
