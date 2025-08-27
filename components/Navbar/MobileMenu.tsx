@@ -40,15 +40,15 @@ export default function MobileMenu({
           <Logo small />
           {/* Logo pequeño se importa desde el padre */}
           <div className="flex items-center gap-4">
-            <SearchIcon className="text-secondary w-6 h-6 cursor-pointer" />
+            <SearchIcon className="text-primary w-6 h-6 cursor-pointer" />
             {open ? (
               <XIcon
-                className="w-6 h-6 text-secondary cursor-pointer"
+                className="w-6 h-6 text-primary cursor-pointer"
                 onClick={() => setOpen(false)}
               />
             ) : (
               <MenuIcon
-                className="w-6 h-6 text-secondary cursor-pointer"
+                className="w-6 h-6 text-primary cursor-pointer"
                 onClick={() => setOpen(true)}
               />
             )}

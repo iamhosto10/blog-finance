@@ -14,14 +14,21 @@ interface MenuItem {
 interface DesktopMenuProps {
   menuItems: MenuItem[];
   pathname: string;
+  first?: boolean;
 }
 
-export default function DesktopMenu({ menuItems, pathname }: DesktopMenuProps) {
+export default function DesktopMenu({
+  menuItems,
+  pathname,
+  first = false,
+}: DesktopMenuProps) {
   const [activeMenu, setActiveMenu] = useState("");
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
 
   return (
-    <div className="w-full flex justify-between self-end bg-primary-background px-8 py-2 rounded-lg rounded-l-none relative top-[-50px]">
+    <div
+      className={`flex w-full justify-evenly  bg-primary-background py-2 rounded-lg ${first ? "rounded-r-none items-start pr-28" : "rounded-l-none items-end pl-24"}  relative top-[-10px]`}
+    >
       {menuItems.map((item, index) => {
         const isActive =
           activeMenu === item.label ||
@@ -31,7 +38,7 @@ export default function DesktopMenu({ menuItems, pathname }: DesktopMenuProps) {
         return (
           <div
             key={item.label}
-            className="relative w-1/4 h-full"
+            className="relative w-2/5 h-full"
             onMouseEnter={() => setHoveredMenu(item.label)}
             onMouseLeave={() => setHoveredMenu(null)}
           >
@@ -41,7 +48,7 @@ export default function DesktopMenu({ menuItems, pathname }: DesktopMenuProps) {
               className="font-semibold text-white  drop-shadow-md"
             >
               <div className="w-full text-center transition-all">
-                <h2 className="relativew-auto">
+                <h2 className="relative w-auto line-clamp-1">
                   {item.label}
                   {isActive && (
                     <span className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-transparent border-b-background" />

@@ -7,10 +7,12 @@ interface LogoProps {
 
 export default function Logo({ small = false }: LogoProps) {
   return (
-    <div className={`flex items-center ${small && "gap-2 relative -bottom-5"}`}>
+    <div
+      className={`flex items-center ${small && "gap-2 relative -bottom-5"} ${!small && "absolute left-1/2 -translate-x-1/2 z-30"}`}
+    >
       <Link href="/">
         <Image
-          src="/assets/Layout/Navbar/logo.jpeg"
+          src="/assets/Layout/Navbar/logop.png"
           alt="Logo"
           width={small ? 80 : 180}
           height={small ? 80 : 180}

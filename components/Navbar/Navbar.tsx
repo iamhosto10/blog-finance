@@ -54,9 +54,14 @@ export default function Navbar({ open, setOpen, pathname }: NavbarProps) {
   return (
     <header>
       {/* Desktop */}
-      <nav className="hidden lg:flex w-full items-center px-6 relative top-[-80px] z-10">
+      <nav className="hidden lg:flex w-full items-center relative z-10 px-3">
+        <DesktopMenu
+          menuItems={menuItems.slice(0, 2)}
+          pathname={pathname}
+          first
+        />
         <Logo />
-        <DesktopMenu menuItems={menuItems} pathname={pathname} />
+        <DesktopMenu menuItems={menuItems.slice(2, 4)} pathname={pathname} />
       </nav>
 
       {/* Mobile */}

@@ -5,12 +5,12 @@ import { ReactSVG } from "react-svg";
 
 const Footer = () => {
   return (
-    <footer className="bg-tertiary text-background px-10 md:px-20 py-10 self-end">
+    <footer className="bg-primary-background text-background px-10 md:px-20 py-10 self-end">
       <div className="container mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
         {/* Imagen */}
         <div className="flex flex-col flex-shrink-0 gap-8">
           <Image
-            src="/assets/Layout/Navbar/logo.jpeg" // Cambia por tu imagen
+            src="/assets/Layout/Navbar/logop.png" // Cambia por tu imagen
             alt="Wallet en la nube"
             width={300}
             height={300}
