@@ -1,8 +1,6 @@
 "use client";
 
 import News from "../News/News";
-
-import RecommendedTags from "../RecomendedTags/RecomendedTags";
 import Simulators from "../Simulators/Simulators";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
@@ -18,18 +16,16 @@ export default function Home() {
   return (
     <>
       <Header />
-
       <div className="container">
         <IntroductionSection />
         <PostPreviewCardHorizontal />
-        <News title={"Ultimas noticias"} data={data} />
+        <News data={data} />
         <div className="w-full shadow-2xl rounded-xl p-6 bg-tertiary-foreground my-6">
           <Simulators />
         </div>
-
         <div className="flex flex-col lg:flex-row py-10 gap-8">
           <ArticleHome />
-          <RecommendedTags />
+          {/* <RecommendedTags /> */}
         </div>
       </div>
     </>

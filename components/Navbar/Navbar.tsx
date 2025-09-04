@@ -8,8 +8,8 @@ export type SubCategory = { label: string; href: string };
 
 const menuItems = [
   {
-    label: "BLOG",
-    href: "/blog",
+    label: "FINANZAS PERSONALES",
+    href: "/finanzas-personales",
     subCategories: [
       { label: "Artículos recientes", href: "/blog/recientes" },
       { label: "Opinión", href: "/blog/opinion" },
@@ -17,7 +17,7 @@ const menuItems = [
     ],
   },
   {
-    label: "NOTICIAS",
+    label: "ECONOMIA HOY",
     href: "/noticias",
     subCategories: [
       { label: "Últimas noticias", href: "/noticias/ultimas" },
@@ -26,7 +26,7 @@ const menuItems = [
     ],
   },
   {
-    label: "TIPS & HACKS",
+    label: "TIPS FINANCIERO",
     href: "/tips-hacks",
     subCategories: [
       { label: "Ahorro", href: "/tips/ahorro" },
@@ -34,7 +34,7 @@ const menuItems = [
     ],
   },
   {
-    label: "HERRAMIENTAS",
+    label: "CALCULADORAS",
     href: "/herramientas",
     subCategories: [
       { label: "Calculadora 4x1000", href: "/herramientas/calculadora-4x1000" },
@@ -54,7 +54,7 @@ export default function Navbar({ open, setOpen, pathname }: NavbarProps) {
   return (
     <header>
       {/* Desktop */}
-      <nav className="hidden lg:flex w-full items-center relative z-10 px-3">
+      <nav className="hidden lg:flex w-full items-center relative z-10 px-1">
         <DesktopMenu
           menuItems={menuItems.slice(0, 2)}
           pathname={pathname}

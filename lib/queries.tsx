@@ -11,7 +11,8 @@ export const blogsQuery = `*[_type == "blog"]{
     body,
     categories[]->{
       _id,
-      title
+      title,
+      slug
     },
     relatedNews[]->{
       _id,

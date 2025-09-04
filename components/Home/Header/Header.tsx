@@ -8,7 +8,7 @@ const Header = () => {
     relative hidden md:flex flex-row justify-between items-center
     w-full h-[250px] md:h-[400px] lg:h-[600px] 2xl:h-[1000px]
     bg-[url('/assets/Header/headerBackground.png')] bg-contain bg-no-repeat bg-center
-    -mt-12 mb-6 lg:top-[-60px] z-0 lg:px-12
+    -mt-20 lg:top-[-60px] z-0 lg:px-12
   "
       >
         {/* Texto principal */}
@@ -62,7 +62,7 @@ const Header = () => {
         className="relative md:hidden flex flex-col items-center justify-between
     w-full h-[70vh]
     bg-[url('/assets/Header/headerBackgroundMobile.png')] bg-cover bg-no-repeat bg-center
-    -mt-12 mb-6 z-0"
+    -mt-20 mb-6 z-0"
       >
         <div className="flex flex-col h-auto w-full px-10 items-center text-center">
           {/* Título con ícono */}

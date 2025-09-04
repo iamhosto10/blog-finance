@@ -23,16 +23,13 @@ const ArticleHome = () => {
     excerpt,
   } = blogs[0];
   return (
-    <div className="flex flex-col gap-4 w-full lg:w-2/3">
+    <div className="flex flex-col gap-4 w-full ">
       <h2 className="font-agrandir font-bold text-2xl lg:text-3xl text-secondary text-left line-clamp-3 lg:line-clamp-2 ">
         {title}
         <span className="text-primary"> {focusTitle}</span>
         {continueTitle}
       </h2>
       <div className="flex flex-row w-full justify-start gap-2">
-        {/* <h3 className="text-sm lg:text-md bg-primary-foreground text-background px-2 py-1 rounded-full font-agrandir font-bold text-shadow-lg  text-shadow-black/20">
-          {categories && categories[0]?.title}
-        </h3> */}
         <Tag title={categories && categories[0]?.title} />
         <p className="text-sm text-tertiary my-auto font-canva-sans font-bold">
           {new Date(

@@ -6,17 +6,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { urlFor } from "@/lib/sanity";
 
-// interface IPostPreviewCardHorizontal {
-//   src: string;
-//   title: string;
-//   continueTitle: string;
-//   focusTitle: string;
-//   categories: string;
-//   publishedAt: string;
-//   excerpt: string;
-//   slug: string;
-// }
-
 const PostPreviewCardHorizontal = () => {
   const { blogs } = useSelector((state: RootState) => state.sanity);
   if (!blogs[0]) {
@@ -33,12 +22,14 @@ const PostPreviewCardHorizontal = () => {
     categories,
     excerpt,
   } = blogs[0];
-
+  const titleComplete = [title, focusTitle, continueTitle]
+    .filter(Boolean)
+    .join(" ");
   return (
     <div className=" flex flex-col lg:flex-row gap-10 my-10">
       <img
         src={urlFor(mainImage).url()}
-        alt={title + " " + focusTitle + " " + continueTitle}
+        alt={titleComplete}
         className="rounded-md w-full lg:w-2/5"
       />
       <div className="flex flex-col gap-4">

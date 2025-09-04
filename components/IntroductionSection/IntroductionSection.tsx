@@ -3,7 +3,7 @@ import { Card, CardContent } from "../ui/card";
 
 const IntroductionSection = () => {
   return (
-    <Card className="shadow-xl bg-tertiary-foreground w-full my-10 lg:my-16">
+    <Card className="shadow-xl bg-tertiary-foreground w-full mb-10 lg:mb-16">
       <CardContent className="p-3 md:p-5 lg:p-8">
         <h2 className="font-agrandir font-bold text-secondary text-xl text-center  md:text-2xl lg:text-3xl">
           ¿QUE ENCONTRARAS EN LA <span className="text-primary">PAGINA</span> ?

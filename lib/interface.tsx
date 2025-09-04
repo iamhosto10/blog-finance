@@ -23,7 +23,7 @@ export interface Blog {
   excerpt?: string;
   audioUrl?: string;
   body: BodySection[];
-  categories?: { _id: string; title: string }[];
+  categories?: { _id: string; title: string; slug: { current: string } }[];
   relatedNews?: Blog[];
 }
 
