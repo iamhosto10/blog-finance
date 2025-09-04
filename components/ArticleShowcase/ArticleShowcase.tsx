@@ -60,6 +60,7 @@ export default function ArticleShowcase() {
       <div className="flex flex-col gap-6 lg:col-span-7">
         {blogs.slice(1, 4).map((article) => (
           <Link
+            key={article._id}
             href={`/${article?.categories ? article?.categories[0]?.slug.current : ""}/${article.slug?.current}`}
             className="w-full flex flex-col justify-between gap-1 hover:scale-110 transition-all"
           >
