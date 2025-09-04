@@ -21,7 +21,7 @@ export default function ArticleShowcase() {
     .join(" ");
 
   return (
-    <section className="w-full grid gap-4 lg:grid-cols-12">
+    <section className="w-full grid gap-10 lg:grid-cols-12">
       {/* Artículo principal */}
       <Link
         href={`/${blogs[0]?.categories ? blogs[0]?.categories[0]?.slug.current : ""}/${blogs[0].slug?.current}`}
