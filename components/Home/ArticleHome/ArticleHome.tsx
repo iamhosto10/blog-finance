@@ -67,7 +67,9 @@ const ArticleHome = () => {
         className="rounded-full cursor-pointer self-end items-center hover:scale-115 transition-all"
         asChild
       >
-        <Link href={`/blog/${slug.current}`}>
+        <Link
+          href={`/${blogs[0]?.categories ? blogs[0]?.categories[0]?.slug.current : ""}/${blogs[0].slug?.current}`}
+        >
           <p className="text-shadow-lg  text-shadow-black/20 font-agrandir font-bold ">
             Leer mas {">>"}
           </p>

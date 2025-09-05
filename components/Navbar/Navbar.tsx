@@ -32,7 +32,7 @@ const menuItems = [
     ],
   },
   {
-    label: "TIPS FINANCIERO",
+    label: "TIPS FINANCIEROS",
     href: "/tips-hacks",
     subCategories: [
       { label: "Cajeros y bancos", href: "/tips/ahorro" },
