@@ -77,7 +77,10 @@ export default function BlogArticle() {
                 </h2>
               )}
               {section.body && (
-                <p key={index} className="font-canva-sans text-tertiary mb-4">
+                <p
+                  key={index}
+                  className="font-canva-sans text-tertiary mb-4 whitespace-pre-line"
+                >
                   {section.body}
                 </p>
               )}

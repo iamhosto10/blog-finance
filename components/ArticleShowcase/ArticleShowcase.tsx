@@ -37,7 +37,7 @@ export default function ArticleShowcase() {
           </div>
           <h2 className="mt-4 text-sm md:text-lg text-secondary font-agrandir font-bold text-left line-clamp-3 lg:line-clamp-2 ">
             {blogs[0].title}
-            <span className="text-primary"> {blogs[0].focusTitle}</span>
+            <span className="text-primary"> {blogs[0].focusTitle} </span>
             {blogs[0].continueTitle}
           </h2>
           {/* <p className="mt-2 text-sm text-secondary">
