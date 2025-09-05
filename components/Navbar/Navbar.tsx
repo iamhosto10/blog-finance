@@ -21,7 +21,7 @@ const menuItems = [
   },
   {
     label: "ECONOMIA HOY",
-    href: "/noticias",
+    href: "/economia-hoy",
     subCategories: [
       { label: "Bancos en Colombia", href: "/noticias/ultimas" },
       { label: "Cripto y nuevas tecnologías", href: "/noticias/economia" },
@@ -33,7 +33,7 @@ const menuItems = [
   },
   {
     label: "TIPS FINANCIEROS",
-    href: "/tips-hacks",
+    href: "/tips-financieros",
     subCategories: [
       { label: "Cajeros y bancos", href: "/tips/ahorro" },
       { label: "Compras y ahorro diario", href: "/tips/productividad" },
@@ -48,7 +48,7 @@ const menuItems = [
   },
   {
     label: "CALCULADORAS",
-    href: "/herramientas",
+    href: "/calculadoras",
     subCategories: [
       {
         label: "Calculadora de rentabilidad",

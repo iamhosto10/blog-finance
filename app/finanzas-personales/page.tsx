@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     "Finanzas en pareja",
     "educacion",
   ],
+  icons: { icon: "/favicon.ico" },
   openGraph: {
     title: "Finanzas Personales",
     description:
@@ -59,10 +60,10 @@ const page = () => {
           reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
           pariatur.
         </p>
-        <ArticleShowcase />
-        <ArticleList />
-        <ArticleShowcase />
-        <ArticleList />
+        <ArticleShowcase category="Finanzas Personales" />
+        <ArticleList category="Finanzas Personales" />
+        <ArticleShowcase category="Finanzas Personales" />
+        <ArticleList category="Finanzas Personales" indexes={[6, 12]} />
       </div>
     </>
   );

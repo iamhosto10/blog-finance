@@ -5,17 +5,26 @@ import { RootState } from "@/store/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
-export default function ArticleShowcase() {
+const ArticleShowcase = ({ category }: { category: string }) => {
   const { blogs } = useSelector((state: RootState) => state.sanity);
 
   if (!blogs[0]) {
     return <div className="w-full lg:w-2/3"></div>;
   }
+  const newBlogs = blogs.filter((blog) =>
+    blog.categories?.some(
+      (cat) => cat.title.toLowerCase() === category.toLowerCase()
+    )
+  );
+
+  console.log("blogs", blogs);
+
+  if (newBlogs.length <= 0) return null;
 
   const titleComplete = [
-    blogs[0].title,
-    blogs[0].focusTitle,
-    blogs[0].continueTitle,
+    newBlogs[0]?.title,
+    newBlogs[0]?.focusTitle,
+    newBlogs[0]?.continueTitle,
   ]
     .filter(Boolean)
     .join(" ");
@@ -24,7 +33,7 @@ export default function ArticleShowcase() {
     <section className="w-full grid gap-10 lg:grid-cols-12">
       {/* Artículo principal */}
       <Link
-        href={`/${blogs[0]?.categories ? blogs[0]?.categories[0]?.slug.current : ""}/${blogs[0].slug?.current}`}
+        href={`/${newBlogs[0]?.categories ? newBlogs[0]?.categories[0]?.slug.current : ""}/${newBlogs[0]?.slug?.current ?? " "}`}
         className="lg:col-span-5 hover:scale-110 transition-all"
       >
         <div className="">
@@ -36,29 +45,20 @@ export default function ArticleShowcase() {
             />
           </div>
           <h2 className="mt-4 text-sm md:text-lg text-secondary font-agrandir font-bold text-left line-clamp-3 lg:line-clamp-2 ">
-            {blogs[0].title}
-            <span className="text-primary"> {blogs[0].focusTitle} </span>
-            {blogs[0].continueTitle}
+            {newBlogs[0].title}
+            <span className="text-primary"> {newBlogs[0].focusTitle} </span>
+            {newBlogs[0].continueTitle}
           </h2>
-          {/* <p className="mt-2 text-sm text-secondary">
-          {new Date(
-            blogs[0].publishedAt ? blogs[0].publishedAt.slice(0, 10) : ""
-          ).toLocaleDateString("es-ES", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-          })}
-        </p> */}
-          {blogs[0].excerpt && (
+          {newBlogs[0].excerpt && (
             <p className="mt-2 text-tertiary line-clamp-3 hidden lg:line-clamp-4">
-              {blogs[0].excerpt}
+              {newBlogs[0].excerpt}
             </p>
           )}
         </div>
       </Link>
       {/* Lista de artículos secundarios */}
       <div className="flex flex-col gap-6 lg:col-span-7">
-        {blogs.slice(1, 4).map((article) => (
+        {newBlogs.slice(1, 4).map((article) => (
           <Link
             key={article._id}
             href={`/${article?.categories ? article?.categories[0]?.slug.current : ""}/${article.slug?.current}`}
@@ -100,4 +100,6 @@ export default function ArticleShowcase() {
       </div>
     </section>
   );
-}
+};
+
+export default ArticleShowcase;

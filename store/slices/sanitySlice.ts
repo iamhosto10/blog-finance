@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Blog, Category, Dolar, Profitability } from "@/lib/interface";
-import Page from "../../app/herramientas/nu/page";
 
 export interface SanityState {
   blogs: Blog[];
