@@ -1,46 +1,15 @@
 "use client";
 
+import Profitability from "@/components/CommonComponents/Profitability/Profitability";
 import Tag from "@/components/CommonComponents/Tag";
-import TableNu from "@/components/nu/Table";
 import { Card, CardContent } from "@/components/ui/card";
 import { RootState } from "@/store/store";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-interface DailyGrowth {
-  day: number;
-  amount: number;
-  interest: number;
-  retencion: number;
-}
-
-// const calculateDailyGrowth = (
-//   initialAmount: number,
-//   days: number,
-//   annualRate: number
-// ): DailyGrowth[] => {
-//   const results: DailyGrowth[] = [];
-//   const dailyRate = Math.pow(1 + annualRate, 1 / 365) - 1;
-//   let amount = initialAmount;
-
-//   for (let i = 1; i <= days; i++) {
-//     const inte = amount * (1 + dailyRate) - amount;
-//     const retem = inte > 2588.58 ? parseFloat((inte * 0.07).toFixed(2)) : 0;
-//     amount = amount + inte - retem;
-//     results.push({
-//       day: i,
-//       amount: parseFloat(amount.toFixed(2)), // redondeo a 2 decimales
-//       interest: parseFloat(inte.toFixed(2)),
-//       retencion: retem,
-//     });
-//   }
-
-//   return results;
-// };
-
-export default function Page() {
+const Page = () => {
   const { profitability } = useSelector((state: RootState) => state.sanity);
-  console.log(profitability?.nu);
+  console.log(profitability?.lulo);
   const [selected, setSelected] = useState(0);
   // const calculateFinalAmount = (
   //   initialAmount: number,
@@ -58,10 +27,11 @@ export default function Page() {
           <section className="text-center space-y-4 w-5/6 mx-auto">
             <h1 className="font-agrandir font-bold text-secondary text-3xl  md:text-4xl">
               CALCULADORA DE <span className="text-primary">RENTABILIDAD</span>{" "}
-              DE NU
+              DE LULO
             </h1>
             <p className="text-lg text-tertiary font-canva-sans">
-              Tasa de {(Number(profitability?.nu[selected]) * 100).toFixed(2)} %
+              Tasa de {(Number(profitability?.lulo[selected]) * 100).toFixed(2)}{" "}
+              %
             </p>
           </section>
           <div className="flex flex-col md:flex-row max-md:gap-5 w-full justify-start">
@@ -70,8 +40,8 @@ export default function Page() {
             </div>
             <div className="relative max-w-4/6 md:max-w-3/6 lg:max-w-2/6 mx-auto my-8">
               <img
-                src="/assets/nu/logonu.png"
-                alt="nu"
+                src="/assets/lulo/lulo.png"
+                alt="lulo"
                 className="mx-auto w-full"
               />
               <div className="absolute -top-5 -right-5 md:-top-7 md:-right-7 size-10 md:size-14">
@@ -91,15 +61,22 @@ export default function Page() {
 
           <Card className="shadow-xl bg-tertiary-foreground">
             <CardContent className="p-3 md:p-5 lg:p-8">
-              <TableNu
-                profitabilityNu={profitability?.nu}
+              <Profitability
+                profitability={profitability?.lulo}
                 selected={selected}
                 setSelected={setSelected}
               />
+              {/* <TableNu
+                profitabilityNu={profitability?.nu}
+                selected={selected}
+                setSelected={setSelected}
+              /> */}
             </CardContent>
           </Card>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default Page;

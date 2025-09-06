@@ -99,3 +99,44 @@ export const calculateFinalAmount = (
     (initialAmount * Math.pow(1 + annualRate, days / 365)).toFixed(2)
   );
 };
+
+export const calculatefinalAmountLulo = (
+  eaPercent: number,
+  monthsCount: number,
+  capital: number
+) => {
+  const EA = Number(eaPercent) / 100;
+  const n = Math.max(0, Math.floor(Number(monthsCount)));
+  const P = Number(capital);
+  if (!isFinite(EA) || !isFinite(n) || !isFinite(P) || P < 0 || n < 0)
+    return null;
+
+  const i_mes = Math.pow(1 + EA, 1 / 12) - 1; // tasa mensual efectiva
+  const daysPerMonth = 30;
+
+  // Monto bruto compuesto (sin descontar retenciones)
+  const montoBruto = P * Math.pow(1 + i_mes, n);
+
+  // Calcular retención acumulada (según regla por día)
+  let retencion = 0;
+  for (let m = 0; m < n; m++) {
+    const saldoInicioMes = P * Math.pow(1 + i_mes, m);
+    const gananciaDiaria = (saldoInicioMes * i_mes) / daysPerMonth;
+    if (gananciaDiaria > 2739) {
+      const retDiaria = 0.07 * gananciaDiaria;
+      retencion += daysPerMonth * retDiaria;
+    }
+  }
+
+  const retencionRounded = Math.round(retencion);
+  const montoFinal = Math.round(montoBruto - retencionRounded);
+
+  return {
+    eaPercent: Number(eaPercent),
+    i_mes,
+    gananciaDiariaAprox: (P * i_mes) / daysPerMonth,
+    montoBruto,
+    retencion: retencionRounded,
+    montoFinal,
+  };
+};
