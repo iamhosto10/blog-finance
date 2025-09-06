@@ -7,7 +7,7 @@ const Info = ({ title, description }: IInfoProps) => {
       <h2 className="text-2xl font-bold font-agrandir text-tertiary">
         {title}
       </h2>
-      <p className="font-canva-sans text-tertiary text-justify">
+      <p className="font-canva-sans text-tertiary text-justify whitespace-pre-line">
         {description}
       </p>
     </div>
