@@ -49,7 +49,7 @@ export default function BlogArticle() {
               " " +
               (data?.continueTitle || "")
             }
-            className="rounded-md w-full"
+            className="rounded-md w-full object-cover"
           />
         )}
         {data?.miniatureImage && (

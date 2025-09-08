@@ -41,7 +41,7 @@ const ArticleShowcase = ({ category }: { category: string }) => {
             <img
               src={urlFor(newBlogs[0].mainImage).url()}
               alt={titleComplete}
-              className="rounded-md w-full h-auto"
+              className="rounded-md w-full h-auto object-cover"
             />
           </div>
           <h2 className="mt-4 text-sm md:text-lg text-secondary font-agrandir font-bold text-left line-clamp-3 lg:line-clamp-2 ">

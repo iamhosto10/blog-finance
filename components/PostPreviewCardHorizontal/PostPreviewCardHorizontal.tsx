@@ -35,7 +35,7 @@ const PostPreviewCardHorizontal = () => {
           <img
             src={urlFor(mainImage).url()}
             alt={titleComplete}
-            className="rounded-md w-full lg:w-2/5"
+            className="rounded-md w-full lg:w-2/5 object-cover"
           />
           <div className="flex flex-col gap-4">
             <h2 className="font-agrandir font-bold text-xl text-secondary text-left line-clamp-3 lg:line-clamp-2 ">

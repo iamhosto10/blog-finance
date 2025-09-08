@@ -46,7 +46,7 @@ const ArticleHome = () => {
           <img
             src={urlFor(mainImage).url()}
             alt={title + " " + (focusTitle || "") + " " + (continueTitle || "")}
-            className="rounded-md w-full"
+            className="rounded-md w-full object-cover"
           />
         )}
         {miniatureImage && (
