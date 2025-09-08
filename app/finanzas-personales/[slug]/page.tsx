@@ -8,6 +8,72 @@ import { useParams } from "next/navigation";
 import AudioPlayer from "@/components/MusicPlayer/MusicPlayer";
 import Tag from "@/components/CommonComponents/Tag";
 import News from "@/components/News/News";
+import { Metadata } from "next";
+import { client } from "@/lib/sanity";
+
+async function getPost(slug: string) {
+  return client.fetch(
+    `*[_type == "blog" && slug.current == $slug][0]{
+    title,
+    focusTitle,
+    continueTitle,
+    slug,
+    publishedAt,
+    mainImage,
+    miniatureImage,
+    excerpt,
+    audio,
+    body,
+    categories[]->{
+      _id,
+      title,
+      slug
+    },
+    relatedNews[]->{
+      _id,
+      title,
+      slug,
+      mainImage,
+      excerpt,
+      publishedAt
+    }
+  }`,
+    { slug }
+  );
+}
+
+// Generar metadata dinámico
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const post: Blog = await getPost(params.slug);
+
+  if (!post) {
+    return {
+      title: "Blog not found",
+      description: "This blog post does not exist.",
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    icons: { icon: "/favicon.ico" },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      images: [urlFor(post?.mainImage).url()],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [urlFor(post?.mainImage).url()],
+    },
+  };
+}
 
 export default function BlogArticle() {
   const { slug } = useParams<{ slug: string }>();
