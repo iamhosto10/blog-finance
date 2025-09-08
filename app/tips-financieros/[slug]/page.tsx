@@ -49,17 +49,20 @@ export async function generateMetadata(props: {
   }
 
   return {
-    title: post.title,
+    title: post.title + " " + post.focusTitle + " " + post.continueTitle,
+
     description: post.excerpt,
     icons: { icon: "/favicon.ico" },
     openGraph: {
-      title: post.title,
+      title: post.title + " " + post.focusTitle + " " + post.continueTitle,
+
       description: post.excerpt,
       images: [urlFor(post?.mainImage).url()],
     },
     twitter: {
       card: "summary_large_image",
-      title: post.title,
+      title: post.title + " " + post.focusTitle + " " + post.continueTitle,
+
       description: post.excerpt,
       images: [urlFor(post?.mainImage).url()],
     },
