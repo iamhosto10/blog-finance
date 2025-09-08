@@ -26,7 +26,7 @@ const ArticleHome = () => {
     <div className="flex flex-col gap-4 w-full ">
       <h2 className="font-agrandir font-bold text-2xl lg:text-3xl text-secondary text-left line-clamp-3 lg:line-clamp-2 ">
         {title}
-        <span className="text-primary"> {focusTitle}</span>
+        <span className="text-primary"> {focusTitle} </span>
         {continueTitle}
       </h2>
       <div className="flex flex-row w-full justify-start gap-2">
@@ -68,7 +68,7 @@ const ArticleHome = () => {
         asChild
       >
         <Link
-          href={`/${blogs[0]?.categories ? blogs[0]?.categories[0]?.slug.current : ""}/${blogs[0].slug?.current}`}
+          href={`/${blogs[0]?.categories ? blogs[0]?.categories[0]?.slug.current : ""}/${slug?.current}`}
         >
           <p className="text-shadow-lg  text-shadow-black/20 font-agrandir font-bold ">
             Leer mas {">>"}

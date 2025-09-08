@@ -61,9 +61,9 @@ const page = () => {
           pariatur.
         </p>
         <ArticleShowcase category="Finanzas Personales" />
-        <ArticleList category="Finanzas Personales" />
+        <ArticleList category="Finanzas Personales" indexes={[0, 3]} />
         <ArticleShowcase category="Finanzas Personales" />
-        <ArticleList category="Finanzas Personales" indexes={[6, 12]} />
+        <ArticleList category="Finanzas Personales" indexes={[3, 12]} />
       </div>
     </>
   );

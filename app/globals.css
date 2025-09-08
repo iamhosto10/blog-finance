@@ -33,6 +33,7 @@
   --color-muted: var(--muted);
   --color-tertiary-foreground: var(--tertiary-foreground);
   --color-tertiary: var(--tertiary);
+  --color-secondary-background: var(--secondary-background);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-background: var(--primary-background);
@@ -63,7 +64,7 @@
   --primary-background: oklch(0.53 0.12 147.5);
   --secondary: oklch(0.53 0.12 147.5); /* Gris neutro azulado */
   --secondary-foreground: oklch(0.92 0.01 280);
-  --secondary-background: oklch(0.7 0.01 280);
+  --secondary-background: oklch(0.99 0.02 104.3);
   --tertiary: oklch(0 0 0);
   --tertiary-foreground: oklch(0.97 0.02 148.2);
   --tertiary-background: oklch(0.82 0.05 170);
@@ -119,6 +120,7 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
   --color-tertiary: var(--tertiary);
+  --color-secondary-background: var(--secondary-background);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-background: var(--primary-background);

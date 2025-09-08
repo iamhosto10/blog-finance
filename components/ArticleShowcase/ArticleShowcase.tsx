@@ -39,7 +39,7 @@ const ArticleShowcase = ({ category }: { category: string }) => {
         <div className="">
           <div className="relative w-full h-auto md:h-auto rounded-xl overflow-hidden">
             <img
-              src={urlFor(blogs[0].mainImage).url()}
+              src={urlFor(newBlogs[0].mainImage).url()}
               alt={titleComplete}
               className="rounded-md w-full h-auto"
             />
