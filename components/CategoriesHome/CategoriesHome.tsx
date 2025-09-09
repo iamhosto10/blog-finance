@@ -53,7 +53,7 @@ const CategoriesHome = () => {
           </Link>
         </li>
         <li>
-          <Link href={"/comprar-vivistarta"} className="flex items-center">
+          <Link href={"/comprar-vivienda"} className="flex items-center">
             <div className="w-5">
               <ArrowRight
                 size={20}
@@ -63,7 +63,7 @@ const CategoriesHome = () => {
               />
             </div>
             <span className="font-canva-sans text-tertiary line-clamp-2">
-              Comprar vivistarta
+              Comprar vivienda
             </span>
           </Link>
         </li>

@@ -47,7 +47,7 @@ const categories: Record<
       { href: "/ahorro-y-presupuesto", label: "Ahorro y presupuesto" },
       { href: "/inversion", label: "Inversión" },
       { href: "/deudas-y-creditos", label: "Deudas y créditos" },
-      { href: "/comprar-vivistarta", label: "Comprar vivistarta" },
+      { href: "/comprar-vivienda", label: "Comprar vivienda" },
     ],
   },
 };
