@@ -4,6 +4,8 @@ import React from "react";
 
 interface INewsCard {
   title?: string;
+  focusTitle?: string;
+  continueTitle?: string;
   image?: {
     asset: {
       _ref: string;
@@ -18,14 +20,24 @@ interface INewsCard {
 }
 
 const NewsCard = (props: INewsCard) => {
-  const { title, excerpt, image, slug, mainCategory } = props;
+  const {
+    title,
+    focusTitle,
+    continueTitle,
+    excerpt,
+    image,
+    slug,
+    mainCategory,
+  } = props;
   return (
     <Link
       href={`/${mainCategory}/${slug?.current}`}
       className="w-full flex flex-col h-full justify-between gap-1 hover:scale-110 transition-all"
     >
-      <h2 className="text-lg line-clamp-2 text-tertiary font-agrandir font-bold">
+      <h2 className="text-lg line-clamp-2 text-secondary font-agrandir font-bold">
         {title}
+        <span className="text-primary"> {focusTitle} </span>
+        {continueTitle}
       </h2>
       <img
         src={urlFor(image).url()}

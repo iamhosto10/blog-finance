@@ -18,7 +18,9 @@ const News = ({ data, title }: INewsProps) => {
         excerpt={post.excerpt}
         image={post.mainImage}
         slug={post.slug}
-        title={buildTitle(post)}
+        title={post.title}
+        focusTitle={post.focusTitle}
+        continueTitle={post.continueTitle}
         mainCategory={post?.categories?.[0]?.slug.current ?? ""}
       />
     ));
