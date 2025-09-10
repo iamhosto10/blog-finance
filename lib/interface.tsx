@@ -44,7 +44,7 @@ export interface Dolar {
 
 export interface BodySection {
   title?: string;
-  body?: string;
+  body?: PortableTextBlock[];
   asset?: {
     _type: "image";
     asset: {
@@ -52,6 +52,25 @@ export interface BodySection {
       _type: "reference";
     };
   };
+}
+
+export interface PortableTextChild {
+  _key: string;
+  _type: "span";
+  text: string;
+  marks: string[];
+}
+
+export interface PortableTextBlock {
+  _key: string;
+  _type: "block";
+  style?: "normal" | "h1" | "h2" | "blockquote";
+  children: PortableTextChild[];
+  markDefs?: {
+    _key: string;
+    _type: "link";
+    href: string;
+  }[];
 }
 
 export interface Profitability {

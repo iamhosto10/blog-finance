@@ -10,7 +10,18 @@ import Tag from "@/components/CommonComponents/Tag";
 import News from "@/components/News/News";
 import { Metadata } from "next";
 import { client } from "@/lib/sanity";
+import { PortableText, PortableTextComponents } from "@portabletext/react";
 
+const components: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => (
+      <>
+        <p className="whitespace-pre-line">{children}</p>
+        <br />
+      </>
+    ),
+  },
+};
 async function getPost(slug: string) {
   return client.fetch(
     `*[_type == "blog" && slug.current == $slug][0]{
@@ -143,12 +154,7 @@ export default function BlogArticle() {
                 </h2>
               )}
               {section.body && (
-                <p
-                  key={index}
-                  className="font-canva-sans text-tertiary mb-4 whitespace-pre-line"
-                >
-                  {section.body}
-                </p>
+                <PortableText value={section.body} components={components} />
               )}
               {section.asset && section.asset._type === "image" && (
                 <div className="relative w-full md:w-[70%] mx-auto my-8">

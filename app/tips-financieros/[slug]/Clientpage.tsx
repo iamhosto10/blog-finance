@@ -1,13 +1,90 @@
 "use client";
 
 import { Blog } from "@/lib/interface";
-import { urlFor } from "@/lib/sanity";
+import { client, urlFor } from "@/lib/sanity";
 import { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 import { useParams } from "next/navigation";
 import AudioPlayer from "@/components/MusicPlayer/MusicPlayer";
 import Tag from "@/components/CommonComponents/Tag";
 import News from "@/components/News/News";
+import { PortableText, PortableTextComponents } from "@portabletext/react";
+import { Metadata } from "next";
+
+const components: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => (
+      <>
+        <p className="whitespace-pre-line">{children}</p>
+        <br />
+      </>
+    ),
+  },
+};
+
+async function getPost(slug: string) {
+  return client.fetch(
+    `*[_type == "blog" && slug.current == $slug][0]{
+    title,
+    focusTitle,
+    continueTitle,
+    slug,
+    publishedAt,
+    mainImage,
+    miniatureImage,
+    excerpt,
+    audio,
+    body,
+    categories[]->{
+      _id,
+      title,
+      slug
+    },
+    relatedNews[]->{
+      _id,
+      title,
+      slug,
+      mainImage,
+      excerpt,
+      publishedAt
+    }
+  }`,
+    { slug }
+  );
+}
+
+// Generar metadata dinámico
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const post: Blog = await getPost(params.slug);
+
+  if (!post) {
+    return {
+      title: "Blog not found",
+      description: "This blog post does not exist.",
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    icons: { icon: "/favicon.ico" },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      images: [urlFor(post?.mainImage).url()],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [urlFor(post?.mainImage).url()],
+    },
+  };
+}
 
 export default function BlogArticle() {
   const { slug } = useParams<{ slug: string }>();
@@ -77,13 +154,9 @@ export default function BlogArticle() {
                 </h2>
               )}
               {section.body && (
-                <p
-                  key={index}
-                  className="font-canva-sans text-tertiary mb-4 whitespace-pre-line"
-                >
-                  {section.body}
-                </p>
+                <PortableText value={section.body} components={components} />
               )}
+
               {section.asset && section.asset._type === "image" && (
                 <div className="relative w-full md:w-[70%] mx-auto my-8">
                   <img
