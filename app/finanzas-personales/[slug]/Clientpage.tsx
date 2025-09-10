@@ -1,57 +1,16 @@
 "use client";
 
 import { Blog } from "@/lib/interface";
-import { client, urlFor } from "@/lib/sanity";
+import { urlFor } from "@/lib/sanity";
 import { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 import { useParams } from "next/navigation";
 import AudioPlayer from "@/components/MusicPlayer/MusicPlayer";
 import Tag from "@/components/CommonComponents/Tag";
 import News from "@/components/News/News";
-import { PortableText, PortableTextComponents } from "@portabletext/react";
+import { PortableText } from "@portabletext/react";
 import { Metadata } from "next";
-
-const components: PortableTextComponents = {
-  block: {
-    normal: ({ children }) => (
-      <>
-        <p className="whitespace-pre-line">{children}</p>
-        <br />
-      </>
-    ),
-  },
-};
-
-async function getPost(slug: string) {
-  return client.fetch(
-    `*[_type == "blog" && slug.current == $slug][0]{
-    title,
-    focusTitle,
-    continueTitle,
-    slug,
-    publishedAt,
-    mainImage,
-    miniatureImage,
-    excerpt,
-    audio,
-    body,
-    categories[]->{
-      _id,
-      title,
-      slug
-    },
-    relatedNews[]->{
-      _id,
-      title,
-      slug,
-      mainImage,
-      excerpt,
-      publishedAt
-    }
-  }`,
-    { slug }
-  );
-}
+import { components, getPost } from "@/lib/utils";
 
 // Generar metadata dinámico
 export async function generateMetadata({
