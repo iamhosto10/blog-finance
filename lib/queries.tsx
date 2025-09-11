@@ -7,7 +7,9 @@ export const blogsQuery = `*[_type == "blog"]{
     mainImage,
     miniatureImage,
     excerpt,
-    audio,
+    audio {
+      asset->
+    },
     body,
     categories[]->{
       _id,

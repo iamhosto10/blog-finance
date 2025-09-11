@@ -98,7 +98,10 @@ export default function BlogArticle() {
           </div>
         )}
       </div>
-      {data?.audioUrl && <AudioPlayer audioUrl={data.audioUrl} />}
+
+      {data?.audio?.asset.url && (
+        <AudioPlayer audioUrl={data?.audio?.asset.url} />
+      )}
 
       <div className="my-12 text-tertiary font-canva-sans text-sm lg:text-lg text-justify">
         {data?.body &&

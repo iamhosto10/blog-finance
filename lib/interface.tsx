@@ -21,7 +21,13 @@ export interface Blog {
     };
   };
   excerpt?: string;
-  audioUrl?: string;
+  audio?: {
+    asset: {
+      _ref: string;
+      _type: "reference";
+      url: string;
+    };
+  };
   body: BodySection[];
   categories?: { _id: string; title: string; slug: { current: string } }[];
   relatedNews?: Blog[];

@@ -34,7 +34,7 @@ const NewsCard = (props: INewsCard) => {
       href={`/${mainCategory}/${slug?.current}`}
       className="w-full flex flex-col h-full justify-between gap-1 hover:scale-110 transition-all"
     >
-      <h2 className="text-lg line-clamp-2 text-secondary font-agrandir font-bold">
+      <h2 className="text-lg line-clamp-3 text-secondary font-agrandir font-bold">
         {title}
         <span className="text-primary"> {focusTitle} </span>
         {continueTitle}
