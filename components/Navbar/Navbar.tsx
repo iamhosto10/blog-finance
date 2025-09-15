@@ -52,16 +52,36 @@ const menuItems = [
     subCategories: [
       {
         label: "Calculadora de rentabilidad",
-        href: "/herramientas/calculadora-4x1000",
+        href: "/calculadoras/calculadora-de-rentabilidad",
       },
       {
         label: "Calculadora de crédito",
-        href: "/herramientas/conversor-dolares",
+        href: "/calculadoras/calculadora-de-credito",
       },
-      { label: "Calculadora de ahorro", href: "/herramientas/nu" },
-      { label: "Simulador de inversión", href: "/herramientas/nu" },
-      { label: "Comparador de tarjetas", href: "/herramientas/nu" },
-      { label: "Simulador de leasing y vivienda", href: "/herramientas/nu" },
+      {
+        label: "Calculadora de ahorro",
+        href: "/calculadoras/calculadora-de-ahorro",
+      },
+      {
+        label: "Simulador de inversión",
+        href: "/calculadoras/simulador-de-inversion",
+      },
+      {
+        label: "Comparador de tarjetas",
+        href: "/calculadoras/comparador-de-tarjetas",
+      },
+      {
+        label: "Simulador de leasing y vivienda",
+        href: "/calculadoras/simulador-de-leasing-y-vivienda",
+      },
+      {
+        label: "Calculadora 4X1000",
+        href: "/calculadoras/calculadora-4x1000",
+      },
+      {
+        label: "Conversor de dolares",
+        href: "/calculadoras/conversor-de-dolares",
+      },
     ],
   },
 ];
