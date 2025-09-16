@@ -31,7 +31,7 @@ const CalculatorCard = ({
             <img src={asset} alt={label} className="size-20 object-contain" />
           )}
 
-          <h2 className="text-lg font-agrandir font-bold line-clamp-2 text-secondary">
+          <h2 className="text-lg font-agrandir font-bold line-clamp-2 text-secondary h-14">
             {label.toUpperCase()}
           </h2>
           {interest && (
@@ -39,7 +39,9 @@ const CalculatorCard = ({
               {interest} %
             </h4>
           )}
-          <p className="text-xs font-canva-sans text-tertiary">{description}</p>
+          <p className="text-xs font-canva-sans text-tertiary whitespace-break-spaces text-left">
+            {description}
+          </p>
         </div>
         <Button
           variant={"primary"}

@@ -7,7 +7,7 @@ const banks = [
     href: "/calculadoras/lulo",
     interest: "9",
     description:
-      "1.Disfruta los descuentos de nuestros aliados comerciales. \n 2.Puntos BBVA \n 3.Difiere tus deudas hasta 36 meses (3 años) a través de BBVA net. \n 4.PremiosAcumulas doble puntaje en tus compras online. \n 5.Solicítala en minutos y 100% en línea.",
+      "1.Disfruta los descuentos de nuestros aliados comerciales. \n2.Puntos BBVA \n3.Difiere tus deudas hasta 36 meses (3 años) a través de BBVA net. \n4.Premios Acumulas doble puntaje en tus compras online. \n5.Solicítala en minutos y 100% en línea.",
     icon: "/assets/calculadoras/rentabilidad/luloBank.png",
     buttonText: "Calcular",
   },
