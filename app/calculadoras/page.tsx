@@ -1,6 +1,5 @@
+import CalculatorCard from "@/components/CommonComponents/Cards/CalculatorCard";
 import Simulators from "@/components/Simulators/Simulators";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import React from "react";
 
 const subcategories = [
@@ -86,35 +85,14 @@ const Page = () => {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {subcategories.map((subcategory, index) => (
-            <div
-              className="rounded-xl bg-tertiary-foreground p-6 text-center flex flex-col items-center justify-center gap-3"
+            <CalculatorCard
               key={index}
-            >
-              {subcategory.icon && (
-                <img
-                  src={subcategory.icon}
-                  alt={subcategory.label}
-                  className="size-20 object-contain"
-                />
-              )}
-              <h2 className="text-[16px] font-agrandir font-bold line-clamp-2 text-secondary">
-                {subcategory.label.toUpperCase()}
-              </h2>
-              <p className="text-xs font-canva-sans text-tertiary">
-                {subcategory.description}
-              </p>
-              <Button
-                variant={"primary"}
-                className=" w-full rounded-lg cursor-pointer self-end items-center hover:scale-115 transition-all"
-                asChild
-              >
-                <Link href={subcategory.href}>
-                  <p className="text-shadow-lg  text-shadow-black/20 font-agrandir font-bold ">
-                    {subcategory.buttonText}
-                  </p>
-                </Link>
-              </Button>
-            </div>
+              asset={subcategory.icon}
+              buttonText={subcategory.buttonText}
+              description={subcategory.description}
+              href={subcategory.href}
+              label={subcategory.label}
+            />
           ))}
         </div>
 
