@@ -76,7 +76,7 @@ const menuItems = [
       },
       {
         label: "Calculadora 4X1000",
-        href: "/calculadoras/calculadora-4x1000",
+        href: "/calculadoras/4x1000",
       },
       {
         label: "Conversor de dolares",

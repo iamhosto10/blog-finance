@@ -31,11 +31,11 @@ const CalculatorCard = ({
             <img src={asset} alt={label} className="size-20 object-contain" />
           )}
 
-          <h2 className="text-[16px] font-agrandir font-bold line-clamp-2 text-secondary">
+          <h2 className="text-lg font-agrandir font-bold line-clamp-2 text-secondary">
             {label.toUpperCase()}
           </h2>
           {interest && (
-            <h4 className="text-[16px] font-agrandir font-bold text-tertiary">
+            <h4 className="text-lg font-agrandir font-bold text-tertiary">
               {interest} %
             </h4>
           )}
