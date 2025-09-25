@@ -7,7 +7,7 @@ const Header = () => {
         className="
     relative hidden md:flex flex-row justify-between items-center
     w-full h-[250px] md:h-[400px] lg:h-[600px] 2xl:h-[1000px]
-    bg-[url('/assets/Header/headerBackground.png')] bg-contain bg-no-repeat bg-center
+    bg-[url('/assets/Header/headerBackground1.png')] bg-cover bg-no-repeat bg-center
     -mt-20 lg:top-[-60px] z-0 lg:px-12
   "
       >
@@ -50,7 +50,7 @@ const Header = () => {
 
         {/* Imagen principal */}
         <img
-          src="/assets/Header/mainimage.png"
+          src="/assets/Header/mainimage1.png"
           alt="main"
           className="
       w-[200px] md:w-[325px] lg:w-[450px] xl:w-[600px] 2xl:w-[1000px]
@@ -91,12 +91,11 @@ const Header = () => {
           </h3>
         </div>
         <img
-          src="/assets/Header/mainimage.png"
+          src="/assets/Header/mainimage1.png"
           alt="main"
           className="
-      w-[80%]
+      w-[100%]
       max-w-[450px]
-
       aspect-square
     "
         />

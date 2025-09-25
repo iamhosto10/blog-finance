@@ -24,6 +24,8 @@ async function getPost(slug: string) {
     relatedNews[]->{
       _id,
       title,
+      focusTitle,
+      continueTitle,
       slug,
       mainImage,
       excerpt,
@@ -48,19 +50,23 @@ export async function generateMetadata(props: {
     };
   }
 
+  const title = [post?.title, post?.focusTitle, post?.continueTitle]
+    .filter(Boolean)
+    .join(" ");
+
   return {
-    title: post.title + " " + post.focusTitle + " " + post.continueTitle,
+    title: post?.title + " " + post?.focusTitle + " " + post?.continueTitle,
     description: post.excerpt,
     icons: { icon: "/favicon.ico" },
     openGraph: {
-      title: post.title + " " + post.focusTitle + " " + post.continueTitle,
+      title: post?.title + " " + post?.focusTitle + " " + post?.continueTitle,
 
       description: post.excerpt,
       images: [urlFor(post?.mainImage).url()],
     },
     twitter: {
       card: "summary_large_image",
-      title: post.title + " " + post.focusTitle + " " + post.continueTitle,
+      title: post?.title + " " + post?.focusTitle + " " + post?.continueTitle,
 
       description: post.excerpt,
       images: [urlFor(post?.mainImage).url()],

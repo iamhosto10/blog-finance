@@ -19,6 +19,8 @@ export const blogsQuery = `*[_type == "blog"]{
     relatedNews[]->{
       _id,
       title,
+      focusTitle,
+      continueTitle,
       slug,
       mainImage,
       excerpt,

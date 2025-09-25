@@ -11,8 +11,9 @@ const News = ({ data, title }: INewsProps) => {
   const buildTitle = (post: Blog) =>
     [post.title, post.focusTitle, post.continueTitle].filter(Boolean).join(" ");
 
-  const renderPosts = (items: Blog[]) =>
-    items.map((post, idx) => (
+  const renderPosts = (items: Blog[]) => {
+    console.log(items, "itemesss");
+    return items.map((post, idx) => (
       <NewsCard
         key={idx}
         excerpt={post.excerpt}
@@ -24,6 +25,7 @@ const News = ({ data, title }: INewsProps) => {
         mainCategory={post?.categories?.[0]?.slug.current ?? ""}
       />
     ));
+  };
 
   return (
     <div className="flex flex-col items-center w-full gap-4">
@@ -49,7 +51,7 @@ const News = ({ data, title }: INewsProps) => {
       </div>
 
       {/* Segunda sección */}
-      <div className="flex flex-col gap-10 w-full mb-10">
+      <div className="flex flex-col gap-10 w-full mt-5 mb-10">
         <div className="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:w-full">
           {data.length && renderPosts(data.slice(3, 6))}
         </div>

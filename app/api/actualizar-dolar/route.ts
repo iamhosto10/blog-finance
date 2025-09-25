@@ -1,5 +1,4 @@
 import { client } from "@/lib/sanity";
-// import xml2js from "xml2js";
 
 export async function GET() {
   try {

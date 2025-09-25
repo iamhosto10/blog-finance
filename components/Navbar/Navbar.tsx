@@ -80,7 +80,7 @@ const menuItems = [
       },
       {
         label: "Conversor de dolares",
-        href: "/calculadoras/conversor-de-dolares",
+        href: "/calculadoras/conversor-dolares",
       },
     ],
   },

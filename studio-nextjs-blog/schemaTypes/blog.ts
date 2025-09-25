@@ -9,7 +9,7 @@ export default defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: (Rule) => Rule.required().min(5).max(100),
+      validation: (Rule) => Rule.min(5).max(100),
     },
     {
       name: 'focusTitle',
@@ -32,7 +32,7 @@ export default defineType({
           const title = doc.title ?? ''
           const focus = doc.focusTitle ?? ''
           const cont = doc.continueTitle ?? ''
-          return `${title} ${focus} ${cont}`
+          return `${title + ' '}${focus + ' '}${cont}`
         },
         maxLength: 96,
       },

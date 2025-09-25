@@ -12,7 +12,6 @@ import { PortableText } from "@portabletext/react";
 import { Metadata } from "next";
 import { components, getPost } from "@/lib/utils";
 
-// Generar metadata dinámico
 export async function generateMetadata({
   params,
 }: {
