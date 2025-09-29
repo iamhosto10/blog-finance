@@ -6,6 +6,7 @@
 @theme inline {
   --font-agrandir: var(--agrandir);
   --font-canva-sans: var(--canva-sans);
+  --font-league-gothics: var(--league-gothic);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -52,6 +53,7 @@
 :root {
   --agrandir: "Agrandir", sans-serif;
   --canva-sans: "CanvaSans", sans-serif;
+  --league-gothic: "LeagueGothic", sans-serif;
   --radius: 0.65rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
@@ -167,6 +169,14 @@ body {
 @font-face {
   font-family: "Agrandir";
   src: url("/fonts/agrandir/Agrandir-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LeagueGothic";
+  src: url("/fonts/LeagueGothics/League-Gothic-Regular.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;

@@ -132,4 +132,19 @@ export default defineType({
       of: [{type: 'reference', to: [{type: 'blog'}]}],
     },
   ],
+  preview: {
+    select: {
+      title: 'title',
+      focusTitle: 'focusTitle',
+      continueTitle: 'continueTitle',
+      media: 'mainImage', // opcional, para que muestre la imagen
+    },
+    prepare({title, focusTitle, continueTitle, media}) {
+      const finalTitle = [title, focusTitle, continueTitle].filter(Boolean).join(' ')
+      return {
+        title: finalTitle || 'Sin título',
+        media,
+      }
+    },
+  },
 })

@@ -13,11 +13,8 @@ const DolarConversor = ({ dolar }: { dolar: Dolar }) => {
   const [cop, setCop] = useState("");
 
   const handleUsdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value, "primera parte");
     if (!validarNumero(e.target.value)) return;
     const value = convertStringtoNumber(e.target.value) || 0;
-    console.log(value, "value");
-    console.log(convertNumbertoString(value));
     setUsd(convertNumbertoString(value));
     setCop(
       convertNumbertoString(
@@ -27,11 +24,8 @@ const DolarConversor = ({ dolar }: { dolar: Dolar }) => {
   };
 
   const handleCopChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     if (!validarNumero(e.target.value)) return;
     const value = convertStringtoNumber(e.target.value) || 0;
-    console.log(value);
-    console.log(convertNumbertoString(value));
     setCop(convertNumbertoString(value));
     setUsd(
       convertNumbertoString(

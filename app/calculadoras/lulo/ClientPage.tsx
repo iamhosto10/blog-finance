@@ -67,7 +67,6 @@ const Faq = [
 
 const Page = () => {
   const { profitability } = useSelector((state: RootState) => state.sanity);
-  console.log(profitability?.lulo);
   const [selected, setSelected] = useState(0);
 
   return (

@@ -74,8 +74,6 @@ const ArticleList = ({
     )
   );
 
-  console.log("blogs", blogs);
-
   if (newBlogs.length <= 0) return null;
 
   return (

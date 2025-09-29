@@ -26,7 +26,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-// Registrar módulos de Chart.js
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -38,81 +37,6 @@ ChartJS.register(
 );
 
 const GraphicsTable = () => {
-  //   const data = {
-  //     labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo"],
-  //     datasets: [
-  //       {
-  //         label: "Ingresos",
-  //         data: [1500000, 2300000, 1750000, 2800000, 3200000], // valores en COP
-  //         borderColor: "rgba(75, 192, 192, 1)",
-  //         backgroundColor: "rgba(75, 192, 192, 0.2)",
-  //         tension: 0.4, // curva suavizada
-  //         pointRadius: 5,
-  //         pointBackgroundColor: "rgba(75, 192, 192, 1)",
-  //         pointStyle: "triangle", // 🔺 triangulos
-  //         fill: false,
-  //       },
-  //       {
-  //         label: "Gastos",
-  //         data: [1200000, 1800000, 1600000, 2000000, 2500000],
-  //         borderColor: "rgba(255, 99, 132, 1)", // rojo
-  //         backgroundColor: "rgba(255, 99, 132, 0.2)",
-  //         tension: 0.4,
-  //         pointRadius: 5,
-  //         pointBackgroundColor: "rgba(255, 99, 132, 1)",
-  //         pointStyle: "rect", // 🔺 triangulos
-  //         fill: false,
-  //       },
-  //     ],
-  //   };
-
-  //   const options: ChartOptions<"line"> = {
-  //     responsive: true,
-  //     // maintainAspectRatio: false,
-  //     plugins: {
-  //       legend: {
-  //         position: "top" as const,
-  //       },
-  //       title: {
-  //         display: true,
-  //         text: "Ingresos Mensuales en COP",
-  //       },
-  //       tooltip: {
-  //         callbacks: {
-  //           label: function (context) {
-  //             const value = context.raw as number;
-  //             return new Intl.NumberFormat("es-CO", {
-  //               style: "currency",
-  //               currency: "COP",
-  //               maximumFractionDigits: 0,
-  //             }).format(value);
-  //           },
-  //         },
-  //       },
-  //     },
-  //     scales: {
-  //       x: {
-  //         grid: {
-  //           drawOnChartArea: false, // evitar errores
-  //         },
-  //       },
-  //       y: {
-  //         ticks: {
-  //           callback: function (value) {
-  //             return new Intl.NumberFormat("es-CO", {
-  //               style: "currency",
-  //               currency: "COP",
-  //               maximumFractionDigits: 0,
-  //             }).format(Number(value));
-  //           },
-  //         },
-  //         grid: {
-  //           drawTicks: false,
-  //         },
-  //       },
-  //     },
-  //   };
-
   const dataValues = [
     { mes: "Enero", ingresos: 1500000, gastos: 1200000 },
     { mes: "Febrero", ingresos: 2300000, gastos: 1800000 },
@@ -203,8 +127,6 @@ const GraphicsTable = () => {
       <div className="flex flex-col items-center py-4">
         <div className="relative w-56">
           <select
-            //   value={selected}
-            //   onChange={(e) => setSelected(e.target.value)}
             className="
           appearance-none w-full px-4 py-3 
           bg-primary-foreground text-tertiary 
@@ -237,8 +159,6 @@ const GraphicsTable = () => {
       <div className="flex flex-col md:flex-row justify-center items-center py-4 gap-5">
         <div className="relative w-56">
           <select
-            //   value={selected}
-            //   onChange={(e) => setSelected(e.target.value)}
             className="
           appearance-none w-full px-4 py-3 
           bg-primary-foreground text-tertiary 

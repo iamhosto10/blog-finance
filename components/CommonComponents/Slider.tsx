@@ -29,8 +29,7 @@ export default function InfiniteSlider() {
   const dragOffset = useRef(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Velocidad de auto-scroll
-  const speed = 0.5; // px por frame
+  const speed = 0.5;
 
   useEffect(() => {
     let animationFrame: number;

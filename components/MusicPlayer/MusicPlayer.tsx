@@ -30,8 +30,6 @@ export default function AudioPlayer({ audioUrl }: { audioUrl: string }) {
   useEffect(() => {
     if (!waveformRef.current || !audioUrl) return;
 
-    console.log("URL de audio desde Sanity:", audioUrl);
-
     // Destruir instancia previa
     wavesurfer.current?.destroy();
 

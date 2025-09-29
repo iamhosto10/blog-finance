@@ -52,8 +52,6 @@ export default function BlogArticle() {
   const data: Blog =
     blogs.find((blog) => blog.slug.current === slug) || blogs[0];
 
-  console.log("Body", data);
-
   return (
     <div className="container md:-mt-6">
       <h1 className="font-agrandir font-bold text-secondary text-3xl  md:text-4xl text-center">

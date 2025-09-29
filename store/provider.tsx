@@ -1,4 +1,3 @@
-// store/provider.tsx
 "use client";
 import { Provider } from "react-redux";
 import { makeStore, type RootState } from "./store";
@@ -11,7 +10,6 @@ export function ReduxProvider({
   children: React.ReactNode;
   preloadedState?: Partial<RootState>;
 }) {
-  // Mantén una única instancia del store
   const storeRef = useRef<ReturnType<typeof makeStore>>(null);
   if (!storeRef.current) {
     storeRef.current = makeStore(preloadedState);

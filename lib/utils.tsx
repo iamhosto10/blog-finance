@@ -5,8 +5,6 @@ import { client } from "./sanity";
 import { PortableTextComponents } from "@portabletext/react";
 import Link from "next/link";
 
-//get post from sanity for Metadata
-
 export async function getPost(slug: string) {
   return client.fetch(
     `*[_type == "blog" && slug.current == $slug][0]{
@@ -126,14 +124,12 @@ export function cn(...inputs: ClassValue[]) {
 
 export function convertCurrency(
   amount: number,
-  rate: number, // 1 USD = rate COP
+  rate: number,
   to: "USD" | "COP"
 ): number {
   if (to === "COP") {
-    // De dólares a pesos
     return amount * rate;
   } else {
-    // De pesos a dólares
     return amount / rate;
   }
 }
@@ -178,7 +174,6 @@ export function convertNumbertoString(number: number | string) {
 }
 
 export function validarNumero(input: string) {
-  // Permite vacío o un número con comas y un punto opcional
   const regex = /^$|^\d+(?:,\d+)*(?:\.\d*)?$/;
   return regex.test(input);
 }
@@ -190,7 +185,6 @@ export const calculateDailyGrowth = (
 ): DailyGrowth[] => {
   const results: DailyGrowth[] = [];
   const dailyRate = Math.pow(1 + annualRate, 1 / 365) - 1;
-  console.log(dailyRate);
   let amount = initialAmount;
 
   for (let i = 1; i <= days; i++) {
@@ -229,13 +223,11 @@ export const calculatefinalAmountLulo = (
   if (!isFinite(EA) || !isFinite(n) || !isFinite(P) || P < 0 || n < 0)
     return null;
 
-  const i_mes = Math.pow(1 + EA, 1 / 12) - 1; // tasa mensual efectiva
+  const i_mes = Math.pow(1 + EA, 1 / 12) - 1;
   const daysPerMonth = 30;
 
-  // Monto bruto compuesto (sin descontar retenciones)
   const montoBruto = P * Math.pow(1 + i_mes, n);
 
-  // Calcular retención acumulada (según regla por día)
   let retencion = 0;
   for (let m = 0; m < n; m++) {
     const saldoInicioMes = P * Math.pow(1 + i_mes, m);

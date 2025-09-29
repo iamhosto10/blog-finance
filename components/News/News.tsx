@@ -12,7 +12,6 @@ const News = ({ data, title }: INewsProps) => {
     [post.title, post.focusTitle, post.continueTitle].filter(Boolean).join(" ");
 
   const renderPosts = (items: Blog[]) => {
-    console.log(items, "itemesss");
     return items.map((post, idx) => (
       <NewsCard
         key={idx}

@@ -17,8 +17,6 @@ const ArticleShowcase = ({ category }: { category: string }) => {
     )
   );
 
-  console.log("blogs", blogs);
-
   if (newBlogs.length <= 0) return null;
 
   const titleComplete = [

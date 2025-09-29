@@ -5,26 +5,18 @@ import { useState, useRef, useEffect } from "react";
 export default function TextReaderWithControls({ text }: { text: string }) {
   const [isReading, setIsReading] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [progress, setProgress] = useState(0); // porcentaje
+  const [progress, setProgress] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
-  // const [selectedVoice, setSelectedVoice] = useState<string>("");
 
   useEffect(() => {
     const loadVoices = () => {
       const availableVoices = window.speechSynthesis.getVoices();
       setVoices(availableVoices);
-
-      // // Preseleccionar la primera voz en español
-      // const defaultVoice = availableVoices.find((v) => v.lang.startsWith("es"));
-      // if (defaultVoice) {
-      //   setSelectedVoice(defaultVoice.name);
-      // }
     };
 
     loadVoices();
 
-    // Algunos navegadores cargan las voces de forma asíncrona
     window.speechSynthesis.onvoiceschanged = loadVoices;
   }, []);
 
@@ -78,14 +70,6 @@ export default function TextReaderWithControls({ text }: { text: string }) {
     }
   };
 
-  // const stopReading = () => {
-  //   window.speechSynthesis.cancel();
-  //   setIsReading(false);
-  //   setIsPaused(false);
-  //   setProgress(0);
-  //   setCurrentCharIndex(0);
-  // };
-
   const skip = (direction: "back" | "forward") => {
     let newIndex = currentCharIndex;
     if (direction === "back") {
@@ -105,20 +89,6 @@ export default function TextReaderWithControls({ text }: { text: string }) {
 
   return (
     <div className="p-4 max-w-lg border rounded bg-white shadow flex items-center">
-      {/* Controles */}
-      {/* <div className="flex items-center justify-center gap-4 mb-4"> */}
-      {/* Repetir (no funcional en este ejemplo) */}
-      {/* <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-6 h-6 cursor-pointer"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path d="M17 1l4 4-4 4M3 11a9 9 0 0115.9-5.6M7 23l-4-4 4-4m14-2a9 9 0 01-15.9 5.6" />
-        </svg> */}
-
-      {/* Retroceder */}
       <svg
         onClick={() => skip("back")}
         xmlns="http://www.w3.org/2000/svg"
@@ -172,18 +142,6 @@ export default function TextReaderWithControls({ text }: { text: string }) {
       >
         <path d="M13 5v14l7-7-7-7zm-9 0v14l7-7-7-7z" />
       </svg>
-
-      {/* Aleatorio (no funcional en este ejemplo) */}
-      {/* <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-6 h-6 cursor-pointer"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path d="M4 4h5l5 9 5-9h5M4 20h5l5-9 5 9h5" />
-        </svg> */}
-      {/* </div> */}
 
       {/* Barra de progreso */}
       <input

@@ -90,7 +90,6 @@ const Faq = [
 
 export default function Page() {
   const { profitability } = useSelector((state: RootState) => state.sanity);
-  console.log(profitability?.nu);
   const [selected, setSelected] = useState(0);
   return (
     <div className="p-6">

@@ -67,7 +67,6 @@ const Faq = [
 
 const Page = () => {
   const { profitability } = useSelector((state: RootState) => state.sanity);
-  console.log(profitability?.rappi);
   const [selected, setSelected] = useState(0);
 
   return (

@@ -12,7 +12,6 @@ import { Metadata } from "next";
 import { PortableText } from "@portabletext/react";
 import { components, getPost } from "@/lib/utils";
 
-// Generar metadata dinámico
 export async function generateMetadata({
   params,
 }: {
@@ -52,8 +51,6 @@ export default function BlogArticle() {
 
   const data: Blog =
     blogs.find((blog) => blog.slug.current === slug) || blogs[0];
-
-  console.log("Body", data);
 
   return (
     <div className="container md:-mt-6">

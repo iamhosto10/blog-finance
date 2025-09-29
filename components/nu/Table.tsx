@@ -36,11 +36,6 @@ const CalculatorNu = ({
   const [days, setDays] = useState("");
 
   const handleSimulate = () => {
-    // const initialAmount = 10670000; // 1 millón COP
-    // const initialAmount = 1000000; // 1 millón COP
-
-    // const days = 30; // Simulación 30 días
-    //   const annualRate = 0.0925; // 9.25% EA
     const annualRate = profitabilityNu ? Number(profitabilityNu[selected]) : 0;
     const growth = calculateDailyGrowth(
       Number(convertStringtoNumber(initialAmount)),
