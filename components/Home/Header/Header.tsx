@@ -16,7 +16,7 @@ const Header = () => {
             EL BLOG PERFECTO
           </h1>
         </div>
-        <h2 className="bg-secondary py-2 px-5 md:py-4 md:px-10 xl:py-8 xl:px-20 font-league-gothics font-bold text-white text-lg md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-8xl">
+        <h2 className="bg-secondary py-1 px-6 md:py-2 md:px-16 xl:py-5 xl:px-28 font-league-gothics font-bold text-white text-lg md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-7xl">
           PARA UNA VIDA FINANCIERA PRECISA
         </h2>
       </div>
