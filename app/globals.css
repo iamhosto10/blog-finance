@@ -176,7 +176,7 @@ body {
 
 @font-face {
   font-family: "LeagueGothic";
-  src: url("/fonts/LeagueGothics/League-Gothic-Regular.otf") format("opentype");
+  src: url("/fonts/leaguegothics/League-Gothic-Regular.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
