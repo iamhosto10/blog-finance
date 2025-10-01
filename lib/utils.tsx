@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { AmortizationRow, DailyGrowth, Payment, table } from "./interface";
+import { DailyGrowth, Payment, table } from "./interface";
 import { client } from "./sanity";
 import { PortableTextComponents } from "@portabletext/react";
 import Link from "next/link";

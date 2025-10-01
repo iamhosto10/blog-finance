@@ -8,9 +8,6 @@ interface INewsProps {
 }
 
 const News = ({ data, title }: INewsProps) => {
-  const buildTitle = (post: Blog) =>
-    [post.title, post.focusTitle, post.continueTitle].filter(Boolean).join(" ");
-
   const renderPosts = (items: Blog[]) => {
     return items.map((post, idx) => (
       <NewsCard

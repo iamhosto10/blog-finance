@@ -36,8 +36,6 @@ ChartJS.register(
   Legend
 );
 
-interface IGraphicsTable {}
-
 const GraphicsTable = () => {
   const dataValues = [
     { mes: "Enero", ingresos: 1500000, gastos: 1200000 },
