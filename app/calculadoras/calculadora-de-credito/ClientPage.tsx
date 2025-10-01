@@ -295,7 +295,7 @@ const Clientpage = () => {
             TASA DE INTERES EFECTIVA ANUAL
           </h3>
           <img
-            src="/assets/graphicsTable/porcentaje.png"
+            src="/assets/graphicsTable/percentage.png"
             className="hidden lg:block lg:size-10 -mt-1"
           />
         </div>
@@ -367,7 +367,7 @@ const Clientpage = () => {
             {boolean ? "Sí" : "No"}
           </span>
 
-          <div className="flex flex-row gap-10 w-full justify-center items-center py-8">
+          <div className="flex flex-col md:flex-row gap-10 w-full justify-center items-center py-8">
             <Button
               className="relative w-48 bg-[#8f0000] hover:bg-[#8f0000]/50 cursor-pointer py-2"
               onClick={() => {
