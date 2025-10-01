@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { DailyGrowth } from "./interface";
+import { AmortizationRow, DailyGrowth, Payment, table } from "./interface";
 import { client } from "./sanity";
 import { PortableTextComponents } from "@portabletext/react";
 import Link from "next/link";
@@ -250,3 +250,105 @@ export const calculatefinalAmountLulo = (
     montoFinal,
   };
 };
+
+export const formatCOP = (valor: number) =>
+  new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0,
+  }).format(valor);
+
+export function generarPlanPagos(
+  monto: number,
+  tasaEA: number,
+  meses: number,
+  seguro: number = 0
+): table {
+  // Convertir EA -> NMV (tasa nominal mensual vencida)
+  const tasaMensual = Math.pow(1 + tasaEA, 1 / 12) - 1;
+
+  const cuotaCapital = monto / meses;
+  let saldoPendiente = monto;
+
+  const pagos: Payment[] = [];
+
+  const total = {
+    totalCuotaCapital: 0,
+    totalinteresMensual: 0,
+    totalseguro: 0,
+    totalcuotaTotal: 0,
+    totalsaldoPendiente: 0,
+  };
+
+  for (let i = 1; i <= meses; i++) {
+    const interesMensual = saldoPendiente * tasaMensual;
+
+    saldoPendiente -= cuotaCapital;
+
+    const cuotaTotal = cuotaCapital + interesMensual + seguro;
+
+    // Calcular fecha de corte sumando i meses
+
+    total.totalCuotaCapital += Number(cuotaCapital.toFixed(0));
+    total.totalcuotaTotal += Number(cuotaTotal.toFixed(0));
+    total.totalseguro += seguro;
+    total.totalsaldoPendiente += Number(Math.max(saldoPendiente, 0).toFixed(0));
+    total.totalinteresMensual += Number(interesMensual.toFixed(0));
+
+    pagos.push({
+      cuota: i,
+      cuotaCapital: Number(cuotaCapital.toFixed(0)),
+      interesMensual: Number(interesMensual.toFixed(0)),
+      saldoPendiente: Number(Math.max(saldoPendiente, 0).toFixed(0)),
+      seguro: seguro,
+      cuotaTotal: Number(cuotaTotal.toFixed(0)),
+    });
+  }
+
+  return { tabla: pagos, total };
+}
+
+export function calcularAmortizacionFrancesa(
+  monto: number,
+  tasaAnual: number,
+  meses: number,
+  seguroVida: number = 0
+): table {
+  const tasaMensual = Math.pow(1 + tasaAnual, 1 / 12) - 1;
+  const cuotaFija =
+    (monto * tasaMensual) / (1 - Math.pow(1 + tasaMensual, -meses));
+
+  let saldo = monto;
+  const tabla: Payment[] = [];
+
+  const total = {
+    totalCuotaCapital: 0,
+    totalinteresMensual: 0,
+    totalseguro: 0,
+    totalcuotaTotal: 0,
+    totalsaldoPendiente: 0,
+  };
+
+  for (let mes = 1; mes <= meses; mes++) {
+    const interes = saldo * tasaMensual;
+    const abonoCapital = cuotaFija - interes;
+    saldo -= abonoCapital;
+
+    total.totalCuotaCapital += Math.round(abonoCapital);
+    total.totalcuotaTotal += Math.round(cuotaFija + seguroVida);
+    total.totalseguro += seguroVida;
+    total.totalsaldoPendiente += Math.max(Math.round(saldo), 0);
+    total.totalinteresMensual += Math.round(interes);
+
+    tabla.push({
+      cuota: mes,
+      cuotaCapital: Math.round(abonoCapital),
+      interesMensual: Math.round(interes),
+      seguro: seguroVida,
+      cuotaTotal: Math.round(cuotaFija + seguroVida),
+      saldoPendiente: Math.max(Math.round(saldo), 0),
+    });
+  }
+
+  return { tabla, total };
+}

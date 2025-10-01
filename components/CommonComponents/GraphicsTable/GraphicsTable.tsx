@@ -36,6 +36,8 @@ ChartJS.register(
   Legend
 );
 
+interface IGraphicsTable {}
+
 const GraphicsTable = () => {
   const dataValues = [
     { mes: "Enero", ingresos: 1500000, gastos: 1200000 },
@@ -119,10 +121,14 @@ const GraphicsTable = () => {
 
   return (
     <div className="w-full rounded-2xl bg-primary-background/50">
-      <div className="w-full flex flex-col items-center bg-primary-foreground rounded-t-2xl py-1">
-        <h3 className="text-sm lg:text-lg font-agrandir font-bold text-tertiary">
+      <div className="w-full flex flex-row items-center justify-center bg-primary-foreground rounded-t-2xl lg:max-h-8 gap-2">
+        <h3 className="text-sm lg:text-lg font-agrandir font-bold text-tertiary py-1">
           ¿CUANTO QUIERES AHORRAR?
         </h3>
+        <img
+          src="/assets/graphicsTable/savings.png"
+          className="hidden lg:block lg:size-14 -mt-1"
+        />
       </div>
       <div className="flex flex-col items-center py-4">
         <div className="relative w-56">
@@ -141,18 +147,16 @@ const GraphicsTable = () => {
             <option value="op3">Opción 3</option>
           </select>
 
-          {/* Icono flecha */}
           <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-tertiary size-7" />
         </div>
       </div>
-      <div className="w-full flex flex-row items-center justify-center bg-primary-foreground py-1">
-        {/* <div className="">
-          <img
-            src="/assets/graphicsTable/calendario.png"
-            className="absolute size-20"
-          />
-        </div> */}
-        <h3 className="text-sm lg:text-lg font-agrandir font-bold text-tertiary text-center">
+      <div className="w-full flex flex-row items-center justify-center bg-primary-foreground lg:max-h-8 gap-2">
+        <img
+          src="/assets/graphicsTable/calendar.png"
+          className="hidden lg:block lg:size-14 -mt-1"
+        />
+
+        <h3 className="text-sm lg:text-lg font-agrandir font-bold text-tertiary text-center py-1">
           ¿CADA CUANTO VAS A APORTAR? ¿DIAS, SEMANAS, MESES, AÑOS?
         </h3>
       </div>
@@ -198,10 +202,14 @@ const GraphicsTable = () => {
           <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-tertiary size-7" />
         </div>
       </div>
-      <div className="w-full flex flex-col items-center bg-primary-foreground py-1">
-        <h3 className="text-sm lg:text-lg font-agrandir font-bold text-tertiary text-center">
+      <div className="w-full flex flex-row items-center justify-center bg-primary-foreground lg:max-h-8 gap-2 ">
+        <h3 className="text-sm lg:text-lg font-agrandir font-bold text-tertiary text-center py-1">
           ¿CUANTO VAS A APORTAR ? (PERIODICAMENTE)
         </h3>
+        <img
+          src="/assets/graphicsTable/savings.png"
+          className="hidden lg:block lg:size-14 -mt-1"
+        />
       </div>
       <div className="flex flex-col items-center py-4">
         <div className=" w-56">

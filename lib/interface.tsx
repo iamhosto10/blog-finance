@@ -97,3 +97,34 @@ export interface DailyGrowth {
   interest: number;
   retencion: number;
 }
+
+export type Payment = {
+  cuota: number;
+  cuotaCapital: number;
+  interesMensual: number;
+  saldoPendiente: number;
+  seguro: number;
+  cuotaTotal: number;
+};
+
+export interface Totales {
+  totalCuotaCapital: number;
+  totalinteresMensual: number;
+  totalseguro: number;
+  totalcuotaTotal: number;
+  totalsaldoPendiente: number;
+}
+
+export interface table {
+  tabla: Payment[];
+  total: Totales;
+}
+
+export type AmortizationRow = {
+  month: number;
+  abonoCapital: number;
+  interes: number;
+  seguroVida: number;
+  cuota: number;
+  saldoCapital: number;
+};
