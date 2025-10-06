@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { ReactSVG } from "react-svg";
 
 const Footer = () => {
@@ -85,12 +86,18 @@ const Footer = () => {
           </p>
 
           <div className="flex flex-row items-center gap-4 text-sm lg:text-lg">
-            <a href="#" className="font-agrandir font-bold">
+            <Link
+              href="/politica-de-privacidad"
+              className="font-agrandir font-bold"
+            >
               Política de privacidad
-            </a>
-            <a href="#" className="font-agrandir font-bold">
+            </Link>
+            <Link
+              href="/politica-de-cookies"
+              className="font-agrandir font-bold"
+            >
               Política de cookies
-            </a>
+            </Link>
           </div>
 
           {/* Copyright */}
