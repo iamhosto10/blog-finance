@@ -98,6 +98,15 @@ const Footer = () => {
             >
               Política de cookies
             </Link>
+            <Link
+              href="/terminos-y-condiciones"
+              className="font-agrandir font-bold"
+            >
+              Términos y Condiciones
+            </Link>
+            <Link href="/aviso-legal" className="font-agrandir font-bold">
+              Aviso Legal
+            </Link>
           </div>
 
           {/* Copyright */}
