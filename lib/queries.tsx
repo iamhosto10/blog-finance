@@ -24,7 +24,12 @@ export const blogsQuery = `*[_type == "blog"]{
       slug,
       mainImage,
       excerpt,
-      publishedAt
+      publishedAt,
+      categories[]->{
+        _id,
+        title,
+        slug
+      }
     }
   }| order(publishedAt desc)`;
 
