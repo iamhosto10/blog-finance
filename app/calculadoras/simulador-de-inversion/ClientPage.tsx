@@ -53,7 +53,7 @@ const ClientPage = () => {
     contributions: "",
   });
   const [totales, setTotales] = useState<CalcResultTotales>();
-  const [variance, setVariance] = useState<String>("");
+  const [variance, setVariance] = useState<string>("");
   const [dataValues, setDataValues] = useState<InvestmentRow[]>([]);
   const [dataValues1, setDataValues1] = useState<InvestmentRow[]>([]);
   const [dataValues2, setDataValues2] = useState<InvestmentRow[]>([]);
