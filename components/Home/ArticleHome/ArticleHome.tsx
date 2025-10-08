@@ -24,7 +24,7 @@ const ArticleHome = () => {
   } = blogs[0];
   return (
     <div className="flex flex-col gap-4 w-full ">
-      <h2 className="font-agrandir font-bold text-2xl lg:text-3xl text-secondary text-left line-clamp-3 lg:line-clamp-2 ">
+      <h2 className="font-agrandir font-bold text-2xl lg:text-3xl text-secondary text-left line-clamp-4 lg:line-clamp-3 ">
         {title}
         <span className="text-primary"> {focusTitle} </span>
         {continueTitle}

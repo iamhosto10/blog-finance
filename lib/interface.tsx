@@ -128,3 +128,64 @@ export type AmortizationRow = {
   cuota: number;
   saldoCapital: number;
 };
+
+// /lib/finance.ts
+export type Frequency =
+  | "daily"
+  | "weekly"
+  | "biweekly"
+  | "monthly"
+  | "quarterly"
+  | "annually";
+
+export type Compounding = "daily" | "monthly" | "quarterly" | "annually";
+
+export type ContributionTiming = "start" | "end";
+
+export interface CalcInputs {
+  initialAmount: number; // monto inicial (ej: 950)
+  years: number; // años (ej: 10)
+  annualRatePct: number; // porcentaje anual en % (ej: 0.25 para 0.25%)
+  additionalContribution: number; // cantidad por periodo de contribución (ej: 50)
+  contributionFrequency: Frequency; // frecuencia de la contribución (ej: 'weekly')
+  compounding: Compounding; // compounding (ej: 'monthly')
+  timing?: ContributionTiming; // 'start' (annuity-due) o 'end' (annuity-immediate). Default 'end'
+}
+
+export interface YearRow {
+  year: number; // 0..N (0 = initial row)
+  additions: number; // total aportado ese año (suma de contribuciones)
+  interest: number; // interés ganado ese año
+  balanceEnd: number; // balance al final del año
+}
+
+export interface CalcResult {
+  rows: YearRow[]; // filas año a año (year 0 = initial)
+  totalContributed: number;
+  totalInterest: number;
+  finalBalance: number;
+}
+
+export interface CalcResultTotales {
+  totalContributed: number;
+  totalInterest: number;
+  finalBalance: number;
+}
+
+// SIMULADOR DE INVERSION
+
+export type InvestmentRow = {
+  month: number;
+  year: number;
+  initialBalance: number;
+  contribution: number;
+  interest: number;
+  finalBalance: number;
+};
+
+export type SimulationResult = {
+  table: InvestmentRow[];
+  totalContributed: number;
+  totalInterest: number;
+  finalBalance: number;
+};

@@ -61,7 +61,7 @@ const subcategories = [
   },
   {
     label: "Conversor de dolares",
-    href: "/calculadoras/conversor-de-dolares",
+    href: "/calculadoras/conversor-dolares",
     description:
       "Bienvenido a nuestra sección de Calculadoras Financieras, diseñada para ayudarte",
     icon: "/assets/calculadoras/conversorDeDolares.png",

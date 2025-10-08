@@ -55,18 +55,18 @@ export async function generateMetadata(props: {
     .join(" ");
 
   return {
-    title: post?.title + " " + post?.focusTitle + " " + post?.continueTitle,
+    title: title,
     description: post.excerpt,
     icons: { icon: "/favicon.ico" },
     openGraph: {
-      title: post?.title + " " + post?.focusTitle + " " + post?.continueTitle,
+      title: title,
 
       description: post.excerpt,
       images: [urlFor(post?.mainImage).url()],
     },
     twitter: {
       card: "summary_large_image",
-      title: post?.title + " " + post?.focusTitle + " " + post?.continueTitle,
+      title: title,
 
       description: post.excerpt,
       images: [urlFor(post?.mainImage).url()],

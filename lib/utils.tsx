@@ -1,6 +1,17 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { DailyGrowth, Payment, table } from "./interface";
+import {
+  CalcInputs,
+  CalcResult,
+  Compounding,
+  DailyGrowth,
+  Frequency,
+  InvestmentRow,
+  Payment,
+  SimulationResult,
+  table,
+  YearRow,
+} from "./interface";
 import { client } from "./sanity";
 import { PortableTextComponents } from "@portabletext/react";
 import Link from "next/link";
@@ -135,9 +146,11 @@ export function convertCurrency(
 }
 
 export function convertStringtoNumber(number: string) {
+  if (number.substring(0, 1) === "0" && number.length === 1) {
+    return "0";
+  }
   if (number.substring(0, 1) === "0" && number.substring(1, 2) !== ".") {
     const [integer, decimal] = number.substring(1).split(".");
-
     const intsplited = integer.split(",").join("");
     if (decimal === undefined) return intsplited;
 
@@ -352,3 +365,195 @@ export function calcularAmortizacionFrancesa(
 
   return { tabla, total };
 }
+
+/**
+ * Map frecuencia a contribuciones por año.
+ */
+const contributionsPerYearMap: Record<Frequency, number> = {
+  daily: 365,
+  weekly: 52,
+  biweekly: 26,
+  monthly: 12,
+  quarterly: 4,
+  annually: 1,
+};
+
+/**
+ * Map compounding a periodos por año.
+ */
+const compoundingPeriodsPerYear: Record<Compounding, number> = {
+  daily: 365,
+  monthly: 12,
+  quarterly: 4,
+  annually: 1,
+};
+
+/**
+ * Calcula la tabla de ahorros.
+ *
+ * Método:
+ * 1) Convierte la contribución (ej. $50 semanal) a un total anual.
+ * 2) Distribuye ese total anual en pagos iguales por cada periodo de capitalización
+ *    (ej. si compounding = monthly --> 12 pagos iguales/ año).
+ * 3) Simula periodo a periodo (period = 1/periodsPerYear) aplicando:
+ *     - si timing = 'start' añade aporte antes de calcular interés del periodo
+ *     - calcula interés del periodo como balance * periodicRate
+ *     - si timing = 'end' añade aporte después de calcular interés
+ * 4) Resume año a año para devolver la tabla.
+ */
+export function calcSavingsSchedule(inputs: CalcInputs): CalcResult {
+  const {
+    initialAmount,
+    years,
+    annualRatePct,
+    additionalContribution,
+    contributionFrequency,
+    compounding,
+    timing = "end",
+  } = inputs;
+
+  if (years <= 0) {
+    throw new Error("years must be > 0");
+  }
+  if (initialAmount < 0 || additionalContribution < 0) {
+    throw new Error("Amounts must be >= 0");
+  }
+
+  const contribsPerYear = contributionsPerYearMap[contributionFrequency];
+  const compPerYear = compoundingPeriodsPerYear[compounding];
+
+  // total aporte anual (ej: 50 * 52 = 2600)
+  const annualContribution = additionalContribution * contribsPerYear;
+
+  // pago por periodo de capitalización (ej: 2600 / 12 si compounding = monthly)
+  const contributionPerCompPeriod = annualContribution / compPerYear;
+
+  // tasa periódica (= tasa anual / compounding periods)
+  const rPeriodic = annualRatePct / 100 / compPerYear;
+
+  const totalPeriods = years * compPerYear;
+
+  let balance = round2(initialAmount);
+  let accumulatedContribution = round2(initialAmount); // incluye inicial
+  let accumulatedInterest = 0;
+
+  const rows: YearRow[] = [];
+
+  // fila year 0 (estado inicial)
+  rows.push({
+    year: 0,
+    additions: round2(initialAmount),
+    interest: 0,
+    balanceEnd: round2(balance),
+  });
+
+  let yearIndex = 1;
+  let additionsThisYear = 0;
+  let interestThisYear = 0;
+  let periodsCountedThisYear = 0;
+
+  for (let p = 1; p <= totalPeriods; p++) {
+    // Si timing = 'start' se añade aporte al inicio del periodo
+    if (timing === "start") {
+      balance = round2(balance + contributionPerCompPeriod);
+      additionsThisYear = round2(additionsThisYear + contributionPerCompPeriod);
+      accumulatedContribution = round2(
+        accumulatedContribution + contributionPerCompPeriod
+      );
+    }
+
+    // interés del periodo
+    const interest = round2(balance * rPeriodic);
+    balance = round2(balance + interest);
+    interestThisYear = round2(interestThisYear + interest);
+    accumulatedInterest = round2(accumulatedInterest + interest);
+
+    // Si timing = 'end' añade aporte después de interés
+    if (timing === "end") {
+      balance = round2(balance + contributionPerCompPeriod);
+      additionsThisYear = round2(additionsThisYear + contributionPerCompPeriod);
+      accumulatedContribution = round2(
+        accumulatedContribution + contributionPerCompPeriod
+      );
+    }
+
+    periodsCountedThisYear++;
+
+    // Si completamos un año (compPerYear periodos) guardamos fila
+    if (periodsCountedThisYear === compPerYear) {
+      rows.push({
+        year: yearIndex,
+        additions: round2(additionsThisYear),
+        interest: round2(interestThisYear),
+        balanceEnd: round2(balance),
+      });
+
+      // reset para siguiente año
+      yearIndex++;
+      additionsThisYear = 0;
+      interestThisYear = 0;
+      periodsCountedThisYear = 0;
+    }
+  }
+
+  const finalBalance = round2(balance);
+  const totalContributed = round2(accumulatedContribution);
+  const totalInterest = round2(accumulatedInterest);
+
+  return {
+    rows,
+    totalContributed,
+    totalInterest,
+    finalBalance,
+  };
+}
+
+/** redondeo a 2 decimales */
+function round2(v: number) {
+  return Math.round((v + Number.EPSILON) * 100) / 100;
+}
+
+// SIMULADOR DE INVERSION
+export const simulateInvestment = (
+  initialInvestment: number,
+  monthlyContribution: number,
+  annualRate: number,
+  years: number
+): SimulationResult => {
+  const monthlyRate = annualRate / 12 / 100; // convertir % anual a decimal mensual
+  const months = years * 12;
+
+  let balance = initialInvestment;
+  let totalContributions = initialInvestment;
+  let totalInterest = 0;
+
+  const table: InvestmentRow[] = [];
+
+  for (let m = 1; m <= months; m++) {
+    const interest = balance * monthlyRate;
+    balance += interest + monthlyContribution;
+
+    if (m > 1) {
+      totalContributions += monthlyContribution; // el inicial ya se contó
+    }
+    totalInterest += interest;
+
+    table.push({
+      month: m,
+      year: Math.ceil(m / 12),
+      initialBalance: parseFloat(
+        (balance - interest - monthlyContribution).toFixed(2)
+      ),
+      contribution: monthlyContribution,
+      interest: parseFloat(interest.toFixed(2)),
+      finalBalance: parseFloat(balance.toFixed(2)),
+    });
+  }
+
+  return {
+    table,
+    totalContributed: parseFloat(totalContributions.toFixed(2)),
+    totalInterest: parseFloat(totalInterest.toFixed(2)),
+    finalBalance: parseFloat(balance.toFixed(2)),
+  };
+};

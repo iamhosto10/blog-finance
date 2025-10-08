@@ -1,22 +1,51 @@
-import GraphicsTable from "@/components/CommonComponents/GraphicsTable/GraphicsTable";
 import React from "react";
+import ClientPage from "./ClientPage";
+import type { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Calculadora de Ahorro | Proyecta tus finanzas fácilmente",
+  description:
+    "Descubre cómo crecerán tus ahorros con el tiempo usando nuestra Calculadora de Ahorro. Visualiza tus aportes, rendimientos e intereses en tablas y gráficos claros, y entiende la importancia del interés compuesto.",
+  keywords: [
+    "calculadora de ahorro",
+    "interés compuesto",
+    "ahorros",
+    "finanzas personales",
+    "rendimientos",
+    "proyecciones financieras",
+    "ahorrar dinero",
+    "inversiones",
+  ],
+  openGraph: {
+    title: "Calculadora de Ahorro 💰 | Visualiza cómo crece tu dinero",
+    description:
+      "Haz aportes periódicos, mira cómo se acumulan intereses y proyecta el crecimiento de tu ahorro con nuestra calculadora interactiva.",
+    url: "https://tusitio.com/calculadora-de-ahorro",
+    siteName: "Calculadora de Ahorro",
+    images: [
+      {
+        url: "https://tusitio.com/imagen-previa-calculadora.jpg", // reemplaza con tu imagen real
+        width: 1200,
+        height: 630,
+        alt: "Gráfico de crecimiento de ahorro",
+      },
+    ],
+    locale: "es_ES",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Calculadora de Ahorro 💰",
+    description:
+      "Simula tus aportes e intereses y observa cómo crece tu ahorro con el tiempo.",
+    images: ["https://tusitio.com/imagen-previa-calculadora.jpg"], // reemplaza
+  },
+  alternates: {
+    canonical: "https://tusitio.com/calculadora-de-ahorro",
+  },
+};
 const page = () => {
-  return (
-    <div className="container mx-auto flex flex-col gap-16">
-      <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
-        Calculadora de Ahorros
-      </h1>
-      <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur.
-      </p>
-      <GraphicsTable />
-    </div>
-  );
+  return <ClientPage />;
 };
 
 export default page;
