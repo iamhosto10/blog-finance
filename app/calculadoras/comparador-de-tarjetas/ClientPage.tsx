@@ -9,17 +9,29 @@ import { Listbox } from "@headlessui/react";
 import { ChevronDown, PlusIcon, X } from "lucide-react";
 import { Bank, Card, Franchise } from "@/lib/interface";
 
+const firstBank: Bank = {
+  _id: "",
+  _type: "banks",
+  slug: { _type: "slug", current: "" },
+  title: "Seleccione Banco",
+};
+const fistFranchiese: Franchise = {
+  _id: "",
+  _type: "franchises",
+  name: "Seleccione Franquisia",
+  slug: {
+    _type: "slug",
+    current: "",
+  },
+};
 const ClientPage = () => {
   const { banks, franchieses, cards } = useSelector(
     (state: RootState) => state.sanity
   );
-
-  if (!banks || !franchieses || !cards) return null;
-  const [selectedBank, setSelectedBank] = useState<Bank>(banks[0]);
-  const [selectedFranchiese, setSelectedFranchiese] = useState<Franchise>(
-    franchieses[0]
-  );
-  const [selectedCard, setSelectedCard] = useState<Card | null>();
+  const [selectedBank, setSelectedBank] = useState<Bank>(firstBank);
+  const [selectedFranchiese, setSelectedFranchiese] =
+    useState<Franchise>(fistFranchiese);
+  const [selectedCard, setSelectedCard] = useState<Card | null>(null);
   const [selectedCards, setSelectedCards] = useState<Card[]>([]);
 
   const AddCards = () => {
@@ -33,6 +45,8 @@ const ClientPage = () => {
     const newCards: Card[] = selectedCards.filter((card) => card._id !== id);
     setSelectedCards(newCards);
   };
+
+  if (!banks || !franchieses || !cards) return null;
 
   return (
     <div className="container mx-auto flex flex-col gap-16">
@@ -58,11 +72,13 @@ const ClientPage = () => {
             }}
           >
             <Listbox.Button className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer">
-              <img
-                src={urlFor(selectedBank.asset).url()}
-                alt={selectedBank.title}
-                className="w-6 h-6 rounded"
-              />
+              {selectedBank.asset && (
+                <img
+                  src={urlFor(selectedBank.asset).url()}
+                  alt={selectedBank.title}
+                  className="w-6 h-6 rounded"
+                />
+              )}
               {selectedBank.title}
               <ChevronDown />
             </Listbox.Button>
@@ -96,11 +112,13 @@ const ClientPage = () => {
             }}
           >
             <Listbox.Button className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer">
-              <img
-                src={urlFor(selectedFranchiese.image).url()}
-                alt={selectedFranchiese.name}
-                className="w-6 h-6 rounded"
-              />
+              {selectedFranchiese.image && (
+                <img
+                  src={urlFor(selectedFranchiese.image).url()}
+                  alt={selectedFranchiese.name}
+                  className="w-6 h-6 rounded"
+                />
+              )}
               {selectedFranchiese.name}
               <ChevronDown />
             </Listbox.Button>
@@ -192,7 +210,6 @@ const ClientPage = () => {
         )}
       </div>
       <div className=" w-full ">
-        {/* //hidden md:block */}
         <h2 className="text-xl font-bold font-agrandir text-secondary mb-6">
           FICHA TÉCNICA
         </h2>
@@ -241,11 +258,15 @@ const ClientPage = () => {
             BANCO:
           </p>
           <p className="font-canva-sans self-end text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">BANCO:</p>
+            <span className="font-bold font-agrandir self-end md:hidden">
+              BANCO:
+            </span>
             {selectedCards[0]?.bank?.title}
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">BANCO:</p>
+            <span className="font-bold font-agrandir self-end md:hidden">
+              BANCO:
+            </span>
             {selectedCards[1]?.bank?.title}
           </p>
         </div>
@@ -254,15 +275,15 @@ const ClientPage = () => {
             FRANQUISIA:
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               FRANQUISIA:
-            </p>
+            </span>
             {selectedCards[0]?.franchise?.name}
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               FRANQUISIA:
-            </p>
+            </span>
             {selectedCards[1]?.franchise?.name}
           </p>
         </div>
@@ -272,15 +293,15 @@ const ClientPage = () => {
             TIPO DE TARJETA:
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               TIPO DE TARJETA:
-            </p>
+            </span>
             {selectedCards[0]?.cardType?.toUpperCase()}
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               TIPO DE TARJETA:
-            </p>
+            </span>
             {selectedCards[1]?.cardType?.toUpperCase()}
           </p>
         </div>
@@ -289,15 +310,15 @@ const ClientPage = () => {
             CUOTA DE MANEJO:
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               CUOTA DE MANEJO:
-            </p>
+            </span>
             {selectedCards[0]?.cuotaManejo}
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               CUOTA DE MANEJO:
-            </p>
+            </span>
             {selectedCards[1]?.cuotaManejo}
           </p>
         </div>
@@ -306,15 +327,15 @@ const ClientPage = () => {
             CUOTA DE EXOHONERABLE:
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               CUOTA DE EXOHONERABLE:
-            </p>
+            </span>
             {selectedCards[0]?.cuotaManejoExohonerable}
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               CUOTA DE EXOHONERABLE:
-            </p>
+            </span>
             {selectedCards[1]?.cuotaManejoExohonerable}
           </p>
         </div>
@@ -323,15 +344,15 @@ const ClientPage = () => {
             TASA DE INTERES E.A.:
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               TASA DE INTERES E.A.:
-            </p>
+            </span>
             {selectedCards[0]?.tasaInteresEfectivaAnual}
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               TASA DE INTERES E.A.:
-            </p>
+            </span>
             {selectedCards[1]?.tasaInteresEfectivaAnual}
           </p>
         </div>
@@ -340,15 +361,15 @@ const ClientPage = () => {
             SEGURO FRAUDE:
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               SEGURO FRAUDE:
-            </p>
+            </span>
             {selectedCards[0]?.seguroFraude}
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               SEGURO FRAUDE:
-            </p>
+            </span>
             {selectedCards[1]?.seguroFraude}
           </p>
         </div>
@@ -357,15 +378,15 @@ const ClientPage = () => {
             COSTO AVANCE:
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               COSTO AVANCE:
-            </p>
+            </span>
             {selectedCards[0]?.costoAvance}
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               COSTO AVANCE:
-            </p>
+            </span>
             {selectedCards[1]?.costoAvance}
           </p>
         </div>
@@ -374,16 +395,16 @@ const ClientPage = () => {
             COSTO TRANSACCIONES INTERNACIONALES (%):
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               COSTO TRANSACCIONES INTERNACIONALES (%):
-            </p>
+            </span>
             {selectedCards[0]?.costoTransaccionesInternacionales}{" "}
             {selectedCards[0] && "%"}
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               COSTO TRANSACCIONES INTERNACIONALES (%):
-            </p>
+            </span>
             {selectedCards[1]?.costoTransaccionesInternacionales}{" "}
             {selectedCards[1] && "%"}
           </p>
@@ -393,15 +414,15 @@ const ClientPage = () => {
             BENEFICIOS:
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               BENEFICIOS:
-            </p>
+            </span>
             {selectedCards[0]?.benefits?.join(", ")}
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               BENEFICIOS:
-            </p>
+            </span>
             {selectedCards[1]?.benefits?.join(", ")}
           </p>
         </div>
@@ -410,15 +431,15 @@ const ClientPage = () => {
             PROGRAMAS DE RECOMPENSAS:
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               PROGRAMAS DE RECOMPENSAS:
-            </p>
+            </span>
             {selectedCards[0]?.programaRecompensas}
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               PROGRAMAS DE RECOMPENSAS:
-            </p>
+            </span>
             {selectedCards[1]?.programaRecompensas}
           </p>
         </div>
@@ -427,15 +448,15 @@ const ClientPage = () => {
             ALIANZAS:
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               ALIANZAS:
-            </p>
+            </span>
             {selectedCards[0]?.alianzas?.join(", ")}
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               ALIANZAS:
-            </p>
+            </span>
             {selectedCards[1]?.alianzas?.join(", ")}
           </p>
         </div>
@@ -444,15 +465,15 @@ const ClientPage = () => {
             INGRESO MINIMO:
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               INGRESO MINIMO:
-            </p>
+            </span>
             {selectedCards[0]?.ingresoMinimo}
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               INGRESO MINIMO:
-            </p>
+            </span>
             {selectedCards[1]?.ingresoMinimo}
           </p>
         </div>
@@ -461,15 +482,15 @@ const ClientPage = () => {
             EDAD MINIMA:
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               EDAD MINIMA:
-            </p>
+            </span>
             {selectedCards[0]?.edadMinima}
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               EDAD MINIMA:
-            </p>
+            </span>
             {selectedCards[1]?.edadMinima}
           </p>
         </div>
@@ -478,15 +499,15 @@ const ClientPage = () => {
             CUPO MAXIMO:
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               CUPO MAXIMO:
-            </p>
+            </span>
             {selectedCards[0]?.cupoMaximo}
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               CUPO MAXIMO:
-            </p>
+            </span>
             {selectedCards[1]?.cupoMaximo}
           </p>
         </div>
@@ -495,9 +516,9 @@ const ClientPage = () => {
             COMPRAS INTERNACIONALES:
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               COMPRAS INTERNACIONALES:
-            </p>
+            </span>
             {selectedCards[0]
               ? selectedCards[0]?.comprasInternacionales
                 ? "SI"
@@ -505,9 +526,9 @@ const ClientPage = () => {
               : ""}
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               COMPRAS INTERNACIONALES:
-            </p>
+            </span>
             {selectedCards[1]
               ? selectedCards[1]?.comprasInternacionales
                 ? "SI"
@@ -520,9 +541,9 @@ const ClientPage = () => {
             BANCA DIGITAL:
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               BANCA DIGITAL:
-            </p>
+            </span>
             {selectedCards[0]
               ? selectedCards[0]?.bancaDigital
                 ? "SI"
@@ -530,9 +551,9 @@ const ClientPage = () => {
               : ""}
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               BANCA DIGITAL:
-            </p>
+            </span>
             {selectedCards[1]
               ? selectedCards[1]?.bancaDigital
                 ? "SI"
@@ -545,15 +566,15 @@ const ClientPage = () => {
             SEGURIDAD:
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               SEGURIDAD:
-            </p>
+            </span>
             {selectedCards[0]?.seguridad?.join(", ")}
           </p>
           <p className="font-canva-sans self-end  text-center ">
-            <p className="font-bold font-agrandir self-end md:hidden">
+            <span className="font-bold font-agrandir self-end md:hidden">
               SEGURIDAD:
-            </p>
+            </span>
             {selectedCards[1]?.seguridad?.join(", ")}
           </p>
         </div>
