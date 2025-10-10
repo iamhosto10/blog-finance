@@ -48,6 +48,73 @@ export interface Dolar {
   fecha: string;
 }
 
+export interface Bank {
+  _id: string;
+  _type: "banks";
+  title: string;
+  slug: {
+    _type: "slug";
+    current: string;
+  };
+  asset?: {
+    _type: "image";
+    asset: {
+      _ref: string;
+      _type: "reference";
+    };
+  };
+}
+
+export interface Franchise {
+  _id: string;
+  _type: "franchises";
+  name: string;
+  slug: {
+    _type: "slug";
+    current: string;
+  };
+  image?: {
+    _type: "image";
+    asset: {
+      _ref: string;
+      _type: "reference";
+    };
+  };
+}
+
+export interface Card {
+  _id: string;
+  _type: "cards";
+  name: string;
+  image?: {
+    _type: "image";
+    asset: {
+      _ref: string;
+      _type: "reference";
+    };
+  };
+  bank?: Bank;
+
+  franchise?: Franchise;
+  cardType?: "clasica" | "oro" | "platino" | "black" | "otros";
+  cuotaManejo?: number;
+  cuotaManejoExohonerable?: string;
+  tasaInteresEfectivaAnual?: number;
+  seguroFraude?: string;
+  costoAvance?: string;
+  costoTransaccionesInternacionales?: number;
+  benefits?: string[];
+  programaRecompensas?: "cashback" | "millas" | "platino";
+  alianzas?: string[];
+  ingresoMinimo?: number;
+  edadMinima?: number;
+  cupoMaximo?: number;
+  comprasInternacionales?: boolean;
+  bancaDigital?: boolean;
+  seguridad?: string[];
+  score?: number;
+}
+
 export interface BodySection {
   title?: string;
   body?: PortableTextBlock[];

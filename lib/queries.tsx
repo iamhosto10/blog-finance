@@ -53,3 +53,56 @@ export const profitabilityQuery = `
       pibank
     }
   `;
+
+export const banksQuery = `
+*[_type == "banks"]{
+  _id,
+  title,
+  slug,
+  asset
+}[]
+ `;
+
+export const franchieseQuery = `
+ *[_type == "franchises"]{
+  _id,
+  name,
+  slug,
+  image
+}[]
+`;
+
+export const cardsQuery = `*[_type == "cards"]{
+  _id,
+  name,
+  image,
+  bank->{
+    _id,
+    title,
+    slug,
+    asset
+  },
+  franchise->{
+    _id,
+    name,
+    slug,
+    image
+  },
+  cardType,  
+  cuotaManejo,
+  cuotaManejoExohonerable,
+  tasaInteresEfectivaAnual,
+  seguroFraude,
+  costoAvance,
+  costoTransaccionesInternacionales,
+  benefits,
+  programaRecompensas,
+  alianzas,
+  ingresoMinimo,
+  edadMinima,
+  cupoMaximo,
+  comprasInternacionales,
+  bancaDigital,
+  seguridad,
+  score  
+}[] `;

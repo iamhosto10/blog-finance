@@ -1,11 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Blog, Category, Dolar, Profitability } from "@/lib/interface";
+import {
+  Bank,
+  Blog,
+  Card,
+  Category,
+  Dolar,
+  Franchise,
+  Profitability,
+} from "@/lib/interface";
 
 export interface SanityState {
   blogs: Blog[];
   categories: Category[];
   dolar: Dolar | null;
   profitability: Profitability | null;
+  banks: Bank[] | null;
+  franchieses: Franchise[] | null;
+  cards: Card[] | null;
   loading: boolean;
   error: string | null;
 }
@@ -15,6 +26,9 @@ const initialState: SanityState = {
   categories: [],
   dolar: null,
   profitability: null,
+  banks: null,
+  franchieses: null,
+  cards: null,
   loading: false,
   error: null,
 };

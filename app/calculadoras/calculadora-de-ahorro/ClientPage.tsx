@@ -421,11 +421,11 @@ const ClientPage = () => {
               onChange={handleChangeCompounding}
               value={inputs.compounding}
             >
-              <option value="weekly">Compuesto diariamente</option>
-              <option value="biweekly">Compuesto mensual</option>
-              <option value="monthly">Compuesto mensual</option>
-              <option value="quarterly">Compuesto trimestral</option>
-              <option value="annually">Compuesto anual</option>
+              <option value="weekly">Compuesto Diariamente</option>
+              <option value="biweekly">Compuesto Quincenal</option>
+              <option value="monthly">Compuesto Mensual</option>
+              <option value="quarterly">Compuesto Trimestral</option>
+              <option value="annually">Compuesto Anual</option>
             </select>
 
             <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-tertiary size-7" />
