@@ -256,3 +256,41 @@ export type SimulationResult = {
   totalInterest: number;
   finalBalance: number;
 };
+
+export type SimuladorInput = {
+  valorVivienda: number;
+  cuotaInicialPorcentaje: number;
+  tasaInteresAnual: number;
+  plazoAnios: number;
+  seguroMensual?: number;
+  gastosFijos?: number;
+};
+
+export type Cuota = {
+  mes: number;
+  cuota: number;
+  interes: number;
+  abonoCapital: number;
+  saldo: number;
+  seguro?: number;
+  gastos?: number;
+};
+
+export type ResultadoSimulacion = {
+  montoPrestamo: number;
+  cuotaMensual: number;
+  totalPagado: number;
+  totalIntereses: number;
+  totalGastos: number;
+  totalSeguros: number;
+  tabla: Cuota[];
+};
+
+export type TotalesVivienda = {
+  montoPrestamo: number;
+  cuotaMensual: number;
+  totalPagado: number;
+  totalIntereses: number;
+  totalGastos: number;
+  totalSeguros: number;
+};

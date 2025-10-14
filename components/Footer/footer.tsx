@@ -85,7 +85,7 @@ const Footer = () => {
             © El Monopolombiano 2025
           </p>
 
-          <div className="flex flex-row items-center gap-4 text-sm lg:text-lg">
+          <div className="grid grid-cols-3 xl:flex xl:flex-row items-center gap-4 text-sm lg:text-lg">
             <Link
               href="/politica-de-privacidad"
               className="font-agrandir font-bold"
@@ -106,6 +106,9 @@ const Footer = () => {
             </Link>
             <Link href="/aviso-legal" className="font-agrandir font-bold">
               Aviso Legal
+            </Link>
+            <Link href="/sobre-nosotros" className="font-agrandir font-bold">
+              Sobre Nosotros
             </Link>
           </div>
 

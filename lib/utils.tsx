@@ -4,10 +4,13 @@ import {
   CalcInputs,
   CalcResult,
   Compounding,
+  Cuota,
   DailyGrowth,
   Frequency,
   InvestmentRow,
   Payment,
+  ResultadoSimulacion,
+  SimuladorInput,
   SimulationResult,
   table,
   YearRow,
@@ -555,5 +558,67 @@ export const simulateInvestment = (
     totalContributed: parseFloat(totalContributions.toFixed(2)),
     totalInterest: parseFloat(totalInterest.toFixed(2)),
     finalBalance: parseFloat(balance.toFixed(2)),
+  };
+};
+
+/**
+ * Calcula la tabla de amortización mes a mes para un crédito de vivienda
+ */
+export const simularCreditoVivienda = ({
+  valorVivienda,
+  cuotaInicialPorcentaje,
+  tasaInteresAnual,
+  plazoAnios,
+  seguroMensual = 0,
+  gastosFijos = 0,
+}: SimuladorInput): ResultadoSimulacion => {
+  const meses = plazoAnios * 12;
+  const tasaMensual = tasaInteresAnual / 100 / 12;
+  const cuotaInicial = (valorVivienda * cuotaInicialPorcentaje) / 100;
+  const montoPrestamo = valorVivienda - cuotaInicial;
+
+  // Fórmula de amortización: cuota fija mensual
+  const cuotaBase =
+    (montoPrestamo * tasaMensual) / (1 - Math.pow(1 + tasaMensual, -meses));
+
+  let saldo = montoPrestamo;
+  const tabla: Cuota[] = [];
+
+  for (let mes = 1; mes <= meses; mes++) {
+    const interes = saldo * tasaMensual;
+    const abonoCapital = cuotaBase - interes;
+    saldo -= abonoCapital;
+
+    const seguro =
+      typeof seguroMensual === "number" && seguroMensual < 1
+        ? saldo * seguroMensual // Si se da como porcentaje
+        : seguroMensual;
+
+    const cuotaTotal = cuotaBase + (seguro ?? 0) + gastosFijos;
+
+    tabla.push({
+      mes,
+      cuota: cuotaTotal,
+      interes,
+      abonoCapital,
+      saldo: saldo > 0 ? saldo : 0,
+      seguro,
+      gastos: gastosFijos,
+    });
+  }
+
+  const totalPagado = tabla.reduce((acc, c) => acc + c.cuota, 0);
+  const totalIntereses = tabla.reduce((acc, c) => acc + c.interes, 0);
+  const totalGastos = tabla.reduce((acc, c) => acc + (c.gastos ?? 0), 0);
+  const totalSeguros = tabla.reduce((acc, c) => acc + (c.seguro ?? 0), 0);
+
+  return {
+    montoPrestamo,
+    cuotaMensual: cuotaBase + seguroMensual + gastosFijos,
+    totalPagado,
+    totalIntereses,
+    totalGastos,
+    totalSeguros,
+    tabla,
   };
 };
