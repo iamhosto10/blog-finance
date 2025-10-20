@@ -54,12 +54,17 @@ const page = () => {
           Tips Financieros
         </h1>
         <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
+          Descubre consejos financieros prácticos para tu día a día. Aprende a
+          ahorrar en tus compras, aprovechar promociones, evitar fraudes
+          bancarios y usar las mejores apps financieras del mercado colombiano.
+          También te enseñamos cómo mejorar tu historial crediticio, proteger tu
+          dinero y mantener una buena seguridad financiera en línea. Pequeños
+          cambios pueden hacer una gran diferencia en tus finanzas personales.
+          <br />
+          <br />
+          <span className="font-bold">Temas principales: </span> cajeros,
+          bancos, seguridad financiera, apps y herramientas útiles, historial
+          crediticio.
         </p>
         <ArticleShowcase category="Tips Financieros" />
         <ArticleList category="Tips Financieros" indexes={[0, 3]} />

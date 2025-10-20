@@ -43,6 +43,8 @@ import {
   Totales,
   YearRow,
 } from "@/lib/interface";
+import Link from "next/link";
+import Tag from "@/components/CommonComponents/Tag";
 
 ChartJS.register(
   CategoryScale,
@@ -218,6 +220,11 @@ const ClientPage = () => {
       <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
         Calculadora de Ahorros
       </h1>
+      <div className="flex ">
+        <Link href="/calculadoras">
+          <Tag title="CALCULADORAS" />
+        </Link>
+      </div>
       <p className="text-left font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
         La Calculadora de Ahorro es una herramienta que te permite proyectar
         cuánto podrías acumular en el futuro al combinar un monto inicial,

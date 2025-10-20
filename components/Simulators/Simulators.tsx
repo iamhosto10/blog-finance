@@ -1,6 +1,7 @@
 import React from "react";
 import Slider from "../CommonComponents/Slider";
 import Tag from "../CommonComponents/Tag";
+import Link from "next/link";
 
 const Simulators = () => {
   return (
@@ -9,7 +10,9 @@ const Simulators = () => {
         USA NUESTROS <span className="text-primary"> SIMULADORES</span> PARA
         PROYECTAR TU FUTURO
       </h3>
-      <Tag title="HERRAMIENTAS" />
+      <Link href={"/calculadoras"}>
+        <Tag title="CALCULADORAS" />
+      </Link>
       <Slider />
     </div>
   );

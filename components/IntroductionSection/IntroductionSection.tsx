@@ -9,31 +9,32 @@ const IntroductionSection = () => {
           ¿QUE ENCONTRARAS EN LA <span className="text-primary">PAGINA</span> ?
         </h2>
         <p className="font-canva-sans text-tertiary mb-4 text-center md:w-2/3 mx-auto my-4">
-          Ahorrar para una vivienda propia es uno de los grandes retos
-          financieros de la vida adulta. La respuesta a cuántos años necesitas
-          dependerá de tu ingreso
+          Aquí aprenderás a manejar mejor tu dinero, entender la economía
+          colombiana y tomar decisiones financieras inteligentes. Desde consejos
+          prácticos de ahorro hasta calculadoras que te ayudarán a planear tus
+          metas, todo en un solo lugar.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-5 lg:gap-x-16 md:gap-y-7 ">
           <FeatureCard
-            url="/"
-            title="Herramientas"
-            subtitle="Lorem Ipsum, Lorem Ipsum"
+            url="/finanzas-personales"
+            title="Finanzas Personales"
+            subtitle="Ahorro, inversión, créditos, vivienda"
           />
           <FeatureCard
-            url="/"
-            title="Blog"
-            subtitle="Lorem Ipsum, Lorem Ipsum"
+            url="/economia-hoy"
+            title="Economia Hoy"
+            subtitle="Bancos, tasas, impuestos, criptomonedas"
+          />
+          <FeatureCard
+            url="/tips-financieros"
+            title="Tips Financieros"
+            subtitle="Consejos, seguridad, apps, historial"
           />
 
           <FeatureCard
-            url="/"
-            title="Tips y hacks"
-            subtitle="Lorem Ipsum, Lorem Ipsum"
-          />
-          <FeatureCard
-            url="/"
-            title="Noticias"
-            subtitle="Lorem Ipsum, Lorem Ipsum"
+            url="/calculadoras"
+            title="Calculadoras"
+            subtitle="Intereses, dólar, ahorro, 4x1000"
           />
         </div>
       </CardContent>

@@ -4,7 +4,7 @@ import React from "react";
 
 const subcategories = [
   {
-    label: "Calculadora de rentabilidad",
+    label: "Calculadoras de rentabilidad",
     href: "/calculadoras/calculadora-de-rentabilidad",
     description:
       "Bienvenido a nuestra sección de Calculadoras Financieras, diseñada para ayudarte",
@@ -76,12 +76,18 @@ const Page = () => {
           Calculadoras
         </h1>
         <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
+          Haz tus cuentas con nuestras calculadoras financieras en línea,
+          diseñadas especialmente para Colombia. Calcula cuánto puedes ahorrar
+          cada mes, los intereses de tus créditos, el impuesto del 4x1000, la
+          rentabilidad de tus inversiones o convierte dólares a pesos
+          colombianos al instante. Estas herramientas te ayudarán a planear
+          mejor tu dinero y tomar decisiones financieras informadas sin
+          complicaciones.
+          <br />
+          <br />
+          <span className="font-bold">Herramientas disponibles: </span>
+          calculadora de ahorro, inversión, intereses, 4x1000, dólar-peso, y
+          mucho más.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {subcategories.map((subcategory, index) => (

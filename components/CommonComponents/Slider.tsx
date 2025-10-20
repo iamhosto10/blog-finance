@@ -6,19 +6,44 @@ import { useState, useRef, useEffect } from "react";
 
 const items = [
   {
-    title: "Simulador CDT",
-    subtitle: "(Certificado de Depósito a Término)",
+    title: "Calculadoras de Rentabilidad",
+    subtitle: "🏦 Simula las rentabilidades de Bancos",
     icon: "/icons/cdt.svg",
   },
   {
-    title: "Calculadora de Interés",
-    subtitle: "(Interés Compuesto)",
+    title: "Calculadora de Crédito",
+    subtitle: "📊 Proyecta tus pagos mensuales",
     icon: "/icons/calculadora.svg",
   },
   {
-    title: "Conversor de Moneda",
-    subtitle: "(Dólar, Euro, etc.)",
+    title: "Calculadora de Ahorro",
+    subtitle: "🔮 Visualiza el crecimiento de tu ahorro",
     icon: "/icons/conversor.svg",
+  },
+  {
+    title: "Simulador de Inversión",
+    subtitle: "🧮 Visualiza tus ganancias potenciales",
+    icon: "/icons/cdt.svg",
+  },
+  {
+    title: "Comparador de Tarjetas",
+    subtitle: "💳 Encuentra la tarjeta ideal",
+    icon: "/icons/cdt.svg",
+  },
+  {
+    title: "Simulador de Leasing y Vivienda",
+    subtitle: "🏠 Calcula tus cuotas hipotecarias",
+    icon: "/icons/cdt.svg",
+  },
+  {
+    title: "Calculadora de 4x1000",
+    subtitle: "🏦 Descubre cuánto pagas en 4x1000",
+    icon: "/icons/cdt.svg",
+  },
+  {
+    title: "Conversor de Dolares",
+    subtitle: "🔄 Calcula el cambio actual USD-COP",
+    icon: "/icons/cdt.svg",
   },
 ];
 
@@ -117,7 +142,7 @@ export default function InfiniteSlider() {
           <Link href="/blog" key={index}>
             <div
               key={index}
-              className="flex items-center justify-between border border-secondary rounded-xl px-4 py-3 gap-4 w-[300px] sm:w-[350px] flex-shrink-0 bg-white shadow-sm  hover:scale-105 transition-all"
+              className="flex items-center justify-between border border-secondary rounded-xl h-20 lg:h-auto px-4 py-3 gap-4 w-[350px] sm:w-[350px] flex-shrink-0 bg-white shadow-sm  hover:scale-105 transition-all"
             >
               <div className="flex items-center gap-3">
                 {/* <Image src={item.icon} alt="icon" width={32} height={32} /> */}

@@ -35,6 +35,8 @@ import {
 } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Payment, Totales } from "@/lib/interface";
+import Link from "next/link";
+import Tag from "@/components/CommonComponents/Tag";
 
 ChartJS.register(
   CategoryScale,
@@ -211,6 +213,11 @@ const Clientpage = () => {
       <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
         Calculadora de Credito
       </h1>
+      <div className="flex ">
+        <Link href="/calculadoras">
+          <Tag title="CALCULADORAS" />
+        </Link>
+      </div>
       <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
         Nuestra calculadora de crédito online te ayuda a simular fácilmente cómo
         quedarán tus cuotas al solicitar un préstamo o diferir una compra con tu

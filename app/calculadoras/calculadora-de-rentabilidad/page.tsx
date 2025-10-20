@@ -1,4 +1,6 @@
 import CalculatorCard from "@/components/CommonComponents/Cards/CalculatorCard";
+import Tag from "@/components/CommonComponents/Tag";
+import Link from "next/link";
 import React from "react";
 
 const banks = [
@@ -64,12 +66,28 @@ const Page = () => {
       <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
         Calculadora de rentabilidad
       </h1>
+      <div className="flex ">
+        <Link href="/calculadoras">
+          <Tag title="CALCULADORAS" />
+        </Link>
+      </div>
       <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur.
+        Compara cuánto podrías ganar con las diferentes cuentas de ahorro en
+        Colombia gracias a nuestras calculadoras de rentabilidad bancaria. Aquí
+        podrás simular los rendimientos que ofrecen entidades como Lulo Bank, Nu
+        Bank, Banco Popular, Pibank, Global 66 y Rappi, para que elijas la
+        opción más rentable según tus metas financieras.
+        <br />
+        <br /> Solo debes ingresar el Solo debes ingresar el monto a invertir,
+        el plazo y la tasa de rentabilidad anual. En segundos obtendrás una
+        proyección del crecimiento de tu dinero, los intereses generados y el
+        rendimiento total.
+        <br />
+        <br />
+        💡 Usa nuestras calculadoras de rentabilidad y descubre qué banco te
+        paga más por tus ahorros. Compara tasas, analiza resultados y toma
+        decisiones financieras inteligentes con información actualizada y
+        confiable.
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {banks.map((bank, index) => (

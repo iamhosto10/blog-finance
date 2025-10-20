@@ -53,12 +53,17 @@ const page = () => {
           Finanzas Personales
         </h1>
         <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
+          Aprende todo lo que necesitas para mejorar tu bienestar financiero.
+          Descubre estrategias prácticas de ahorro y presupuesto, cómo invertir
+          tu dinero de forma segura, y cómo manejar tus deudas y créditos sin
+          afectar tu tranquilidad económica. También encontrarás guías sobre
+          cómo comprar vivienda en Colombia, administrar tus finanzas en pareja
+          y tomar decisiones más inteligentes con tu dinero.
+          <br />
+          <br />
+          <span className="font-bold">Temas principales: </span> ahorro,
+          inversión, créditos, vivienda, finanzas en pareja y educación
+          financiera.
         </p>
         <ArticleShowcase category="Finanzas Personales" />
         <ArticleList category="Finanzas Personales" indexes={[0, 3]} />

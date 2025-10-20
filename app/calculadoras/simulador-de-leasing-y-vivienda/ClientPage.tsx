@@ -34,6 +34,8 @@ import {
 } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Cuota, TotalesVivienda } from "@/lib/interface";
+import Link from "next/link";
+import Tag from "@/components/CommonComponents/Tag";
 
 ChartJS.register(
   CategoryScale,
@@ -172,13 +174,6 @@ const ClientPage = () => {
     setInputs({ ...inputs, [key]: convertNumbertoString(newValue) });
   }
 
-  //   const handleChangeFrecuency = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //     setInputs({ ...inputs, frecuency: e.target.value });
-  //   };
-
-  //   const handleChangeCompounding = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //     setInputs({ ...inputs, frecuency: e.target.value });
-  //   };
   const calculate = () => {
     setShow(true);
     const result = simularCreditoVivienda({
@@ -208,6 +203,11 @@ const ClientPage = () => {
       <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
         Simulador de Leasing y Vivienda
       </h1>
+      <div className="flex ">
+        <Link href="/calculadoras">
+          <Tag title="CALCULADORAS" />
+        </Link>
+      </div>
       <p className="text-left font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
         ¿Estás pensando en adquirir tu vivienda o conocer cuánto pagarías en un
         crédito habitacional? Con nuestro Simulador de Leasing y Vivienda puedes

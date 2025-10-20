@@ -54,12 +54,17 @@ const page = () => {
           Economia Hoy
         </h1>
         <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
+          Mantente al día con las últimas noticias y análisis sobre la economía
+          colombiana. Conoce cómo las tasas de interés, los cambios en los
+          impuestos, las políticas de los bancos en Colombia y las nuevas
+          regulaciones financieras pueden afectar tu bolsillo. Además,
+          exploramos el impacto de las criptomonedas, las fintech y las nuevas
+          tecnologías en el sistema económico del país.
+          <br />
+          <br />
+          <span className="font-bold">Temas principales: </span> tasas de
+          interés, regulaciones, bancos, impuestos, criptomonedas y economía
+          digital.
         </p>
         <ArticleShowcase category="Economia Hoy" />
         <ArticleList category="Economia Hoy" indexes={[0, 3]} />

@@ -11,6 +11,7 @@ const ArticleHome = () => {
   if (!blogs[0]) {
     return <div className="w-full lg:w-2/3"></div>;
   }
+
   const {
     publishedAt,
     slug,
@@ -21,7 +22,8 @@ const ArticleHome = () => {
     miniatureImage,
     categories,
     excerpt,
-  } = blogs[0];
+  } = blogs[Math.floor(Math.random() * blogs.length)];
+  const categoryUrl = (categories && categories[0].slug?.current) ?? "";
   return (
     <div className="flex flex-col gap-4 w-full ">
       <h2 className="font-agrandir font-bold text-2xl lg:text-3xl text-secondary text-left line-clamp-4 lg:line-clamp-3 ">
@@ -30,7 +32,9 @@ const ArticleHome = () => {
         {continueTitle}
       </h2>
       <div className="flex flex-row w-full justify-start gap-2">
-        <Tag title={categories && categories[0]?.title} />
+        <Link href={"/" + categoryUrl}>
+          <Tag title={categories && categories[0]?.title} />
+        </Link>
         <p className="text-sm text-tertiary my-auto font-canva-sans font-bold">
           {new Date(
             publishedAt ? publishedAt.slice(0, 10) : ""

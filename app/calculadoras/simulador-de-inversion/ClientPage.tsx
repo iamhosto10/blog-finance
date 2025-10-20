@@ -33,6 +33,8 @@ import {
   validarNumero,
 } from "@/lib/utils";
 import { CalcResultTotales, InvestmentRow } from "@/lib/interface";
+import Link from "next/link";
+import Tag from "@/components/CommonComponents/Tag";
 
 ChartJS.register(
   CategoryScale,
@@ -226,6 +228,11 @@ const ClientPage = () => {
       <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
         Simulador de Inversion
       </h1>
+      <div className="flex ">
+        <Link href="/calculadoras">
+          <Tag title="CALCULADORAS" />
+        </Link>
+      </div>
       <p className="text-left font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
         ¿Quieres saber cuánto podría crecer tu dinero con el tiempo? Con nuestro
         Simulador de Inversión puedes estimar de forma sencilla el rendimiento

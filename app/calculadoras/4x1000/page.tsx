@@ -4,6 +4,7 @@ import { Calculator } from "@/components/4x1000/Calculator";
 import { InfoSection } from "@/components/CommonComponents/InfoSection/InfoSection";
 import { FAQ } from "@/components/CommonComponents/FAQ/FAQ";
 import Tag from "@/components/CommonComponents/Tag";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Calculadora 4x1000 Colombia",
@@ -66,13 +67,28 @@ export default function Page() {
             ¿CUANTO PAGAS POR EL <span className="text-primary">4x1000</span> ?
           </h1>
           <p className="text-lg text-tertiary font-canva-sans">
-            Aprende sobre este impuesto financiero en Colombia y calcula
-            fácilmente el valor
+            La calculadora del 4x1000 te permite conocer cuánto dinero se
+            descuenta por el Impuesto a las Transacciones Financieras (GMF) en
+            Colombia. Este impuesto aplica cada vez que realizas retiros,
+            transferencias o movimientos desde tus cuentas bancarias.
+            <br />
+            <br />
+            Solo debes ingresar el valor de la transacción, y la herramienta
+            calculará automáticamente cuánto pagarías por concepto del 4x1000,
+            es decir, cuatro pesos por cada mil que retires o transfieras.
+            <br />
+            <br />
+            💡Con esta calculadora podrás entender cómo impacta el 4x1000 en tus
+            finanzas personales, planificar mejor tus movimientos bancarios y
+            aprovechar beneficios como las cuentas exentas de este impuesto
+            según la normativa vigente.
           </p>
         </section>
         <div className="flex flex-col md:flex-row  w-full justify-start">
           <div className="h-auto flex md:block">
-            <Tag title="HERRAMIENTAS" />
+            <Link href="/calculadoras">
+              <Tag title="CALCULADORAS" />
+            </Link>
           </div>
           <img
             src="/assets/4x1000/4x1000.png"

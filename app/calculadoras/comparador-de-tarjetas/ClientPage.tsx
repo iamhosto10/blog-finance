@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { Listbox } from "@headlessui/react";
 import { ChevronDown, PlusIcon, X } from "lucide-react";
 import { Bank, Card, Franchise } from "@/lib/interface";
+import Link from "next/link";
+import Tag from "@/components/CommonComponents/Tag";
 
 const firstBank: Bank = {
   _id: "",
@@ -53,6 +55,11 @@ const ClientPage = () => {
       <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
         COMPARADOR DE TARJETAS
       </h1>
+      <div className="flex ">
+        <Link href="/calculadoras">
+          <Tag title="CALCULADORAS" />
+        </Link>
+      </div>
       <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
         Explora nuestro comparador de tarjetas bancarias y encuentra la opción
         que mejor se adapta a tus necesidades. Compara características, fichas

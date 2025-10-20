@@ -20,7 +20,7 @@ export default function Home() {
       <div className="container">
         <IntroductionSection />
         <PostPreviewCardHorizontal />
-        <News data={data} />
+        <News data={data.slice(1)} />
         <div className="w-full shadow-2xl rounded-xl p-6 bg-tertiary-foreground my-6">
           <Simulators />
         </div>
