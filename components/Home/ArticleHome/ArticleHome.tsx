@@ -1,3 +1,5 @@
+"use client";
+
 import { urlFor } from "@/lib/sanity";
 import React from "react";
 import Link from "next/link";
@@ -6,11 +8,20 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import Tag from "@/components/CommonComponents/Tag";
 
-const ArticleHome = () => {
+const ArticleHome = ({ category = "1" }: { category?: string }) => {
   const { blogs } = useSelector((state: RootState) => state.sanity);
   if (!blogs[0]) {
     return <div className="w-full lg:w-2/3"></div>;
   }
+
+  const newBlogs =
+    category === "1"
+      ? blogs
+      : blogs.filter((blog) =>
+          blog.categories?.some(
+            (cat) => cat.title.toLowerCase() === category.toLowerCase()
+          )
+        );
 
   const {
     publishedAt,
@@ -22,8 +33,10 @@ const ArticleHome = () => {
     miniatureImage,
     categories,
     excerpt,
-  } = blogs[Math.floor(Math.random() * blogs.length)];
+  } = newBlogs[Math.floor(Math.random() * newBlogs.length)];
+
   const categoryUrl = (categories && categories[0].slug?.current) ?? "";
+
   return (
     <div className="flex flex-col gap-4 w-full ">
       <h2 className="font-agrandir font-bold text-2xl lg:text-3xl text-secondary text-left line-clamp-4 lg:line-clamp-3 ">

@@ -57,10 +57,12 @@ const ArticleList = ({
   indexes,
 }: {
   category: string;
-  indexes?: number[];
+  indexes: number[];
 }) => {
   const currentCategory =
     categories[category] || categories["Finanzas Personales"];
+
+  console.log("Current Category", category, currentCategory);
 
   const { blogs } = useSelector((state: RootState) => state.sanity);
 
@@ -79,7 +81,12 @@ const ArticleList = ({
   return (
     <>
       <section className="w-full grid gap-4 lg:grid-cols-12  rounded-3xl">
-        <div className="flex flex-col gap-6 lg:col-span-8">
+        <div
+          className={
+            "flex flex-col gap-6 " +
+            (indexes[0] === 4 ? "lg:col-span-8" : "lg:col-span-12")
+          }
+        >
           {newBlogs
             .slice(indexes ? indexes[0] : 0, indexes ? indexes[1] : 6)
             .map((article) => (
@@ -127,8 +134,13 @@ const ArticleList = ({
               </Link>
             ))}
         </div>
-        <div className="bg-secondary-background rounded-lg lg:col-span-4">
-          <div className={indexes?.[0] === 0 ? "block" : "hidden"}>
+        <div
+          className={
+            "bg-secondary-background rounded-lg " +
+            (indexes[0] === 4 ? "lg:col-span-4" : "lg:col-span-0")
+          }
+        >
+          <div className={indexes?.[0] === 4 ? "block" : "hidden"}>
             <h2 className="font-agrandir font-bold text-secondary text-xl pt-10 pb-5 text-center rounded-lg w-full bg-[#fbf7cc]">
               {currentCategory.title}
             </h2>

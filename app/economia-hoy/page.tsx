@@ -1,5 +1,6 @@
 import ArticleList from "@/components/ArticleList/ArticleList";
 import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
+import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
 import { Metadata } from "next";
 import React from "react";
 
@@ -66,10 +67,11 @@ const page = () => {
           interés, regulaciones, bancos, impuestos, criptomonedas y economía
           digital.
         </p>
-        <ArticleShowcase category="Economia Hoy" />
-        <ArticleList category="Economia Hoy" indexes={[0, 3]} />
-        <ArticleShowcase category="Economia Hoy" />
-        <ArticleList category="Economia Hoy" indexes={[3, 12]} />
+        <ArticleShowcase category="Economia Hoy" indexes={[0, 4]} />
+        <ArticleList category="Economia Hoy" indexes={[4, 7]} />
+        <ArticleHome category="Economia Hoy" />
+        <ArticleShowcase category="Economia Hoy" indexes={[7, 11]} />
+        <ArticleList category="Economia Hoy" indexes={[11, 20]} />
       </div>
     </>
   );

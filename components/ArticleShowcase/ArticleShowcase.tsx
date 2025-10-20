@@ -5,7 +5,13 @@ import { RootState } from "@/store/store";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
-const ArticleShowcase = ({ category }: { category: string }) => {
+const ArticleShowcase = ({
+  category,
+  indexes,
+}: {
+  category: string;
+  indexes: number[];
+}) => {
   const { blogs } = useSelector((state: RootState) => state.sanity);
 
   if (!blogs[0]) {
@@ -19,44 +25,51 @@ const ArticleShowcase = ({ category }: { category: string }) => {
 
   if (newBlogs.length <= 0) return null;
 
+  const index1 = indexes[0];
+  const index2 = indexes[1];
   const titleComplete = [
-    newBlogs[0]?.title,
-    newBlogs[0]?.focusTitle,
-    newBlogs[0]?.continueTitle,
+    newBlogs[index1]?.title,
+    newBlogs[index1]?.focusTitle,
+    newBlogs[index1]?.continueTitle,
   ]
     .filter(Boolean)
     .join(" ");
+
+  if (!newBlogs[indexes[0]]) return null;
 
   return (
     <section className="w-full grid gap-10 lg:grid-cols-12">
       {/* Artículo principal */}
       <Link
-        href={`/${newBlogs[0]?.categories ? newBlogs[0]?.categories[0]?.slug.current : ""}/${newBlogs[0]?.slug?.current ?? " "}`}
+        href={`/${newBlogs[index1]?.categories ? newBlogs[index1]?.categories[0]?.slug.current : ""}/${newBlogs[index1]?.slug?.current ?? " "}`}
         className="lg:col-span-5 hover:scale-110 transition-all"
       >
         <div className="">
           <div className="relative w-full h-auto md:h-auto rounded-xl overflow-hidden">
             <img
-              src={urlFor(newBlogs[0].mainImage).url()}
+              src={urlFor(newBlogs[index1].mainImage).url()}
               alt={titleComplete}
               className="rounded-md w-full h-auto object-cover"
             />
           </div>
           <h2 className="mt-4 text-sm md:text-lg text-secondary font-agrandir font-bold text-left line-clamp-3 lg:line-clamp-2 ">
-            {newBlogs[0].title}
-            <span className="text-primary"> {newBlogs[0].focusTitle} </span>
-            {newBlogs[0].continueTitle}
+            {newBlogs[index1].title}
+            <span className="text-primary">
+              {" "}
+              {newBlogs[index1].focusTitle}{" "}
+            </span>
+            {newBlogs[index1].continueTitle}
           </h2>
-          {newBlogs[0].excerpt && (
+          {newBlogs[index1].excerpt && (
             <p className="mt-2 text-tertiary line-clamp-3 hidden lg:line-clamp-4">
-              {newBlogs[0].excerpt}
+              {newBlogs[index1].excerpt}
             </p>
           )}
         </div>
       </Link>
       {/* Lista de artículos secundarios */}
       <div className="flex flex-col gap-6 lg:col-span-7">
-        {newBlogs.slice(1, 4).map((article) => (
+        {newBlogs.slice(index1 + 1, index2).map((article) => (
           <Link
             key={article._id}
             href={`/${article?.categories ? article?.categories[0]?.slug.current : ""}/${article.slug?.current}`}

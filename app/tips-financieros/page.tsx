@@ -1,5 +1,6 @@
 import ArticleList from "@/components/ArticleList/ArticleList";
 import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
+import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
 import { Metadata } from "next";
 import React from "react";
 
@@ -66,10 +67,11 @@ const page = () => {
           bancos, seguridad financiera, apps y herramientas útiles, historial
           crediticio.
         </p>
-        <ArticleShowcase category="Tips Financieros" />
-        <ArticleList category="Tips Financieros" indexes={[0, 3]} />
-        <ArticleShowcase category="Tips Financieros" />
-        <ArticleList category="Tips Financieros" indexes={[3, 12]} />
+        <ArticleShowcase category="Tips Financieros" indexes={[0, 4]} />
+        <ArticleList category="Tips Financieros" indexes={[4, 7]} />
+        <ArticleHome category="Tips Financieros" />
+        <ArticleShowcase category="Tips Financieros" indexes={[7, 11]} />
+        <ArticleList category="Tips Financieros" indexes={[11, 20]} />
       </div>
     </>
   );
