@@ -563,14 +563,14 @@ const ClientPage = () => {
               CUPO MAXIMO:
             </span>
             <br className="md:hidden" />
-            {formatCOP(Number(selectedCards[0]?.cupoMaximo) ?? "0")}
+            {formatCOP(Number(selectedCards[0]?.cupoMaximo ?? "0"))}
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
             <span className="font-bold font-agrandir self-end md:hidden">
               CUPO MAXIMO:
             </span>
             <br className="md:hidden" />
-            {formatCOP(Number(selectedCards[1]?.cupoMaximo) ?? "0")}
+            {formatCOP(Number(selectedCards[1]?.cupoMaximo ?? "0"))}
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2">
