@@ -6,10 +6,11 @@ import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Listbox } from "@headlessui/react";
-import { ChevronDown, PlusIcon, X } from "lucide-react";
+import { CheckCircle, ChevronDown, PlusIcon, X } from "lucide-react";
 import { Bank, Card, Franchise } from "@/lib/interface";
 import Link from "next/link";
 import Tag from "@/components/CommonComponents/Tag";
+import { formatCOP } from "@/lib/utils";
 
 const firstBank: Bank = {
   _id: "",
@@ -268,12 +269,14 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               BANCO:
             </span>
+            <br className="md:hidden" />
             {selectedCards[0]?.bank?.title}
           </p>
           <p className="font-canva-sans self-end  text-center ">
             <span className="font-bold font-agrandir self-end md:hidden">
               BANCO:
             </span>
+            <br className="md:hidden" />
             {selectedCards[1]?.bank?.title}
           </p>
         </div>
@@ -285,12 +288,14 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               FRANQUISIA:
             </span>
+            <br className="md:hidden" />
             {selectedCards[0]?.franchise?.name}
           </p>
           <p className="font-canva-sans self-end  text-center ">
             <span className="font-bold font-agrandir self-end md:hidden">
               FRANQUISIA:
             </span>
+            <br className="md:hidden" />
             {selectedCards[1]?.franchise?.name}
           </p>
         </div>
@@ -303,12 +308,14 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               TIPO DE TARJETA:
             </span>
+            <br className="md:hidden" />
             {selectedCards[0]?.cardType?.toUpperCase()}
           </p>
           <p className="font-canva-sans self-end  text-center ">
             <span className="font-bold font-agrandir self-end md:hidden">
               TIPO DE TARJETA:
             </span>
+            <br className="md:hidden" />
             {selectedCards[1]?.cardType?.toUpperCase()}
           </p>
         </div>
@@ -320,13 +327,15 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               CUOTA DE MANEJO:
             </span>
-            {selectedCards[0]?.cuotaManejo}
+            <br className="md:hidden" />
+            {formatCOP(Number(selectedCards[0]?.cuotaManejo))}
           </p>
           <p className="font-canva-sans self-end  text-center ">
             <span className="font-bold font-agrandir self-end md:hidden">
               CUOTA DE MANEJO:
             </span>
-            {selectedCards[1]?.cuotaManejo}
+            <br className="md:hidden" />
+            {formatCOP(Number(selectedCards[1]?.cuotaManejo))}
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 bg-primary-foreground rounded-md p-2">
@@ -337,12 +346,14 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               CUOTA DE EXOHONERABLE:
             </span>
+            <br className="md:hidden" />
             {selectedCards[0]?.cuotaManejoExohonerable}
           </p>
           <p className="font-canva-sans self-end  text-center ">
             <span className="font-bold font-agrandir self-end md:hidden">
               CUOTA DE EXOHONERABLE:
             </span>
+            <br className="md:hidden" />
             {selectedCards[1]?.cuotaManejoExohonerable}
           </p>
         </div>
@@ -354,12 +365,14 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               TASA DE INTERES E.A.:
             </span>
+            <br className="md:hidden" />
             {selectedCards[0]?.tasaInteresEfectivaAnual}
           </p>
           <p className="font-canva-sans self-end  text-center ">
             <span className="font-bold font-agrandir self-end md:hidden">
               TASA DE INTERES E.A.:
             </span>
+            <br className="md:hidden" />
             {selectedCards[1]?.tasaInteresEfectivaAnual}
           </p>
         </div>
@@ -371,12 +384,14 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               SEGURO FRAUDE:
             </span>
+            <br className="md:hidden" />
             {selectedCards[0]?.seguroFraude}
           </p>
           <p className="font-canva-sans self-end  text-center ">
             <span className="font-bold font-agrandir self-end md:hidden">
               SEGURO FRAUDE:
             </span>
+            <br className="md:hidden" />
             {selectedCards[1]?.seguroFraude}
           </p>
         </div>
@@ -388,13 +403,15 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               COSTO AVANCE:
             </span>
-            {selectedCards[0]?.costoAvance}
+            <br className="md:hidden" />
+            {formatCOP(Number(selectedCards[0]?.costoAvance))}
           </p>
           <p className="font-canva-sans self-end  text-center ">
             <span className="font-bold font-agrandir self-end md:hidden">
               COSTO AVANCE:
             </span>
-            {selectedCards[1]?.costoAvance}
+            <br className="md:hidden" />
+            {formatCOP(Number(selectedCards[1]?.costoAvance))}
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 bg-primary-foreground rounded-md p-2">
@@ -405,6 +422,7 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               COSTO TRANSACCIONES INTERNACIONALES (%):
             </span>
+            <br className="md:hidden" />
             {selectedCards[0]?.costoTransaccionesInternacionales}{" "}
             {selectedCards[0] && "%"}
           </p>
@@ -412,25 +430,40 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               COSTO TRANSACCIONES INTERNACIONALES (%):
             </span>
+            <br className="md:hidden" />
             {selectedCards[1]?.costoTransaccionesInternacionales}{" "}
             {selectedCards[1] && "%"}
           </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2">
-          <p className="font-bold font-agrandir self-end hidden md:block">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2 h-full">
+          <p className="font-bold font-agrandir self-end hidden md:flex h-full items-center">
             BENEFICIOS:
           </p>
-          <p className="font-canva-sans self-end  text-center ">
+          <p className="font-canva-sans self-end  text-center h-full">
             <span className="font-bold font-agrandir self-end md:hidden">
               BENEFICIOS:
             </span>
-            {selectedCards[0]?.benefits?.join(", ")}
+            <br className="md:hidden" />
+            <ul className="list-disc pl-5">
+              {selectedCards[0]?.benefits?.map((benefit, index) => (
+                <li key={index} className="text-left">
+                  <span>{benefit}</span>
+                </li>
+              ))}
+            </ul>
           </p>
-          <p className="font-canva-sans self-end  text-center ">
+          <p className="font-canva-sans self-end  text-center h-full">
             <span className="font-bold font-agrandir self-end md:hidden">
               BENEFICIOS:
             </span>
-            {selectedCards[1]?.benefits?.join(", ")}
+            <br className="md:hidden" />
+            <ul className="list-disc pl-5">
+              {selectedCards[1]?.benefits?.map((benefit, index) => (
+                <li key={index} className="text-left">
+                  <span>{benefit}</span>
+                </li>
+              ))}
+            </ul>
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 bg-primary-foreground rounded-md p-2">
@@ -441,30 +474,46 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               PROGRAMAS DE RECOMPENSAS:
             </span>
+            <br className="md:hidden" />
             {selectedCards[0]?.programaRecompensas}
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
             <span className="font-bold font-agrandir self-end md:hidden">
               PROGRAMAS DE RECOMPENSAS:
             </span>
+            <br className="md:hidden" />
             {selectedCards[1]?.programaRecompensas}
           </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2">
-          <p className="font-bold font-agrandir self-end hidden md:block">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2 h-full">
+          <p className="font-bold font-agrandir self-end hidden md:flex h-full items-center">
             ALIANZAS:
           </p>
-          <p className="font-canva-sans self-end  text-center ">
+          <p className="font-canva-sans self-end  text-center h-full">
             <span className="font-bold font-agrandir self-end md:hidden">
               ALIANZAS:
             </span>
-            {selectedCards[0]?.alianzas?.join(", ")}
+            <br className="md:hidden" />
+            <ul className="list-disc pl-5">
+              {selectedCards[0]?.alianzas?.map((benefit, index) => (
+                <li key={index} className="text-left">
+                  <span>{benefit}</span>
+                </li>
+              ))}
+            </ul>
           </p>
-          <p className="font-canva-sans self-end  text-center ">
+          <p className="font-canva-sans self-end  text-center h-full">
             <span className="font-bold font-agrandir self-end md:hidden">
               ALIANZAS:
             </span>
-            {selectedCards[1]?.alianzas?.join(", ")}
+            <br className="md:hidden" />
+            <ul className="list-disc pl-5">
+              {selectedCards[1]?.alianzas?.map((benefit, index) => (
+                <li key={index} className="text-left">
+                  <span>{benefit}</span>
+                </li>
+              ))}
+            </ul>
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 bg-primary-foreground rounded-md p-2">
@@ -475,13 +524,15 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               INGRESO MINIMO:
             </span>
-            {selectedCards[0]?.ingresoMinimo}
+            <br className="md:hidden" />
+            {formatCOP(Number(selectedCards[0]?.ingresoMinimo))}
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
             <span className="font-bold font-agrandir self-end md:hidden">
               INGRESO MINIMO:
             </span>
-            {selectedCards[1]?.ingresoMinimo}
+            <br className="md:hidden" />
+            {formatCOP(Number(selectedCards[1]?.ingresoMinimo))}
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2">
@@ -492,12 +543,14 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               EDAD MINIMA:
             </span>
+            <br className="md:hidden" />
             {selectedCards[0]?.edadMinima}
           </p>
           <p className="font-canva-sans self-end  text-center ">
             <span className="font-bold font-agrandir self-end md:hidden">
               EDAD MINIMA:
             </span>
+            <br className="md:hidden" />
             {selectedCards[1]?.edadMinima}
           </p>
         </div>
@@ -509,13 +562,15 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               CUPO MAXIMO:
             </span>
-            {selectedCards[0]?.cupoMaximo}
+            <br className="md:hidden" />
+            {formatCOP(Number(selectedCards[0]?.cupoMaximo))}
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
             <span className="font-bold font-agrandir self-end md:hidden">
               CUPO MAXIMO:
             </span>
-            {selectedCards[1]?.cupoMaximo}
+            <br className="md:hidden" />
+            {formatCOP(Number(selectedCards[1]?.cupoMaximo))}
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2">
@@ -526,6 +581,7 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               COMPRAS INTERNACIONALES:
             </span>
+            <br className="md:hidden" />
             {selectedCards[0]
               ? selectedCards[0]?.comprasInternacionales
                 ? "SI"
@@ -536,6 +592,7 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               COMPRAS INTERNACIONALES:
             </span>
+            <br className="md:hidden" />
             {selectedCards[1]
               ? selectedCards[1]?.comprasInternacionales
                 ? "SI"
@@ -551,6 +608,7 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               BANCA DIGITAL:
             </span>
+            <br className="md:hidden" />
             {selectedCards[0]
               ? selectedCards[0]?.bancaDigital
                 ? "SI"
@@ -561,6 +619,7 @@ const ClientPage = () => {
             <span className="font-bold font-agrandir self-end md:hidden">
               BANCA DIGITAL:
             </span>
+            <br className="md:hidden" />
             {selectedCards[1]
               ? selectedCards[1]?.bancaDigital
                 ? "SI"
@@ -568,21 +627,35 @@ const ClientPage = () => {
               : ""}
           </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2">
-          <p className="font-bold font-agrandir self-end hidden md:block">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2 h-full">
+          <p className="font-bold font-agrandir self-end hidden md:flex h-full items-center">
             SEGURIDAD:
           </p>
-          <p className="font-canva-sans self-end  text-center ">
+          <p className="font-canva-sans self-end  text-center h-full">
             <span className="font-bold font-agrandir self-end md:hidden">
               SEGURIDAD:
             </span>
-            {selectedCards[0]?.seguridad?.join(", ")}
+            <br className="md:hidden" />
+            <ul className="list-disc pl-5">
+              {selectedCards[0]?.seguridad?.map((benefit, index) => (
+                <li key={index} className="text-left">
+                  <span>{benefit}</span>
+                </li>
+              ))}
+            </ul>
           </p>
-          <p className="font-canva-sans self-end  text-center ">
+          <p className="font-canva-sans self-end  text-center h-full">
             <span className="font-bold font-agrandir self-end md:hidden">
               SEGURIDAD:
             </span>
-            {selectedCards[1]?.seguridad?.join(", ")}
+            <br className="md:hidden" />
+            <ul className="list-disc pl-5">
+              {selectedCards[1]?.seguridad?.map((benefit, index) => (
+                <li key={index} className="text-left">
+                  <span>{benefit}</span>
+                </li>
+              ))}
+            </ul>
           </p>
         </div>
       </div>
