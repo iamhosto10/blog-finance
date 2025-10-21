@@ -5,7 +5,12 @@ import { RootState } from "@/store/store";
 import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Listbox } from "@headlessui/react";
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+} from "@headlessui/react";
 import { CheckCircle, ChevronDown, PlusIcon, X } from "lucide-react";
 import { Bank, Card, Franchise } from "@/lib/interface";
 import Link from "next/link";
@@ -79,39 +84,42 @@ const ClientPage = () => {
               setSelectedCard(null);
             }}
           >
-            <Listbox.Button className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer">
-              {selectedBank.asset && (
-                <img
-                  src={urlFor(selectedBank.asset).url()}
-                  alt={selectedBank.title}
-                  className="w-6 h-6 rounded"
-                />
-              )}
-              {selectedBank.title}
-              <ChevronDown />
-            </Listbox.Button>
-            <Listbox.Options className="border mt-1 rounded shadow bg-white">
-              {banks.map((bank) => (
-                <Listbox.Option
-                  key={bank._id}
-                  value={bank}
-                  className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer"
-                >
+            <div className="relative">
+              <ListboxButton className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer">
+                {selectedBank.asset && (
                   <img
-                    src={urlFor(bank.asset).url()}
-                    alt={bank.title}
+                    src={urlFor(selectedBank.asset).url()}
+                    alt={selectedBank.title}
                     className="w-6 h-6 rounded"
                   />
-                  {bank.title}
-                </Listbox.Option>
-              ))}
-            </Listbox.Options>
+                )}
+                {selectedBank.title}
+                <ChevronDown />
+              </ListboxButton>
+              <ListboxOptions className="absolute z-50 max-h-60 overflow-auto w-full border mt-1 rounded shadow bg-white">
+                {banks.map((bank) => (
+                  <ListboxOption
+                    key={bank._id}
+                    value={bank}
+                    className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                  >
+                    <img
+                      src={urlFor(bank.asset).url()}
+                      alt={bank.title}
+                      className="w-6 h-6 rounded"
+                    />
+                    {bank.title}
+                  </ListboxOption>
+                ))}
+              </ListboxOptions>
+            </div>
           </Listbox>
         </div>
         <div className="lg:col-span-3">
           <p className="font-agrandir font-bold text-secondary text-lg md:text-xl xl:text-xl text-left">
             Franquisia
           </p>
+
           <Listbox
             value={selectedFranchiese}
             onChange={(value: Franchise) => {
@@ -119,33 +127,35 @@ const ClientPage = () => {
               setSelectedCard(null);
             }}
           >
-            <Listbox.Button className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer">
-              {selectedFranchiese.image && (
-                <img
-                  src={urlFor(selectedFranchiese.image).url()}
-                  alt={selectedFranchiese.name}
-                  className="w-6 h-6 rounded"
-                />
-              )}
-              {selectedFranchiese.name}
-              <ChevronDown />
-            </Listbox.Button>
-            <Listbox.Options className="border mt-1 rounded shadow bg-white">
-              {franchieses.map((franchiese) => (
-                <Listbox.Option
-                  key={franchiese._id}
-                  value={franchiese}
-                  className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer"
-                >
+            <div className="relative">
+              <ListboxButton className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer">
+                {selectedFranchiese.image && (
                   <img
-                    src={urlFor(franchiese.image).url()}
-                    alt={franchiese.name}
+                    src={urlFor(selectedFranchiese.image).url()}
+                    alt={selectedFranchiese.name}
                     className="w-6 h-6 rounded"
                   />
-                  {franchiese.name}
-                </Listbox.Option>
-              ))}
-            </Listbox.Options>
+                )}
+                {selectedFranchiese.name}
+                <ChevronDown />
+              </ListboxButton>
+              <ListboxOptions className=" absolute z-50 max-h-60 overflow-auto w-full border mt-1 rounded shadow bg-white">
+                {franchieses.map((franchiese) => (
+                  <ListboxOption
+                    key={franchiese._id}
+                    value={franchiese}
+                    className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                  >
+                    <img
+                      src={urlFor(franchiese.image).url()}
+                      alt={franchiese.name}
+                      className="w-6 h-6 rounded"
+                    />
+                    {franchiese.name}
+                  </ListboxOption>
+                ))}
+              </ListboxOptions>
+            </div>
           </Listbox>
         </div>
         <div className="lg:col-span-4">
@@ -153,42 +163,44 @@ const ClientPage = () => {
             Tarjeta
           </p>
           <Listbox value={selectedCard} onChange={setSelectedCard}>
-            <Listbox.Button className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer">
-              {selectedCard && (
-                <>
-                  <img
-                    src={urlFor(selectedCard.image).url()}
-                    alt={selectedCard.name}
-                    className="w-6 h-6 rounded"
-                  />
-                  {selectedCard.name}
-                </>
-              )}
-              <ChevronDown />
-            </Listbox.Button>
-            <Listbox.Options className="border mt-1 rounded shadow bg-white">
-              {cards
-                .filter(
-                  (ele) =>
-                    ele.franchise?.name === selectedFranchiese.name &&
-                    ele.bank?.title &&
-                    selectedBank.title
-                )
-                .map((card) => (
-                  <Listbox.Option
-                    key={card._id}
-                    value={card}
-                    className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer"
-                  >
+            <div className="relative">
+              <ListboxButton className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer">
+                {selectedCard && (
+                  <>
                     <img
-                      src={urlFor(card.image).url()}
-                      alt={card.name}
+                      src={urlFor(selectedCard.image).url()}
+                      alt={selectedCard.name}
                       className="w-6 h-6 rounded"
                     />
-                    {card.name}
-                  </Listbox.Option>
-                ))}
-            </Listbox.Options>
+                    {selectedCard.name}
+                  </>
+                )}
+                <ChevronDown />
+              </ListboxButton>
+              <ListboxOptions className=" absolute z-50 max-h-60 overflow-auto w-full border mt-1 rounded shadow bg-white">
+                {cards
+                  .filter(
+                    (ele) =>
+                      ele.franchise?.name === selectedFranchiese.name &&
+                      ele.bank?.title === selectedBank.title &&
+                      selectedBank.title
+                  )
+                  .map((card) => (
+                    <ListboxOption
+                      key={card._id}
+                      value={card}
+                      className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      <img
+                        src={urlFor(card.image).url()}
+                        alt={card.name}
+                        className="w-6 h-6 rounded"
+                      />
+                      {card.name}
+                    </ListboxOption>
+                  ))}
+              </ListboxOptions>
+            </div>
           </Listbox>
         </div>
       </div>
