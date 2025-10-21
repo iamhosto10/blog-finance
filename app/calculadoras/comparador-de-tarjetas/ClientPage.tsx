@@ -328,14 +328,14 @@ const ClientPage = () => {
               CUOTA DE MANEJO:
             </span>
             <br className="md:hidden" />
-            {formatCOP(Number(selectedCards[0]?.cuotaManejo))}
+            {formatCOP(Number(selectedCards[0]?.cuotaManejo ?? "0"))}
           </p>
           <p className="font-canva-sans self-end  text-center ">
             <span className="font-bold font-agrandir self-end md:hidden">
               CUOTA DE MANEJO:
             </span>
             <br className="md:hidden" />
-            {formatCOP(Number(selectedCards[1]?.cuotaManejo))}
+            {formatCOP(Number(selectedCards[1]?.cuotaManejo ?? "0"))}
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 bg-primary-foreground rounded-md p-2">
@@ -404,14 +404,14 @@ const ClientPage = () => {
               COSTO AVANCE:
             </span>
             <br className="md:hidden" />
-            {formatCOP(Number(selectedCards[0]?.costoAvance))}
+            {formatCOP(Number(selectedCards[0]?.costoAvance ?? "0"))}
           </p>
           <p className="font-canva-sans self-end  text-center ">
             <span className="font-bold font-agrandir self-end md:hidden">
               COSTO AVANCE:
             </span>
             <br className="md:hidden" />
-            {formatCOP(Number(selectedCards[1]?.costoAvance))}
+            {formatCOP(Number(selectedCards[1]?.costoAvance ?? "0"))}
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 bg-primary-foreground rounded-md p-2">
@@ -525,14 +525,14 @@ const ClientPage = () => {
               INGRESO MINIMO:
             </span>
             <br className="md:hidden" />
-            {formatCOP(Number(selectedCards[0]?.ingresoMinimo))}
+            {formatCOP(Number(selectedCards[0]?.ingresoMinimo ?? "0"))}
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
             <span className="font-bold font-agrandir self-end md:hidden">
               INGRESO MINIMO:
             </span>
             <br className="md:hidden" />
-            {formatCOP(Number(selectedCards[1]?.ingresoMinimo))}
+            {formatCOP(Number(selectedCards[1]?.ingresoMinimo ?? "0"))}
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2">
@@ -563,14 +563,14 @@ const ClientPage = () => {
               CUPO MAXIMO:
             </span>
             <br className="md:hidden" />
-            {formatCOP(Number(selectedCards[0]?.cupoMaximo))}
+            {formatCOP(Number(selectedCards[0]?.cupoMaximo) ?? "0")}
           </p>
           <p className="font-canva-sans self-end  text-center my-auto">
             <span className="font-bold font-agrandir self-end md:hidden">
               CUPO MAXIMO:
             </span>
             <br className="md:hidden" />
-            {formatCOP(Number(selectedCards[1]?.cupoMaximo))}
+            {formatCOP(Number(selectedCards[1]?.cupoMaximo) ?? "0")}
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2">
