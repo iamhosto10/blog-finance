@@ -41,9 +41,9 @@ const News = ({ data, title }: INewsProps) => {
         </div>
 
         {/* Publicidad */}
-        <div className="w-full h-40 bg-tertiary flex items-center justify-center">
+        {/* <div className="w-full h-40 bg-tertiary flex items-center justify-center">
           <p className="text-5xl">Publicidad</p>
-        </div>
+        </div> */}
       </div>
 
       {/* Segunda sección */}

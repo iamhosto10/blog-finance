@@ -132,13 +132,13 @@ export default function BlogArticle() {
                   />
                 </div>
               )}
-              {index % 2 === 0 && (
+              {/* {index % 2 === 0 && (
                 <div className="h-40 w-full bg-tertiary">
                   <h3 className="text-3xl text-background">
                     Aqui iria a la publicidad
                   </h3>
                 </div>
-              )}
+              )} */}
             </>
           ))}
       </div>
