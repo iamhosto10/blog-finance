@@ -388,6 +388,26 @@ const ClientPage = () => {
             {selectedCards[1]?.tasaInteresEfectivaAnual}
           </p>
         </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2">
+          <p className="font-bold font-agrandir self-end hidden md:block">
+            ¿INTERESES A UNA CUOTA?:
+          </p>
+          <p className="font-canva-sans self-end  text-center ">
+            <span className="font-bold font-agrandir self-end md:hidden">
+              ¿INTERESES A UNA CUOTA?:
+            </span>
+            <br className="md:hidden" />
+            {selectedCards[0]?.interesUnaCuota ? "SI" : "NO"}
+          </p>
+          <p className="font-canva-sans self-end  text-center ">
+            <span className="font-bold font-agrandir self-end md:hidden">
+              ¿INTERESES A UNA CUOTA?:
+            </span>
+            <br className="md:hidden" />
+            {selectedCards[1]?.interesUnaCuota ? "SI" : "NO"}
+          </p>
+        </div>
+
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 bg-primary-foreground rounded-md p-2">
           <p className="font-bold font-agrandir self-end hidden md:block">
             SEGURO FRAUDE:

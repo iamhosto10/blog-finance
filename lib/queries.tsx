@@ -92,6 +92,7 @@ export const cardsQuery = `*[_type == "cards"]{
   cuotaManejo,
   cuotaManejoExohonerable,
   tasaInteresEfectivaAnual,
+  interesUnaCuota,
   seguroFraude,
   costoAvance,
   costoTransaccionesInternacionales,
