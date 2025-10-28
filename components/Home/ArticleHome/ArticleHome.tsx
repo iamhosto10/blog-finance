@@ -8,10 +8,11 @@ import { Button } from "@/components/ui/button";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import Tag from "@/components/CommonComponents/Tag";
+import { Blog } from "@/lib/interface";
 
 const ArticleHome = ({ category = "1" }: { category?: string }) => {
   const { blogs } = useSelector((state: RootState) => state.sanity);
-  const [randomBlog, setRandomBlog] = useState<any>(null);
+  const [randomBlog, setRandomBlog] = useState<Blog | null>(null);
 
   useEffect(() => {
     if (!blogs?.length) return;
