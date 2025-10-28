@@ -59,8 +59,7 @@ const ArticleList = ({
   category: string;
   indexes: number[];
 }) => {
-  const currentCategory =
-    categories[category] || categories["Finanzas Personales"];
+  const currentCategory = categories[category];
 
   console.log("Current Category", category, currentCategory);
 
@@ -134,38 +133,40 @@ const ArticleList = ({
               </Link>
             ))}
         </div>
-        <div
-          className={
-            "bg-secondary-background rounded-lg " +
-            (indexes[0] === 4 ? "lg:col-span-4" : "lg:col-span-0")
-          }
-        >
-          <div className={indexes?.[0] === 4 ? "block" : "hidden"}>
-            <h2 className="font-agrandir font-bold text-secondary text-xl pt-10 pb-5 text-center rounded-lg w-full bg-[#fbf7cc]">
-              {currentCategory.title}
-            </h2>
+        {currentCategory && (
+          <div
+            className={
+              "bg-secondary-background rounded-lg " +
+              (indexes[0] === 4 ? "lg:col-span-4" : "lg:col-span-0")
+            }
+          >
+            <div className={indexes?.[0] === 4 ? "block" : "hidden"}>
+              <h2 className="font-agrandir font-bold text-secondary text-xl pt-10 pb-5 text-center rounded-lg w-full bg-[#fbf7cc]">
+                {currentCategory.title}
+              </h2>
 
-            <ul className="space-y-2 p-6">
-              {currentCategory.items.map(({ href, label }) => (
-                <li key={href}>
-                  <Link href={href} className="flex items-center">
-                    <div className="w-5">
-                      <ArrowRight
-                        size={20}
-                        className="text-secondary mr-1"
-                        absoluteStrokeWidth
-                        strokeWidth={3}
-                      />
-                    </div>
-                    <span className="font-canva-sans text-tertiary line-clamp-2">
-                      {label}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+              <ul className="space-y-2 p-6">
+                {currentCategory.items.map(({ href, label }) => (
+                  <li key={href}>
+                    <Link href={href} className="flex items-center">
+                      <div className="w-5">
+                        <ArrowRight
+                          size={20}
+                          className="text-secondary mr-1"
+                          absoluteStrokeWidth
+                          strokeWidth={3}
+                        />
+                      </div>
+                      <span className="font-canva-sans text-tertiary line-clamp-2">
+                        {label}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
+        )}
       </section>
     </>
   );

@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "Finanzas Personales | Mi Sitio Web",
+  title: "Finanzas Personales | Monopolombiano",
   description:
     "Consejos prácticos sobre ahorro, inversión y manejo del dinero para las personas comunes.",
   keywords: [

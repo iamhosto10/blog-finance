@@ -11,6 +11,7 @@ import News from "@/components/News/News";
 import { PortableText } from "@portabletext/react";
 import { Metadata } from "next";
 import { components, getPost } from "@/lib/utils";
+import React from "react";
 
 export async function generateMetadata({
   params,
@@ -49,8 +50,9 @@ export default function BlogArticle() {
   const { blogs } = useSelector((state: RootState) => state.sanity);
   if (blogs.length === 0) return <p>cargando...</p>;
 
-  const data: Blog =
-    blogs.find((blog) => blog.slug.current === slug) || blogs[0];
+  const data: Blog | undefined =
+    blogs.find((blog) => blog.slug.current === slug) ||
+    blogs.find((blog) => blog?.categories?.[0]?.title === "Tips Financieros");
 
   return (
     <div className="container md:-mt-6">
@@ -103,7 +105,7 @@ export default function BlogArticle() {
       <div className="my-12 text-tertiary font-canva-sans text-sm lg:text-lg text-justify">
         {data?.body &&
           data.body.map((section, index) => (
-            <>
+            <React.Fragment key={index}>
               {section.title && (
                 <h2
                   key={section.title}
@@ -139,10 +141,10 @@ export default function BlogArticle() {
                   </h3>
                 </div>
               )} */}
-            </>
+            </React.Fragment>
           ))}
       </div>
-      {data.relatedNews && (
+      {data?.relatedNews && (
         <News title="Articulos relacionados" data={data?.relatedNews} />
       )}
     </div>

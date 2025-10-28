@@ -11,39 +11,69 @@ const menuItems = [
     label: "FINANZAS PERSONALES",
     href: "/finanzas-personales",
     subCategories: [
-      { label: "Ahorro y presupuesto", href: "/blog/recientes" },
-      { label: "Inversión", href: "/blog/opinion" },
-      { label: "Deudas y créditos", href: "/blog/entrevistas" },
-      { label: "Comprar vivienda", href: "/blog/" },
-      { label: "Finanzas en pareja", href: "/blog/" },
-      { label: "Educación financiera", href: "/blog/" },
+      {
+        label: "Ahorro y presupuesto",
+        href: "/finanzas-personales/ahorro-y-presupuesto",
+      },
+      { label: "Inversión", href: "/finanzas-personales/inversion" },
+      {
+        label: "Deudas y créditos",
+        href: "/finanzas-personales/deudas-y-creditos",
+      },
+      {
+        label: "Comprar vivienda",
+        href: "/finanzas-personales/comprar-vivienda",
+      },
+      {
+        label: "Finanzas en pareja",
+        href: "/finanzas-personales/finanzas-en-pareja",
+      },
+      {
+        label: "Educación financiera",
+        href: "/finanzas-personales/educacion-financiera",
+      },
     ],
   },
   {
     label: "ECONOMIA HOY",
     href: "/economia-hoy",
     subCategories: [
-      { label: "Bancos en Colombia", href: "/noticias/ultimas" },
-      { label: "Cripto y nuevas tecnologías", href: "/noticias/economia" },
-      { label: "Economía del país", href: "/noticias/tecnologia" },
-      { label: "Regulaciones", href: "/noticias/tecnologia" },
-      { label: "Tasas de interés", href: "/noticias/tecnologia" },
-      { label: "Impuestos", href: "/noticias/tecnologia" },
+      { label: "Bancos en Colombia", href: "/economia-hoy/bancos-en-colombia" },
+      {
+        label: "Cripto y nuevas tecnologías",
+        href: "/economia-hoy/cripto-y-nuevas-tecnologias",
+      },
+      { label: "Economía del país", href: "/economia-hoy/economia-del-pais" },
+      { label: "Regulaciones", href: "/economia-hoy/regulaciones" },
+      { label: "Tasas de interés", href: "/economia-hoy/tasas-de-interes" },
+      { label: "Impuestos", href: "/economia-hoy/impuestos" },
     ],
   },
   {
     label: "TIPS FINANCIEROS",
     href: "/tips-financieros",
     subCategories: [
-      { label: "Cajeros y bancos", href: "/tips/ahorro" },
-      { label: "Compras y ahorro diario", href: "/tips/productividad" },
-      { label: "Seguridad financiera", href: "/tips/productividad" },
-      { label: "Apps y herramientas útiles", href: "/tips/productividad" },
+      { label: "Cajeros y bancos", href: "/tips-financieros/cajeros-y-bancos" },
+      {
+        label: "Compras y ahorro diario",
+        href: "/tips-financieros/compras-y-ahorro-diario",
+      },
+      {
+        label: "Seguridad financiera",
+        href: "/tips-financieros/seguridad-financiera",
+      },
+      {
+        label: "Apps y herramientas útiles",
+        href: "/tips-financieros/apps-y-herramientas-utiles",
+      },
       {
         label: "Manejo del dinero en el extranjero",
-        href: "/tips/productividad",
+        href: "/tips-financieros/manejo-de-dinero-en-el-extranjero",
       },
-      { label: "Historial crediticio", href: "/tips/productividad" },
+      {
+        label: "Historial crediticio",
+        href: "/tips-financieros/historial-crediticio",
+      },
     ],
   },
   {
