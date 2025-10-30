@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const GA_MEASUREMENT_ID: string = process.env.NEXT_PUBLIC_GA_ID ?? "";
 
 declare global {

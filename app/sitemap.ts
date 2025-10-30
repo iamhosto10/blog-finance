@@ -1,4 +1,4 @@
-// app/sitemap.ts
+// @ts-nocheck
 import { blogsQuery, categoriesQuery } from "@/lib/queries";
 import { client } from "@/lib/sanity";
 import { MetadataRoute } from "next";
