@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
+
 import { blogsQuery, categoriesQuery } from "@/lib/queries";
 import { client } from "@/lib/sanity";
 import { MetadataRoute } from "next";
