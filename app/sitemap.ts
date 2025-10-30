@@ -112,7 +112,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     client.fetch(categoriesQuery),
   ]);
 
-  const blogRoutes = blogs.map((post: any) => {
+  const blogRoutes = blogs.map((post: unknown) => {
     const categorySlug = post.categories?.[0]?.slug?.current || "economia-hoy";
 
     return {

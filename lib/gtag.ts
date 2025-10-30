@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
-
 export const GA_MEASUREMENT_ID: string = process.env.NEXT_PUBLIC_GA_ID ?? "";
 
 declare global {
@@ -8,7 +5,7 @@ declare global {
     gtag: (
       command: "config" | "event" | "js",
       targetId: string,
-      config?: Record<string, any>
+      config?: Record<string, unknown>
     ) => void;
   }
 }
