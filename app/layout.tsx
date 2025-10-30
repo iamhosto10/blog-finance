@@ -109,6 +109,11 @@ export default async function RootLayout({
             `,
           }}
         />
+        <Script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}`}
+          crossOrigin="anonymous"
+        ></Script>
       </head>
       <body className={`${inter.className} bg-layout`}>
         <ReduxProvider preloadedState={preloadedState}>
