@@ -53,7 +53,7 @@ const subcategories = [
   },
   {
     label: "Calculadora 4X1000",
-    href: "/calculadoras/calculadora-4x1000",
+    href: "/calculadoras/4x1000",
     description:
       "Bienvenido a nuestra sección de Calculadoras Financieras, diseñada para ayudarte",
     icon: "/assets/calculadoras/calculadora4x1000.png",

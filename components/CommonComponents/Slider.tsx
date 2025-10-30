@@ -9,41 +9,49 @@ const items = [
     title: "Calculadoras de Rentabilidad",
     subtitle: "🏦 Simula las rentabilidades de Bancos",
     icon: "/icons/cdt.svg",
+    href: "calculadoras/calculadora-de-rentabilidad",
   },
   {
     title: "Calculadora de Crédito",
     subtitle: "📊 Proyecta tus pagos mensuales",
     icon: "/icons/calculadora.svg",
+    href: "calculadoras/calculadora-de-credito",
   },
   {
     title: "Calculadora de Ahorro",
     subtitle: "🔮 Visualiza el crecimiento de tu ahorro",
     icon: "/icons/conversor.svg",
+    href: "calculadoras/calculadora-de-ahorro",
   },
   {
     title: "Simulador de Inversión",
     subtitle: "🧮 Visualiza tus ganancias potenciales",
     icon: "/icons/cdt.svg",
+    href: "calculadoras/simulador-de-inversion",
   },
   {
     title: "Comparador de Tarjetas",
     subtitle: "💳 Encuentra la tarjeta ideal",
     icon: "/icons/cdt.svg",
+    href: "calculadoras/comparador-de-tarjetas",
   },
   {
     title: "Simulador de Leasing y Vivienda",
     subtitle: "🏠 Calcula tus cuotas hipotecarias",
     icon: "/icons/cdt.svg",
+    href: "calculadoras/simulador-de-leasing-y-vivienda",
   },
   {
     title: "Calculadora de 4x1000",
     subtitle: "🏦 Descubre cuánto pagas en 4x1000",
     icon: "/icons/cdt.svg",
+    href: "calculadoras/4x1000",
   },
   {
     title: "Conversor de Dolares",
     subtitle: "🔄 Calcula el cambio actual USD-COP",
     icon: "/icons/cdt.svg",
+    href: "calculadoras/conversor-dolares",
   },
 ];
 
@@ -139,7 +147,7 @@ export default function InfiniteSlider() {
         }}
       >
         {[...items, ...items].map((item, index) => (
-          <Link href="/blog" key={index}>
+          <Link href={"/" + item.href} key={index}>
             <div
               key={index}
               className="flex items-center justify-between border border-secondary rounded-xl h-20 lg:h-auto px-4 py-3 gap-4 w-[350px] sm:w-[350px] flex-shrink-0 bg-white shadow-sm  hover:scale-105 transition-all"

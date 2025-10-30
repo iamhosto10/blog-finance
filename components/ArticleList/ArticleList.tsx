@@ -88,9 +88,9 @@ const ArticleList = ({
         >
           {newBlogs
             .slice(indexes ? indexes[0] : 0, indexes ? indexes[1] : 6)
-            .map((article) => (
+            .map((article, index) => (
               <Link
-                key={article._id}
+                key={article._id + "_" + index}
                 href={`/${article?.categories ? article?.categories[0]?.slug.current : ""}/${article.slug?.current}`}
                 className="w-full flex flex-col justify-between gap-1 hover:scale-110 transition-all"
               >
