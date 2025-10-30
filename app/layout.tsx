@@ -109,6 +109,10 @@ export default async function RootLayout({
             `,
           }}
         />
+        <meta
+          name="google-adsense-account"
+          content={`${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}`}
+        />
         <Script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}`}
