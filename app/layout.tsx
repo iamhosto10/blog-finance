@@ -18,6 +18,7 @@ import {
 import CookieBanner from "@/components/CommonComponents/CookieBanner";
 import Script from "next/script";
 import GaListener from "./ga-listener";
+import { Suspense } from "react";
 
 export const revalidate = 60 * 60 * 24;
 
@@ -118,7 +119,9 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <LayoutHome>
-              <GaListener />
+              <Suspense fallback={null}>
+                <GaListener />
+              </Suspense>
               {children}
             </LayoutHome>
             <CookieBanner />
