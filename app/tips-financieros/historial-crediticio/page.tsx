@@ -25,12 +25,12 @@ export const metadata: Metadata = {
     title: "Historial Crediticio",
     description:
       "Guías y consejos para entender, cuidar y mejorar tu puntaje crediticio. Aprende cómo tu historial influye en tus oportunidades financieras.",
-    url: "https://www.monopolombiano.com/historial-crediticio",
+    url: "https://monopolombiano.com/tips-financieros/historial-crediticio",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/historial.jpg",
-        width: 1200,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 630,
         height: 630,
         alt: "Historial Crediticio",
       },
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Historial Crediticio",
     description:
       "Descubre cómo construir un buen historial crediticio y aumentar tu puntaje para acceder a mejores oportunidades financieras.",
-    images: ["https://www.monopolombiano.com/images/historial.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

@@ -25,12 +25,12 @@ export const metadata: Metadata = {
     title: "Compras y Ahorro Diario",
     description:
       "Consejos prácticos para ahorrar en tus compras del día a día. Aprende a gastar menos y aprovechar mejor tu dinero.",
-    url: "https://www.monopolombiano.com/compras-y-ahorro-diario",
+    url: "https://monopolombiano.com/tips-financieros/compras-y-ahorro-diario",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/compras.jpg",
-        width: 1200,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 630,
         height: 630,
         alt: "Compras y Ahorro Diario",
       },
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Compras y Ahorro Diario",
     description:
       "Aprende a ahorrar todos los días con estrategias simples para tus compras y gastos del hogar.",
-    images: ["https://www.monopolombiano.com/images/compras.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

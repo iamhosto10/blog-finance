@@ -20,13 +20,13 @@ export const metadata: Metadata = {
     title: "Calculadora de Ahorro 💰 | Visualiza cómo crece tu dinero",
     description:
       "Haz aportes periódicos, mira cómo se acumulan intereses y proyecta el crecimiento de tu ahorro con nuestra calculadora interactiva.",
-    url: "https://tusitio.com/calculadora-de-ahorro",
+    url: "https://monopolombiano.com/calculadoras/calculadora-de-ahorro",
     siteName: "Calculadora de Ahorro",
     images: [
       {
-        url: "https://tusitio.com/imagen-previa-calculadora.jpg", // reemplaza con tu imagen real
-        width: 1200,
-        height: 630,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 625,
+        height: 625,
         alt: "Gráfico de crecimiento de ahorro",
       },
     ],
@@ -38,10 +38,10 @@ export const metadata: Metadata = {
     title: "Calculadora de Ahorro 💰",
     description:
       "Simula tus aportes e intereses y observa cómo crece tu ahorro con el tiempo.",
-    images: ["https://tusitio.com/imagen-previa-calculadora.jpg"], // reemplaza
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
   alternates: {
-    canonical: "https://tusitio.com/calculadora-de-ahorro",
+    canonical: "https://monopolombiano.com/calculadoras/calculadora-de-ahorro",
   },
 };
 const page = () => {

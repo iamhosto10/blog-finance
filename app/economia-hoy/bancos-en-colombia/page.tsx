@@ -25,13 +25,13 @@ export const metadata: Metadata = {
     title: "Bancos en Colombia",
     description:
       "Compara los principales bancos en Colombia, conoce sus productos, tasas y beneficios, y aprende cómo elegir la mejor opción para tus finanzas.",
-    url: "https://www.monopolombiano.com/bancos-en-colombia",
+    url: "https://www.monopolombiano.com/economia-hoy/bancos-en-colombia",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/bancos.jpg",
-        width: 1200,
-        height: 630,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 425,
+        height: 425,
         alt: "Bancos en Colombia",
       },
     ],
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Bancos en Colombia",
     description:
       "Todo lo que necesitas saber sobre los bancos en Colombia: tasas, servicios, productos y recomendaciones.",
-    images: ["https://www.monopolombiano.com/images/bancos.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

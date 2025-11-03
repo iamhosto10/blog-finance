@@ -25,13 +25,13 @@ export const metadata: Metadata = {
     title: "Impuestos",
     description:
       "Aprende todo sobre impuestos en Colombia: declaración de renta, IVA, reformas y cómo optimizar tu carga tributaria.",
-    url: "https://www.monopolombiano.com/impuestos",
+    url: "https://www.monopolombiano.com/economia-hoy/impuestos",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/impuestos.jpg",
-        width: 1200,
-        height: 630,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 425,
+        height: 425,
         alt: "Impuestos",
       },
     ],
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Impuestos",
     description:
       "Todo lo que necesitas saber sobre impuestos en Colombia: declaración de renta, IVA, reformas y más.",
-    images: ["https://www.monopolombiano.com/images/impuestos.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

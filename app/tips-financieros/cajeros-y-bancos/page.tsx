@@ -25,12 +25,12 @@ export const metadata: Metadata = {
     title: "Cajeros y Bancos",
     description:
       "Guías y comparativas sobre bancos y cajeros automáticos en Colombia. Descubre las mejores opciones para tus finanzas diarias.",
-    url: "https://www.monopolombiano.com/cajeros-y-bancos",
+    url: "https://monopolombiano.com/tips-financieros/cajeros-y-bancos",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/cajeros.jpg",
-        width: 1200,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 630,
         height: 630,
         alt: "Cajeros y Bancos",
       },
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Cajeros y Bancos",
     description:
       "Aprende sobre cajeros automáticos, servicios bancarios, comisiones y banca digital en Colombia.",
-    images: ["https://www.monopolombiano.com/images/cajeros.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

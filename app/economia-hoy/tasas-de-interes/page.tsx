@@ -25,13 +25,13 @@ export const metadata: Metadata = {
     title: "Tasas de Interés",
     description:
       "Conoce cómo las tasas de interés del Banco de la República afectan tu dinero, los créditos, los ahorros y la inversión en Colombia.",
-    url: "https://www.monopolombiano.com/tasas-de-interes",
+    url: "https://www.monopolombiano.com/economia-hoy/tasas-de-interes",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/tasas.jpg",
-        width: 1200,
-        height: 630,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 425,
+        height: 425,
         alt: "Tasas de Interés",
       },
     ],
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Tasas de Interés",
     description:
       "Aprende cómo las tasas de interés impactan tus finanzas personales, tus créditos y tus inversiones en Colombia.",
-    images: ["https://www.monopolombiano.com/images/tasas.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

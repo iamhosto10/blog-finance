@@ -25,13 +25,13 @@ export const metadata: Metadata = {
     title: "Economía del País",
     description:
       "Infórmate sobre los cambios en la economía colombiana y cómo afectan tu bolsillo: inflación, empleo, tasas y más.",
-    url: "https://www.monopolombiano.com/economia-del-pais",
+    url: "https://www.monopolombiano.com/economia-hoy/economia-del-pais",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/economia.jpg",
-        width: 1200,
-        height: 630,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 425,
+        height: 425,
         alt: "Economía del País",
       },
     ],
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Economía del País",
     description:
       "Entiende cómo la economía colombiana evoluciona y qué decisiones del gobierno o del Banco de la República pueden afectar tus finanzas.",
-    images: ["https://www.monopolombiano.com/images/economia.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

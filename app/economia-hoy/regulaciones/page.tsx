@@ -25,13 +25,13 @@ export const metadata: Metadata = {
     title: "Regulaciones",
     description:
       "Noticias y análisis sobre leyes, normas y políticas que afectan el sistema financiero colombiano.",
-    url: "https://www.monopolombiano.com/regulaciones",
+    url: "https://www.monopolombiano.com/economia-hoy/regulaciones",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/regulaciones.jpg",
-        width: 1200,
-        height: 630,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 425,
+        height: 425,
         alt: "Regulaciones",
       },
     ],
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Regulaciones",
     description:
       "Infórmate sobre las normas y regulaciones financieras en Colombia: bancos, impuestos, fintech, cripto y más.",
-    images: ["https://www.monopolombiano.com/images/regulaciones.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

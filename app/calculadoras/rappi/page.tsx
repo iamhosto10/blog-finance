@@ -1,27 +1,48 @@
 import ClientPage from "./ClientPage";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title:
-    "Cuenta de Ahorros RappiPay en Colombia - Simulador y Rentabilidad 2025",
+export const metadata: Metadata = {
+  title: "Calculadora de Rentabilidad RappiPay | Monopolombiano",
   description:
-    "Conoce la cuenta de ahorros RappiPay en Colombia, su tasa de interés, ventajas, desventajas y simula cuánto podrías ganar en 2025 con nuestra calculadora.",
+    "Descubre cuánto puedes ganar con tu dinero en RappiPay. Usa nuestra calculadora de rentabilidad para estimar tus ganancias y conoce las ventajas y desventajas de ahorrar en este banco digital.",
   keywords: [
-    "RappiPay Colombia",
-    "Rappi cuenta de ahorros",
-    "RappiPay intereses 2025",
-    "Rappi ahorro Colombia",
-    "Rappi simulador de ahorro",
-    "RappiCard Colombia",
+    "RappiPay",
+    "cuenta de ahorros RappiPay",
+    "rentabilidad RappiPay",
+    "calculadora RappiPay",
+    "Rappi banco digital",
+    "intereses RappiPay",
+    "cuenta sin cuota de manejo",
+    "Davivienda RappiPay",
+    "Fogafín RappiPay",
+    "bancos digitales Colombia",
   ],
   openGraph: {
-    title:
-      "Cuenta de Ahorros RappiPay en Colombia - Simulador y Rentabilidad 2025",
+    title: "Calculadora de Rentabilidad RappiPay | Monopolombiano",
     description:
-      "Descubre cómo funciona la cuenta de ahorros RappiPay en Colombia, revisa las tasas de interés actualizadas y usa nuestro simulador de inversión.",
-    url: "https://tusitio.com/rappipay-colombia",
-    siteName: "Simulador de Inversiones en Colombia",
+      "Calcula tus ganancias con RappiPay, conoce su tasa de interés y las ventajas de ahorrar en esta cuenta digital respaldada por Davivienda y Fogafín.",
+    url: "https://monopolombiano.com/calculadoras/rappi",
+    siteName: "Monopolombiano",
     locale: "es_CO",
     type: "website",
+    images: [
+      {
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 625,
+        height: 625,
+        alt: "RappiPay Monopolombiano",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Calculadora de Rentabilidad RappiPay | Monopolombiano",
+    description:
+      "Descubre cuánto gana tu dinero en RappiPay con nuestra calculadora de rentabilidad. Una herramienta fácil, rápida y 100% gratuita.",
+    images: ["https://monopolombiano.com/favicon.ico"],
+  },
+  alternates: {
+    canonical: "https://monopolombiano.com/calculadoras/rappi",
   },
 };
 

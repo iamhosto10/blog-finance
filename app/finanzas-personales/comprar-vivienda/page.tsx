@@ -25,11 +25,11 @@ export const metadata: Metadata = {
     title: "Comprar Vivienda",
     description:
       "Guías, consejos y herramientas para comprar vivienda en Colombia. Aprende sobre créditos, subsidios y estrategias para cumplir tu sueño de tener casa propia.",
-    url: "https://www.monopolombiano.com/comprar-vivienda",
+    url: "https://monopolombiano.com/finanzas-personales/comprar-vivienda",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/vivienda.jpg",
+        url: "https://monopolombiano.com/favicon.ico",
         width: 1200,
         height: 630,
         alt: "Comprar Vivienda",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Comprar Vivienda",
     description:
       "Aprende a comprar vivienda en Colombia paso a paso: créditos, subsidios y planificación financiera para lograrlo.",
-    images: ["https://www.monopolombiano.com/images/vivienda.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

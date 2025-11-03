@@ -1,27 +1,46 @@
 import ClientPage from "./ClientPage";
+import { Metadata } from "next";
 
-export const metadata = {
-  title:
-    "Cuenta de Ahorros Lulo Bank en Colombia - Simulador y Rentabilidad 2025",
+export const metadata: Metadata = {
+  title: "Calculadora de rentabilidad Lulo Bank | Monopolombiano",
   description:
-    "Conoce la cuenta de ahorros de Lulo Bank en Colombia, su tasa de interés, ventajas, desventajas y simula cuánto podrías ganar en 2025 con nuestra calculadora.",
+    "Descubre cuánto puedes ganar con la cuenta de ahorros de Lulo Bank. Calcula tu rentabilidad, conoce su tasa de interés y aprende cómo funcionan sus rendimientos diarios.",
   keywords: [
     "Lulo Bank",
-    "Lulo cuenta de ahorros",
-    "cuentas de ahorro alta rentabilidad Colombia",
-    "Lulo intereses 2025",
-    "simulador Lulo Bank",
-    "Lulo ahorro Colombia",
+    "calculadora Lulo",
+    "rentabilidad Lulo Bank",
+    "cuenta de ahorros Lulo",
+    "intereses Lulo",
+    "rendimientos diarios Lulo Bank",
+    "banco digital Colombia",
+    "finanzas personales",
   ],
   openGraph: {
-    title:
-      "Cuenta de Ahorros Lulo Bank en Colombia - Simulador y Rentabilidad 2025",
+    title: "Calculadora de rentabilidad Lulo Bank | Monopolombiano",
     description:
-      "Descubre cómo funciona la cuenta de ahorros de Lulo Bank en Colombia, revisa las tasas de interés actualizadas y usa nuestro simulador de inversión.",
-    url: "https://tusitio.com/lulo-bank",
-    siteName: "Simulador de Inversiones en Colombia",
+      "Calcula los intereses y rendimientos que puedes obtener con la cuenta de ahorros Lulo Bank. Conoce su tasa efectiva anual y las ventajas de ahorrar digitalmente.",
+    url: "https://monopolombiano.com/calculadoras/lulo",
+    siteName: "Monopolombiano",
+    images: [
+      {
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 625,
+        height: 625,
+        alt: "Calculadora de rentabilidad Lulo Bank",
+      },
+    ],
     locale: "es_CO",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Calculadora de rentabilidad Lulo Bank | Monopolombiano",
+    description:
+      "Descubre cuánto puedes ganar con la cuenta de ahorros de Lulo Bank. Calcula tus intereses y aprende cómo funciona su rentabilidad diaria.",
+    images: ["https://monopolombiano.com/favicon.ico"],
+  },
+  alternates: {
+    canonical: "https://monopolombiano.com/herramientas/lulo",
   },
 };
 

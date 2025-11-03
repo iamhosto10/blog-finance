@@ -18,13 +18,13 @@ export const metadata: Metadata = {
     title: "Simulador de Inversión 💰 | Calcula tu rentabilidad futura",
     description:
       "Conoce cómo crece tu dinero mes a mes. Visualiza tus aportes, intereses y el valor total de tu inversión con una tabla y una gráfica clara.",
-    url: "https://tusitio.com/simulador-inversion",
+    url: "https://monopolombiano.com/calculadoras/simulador-de-inversion",
     siteName: "Simulador de Inversión",
     images: [
       {
-        url: "https://tusitio.com/og-simulador-inversion.png",
-        width: 1200,
-        height: 630,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 650,
+        height: 650,
         alt: "Simulador de Inversión - Calcula tu rentabilidad",
       },
     ],
@@ -36,10 +36,10 @@ export const metadata: Metadata = {
     title: "Simulador de Inversión | Calcula tu rentabilidad fácilmente",
     description:
       "Simula tus inversiones y visualiza el crecimiento de tu dinero con gráficos y tablas interactivas.",
-    images: ["https://tusitio.com/og-simulador-inversion.png"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
   alternates: {
-    canonical: "https://tusitio.com/simulador-inversion",
+    canonical: "https://monopolombiano.com/calculadoras/simulador-de-inversion",
   },
 };
 

@@ -25,12 +25,12 @@ export const metadata: Metadata = {
     title: "Manejo de Dinero en el Extranjero",
     description:
       "Guías y consejos para administrar tu dinero mientras vives, estudias o viajas fuera del país. Aprende sobre remesas, cambio de divisas y bancos internacionales.",
-    url: "https://www.monopolombiano.com/manejo-de-dinero-en-el-extranjero",
+    url: "https://monopolombiano.com/tips-financieros/manejo-de-dinero-en-el-extranjero",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/extranjero.jpg",
-        width: 1200,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 630,
         height: 630,
         alt: "Manejo de Dinero en el Extranjero",
       },
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Manejo de Dinero en el Extranjero",
     description:
       "Descubre cómo manejar tus finanzas en el exterior: transferencias, divisas, remesas y más.",
-    images: ["https://www.monopolombiano.com/images/extranjero.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

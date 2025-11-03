@@ -29,8 +29,8 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/finanzas.jpg",
-        width: 1200,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 630,
         height: 630,
         alt: "Finanzas Personales",
       },

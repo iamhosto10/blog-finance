@@ -1,26 +1,46 @@
 import ClientPage from "./ClientPage";
+import { Metadata } from "next";
 
-export const metadata = {
-  title: "Cuenta de Ahorros Pibank en Colombia - Simulador y Rentabilidad 2025",
+export const metadata: Metadata = {
+  title: "Calculadora de rentabilidad Pibank | Monopolombiano",
   description:
-    "Conoce la cuenta de ahorros Pibank en Colombia, su tasa de interés, ventajas, desventajas y simula cuánto podrías ganar en 2025 con nuestra calculadora.",
+    "Calcula cuánto puedes ganar con la cuenta de ahorros de Pibank en Colombia. Conoce su tasa de interés, ventajas, desventajas y simula tus rendimientos fácilmente.",
   keywords: [
-    "Pibank",
     "Pibank Colombia",
     "Pibank cuenta de ahorros",
-    "Pibank intereses 2025",
-    "Pibank ahorro Colombia",
+    "Pibank rentabilidad",
+    "tasa de interés Pibank",
     "simulador Pibank",
+    "cuenta digital Colombia",
+    "ahorro rentable Colombia",
+    "Banco Pichincha Pibank",
   ],
   openGraph: {
-    title:
-      "Cuenta de Ahorros Pibank en Colombia - Simulador y Rentabilidad 2025",
+    title: "Calculadora de rentabilidad Pibank | Monopolombiano",
     description:
-      "Descubre cómo funciona la cuenta de ahorros de Pibank en Colombia, revisa sus tasas de interés y usa nuestro simulador de inversión.",
-    url: "https://tusitio.com/pibank-colombia",
-    siteName: "Simulador de Inversiones en Colombia",
+      "Simula tus ganancias con la cuenta de ahorros de Pibank. Descubre cuánto puedes ganar con su tasa del 11% EA y conoce si es la mejor opción de ahorro digital en Colombia.",
+    url: "https://monopolombiano.com/calculadoras/pibank",
+    siteName: "Monopolombiano",
+    images: [
+      {
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 625,
+        height: 625,
+        alt: "Calculadora de rentabilidad Pibank",
+      },
+    ],
     locale: "es_CO",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Calculadora de rentabilidad Pibank | Monopolombiano",
+    description:
+      "Conoce la tasa de rentabilidad de Pibank y calcula tus intereses mensuales y anuales con nuestra herramienta de simulación financiera.",
+    images: ["https://monopolombiano.com/favicon.ico"],
+  },
+  alternates: {
+    canonical: "https://monopolombiano.com/calculadoras/pibank",
   },
 };
 

@@ -25,13 +25,13 @@ export const metadata: Metadata = {
     title: "Cripto y Nuevas Tecnologías",
     description:
       "Explora cómo las criptomonedas, el blockchain y la inteligencia artificial están cambiando las finanzas modernas.",
-    url: "https://www.monopolombiano.com/cripto-y-nuevas-tecnologias",
+    url: "https://www.monopolombiano.com/economia-hoy/cripto-y-nuevas-tecnologias",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/cripto.jpg",
-        width: 1200,
-        height: 630,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 425,
+        height: 425,
         alt: "Cripto y Nuevas Tecnologías",
       },
     ],
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Cripto y Nuevas Tecnologías",
     description:
       "Aprende sobre blockchain, criptomonedas, IA y las nuevas tecnologías que transforman el mundo financiero.",
-    images: ["https://www.monopolombiano.com/images/cripto.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

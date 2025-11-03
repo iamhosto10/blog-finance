@@ -29,8 +29,8 @@ export const metadata: Metadata = {
     siteName: "Mi Sitio Web",
     images: [
       {
-        url: "https://tusitio.com/images/tips-financieros.jpg", // 👈 puedes poner una imagen de /public o de Sanity
-        width: 1200,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 630,
         height: 630,
         alt: "Tips Financieros",
       },
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Tips Financieros",
     description:
       "Consejos sobre cajeros, ahorro, seguridad financiera, historial crediticio y más.",
-    images: ["https://tusitio.com/images/tips-financieros.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

@@ -25,9 +25,59 @@ export const revalidate = 60 * 60 * 24;
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Monopolombiano",
-  description: "Blog para finanzas colombianas",
-  icons: { icon: "/favicon.ico" },
+  title: {
+    default:
+      "Monopolombiano | Educación y Herramientas Financieras para Colombia",
+    template: "%s | Monopolombiano",
+  },
+  description:
+    "Monopolombiano te ofrece educación financiera, noticias económicas y herramientas interactivas para tomar mejores decisiones con tu dinero. Aprende sobre ahorro, inversión, crédito, impuestos, criptomonedas y más.",
+  keywords: [
+    "educación financiera",
+    "finanzas personales",
+    "bancos en Colombia",
+    "calculadoras financieras",
+    "simuladores financieros",
+    "tasa de interés Colombia",
+    "ahorro e inversión",
+    "créditos y préstamos",
+    "impuestos Colombia",
+    "criptomonedas",
+    "seguridad financiera",
+    "historial crediticio",
+    "economía hoy",
+  ],
+  metadataBase: new URL("https://monopolombiano.com"),
+  openGraph: {
+    title:
+      "Monopolombiano | Educación y Herramientas Financieras para Colombia",
+    description:
+      "Explora artículos, calculadoras y noticias sobre finanzas personales, economía y ahorro. Aprende a manejar tu dinero con herramientas diseñadas para Colombia.",
+    url: "https://monopolombiano.com",
+    siteName: "Monopolombiano",
+    locale: "es_CO",
+    type: "website",
+    images: [
+      {
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 625,
+        height: 625,
+        alt: "Monopolombiano - Educación y Herramientas Financieras",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "Monopolombiano | Educación y Herramientas Financieras para Colombia",
+    description:
+      "Artículos, comparadores y calculadoras financieras para Colombia. Aprende a ahorrar, invertir y manejar tu dinero con Monopolombiano.",
+    images: ["https://monopolombiano.com/favicon.ico"],
+  },
+  alternates: {
+    canonical: "https://monopolombiano.com",
+  },
+  authors: [{ name: "Monopolombiano", url: "https://monopolombiano.com" }],
 };
 
 export default async function RootLayout({

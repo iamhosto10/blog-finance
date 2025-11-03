@@ -25,11 +25,11 @@ export const metadata: Metadata = {
     title: "Economía Hoy",
     description:
       "Análisis de bancos, criptomonedas, inflación, impuestos y regulaciones en Colombia.",
-    url: "https://tusitio.com/economia-hoy",
+    url: "https://monopolombiano.com/economia-hoy",
     siteName: "Mi Sitio Web",
     images: [
       {
-        url: "https://tusitio.com/images/economia-hoy.jpg", // 👈 puedes usar /public o Sanity
+        url: "https://monopolombiano.com/favicon.ico", // 👈 puedes usar /public o Sanity
         width: 1200,
         height: 630,
         alt: "Economía Hoy en Colombia",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Economía Hoy",
     description:
       "Todo sobre bancos, cripto, inflación, regulaciones, tasas de interés e impuestos en Colombia.",
-    images: ["https://tusitio.com/images/economia-hoy.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

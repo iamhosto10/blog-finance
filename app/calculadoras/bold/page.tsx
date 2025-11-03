@@ -16,7 +16,7 @@ export const metadata = {
     title: "Cuenta de Ahorros Bold en Colombia - Simulador y Rentabilidad 2025",
     description:
       "Aprende cómo funciona la cuenta de ahorros Bold en Colombia, revisa las tasas de interés actualizadas y usa nuestro simulador de inversión.",
-    url: "https://tusitio.com/bold-colombia",
+    url: "https://monopolombiano.com/calculadoras/bold",
     siteName: "Simulador de Inversiones en Colombia",
     locale: "es_CO",
     type: "website",

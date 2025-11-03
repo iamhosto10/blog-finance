@@ -25,12 +25,12 @@ export const metadata: Metadata = {
     title: "Finanzas en Pareja",
     description:
       "Consejos para manejar el dinero en pareja, crear un presupuesto común y alcanzar metas financieras juntos.",
-    url: "https://www.monopolombiano.com/finanzas-en-pareja",
+    url: "https://monopolombiano.com/finanzas-personales/finanzas-en-pareja",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/finanzas-pareja.jpg",
-        width: 1200,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 630,
         height: 630,
         alt: "Finanzas en Pareja",
       },
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Finanzas en Pareja",
     description:
       "Aprende a manejar las finanzas en pareja sin estrés: presupuesto, ahorro y comunicación efectiva.",
-    images: ["https://www.monopolombiano.com/images/finanzas-pareja.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

@@ -7,9 +7,46 @@ import Tag from "@/components/CommonComponents/Tag";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Calculadora 4x1000 Colombia",
+  title: "Calculadora 4x1000 en Colombia | Monopolombiano",
   description:
-    "Descubre qué es el 4x1000 en Colombia, cómo funciona y usa nuestra calculadora para saber cuánto debes pagar.",
+    "Calcula fácilmente cuánto pagarás por el impuesto 4x1000 en Colombia. Descubre qué es, cómo funciona, quiénes están exentos y cómo afecta tus transacciones bancarias. Usa nuestra herramienta gratuita para planificar mejor tus finanzas personales.",
+  keywords: [
+    "calculadora 4x1000",
+    "impuesto 4x1000",
+    "gravamen financiero",
+    "cuánto se paga por el 4x1000",
+    "4x1000 Colombia",
+    "calculadora GMF",
+    "cuentas exentas 4x1000",
+    "impuesto a las transacciones financieras",
+    "finanzas personales",
+    "bancos en Colombia",
+  ],
+  icons: { icon: "/favicon.ico" },
+  openGraph: {
+    title: "Calculadora 4x1000 en Colombia",
+    description:
+      "Descubre cuánto pagas por el impuesto 4x1000 (GMF) en tus transacciones bancarias. Calcula el valor exacto y conoce quiénes están exentos.",
+    url: "https://monopolombiano.com/calculadoras/4x1000",
+    siteName: "Monopolombiano",
+    images: [
+      {
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 625,
+        height: 625,
+        alt: "Calculadora del 4x1000 en Colombia",
+      },
+    ],
+    locale: "es_ES",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Calculadora 4x1000 en Colombia",
+    description:
+      "Calcula cuánto pagas por el impuesto 4x1000 y aprende cómo funciona este gravamen financiero en Colombia.",
+    images: ["https://monopolombiano.com/favicon.ico"],
+  },
 };
 
 const info = [

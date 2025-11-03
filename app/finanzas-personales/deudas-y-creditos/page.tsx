@@ -25,13 +25,13 @@ export const metadata: Metadata = {
     title: "Deudas y Créditos",
     description:
       "Guías y estrategias para entender y manejar tus créditos de manera inteligente. Aprende a evitar el sobreendeudamiento y mejora tu historial financiero.",
-    url: "https://www.monopolombiano.com/deudas-y-creditos",
+    url: "https://monopolombiano.com/finanzas-personales/deudas-y-creditos",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/deudas.jpg",
-        width: 1200,
-        height: 630,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 625,
+        height: 625,
         alt: "Deudas y Créditos",
       },
     ],
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Deudas y Créditos",
     description:
       "Consejos para salir de deudas, mejorar tu puntaje crediticio y usar el crédito de forma inteligente.",
-    images: ["https://www.monopolombiano.com/images/deudas.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

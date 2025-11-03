@@ -24,13 +24,13 @@ export const metadata: Metadata = {
     title: "Ahorro y Presupuesto",
     description:
       "Aprende a planificar tus finanzas, crear un presupuesto efectivo y alcanzar tus metas de ahorro sin complicaciones.",
-    url: "https://www.monopolombiano.com/ahorro-y-presupuesto",
+    url: "https://monopolombiano.com/finanzas-personales/ahorro-y-presupuesto",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/ahorro.jpg",
-        width: 1200,
-        height: 630,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 625,
+        height: 625,
         alt: "Ahorro y Presupuesto",
       },
     ],
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: "Ahorro y Presupuesto",
     description:
       "Consejos para ahorrar dinero, controlar tus gastos y organizar tu presupuesto personal o familiar.",
-    images: ["https://www.monopolombiano.com/images/ahorro.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

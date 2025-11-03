@@ -25,11 +25,11 @@ export const metadata: Metadata = {
     title: "Seguridad Financiera",
     description:
       "Consejos prácticos para cuidar tu dinero, prevenir fraudes y lograr estabilidad económica.",
-    url: "https://www.monopolombiano.com/seguridad-financiera",
+    url: "https://monopolombiano.com/tips-financieros/seguridad-financiera",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/seguridad.jpg",
+        url: "https://monopolombiano.com/favicon.ico",
         width: 1200,
         height: 630,
         alt: "Seguridad Financiera",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Seguridad Financiera",
     description:
       "Protege tus finanzas personales y evita fraudes con estrategias sencillas y efectivas.",
-    images: ["https://www.monopolombiano.com/images/seguridad.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

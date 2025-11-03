@@ -25,13 +25,13 @@ export const metadata: Metadata = {
     title: "Inversión",
     description:
       "Aprende a invertir tu dinero de forma segura e inteligente. Conoce los mejores instrumentos para hacer crecer tu patrimonio.",
-    url: "https://www.monopolombiano.com/inversion",
+    url: "https://monopolombiano.com/finanzas-personales/inversion",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/inversion.jpg",
-        width: 1200,
-        height: 630,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 625,
+        height: 625,
         alt: "Inversión",
       },
     ],
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Inversión",
     description:
       "Descubre cómo invertir tu dinero paso a paso: desde fondos y acciones hasta proyectos inmobiliarios y más.",
-    images: ["https://www.monopolombiano.com/images/inversion.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 

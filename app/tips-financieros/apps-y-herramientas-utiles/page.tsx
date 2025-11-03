@@ -25,12 +25,12 @@ export const metadata: Metadata = {
     title: "Apps y Herramientas Útiles",
     description:
       "Las mejores apps y herramientas digitales para tus finanzas personales. Controla tus gastos, ahorra y administra tu dinero de forma inteligente.",
-    url: "https://www.monopolombiano.com/apps-y-herramientas-utiles",
+    url: "https://monopolombiano.com/tips-financieros/apps-y-herramientas-utiles",
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://www.monopolombiano.com/images/apps.jpg",
-        width: 1200,
+        url: "https://monopolombiano.com/favicon.ico",
+        width: 630,
         height: 630,
         alt: "Apps y Herramientas Útiles",
       },
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Apps y Herramientas Útiles",
     description:
       "Explora las mejores aplicaciones y plataformas digitales para mejorar tu organización y salud financiera.",
-    images: ["https://www.monopolombiano.com/images/apps.jpg"],
+    images: ["https://monopolombiano.com/favicon.ico"],
   },
 };
 
