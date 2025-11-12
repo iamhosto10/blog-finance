@@ -5,7 +5,7 @@ import { blogsQuery, categoriesQuery } from "@/lib/queries";
 import { client } from "@/lib/sanity";
 import { MetadataRoute } from "next";
 
-const baseUrl = process.env.SITE_URL || "https://tusitio.com";
+const baseUrl = process.env.SITE_URL || "https://monopolombiano.com";
 
 const structure = {
   "economia-hoy": [

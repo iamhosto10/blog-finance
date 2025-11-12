@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     images: ["https://monopolombiano.com/favicon.ico"],
   },
   alternates: {
-    canonical: "https://monopolombiano.com",
+    canonical: "https://monopolombiano.com/",
   },
   authors: [{ name: "Monopolombiano", url: "https://monopolombiano.com" }],
 };
@@ -139,7 +139,7 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <head>
         <Script
           strategy="afterInteractive"
