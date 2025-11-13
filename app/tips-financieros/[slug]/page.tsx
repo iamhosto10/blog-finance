@@ -54,20 +54,23 @@ export async function generateMetadata(props: {
     .filter(Boolean)
     .join(" ");
 
+  const formatedTitle =
+    title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
+
   return {
-    title: title,
+    title: formatedTitle,
 
     description: post.excerpt,
     icons: { icon: "/favicon.ico" },
     openGraph: {
-      title: title,
+      title: formatedTitle,
 
       description: post.excerpt,
       images: [urlFor(post?.mainImage).url()],
     },
     twitter: {
       card: "summary_large_image",
-      title: title,
+      title: formatedTitle,
 
       description: post.excerpt,
       images: [urlFor(post?.mainImage).url()],
