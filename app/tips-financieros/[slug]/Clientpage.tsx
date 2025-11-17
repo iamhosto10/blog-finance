@@ -12,6 +12,7 @@ import { PortableText } from "@portabletext/react";
 import { Metadata } from "next";
 import { components, getPost } from "@/lib/utils";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
+import React from "react";
 
 export async function generateMetadata({
   params,
@@ -102,10 +103,10 @@ export default function BlogArticle() {
         <AudioPlayer audioUrl={data?.audio?.asset.url} />
       )}
 
-      <div className="my-12 text-tertiary font-canva-sans text-sm lg:text-lg text-justify">
+      <div className="my-12 text-tertiary font-canva-sans text-sm lg:text-lg text-justify w-full">
         {data?.body &&
           data.body.map((section, index) => (
-            <>
+            <React.Fragment key={"section-" + index}>
               {section.title && (
                 <h2
                   key={section.title}
@@ -135,7 +136,7 @@ export default function BlogArticle() {
                 </div>
               )}
               {index % 3 === 0 && (
-                <div className="h-40 w-full bg-tertiary">
+                <div className="w-full ">
                   <AdBanner
                     dataAdFormat="auto"
                     dataFullWidthResponsive={true}
@@ -144,7 +145,7 @@ export default function BlogArticle() {
                   />
                 </div>
               )}
-            </>
+            </React.Fragment>
           ))}
       </div>
       {data?.relatedNews && (

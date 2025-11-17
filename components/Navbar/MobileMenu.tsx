@@ -10,7 +10,7 @@ import {
 import { ReactSVG } from "react-svg";
 import Logo from "./Logo";
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 
 type SubCategory = { label: string; href: string };
 
@@ -59,18 +59,10 @@ export default function MobileMenu({
         <div className="h-screen bg-background p-4">
           <h2 className="text-primary font-bold mb-4 uppercase">Categorías</h2>
           <ul className="space-y-4">
-            {/* {menuLabels.map((label) => (
-              <li
-                key={label}
-                className="text-secondary font-semibold border-b border-secondary pb-2 cursor-pointer hover:underline"
-              >
-                {label}
-              </li>
-            ))} */}
             {menuItems.map((item) => {
               const active = activeMenu === item.label;
               return (
-                <>
+                <React.Fragment key={item.label}>
                   <li
                     key={item.label}
                     className="flex justify-between text-secondary font-semibold border-b border-secondary pb-2 cursor-pointer hover:underline"
@@ -103,7 +95,7 @@ export default function MobileMenu({
                       ))}
                     </ul>
                   )}
-                </>
+                </React.Fragment>
               );
             })}
           </ul>
