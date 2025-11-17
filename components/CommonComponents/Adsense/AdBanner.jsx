@@ -1,20 +1,8 @@
-//@ts-nocheck
-
 "use client";
 
 import React, { useEffect } from "react";
 
-type AdBannerTypes = {
-  dataAdSlot: string;
-  dataAdFormat: string;
-  dataFullWidthResponsive: boolean;
-};
-
-const AdBanner = ({
-  dataAdSlot,
-  dataAdFormat,
-  dataFullWidthResponsive,
-}: AdBannerTypes) => {
+const AdBanner = ({ dataAdSlot, dataAdFormat, dataFullWidthResponsive }) => {
   useEffect(() => {
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
