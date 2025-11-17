@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "Tips Financieros | Mi Sitio Web",
+  title: "Tips Financieros",
   description:
     "Descubre consejos prácticos sobre cajeros, bancos, ahorro diario, seguridad financiera, manejo del dinero en el extranjero, historial crediticio y las mejores apps para organizar tus finanzas.",
   keywords: [

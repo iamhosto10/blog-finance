@@ -2,6 +2,7 @@ import CalculatorCard from "@/components/CommonComponents/Cards/CalculatorCard";
 import Simulators from "@/components/Simulators/Simulators";
 import React from "react";
 import type { Metadata } from "next";
+import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 
 export const metadata: Metadata = {
   title: "Calculadoras Financieras en Línea | Monopolombiano",
@@ -147,6 +148,11 @@ const Page = () => {
           ))}
         </div>
 
+        <AdBanner
+          dataAdFormat="auto"
+          dataFullWidthResponsive={true}
+          dataAdSlot="7506188604"
+        />
         <div className="w-full shadow-2xl rounded-xl p-6 bg-tertiary-foreground my-6">
           <Simulators />
         </div>

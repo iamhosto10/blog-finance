@@ -10,6 +10,7 @@ import Header from "./Header/Header";
 import IntroductionSection from "../IntroductionSection/IntroductionSection";
 import PostPreviewCardHorizontal from "../PostPreviewCardHorizontal/PostPreviewCardHorizontal";
 import CategoriesHome from "../CategoriesHome/CategoriesHome";
+import AdInfeed from "../CommonComponents/Adsense/AdInfeed";
 
 export default function Home() {
   const { blogs } = useSelector((state: RootState) => state.sanity);
@@ -24,6 +25,7 @@ export default function Home() {
         <div className="w-full shadow-2xl rounded-xl p-6 bg-tertiary-foreground my-6">
           <Simulators />
         </div>
+        <AdInfeed dataAdFormat={"fluid"} dataAdSlot={"9771876407"} />
         <div className="flex flex-col lg:flex-row py-10 gap-10">
           <div className="flex-[5]">
             <ArticleHome />

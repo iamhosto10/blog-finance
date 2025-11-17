@@ -5,6 +5,7 @@ import { InfoSection } from "@/components/CommonComponents/InfoSection/InfoSecti
 import { FAQ } from "@/components/CommonComponents/FAQ/FAQ";
 import Tag from "@/components/CommonComponents/Tag";
 import Link from "next/link";
+import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 
 export const metadata: Metadata = {
   title: "Calculadora 4x1000 en Colombia | Monopolombiano",
@@ -144,6 +145,11 @@ export default function Page() {
             <Calculator />
           </CardContent>
         </Card>
+        <AdBanner
+          dataAdFormat="auto"
+          dataFullWidthResponsive={true}
+          dataAdSlot="7506188604"
+        />
 
         <InfoSection data={info} />
 

@@ -1,5 +1,6 @@
 "use client";
 
+import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import CalculatorCard from "@/components/CommonComponents/Cards/CalculatorCard";
 import Tag from "@/components/CommonComponents/Tag";
 import { RootState } from "@/store/store";
@@ -160,6 +161,12 @@ const ClientPage = () => {
           </div>
         ))}
       </div>
+
+      <AdBanner
+        dataAdFormat="auto"
+        dataFullWidthResponsive={true}
+        dataAdSlot="7506188604"
+      />
     </div>
   );
 };

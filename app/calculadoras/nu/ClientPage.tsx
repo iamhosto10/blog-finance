@@ -1,5 +1,6 @@
 "use client";
 
+import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import { FAQ } from "@/components/CommonComponents/FAQ/FAQ";
 import { InfoSection } from "@/components/CommonComponents/InfoSection/InfoSection";
 import Tag from "@/components/CommonComponents/Tag";
@@ -138,7 +139,11 @@ export default function Page() {
               />
             </CardContent>
           </Card>
-
+          <AdBanner
+            dataAdFormat="auto"
+            dataFullWidthResponsive={true}
+            dataAdSlot="7506188604"
+          />
           <InfoSection data={info} />
 
           <FAQ data={Faq} />

@@ -37,6 +37,7 @@ import { Button } from "@/components/ui/button";
 import { Payment, Totales } from "@/lib/interface";
 import Link from "next/link";
 import Tag from "@/components/CommonComponents/Tag";
+import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 
 ChartJS.register(
   CategoryScale,
@@ -235,7 +236,11 @@ const Clientpage = () => {
         crédito, esta herramienta te permitirá comparar escenarios y planificar
         tus finanzas con precisión.
       </p>
-      {/* <GraphicsTable /> */}
+      <AdBanner
+        dataAdFormat="auto"
+        dataFullWidthResponsive={true}
+        dataAdSlot="7506188604"
+      />
       <div className="w-full rounded-2xl bg-primary-background/50">
         <div className="w-full flex flex-row items-center justify-center bg-primary-foreground rounded-t-2xl lg:max-h-8 gap-2">
           <h3 className="text-sm lg:text-lg font-agrandir font-bold text-tertiary py-1">

@@ -1,5 +1,6 @@
 "use client";
 
+import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import Tag from "@/components/CommonComponents/Tag";
 import DolarConversor from "@/components/DolarConversor/DolarConversor";
 import { Card, CardContent } from "@/components/ui/card";
@@ -61,6 +62,11 @@ const ClientPage = () => {
             <DolarConversor dolar={dolar} />
           </CardContent>
         </Card>
+        <AdBanner
+          dataAdFormat="auto"
+          dataFullWidthResponsive={true}
+          dataAdSlot="7506188604"
+        />
       </div>
     </div>
   );

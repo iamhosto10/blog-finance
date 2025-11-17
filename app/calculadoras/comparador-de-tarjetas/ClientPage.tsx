@@ -16,6 +16,7 @@ import { Bank, Card, Franchise } from "@/lib/interface";
 import Link from "next/link";
 import Tag from "@/components/CommonComponents/Tag";
 import { formatCOP } from "@/lib/utils";
+import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 
 const firstBank: Bank = {
   _id: "",
@@ -204,6 +205,7 @@ const ClientPage = () => {
           </Listbox>
         </div>
       </div>
+
       <div className="flex flex-row bg-primary-foreground rounded-md p-2 gap-2">
         {selectedCards?.map((card) => (
           <div
@@ -229,6 +231,11 @@ const ClientPage = () => {
           </div>
         )}
       </div>
+      <AdBanner
+        dataAdFormat="auto"
+        dataFullWidthResponsive={true}
+        dataAdSlot="7506188604"
+      />
       <div className=" w-full ">
         <h2 className="text-xl font-bold font-agrandir text-secondary mb-6">
           FICHA TÉCNICA

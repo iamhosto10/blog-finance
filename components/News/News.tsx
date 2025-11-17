@@ -1,6 +1,8 @@
 import { Blog } from "@/lib/interface";
 import React from "react";
 import NewsCard from "../CommonComponents/Cards/NewsCard";
+import AdBanner from "../CommonComponents/Adsense/AdBanner";
+import AdInfeed from "../CommonComponents/Adsense/AdInfeed";
 
 interface INewsProps {
   title?: string;
@@ -39,11 +41,7 @@ const News = ({ data, title }: INewsProps) => {
         <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-10 w-full">
           {data.length && renderPosts(data.slice(0, 2))}
         </div>
-
-        {/* Publicidad */}
-        {/* <div className="w-full h-40 bg-tertiary flex items-center justify-center">
-          <p className="text-5xl">Publicidad</p>
-        </div> */}
+        <AdInfeed dataAdFormat={"fluid"} dataAdSlot={"9771876407"} />
       </div>
 
       {/* Segunda sección */}
