@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 "use client";
 
 import React, { useEffect } from "react";
@@ -15,10 +17,8 @@ const AdBanner = ({
 }: AdBannerTypes) => {
   useEffect(() => {
     try {
-      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push(
-        {}
-      );
-    } catch (error: any) {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (error) {
       console.log(error.message);
     }
   }, []);
