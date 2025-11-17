@@ -11,6 +11,7 @@ import News from "@/components/News/News";
 import { PortableText } from "@portabletext/react";
 import { Metadata } from "next";
 import { components, getPost } from "@/lib/utils";
+import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 
 export async function generateMetadata({
   params,
@@ -133,13 +134,16 @@ export default function BlogArticle() {
                   />
                 </div>
               )}
-              {/* {index % 2 === 0 && (
+              {index % 3 === 0 && (
                 <div className="h-40 w-full bg-tertiary">
-                  <h3 className="text-3xl text-background">
-                    Aqui iria a la publicidad
-                  </h3>
+                  <AdBanner
+                    dataAdFormat="auto"
+                    dataFullWidthResponsive={true}
+                    dataAdSlot="7506188604"
+                    key={"ads" + index}
+                  />
                 </div>
-              )} */}
+              )}
             </>
           ))}
       </div>
