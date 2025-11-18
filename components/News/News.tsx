@@ -40,8 +40,12 @@ const News = ({ data, title }: INewsProps) => {
           {data.length && renderPosts(data.slice(0, 3))}
         </div>
         <div className="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:w-full">
-          {[0, 1, 2].map(() => (
-            <AdNews dataAdSlot={"2127537714"} dataAdFormat={"auto"} />
+          {[0, 1, 2].map((index) => (
+            <AdNews
+              key={index}
+              dataAdSlot={"2127537714"}
+              dataAdFormat={"auto"}
+            />
           ))}
         </div>
         <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-10 w-full">
