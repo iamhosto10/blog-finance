@@ -35,6 +35,7 @@ import {
 import { CalcResultTotales, InvestmentRow } from "@/lib/interface";
 import Link from "next/link";
 import Tag from "@/components/CommonComponents/Tag";
+import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 
 ChartJS.register(
   CategoryScale,
@@ -263,7 +264,11 @@ const ClientPage = () => {
         interés compuesto y tomar decisiones más informadas sobre tus finanzas
         personales o tus inversiones a largo plazo.
       </p>
-
+      <AdBanner
+        dataAdFormat="auto"
+        dataFullWidthResponsive={true}
+        dataAdSlot="7506188604"
+      />
       <div className="w-full rounded-2xl bg-primary-background/50">
         <div className="w-full flex flex-row items-center justify-center bg-primary-foreground rounded-t-2xl lg:max-h-8 gap-2">
           <h3 className="text-sm lg:text-lg font-agrandir font-bold text-tertiary py-1">
