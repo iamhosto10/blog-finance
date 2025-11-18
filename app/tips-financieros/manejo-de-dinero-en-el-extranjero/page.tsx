@@ -1,5 +1,6 @@
 import ArticleList from "@/components/ArticleList/ArticleList";
 import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
+import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
 import { Metadata } from "next";
 import React from "react";
@@ -84,6 +85,11 @@ const page = () => {
           category="Manejo del dinero en el extranjero"
           indexes={[0, 4]}
         />
+        <AdBanner
+          dataAdFormat="auto"
+          dataFullWidthResponsive={true}
+          dataAdSlot="7506188604"
+        />
         <ArticleList
           category="Manejo del dinero en el extranjero"
           indexes={[4, 7]}
@@ -92,6 +98,11 @@ const page = () => {
         <ArticleShowcase
           category="Manejo del dinero en el extranjero"
           indexes={[7, 11]}
+        />
+        <AdBanner
+          dataAdFormat="auto"
+          dataFullWidthResponsive={true}
+          dataAdSlot="7506188604"
         />
         <ArticleList
           category="Manejo del dinero en el extranjero"

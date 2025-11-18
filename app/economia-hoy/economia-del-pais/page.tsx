@@ -1,5 +1,6 @@
 import ArticleList from "@/components/ArticleList/ArticleList";
 import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
+import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
 import { Metadata } from "next";
 import React from "react";
@@ -86,9 +87,19 @@ const page = () => {
         </p>
 
         <ArticleShowcase category="Economía del pais" indexes={[0, 4]} />
+        <AdBanner
+          dataAdFormat="auto"
+          dataFullWidthResponsive={true}
+          dataAdSlot="7506188604"
+        />
         <ArticleList category="Economía del pais" indexes={[4, 7]} />
         <ArticleHome category="Economía del pais" />
         <ArticleShowcase category="Economía del pais" indexes={[7, 11]} />
+        <AdBanner
+          dataAdFormat="auto"
+          dataFullWidthResponsive={true}
+          dataAdSlot="7506188604"
+        />
         <ArticleList category="Economía del pais" indexes={[11, 20]} />
       </div>
     </>
