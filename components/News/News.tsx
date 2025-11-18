@@ -1,8 +1,9 @@
 import { Blog } from "@/lib/interface";
 import React from "react";
 import NewsCard from "../CommonComponents/Cards/NewsCard";
-import AdBanner from "../CommonComponents/Adsense/AdBanner";
+import AdNews from "../CommonComponents/Adsense/AdNews";
 import AdInfeed from "../CommonComponents/Adsense/AdInfeed";
+import AdBanner from "../CommonComponents/Adsense/AdBanner";
 
 interface INewsProps {
   title?: string;
@@ -38,10 +39,22 @@ const News = ({ data, title }: INewsProps) => {
         <div className="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:w-full">
           {data.length && renderPosts(data.slice(0, 3))}
         </div>
+        <div className="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:w-full">
+          {[0, 1, 2].map(() => (
+            <AdNews dataAdSlot={"2127537714"} dataAdFormat={"auto"} />
+          ))}
+        </div>
         <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-10 w-full">
           {data.length && renderPosts(data.slice(0, 2))}
         </div>
-        <AdInfeed dataAdFormat={"fluid"} dataAdSlot={"9771876407"} />
+        <div className="lg:hidden grid grid-cols-1 gap-10 w-full">
+          <div className="hidden md:block lg:hidden">
+            <AdInfeed dataAdFormat={"fluid"} dataAdSlot={"9771876407"} />
+          </div>
+          <div className="block md:hidden">
+            <AdNews dataAdSlot={"2127537714"} dataAdFormat={"auto"} />
+          </div>
+        </div>
       </div>
 
       {/* Segunda sección */}

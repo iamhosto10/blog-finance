@@ -25,7 +25,9 @@ export default function Home() {
         <div className="w-full shadow-2xl rounded-xl p-6 bg-tertiary-foreground my-6">
           <Simulators />
         </div>
-        <AdInfeed dataAdFormat={"fluid"} dataAdSlot={"9771876407"} />
+        <div className="mt-3 w-full">
+          <AdInfeed dataAdFormat={"fluid"} dataAdSlot={"9771876407"} />
+        </div>
         <div className="flex flex-col lg:flex-row py-10 gap-10">
           <div className="flex-[5]">
             <ArticleHome />
