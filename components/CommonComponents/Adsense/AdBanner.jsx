@@ -12,7 +12,7 @@ const AdBanner = ({ dataAdSlot, dataAdFormat, dataFullWidthResponsive }) => {
   }, []);
 
   return (
-    <div className="w-full max-w-screen-md mx-auto px-2 overflow-hidden">
+    <div className="w-full max-w-screen-md md:max-w-screen-xl mx-auto px-1 overflow-hidden">
       <ins
         className="adsbygoogle"
         style={{

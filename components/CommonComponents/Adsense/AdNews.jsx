@@ -18,6 +18,7 @@ const AdNews = ({ dataAdSlot, dataAdFormat }) => {
         style={{
           display: "block",
           width: "100%",
+          aspectRatio: "1/1",
         }}
         data-ad-format={dataAdFormat}
         data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}
