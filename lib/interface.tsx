@@ -95,7 +95,6 @@ export interface Card {
   };
   bank?: Bank;
   interesUnaCuota?: boolean;
-
   franchise?: Franchise;
   cardType?: "clasica" | "oro" | "platino" | "black" | "otros";
   cuotaManejo?: number;

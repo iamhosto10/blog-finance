@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 
 const Clientpage = () => {
@@ -16,11 +17,28 @@ const Clientpage = () => {
     setForm((s) => ({ ...s, [name]: value }));
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // Aquí puedes integrar tu API (SendGrid, Netlify Forms, Vercel Functions, etc.)
-    console.log("Enviar formulario:", form);
-    alert("Formulario enviado (simulado). Revisa la consola.");
+
+    if (!form.nombre || !form.apellido || !form.correo || !form.mensaje) {
+      alert("Por favor completa todos los campos");
+      return;
+    }
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+
+    const data = await res.json();
+
+    if (data.ok) {
+      setForm({ nombre: "", apellido: "", correo: "", mensaje: "" });
+      alert("Formulario enviado");
+    } else {
+      alert("Error al enviar el formulario");
+    }
   }
   return (
     <div className="container mx-auto flex flex-col gap-16">
@@ -92,7 +110,7 @@ const Clientpage = () => {
                   name="nombre"
                   value={form.nombre}
                   onChange={handleChange}
-                  placeholder="Jane"
+                  placeholder="Juan"
                   className="rounded-lg border border-gray-200 px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200"
                   type="text"
                   required
@@ -107,7 +125,7 @@ const Clientpage = () => {
                   name="apellido"
                   value={form.apellido}
                   onChange={handleChange}
-                  placeholder="Smitherton"
+                  placeholder="Perez"
                   className="rounded-lg border border-gray-200 px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200"
                   type="text"
                   required
@@ -146,12 +164,9 @@ const Clientpage = () => {
             </label>
 
             <div>
-              <button
-                type="submit"
-                className="w-full bg-tertiary text-white text-lg font-bold font-agrandir py-4 rounded-lg shadow-md hover:opacity-90 transition"
-              >
+              <Button type="submit" className="w-full cursor-pointer">
                 Enviar
-              </button>
+              </Button>
             </div>
           </form>
         </div>
