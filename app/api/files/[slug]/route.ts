@@ -105,7 +105,7 @@ export async function GET(
 
   const contentDisposition = `attachment; filename="${fallback}"; filename*=UTF-8''${encoded}`;
 
-  return new NextResponse(remoteResp.body as any, {
+  return new NextResponse(remoteResp.body as ReadableStream<Uint8Array>, {
     headers: {
       "Content-Type": contentType,
       "Content-Disposition": contentDisposition,
