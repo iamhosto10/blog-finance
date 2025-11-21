@@ -9,13 +9,13 @@ export default defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: (Rule) => Rule.min(5).max(100),
+      validation: (Rule) => Rule.min(2).max(100),
     },
     {
       name: 'focusTitle',
       title: 'Focus Title',
       type: 'string',
-      validation: (Rule) => Rule.min(5).max(100),
+      validation: (Rule) => Rule.min(2).max(100),
     },
     {
       name: 'continueTitle',
