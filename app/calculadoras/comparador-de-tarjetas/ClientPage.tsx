@@ -27,7 +27,7 @@ const firstBank: Bank = {
 const fistFranchiese: Franchise = {
   _id: "",
   _type: "franchises",
-  name: "Seleccione Franquisia",
+  name: "Seleccione Franquicia",
   slug: {
     _type: "slug",
     current: "",
@@ -118,7 +118,7 @@ const ClientPage = () => {
         </div>
         <div className="lg:col-span-3">
           <p className="font-agrandir font-bold text-secondary text-lg md:text-xl xl:text-xl text-left">
-            Franquisia
+            Franquicia
           </p>
 
           <Listbox
@@ -301,18 +301,18 @@ const ClientPage = () => {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2">
           <p className="font-bold font-agrandir self-end hidden md:block ">
-            FRANQUISIA:
+            FRANQUICIA:
           </p>
           <p className="font-canva-sans self-end  text-center ">
             <span className="font-bold font-agrandir self-end md:hidden">
-              FRANQUISIA:
+              FRANQUICIA:
             </span>
             <br className="md:hidden" />
             {selectedCards[0]?.franchise?.name}
           </p>
           <p className="font-canva-sans self-end  text-center ">
             <span className="font-bold font-agrandir self-end md:hidden">
-              FRANQUISIA:
+              FRANQUICIA:
             </span>
             <br className="md:hidden" />
             {selectedCards[1]?.franchise?.name}
