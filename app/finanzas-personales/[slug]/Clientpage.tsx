@@ -119,6 +119,30 @@ export default function BlogArticle() {
               {section.body && (
                 <PortableText value={section.body} components={components} />
               )}
+              {section.table && (
+                <table className="w-full border-collapse my-6">
+                  <tbody></tbody>
+                  {section.table.rows.map((row, rowIndex) => (
+                    <tr
+                      key={rowIndex}
+                      className={
+                        rowIndex % 2 === 0
+                          ? "bg-primary-foreground"
+                          : "bg-white"
+                      }
+                    >
+                      {row.cells.map((cell, cellIndex) => (
+                        <td
+                          key={cellIndex}
+                          className="border border-tertiary px-4 py-2 text-sm lg:text-base"
+                        >
+                          {cell}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </table>
+              )}
 
               {section.asset && section.asset._type === "image" && (
                 <div className="relative w-full md:w-[70%] mx-auto my-8">

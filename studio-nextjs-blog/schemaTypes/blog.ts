@@ -115,6 +115,31 @@ export default defineType({
             },
 
             {name: 'asset', title: 'Image', type: 'image', options: {hotspot: true}},
+            {
+              name: 'table',
+              title: 'Table',
+              type: 'object',
+              fields: [
+                {
+                  name: 'rows',
+                  title: 'Rows',
+                  type: 'array',
+                  of: [
+                    {
+                      type: 'object',
+                      fields: [
+                        {
+                          name: 'cells',
+                          title: 'Cells',
+                          type: 'array',
+                          of: [{type: 'string'}],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
           ],
         },
       ],

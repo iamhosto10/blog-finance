@@ -118,6 +118,10 @@ export interface Card {
 export interface BodySection {
   title?: string;
   body?: PortableTextBlock[];
+  table?: {
+    _type: "table";
+    rows: TableRow[];
+  };
   asset?: {
     _type: "image";
     asset: {
@@ -125,6 +129,9 @@ export interface BodySection {
       _type: "reference";
     };
   };
+}
+interface TableRow {
+  cells: string[];
 }
 
 export interface PortableTextChild {
