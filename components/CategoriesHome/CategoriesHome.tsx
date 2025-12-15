@@ -156,7 +156,7 @@ const CategoriesHome = () => {
         </li>
         <li>
           <Link
-            href={"/economia-hoy/economía-del-pais"}
+            href={"/economia-hoy/economia-del-pais"}
             className="flex items-center"
           >
             <div className="w-5">
@@ -228,7 +228,7 @@ const CategoriesHome = () => {
       <ul className="space-y-2">
         <li>
           <Link
-            href={"/tips-financieros/Cajeros-y-bancos"}
+            href={"/tips-financieros/cajeros-y-bancos"}
             className="flex items-center"
           >
             <div className="w-5">
@@ -300,7 +300,7 @@ const CategoriesHome = () => {
         </li>
         <li>
           <Link
-            href={"/tips-financieros/manejo-del-dinero-en-el-extranjero"}
+            href={"/tips-financieros/manejo-de-dinero-en-el-extranjero"}
             className="flex items-center"
           >
             <div className="w-5">

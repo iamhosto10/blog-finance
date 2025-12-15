@@ -44,7 +44,7 @@ const categories: Record<
         href: "/economia-hoy/cripto-y-nuevas-tecnologias",
         label: "Cripto y nuevas tecnologías",
       },
-      { href: "/economia-hoy/economía-del-pais", label: "Economía del país" },
+      { href: "/economia-hoy/economia-del-pais", label: "Economía del país" },
       { href: "/economia-hoy/regulaciones", label: "Regulaciones" },
       { href: "/economia-hoy/tasas-de-interes", label: "Tasas de interés" },
       { href: "/economia-hoy/impuestos", label: "Impuestos" },

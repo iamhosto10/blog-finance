@@ -13,6 +13,7 @@ import { PortableText } from "@portabletext/react";
 import { components, getPost } from "@/lib/utils";
 import React from "react";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
+import AdInfeed from "@/components/CommonComponents/Adsense/AdInfeed";
 
 export async function generateMetadata({
   params,
@@ -135,14 +136,22 @@ export default function BlogArticle() {
                 </div>
               )}
               {index % 3 === 0 && (
-                <div className="w-full ">
-                  <AdBanner
-                    dataAdFormat="auto"
-                    dataFullWidthResponsive={true}
-                    dataAdSlot="7506188604"
-                    key={"ads" + index}
-                  />
-                </div>
+                <>
+                  <div className="w-full hidden md:block ">
+                    <AdBanner
+                      dataAdFormat="auto"
+                      dataFullWidthResponsive={true}
+                      dataAdSlot="7506188604"
+                      key={"ads" + index}
+                    />
+                  </div>
+                  <div className="w-full lg:hidden">
+                    <AdInfeed
+                      dataAdFormat={"fluid"}
+                      dataAdSlot={"9771876407"}
+                    />
+                  </div>
+                </>
               )}
             </React.Fragment>
           ))}
