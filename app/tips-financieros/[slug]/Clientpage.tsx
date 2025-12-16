@@ -119,6 +119,55 @@ export default function BlogArticle() {
               {section.body && (
                 <PortableText value={section.body} components={components} />
               )}
+              {section.table && (
+                <div className="w-full my-6">
+                  <table className="w-full border-collapse hidden md:table">
+                    <tbody>
+                      {section.table.rows.map((row, rowIndex) => (
+                        <tr
+                          key={rowIndex}
+                          className={
+                            rowIndex % 2 === 0
+                              ? "bg-primary-foreground"
+                              : "bg-white"
+                          }
+                        >
+                          {row.cells.map((cell, cellIndex) => (
+                            <td
+                              key={cellIndex}
+                              className="border border-tertiary px-4 py-2 text-sm lg:text-base"
+                            >
+                              {cell}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+
+                  <div className="md:hidden space-y-5">
+                    {section.table.rows.slice(1).map((row, rowIndex) => (
+                      <div
+                        key={rowIndex}
+                        className="rounded-xl border border-tertiary bg-primary-foreground/50 p-4 shadow-sm"
+                      >
+                        <div className="grid grid-cols-1 gap-x-4 gap-y-3">
+                          {row.cells.map((cell, cellIndex) => (
+                            <div key={cellIndex} className="flex flex-col">
+                              <span className="text-xs uppercase tracking-wide text-secondary font-bold">
+                                {section.table?.rows[0]?.cells[cellIndex]}
+                              </span>
+                              <span className="mt-1 text-sm font-medium text-tertiary">
+                                {cell}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {section.asset && section.asset._type === "image" && (
                 <div className="relative w-full md:w-[70%] mx-auto my-8">
