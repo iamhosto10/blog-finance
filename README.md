@@ -1,24 +1,32 @@
-# 💰 Finanzas de Cero
+# 💰 Monopolombiano
 
-[![Estado del Proyecto](https://img.shields.io/badge/estado-en--desarrollo-brightgreen)](https://github.com/tu-usuario/finanzas-de-cero)
-[![Licencia](https://img.shields.io/badge/licencia-MIT-blue)](https://opensource.org/licenses/MIT)
-[![Versión](https://img.shields.io/badge/versión-1.0.0-informational)](https://github.com/tu-usuario/finanzas-de-cero/releases)
+[![Estado del Proyecto](https://img.shields.io/badge/estado-activo-brightgreen)](https://monopolombiano.com/)
+[![Licencia](https://img.shields.io/badge/licencia-privada-blue)]()
+[![Versión](https://img.shields.io/badge/versión-1.0.0-informational)]()
 
-Un blog interactivo y moderno sobre finanzas personales, diseñado para ayudarte a tomar el control de tu dinero de una manera sencilla y visualmente atractiva.
+Un blog interactivo y moderno sobre finanzas personales en Colombia, diseñado para ayudarte a tomar el control de tu dinero de una manera sencilla y visualmente atractiva.
 
 ---
 
 ### 🤔 ¿Qué es y qué problema resuelve?
 
-**Finanzas de Cero** es una plataforma educativa que descomplica el mundo de las finanzas. Ofrece artículos, noticias, herramientas y calculadoras interactivas para que cualquier persona, sin importar su nivel de conocimiento, pueda aprender a gestionar mejor su dinero, planificar su futuro y alcanzar sus metas financieras.
+**Monopolombiano** es una plataforma educativa enfocada en el ecosistema financiero de Colombia. Su misión es desmitificar el mundo de las finanzas y hacerlo accesible para todos. A través de artículos detallados, noticias de actualidad, y herramientas interactivas como calculadoras de presupuesto y conversores de divisas, la plataforma guía a los usuarios para que puedan:
 
-El problema que resuelve es la falta de recursos accesibles y fáciles de entender sobre finanzas personales. En lugar de contenido denso y aburrido, ofrecemos una experiencia de usuario amigable y moderna.
+*   **Entender productos financieros:** Desde cuentas de ahorro y tarjetas de crédito hasta opciones de inversión y créditos hipotecarios.
+*   **Tomar decisiones informadas:** Comparamos y analizamos diferentes opciones del mercado para que elijas la que mejor se adapte a tus necesidades.
+*   **Mejorar su salud financiera:** Ofrecemos consejos prácticos sobre ahorro, manejo de deudas y planificación para el futuro.
+
+El problema principal que **Monopolombiano** resuelve es la brecha de conocimiento financiero que existe en el país. Mucha gente toma decisiones importantes sobre su dinero basándose en información incompleta, desactualizada o demasiado compleja. Nuestra plataforma centraliza y simplifica esta información, presentándola de una manera clara, objetiva y fácil de digerir.
 
 ---
 
 ### 📸 Capturas de Pantalla / Demo
 
-![Demo de Finanzas de Cero](https://i.imgur.com/link-a-tu-imagen.png)
+¡Visita nuestro demo en vivo para explorar todas las funcionalidades!
+
+**[➡️ Ver Demo en vivo en monopolombiano.com](https://monopolombiano.com/)**
+
+![Demo de Monopolombiano](https://i.imgur.com/link-a-tu-imagen.png)
 
 ---
 
@@ -53,8 +61,8 @@ Sigue estos pasos para levantar el proyecto en tu entorno local:
 
 1.  **Clona el repositorio:**
     ```bash
-    git clone https://github.com/tu-usuario/finanzas-de-cero.git
-    cd finanzas-de-cero
+    git clone https://github.com/tu-usuario/monopolombiano.git
+    cd monopolombiano
     ```
 
 2.  **Instala las dependencias:**
@@ -107,11 +115,3 @@ El proyecto está organizado de la siguiente manera para mantener el código lim
 │
 └── studio-nextjs-blog/   # Estudio de Sanity para la gestión de contenido
 ```
-
----
-
-### 🤝 Contribución y Licencia
-
-¡Las contribuciones son bienvenidas! Si quieres mejorar el proyecto, por favor abre un *issue* o envía un *pull request*.
-
-Este proyecto está bajo la **Licencia MIT**. Puedes ver los detalles en el archivo `LICENSE`.
