@@ -75,7 +75,18 @@ export const metadata: Metadata = {
     images: ["https://monopolombiano.com/favicon.ico"],
   },
   alternates: {
-    canonical: "https://monopolombiano.com/",
+    canonical: "./",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   authors: [{ name: "Monopolombiano", url: "https://monopolombiano.com" }],
 };
