@@ -56,6 +56,10 @@ export async function generateMetadata(props: {
   const formatedTitle =
     title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
 
+  const ogImageUrl = post?.mainImage
+    ? urlFor(post.mainImage).width(1200).height(630).fit("crop").url()
+    : "https://monopolombiano.com/favicon.ico";
+
   return {
     title: formatedTitle,
     description: post.excerpt,
@@ -64,14 +68,28 @@ export async function generateMetadata(props: {
       title: formatedTitle,
 
       description: post.excerpt,
-      images: [urlFor(post?.mainImage).url()],
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: formatedTitle,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: formatedTitle,
 
       description: post.excerpt,
-      images: [urlFor(post?.mainImage).url()],
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: formatedTitle,
+        },
+      ],
     },
   };
 }
