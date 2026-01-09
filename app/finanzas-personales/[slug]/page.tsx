@@ -1,6 +1,7 @@
 import { Blog } from "@/lib/interface";
 import { client, urlFor } from "@/lib/sanity";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import BlogArticle from "./Clientpage";
 
 async function getPost(slug: string) {
@@ -94,8 +95,37 @@ export async function generateMetadata(props: {
   };
 }
 
-const Page = () => {
-  return <BlogArticle />;
-};
+export default async function Page(props: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await props.params;
+  const post: Blog = await getPost(slug);
 
-export default Page;
+  if (!post) {
+    notFound();
+  }
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    image: post.mainImage ? urlFor(post.mainImage).url() : undefined,
+    datePublished: post.publishedAt,
+    author: {
+      "@type": "Organization",
+      name: "Monopolombiano",
+      url: "https://monopolombiano.com",
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <BlogArticle post={post} />
+    </>
+  );
+}
