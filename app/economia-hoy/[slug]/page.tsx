@@ -1,6 +1,7 @@
 import { Blog } from "@/lib/interface";
 import { client, urlFor } from "@/lib/sanity";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import BlogArticle from "./Clientpage";
 
 async function getPost(slug: string) {
@@ -32,7 +33,8 @@ async function getPost(slug: string) {
       publishedAt
     }
   }`,
-    { slug }
+    { slug },
+    { next: { tags: ["all-blogs", `blog-${slug}`] } }
   );
 }
 
@@ -95,8 +97,15 @@ export async function generateMetadata(props: {
   };
 }
 
-const Page = () => {
-  return <BlogArticle />;
+const Page = async (props: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await props.params;
+  const post: Blog = await getPost(slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  return <BlogArticle post={post} />;
 };
 
 export default Page;

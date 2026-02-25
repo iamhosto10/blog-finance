@@ -2,59 +2,18 @@
 
 import { Blog } from "@/lib/interface";
 import { urlFor } from "@/lib/sanity";
-import { RootState } from "@/store/store";
-import { useSelector } from "react-redux";
-import { useParams } from "next/navigation";
 import AudioPlayer from "@/components/MusicPlayer/MusicPlayer";
 import Tag from "@/components/CommonComponents/Tag";
 import News from "@/components/News/News";
 import { PortableText } from "@portabletext/react";
-import { Metadata } from "next";
-import { components, getPost } from "@/lib/utils";
+import { components } from "@/lib/utils";
 import React from "react";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import AdInfeed from "@/components/CommonComponents/Adsense/AdInfeed";
+import Image from "next/image";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const post: Blog = await getPost(params.slug);
-
-  if (!post) {
-    return {
-      title: "Blog not found",
-      description: "This blog post does not exist.",
-    };
-  }
-
-  return {
-    title: post.title,
-    description: post.excerpt,
-    icons: { icon: "/favicon.ico" },
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      images: [urlFor(post?.mainImage).url()],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.excerpt,
-      images: [urlFor(post?.mainImage).url()],
-    },
-  };
-}
-
-export default function BlogArticle() {
-  const { slug } = useParams<{ slug: string }>();
-  const { blogs } = useSelector((state: RootState) => state.sanity);
-  if (blogs.length === 0) return <p>cargando...</p>;
-
-  const data: Blog | undefined =
-    blogs.find((blog) => blog.slug.current === slug) ||
-    blogs.find((blog) => blog?.categories?.[0]?.title === "Tips Financieros");
+export default function BlogArticle({ post }: { post: Blog }) {
+  const data = post;
 
   return (
     <div className="container md:-mt-6">
@@ -77,24 +36,29 @@ export default function BlogArticle() {
 
       <div className="relative w-full md:w-[70%] mx-auto my-8">
         {data?.mainImage && (
-          <img
-            src={urlFor(data?.mainImage).url()}
+          <Image
+            src={urlFor(data.mainImage).url()}
             alt={
-              data?.title +
+              (data?.title || "") +
               " " +
               (data?.focusTitle || "") +
               " " +
               (data?.continueTitle || "")
             }
             className="rounded-md w-full object-cover"
+            width={1200}
+            height={630}
+            priority={true}
           />
         )}
         {data?.miniatureImage && (
           <div className="absolute -top-8 -right-8 md:-top-10 md:-right-10 size-20 md:size-28">
-            <img
-              src={urlFor(data?.miniatureImage).url()}
+            <Image
+              src={urlFor(data.miniatureImage).url()}
               alt="Miniature Image"
-              className="size-20 md:size-28"
+              className="size-20 md:size-28 object-cover"
+              width={120}
+              height={120}
             />
           </div>
         )}
@@ -175,7 +139,7 @@ export default function BlogArticle() {
                     key={urlFor(section.asset).url()}
                     src={urlFor(section.asset).url()}
                     alt={
-                      data?.title +
+                      (data?.title || "") +
                       " " +
                       (data?.focusTitle || "") +
                       " " +
