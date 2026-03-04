@@ -14,6 +14,7 @@ import { components, getPost } from "@/lib/utils";
 import React from "react";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import AdInfeed from "@/components/CommonComponents/Adsense/AdInfeed";
+import Image from "next/image";
 
 export async function generateMetadata({
   params,
@@ -66,7 +67,7 @@ export default function BlogArticle() {
         <Tag title={data?.categories && data?.categories[0]?.title} />
         <p className="text-sm lg:text-lg text-tertiary my-auto font-canva-sans font-bold">
           {new Date(
-            data?.publishedAt ? data?.publishedAt?.slice(0, 10) : ""
+            data?.publishedAt ? data?.publishedAt?.slice(0, 10) : "",
           ).toLocaleDateString("es-ES", {
             day: "2-digit",
             month: "2-digit",
@@ -75,9 +76,9 @@ export default function BlogArticle() {
         </p>
       </div>
 
-      <div className="relative w-full md:w-[70%] mx-auto my-8">
+      <div className="relative w-full md:w-[70%] aspect-[16/9] mx-auto my-8">
         {data?.mainImage && (
-          <img
+          <Image
             src={urlFor(data?.mainImage).url()}
             alt={
               data?.title +
@@ -86,7 +87,8 @@ export default function BlogArticle() {
               " " +
               (data?.continueTitle || "")
             }
-            className="rounded-md w-full"
+            fill
+            className="rounded-md object-cover"
           />
         )}
         {data?.miniatureImage && (

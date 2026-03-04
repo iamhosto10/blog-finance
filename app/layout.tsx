@@ -19,6 +19,7 @@ import CookieBanner from "@/components/CommonComponents/CookieBanner";
 import Script from "next/script";
 import GaListener from "./ga-listener";
 import { Suspense } from "react";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const revalidate = 60 * 60 * 24;
 
@@ -101,37 +102,37 @@ export default async function RootLayout({
       client.fetch(
         blogsQuery,
         {},
-        { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } }
+        { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } },
       ),
       client.fetch(
         categoriesQuery,
         {},
-        { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } }
+        { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } },
       ),
       client.fetch(
         dolarQuery,
         {},
-        { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } }
+        { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } },
       ),
       client.fetch(
         profitabilityQuery,
         {},
-        { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } }
+        { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } },
       ),
       client.fetch(
         banksQuery,
         {},
-        { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } }
+        { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } },
       ),
       client.fetch(
         franchieseQuery,
         {},
-        { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } }
+        { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } },
       ),
       client.fetch(
         cardsQuery,
         {},
-        { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } }
+        { next: { revalidate: 60 * 60 * 24, tags: ["global-data"] } },
       ),
     ]);
 
@@ -152,33 +153,10 @@ export default async function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
-        <Script
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-        />
-        <Script
-          id="gtag-init"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
-                page_path: window.location.pathname,
-              });
-            `,
-          }}
-        />
         <meta
           name="google-adsense-account"
           content={`${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}`}
         />
-        <Script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}`}
-          crossOrigin="anonymous"
-        ></Script>
       </head>
       <body className={`${inter.className} bg-layout`}>
         <ReduxProvider preloadedState={preloadedState}>
@@ -198,6 +176,20 @@ export default async function RootLayout({
             <Footer />
           </ThemeProvider>
         </ReduxProvider>
+        {/* 2. Reemplazo de Google Analytics (Super optimizado) */}
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
+
+        {/* 3. Reemplazo de Adsense (Retrasado agresivamente) */}
+        {process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID && (
+          <Script
+            id="adsense-init"
+            strategy="lazyOnload" // <-- ESTO ES LA MAGIA
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}`}
+            crossOrigin="anonymous"
+          />
+        )}
       </body>
     </html>
   );
