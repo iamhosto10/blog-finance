@@ -2,6 +2,7 @@ import ArticleList from "@/components/ArticleList/ArticleList";
 import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
+import { getBlogsByCategory } from "@/lib/queries";
 import { Metadata } from "next";
 import React from "react";
 
@@ -48,7 +49,8 @@ export const metadata: Metadata = {
   },
 };
 
-const page = () => {
+const page = async () => {
+  const blogs = await getBlogsByCategory("Manejo del dinero en el extranjero");
   return (
     <>
       <div className="container mx-auto flex flex-col gap-16">
@@ -80,32 +82,27 @@ const page = () => {
           transferencias, divisas, bancos internacionales, tarjetas globales,
           ahorro en el exterior y finanzas para expatriados.
         </p>
-
-        <ArticleShowcase
-          category="Manejo del dinero en el extranjero"
-          indexes={[0, 4]}
-        />
+        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
         <AdBanner
           dataAdFormat="auto"
           dataFullWidthResponsive={true}
           dataAdSlot="7506188604"
         />
         <ArticleList
-          category="Manejo del dinero en el extranjero"
+          blogs={blogs}
+          category="Compras y Ahorro Diario"
           indexes={[4, 7]}
         />
-        <ArticleHome category="Manejo del dinero en el extranjero" />
-        <ArticleShowcase
-          category="Manejo del dinero en el extranjero"
-          indexes={[7, 11]}
-        />
+        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
+        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
         <AdBanner
           dataAdFormat="auto"
           dataFullWidthResponsive={true}
           dataAdSlot="7506188604"
         />
         <ArticleList
-          category="Manejo del dinero en el extranjero"
+          blogs={blogs}
+          category="Compras y Ahorro Diario"
           indexes={[11, 20]}
         />
       </div>

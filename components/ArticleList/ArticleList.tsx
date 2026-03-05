@@ -1,10 +1,8 @@
-"use client";
-
 import { urlFor } from "@/lib/sanity";
-import { RootState } from "@/store/store";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import Image from "next/image";
+import { Blog } from "@/lib/interface";
 
 const categories: Record<
   string,
@@ -70,38 +68,28 @@ const categories: Record<
 const ArticleList = ({
   category,
   indexes,
+  blogs,
 }: {
   category: string;
   indexes: number[];
+  blogs: Blog[];
 }) => {
   const currentCategory = categories[category];
 
-  console.log("Current Category", category, currentCategory);
-
-  const { blogs } = useSelector((state: RootState) => state.sanity);
-
-  if (!blogs[0]) {
+  if (!blogs || blogs.length === 0) {
     return <div className="w-full lg:w-2/3"></div>;
   }
 
-  const newBlogs = blogs.filter((blog) =>
-    blog.categories?.some(
-      (cat) => cat.title.toLowerCase() === category.toLowerCase()
-    )
-  );
-
-  if (newBlogs.length <= 0) return null;
-
   return (
     <>
-      <section className="w-full grid gap-4 lg:grid-cols-12  rounded-3xl">
+      <section className="w-full grid gap-4 lg:grid-cols-12 rounded-3xl">
         <div
           className={
             "flex flex-col gap-6 " +
             (indexes[0] === 4 ? "lg:col-span-8" : "lg:col-span-12")
           }
         >
-          {newBlogs
+          {blogs
             .slice(indexes ? indexes[0] : 0, indexes ? indexes[1] : 6)
             .map((article, index) => (
               <Link
@@ -110,20 +98,16 @@ const ArticleList = ({
                 className="w-full flex flex-col justify-between gap-1 hover:scale-110 transition-all"
               >
                 <div key={article._id} className="flex gap-2">
-                  <div className="rounded-lg w-2/5 overflow-hidden flex-shrink-0">
-                    <img
+                  <div className="relative rounded-lg w-2/5 aspect-video overflow-hidden flex-shrink-0">
+                    <Image
                       src={urlFor(article.mainImage).url()}
-                      alt={
-                        article.title +
-                        " " +
-                        article.focusTitle +
-                        " " +
-                        article.continueTitle
-                      }
-                      className="rounded-md w-full object-cover"
+                      alt={`${article.title} ${article.focusTitle || ""} ${article.continueTitle || ""}`}
+                      fill
+                      className="rounded-md object-cover"
                     />
                   </div>
-                  <div>
+
+                  <div className="w-3/5">
                     <h3 className="text-sm md:text-lg font-semibold leading-snug text-secondary">
                       {article.title}
                       <span className="text-primary">
@@ -136,7 +120,7 @@ const ArticleList = ({
                       {new Date(
                         article.publishedAt
                           ? article.publishedAt.slice(0, 10)
-                          : ""
+                          : "",
                       ).toLocaleDateString("es-ES", {
                         day: "2-digit",
                         month: "2-digit",

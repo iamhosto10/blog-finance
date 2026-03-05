@@ -2,6 +2,7 @@ import ArticleList from "@/components/ArticleList/ArticleList";
 import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
+import { client } from "@/lib/sanity";
 import { Metadata } from "next";
 import React from "react";
 
@@ -48,7 +49,55 @@ export const metadata: Metadata = {
   },
 };
 
-const page = () => {
+async function getBlogsByCategory(categoryName: string) {
+  const query = `
+    *[_type == "blog" && $categoryName in categories[]->title] | order(publishedAt desc) {
+    title,
+    focusTitle,
+    continueTitle,
+    slug,
+    publishedAt,
+    mainImage,
+    miniatureImage,
+    excerpt,
+    audio {
+      asset->
+    },
+    body,
+    categories[]->{
+      _id,
+      title,
+      slug
+    },
+    relatedNews[]->{
+      _id,
+      title,
+      focusTitle,
+      continueTitle,
+      slug,
+      mainImage,
+      excerpt,
+      publishedAt,
+      categories[]->{
+        _id,
+        title,
+        slug
+      }
+    }
+  }
+  `;
+
+  return client.fetch(
+    query,
+    { categoryName },
+    {
+      next: { tags: ["all-blogs", `category-${categoryName}`, "global-data"] },
+    },
+  );
+}
+
+const page = async () => {
+  const blogs = await getBlogsByCategory("Tips Financieros");
   return (
     <>
       <div className="container mx-auto flex flex-col gap-16">
@@ -68,21 +117,29 @@ const page = () => {
           bancos, seguridad financiera, apps y herramientas útiles, historial
           crediticio.
         </p>
-        <ArticleShowcase category="Tips Financieros" indexes={[0, 4]} />
-        <ArticleList category="Tips Financieros" indexes={[4, 7]} />
+        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
+        <ArticleList
+          blogs={blogs}
+          category="Tips Financieros"
+          indexes={[4, 7]}
+        />
         <AdBanner
           dataAdFormat="auto"
           dataFullWidthResponsive={true}
           dataAdSlot="7506188604"
         />
-        <ArticleHome category="Tips Financieros" />
-        <ArticleShowcase category="Tips Financieros" indexes={[7, 11]} />
+        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
+        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
         <AdBanner
           dataAdFormat="auto"
           dataFullWidthResponsive={true}
           dataAdSlot="7506188604"
         />
-        <ArticleList category="Tips Financieros" indexes={[11, 20]} />
+        <ArticleList
+          blogs={blogs}
+          category="Tips Financieros"
+          indexes={[11, 20]}
+        />
       </div>
     </>
   );

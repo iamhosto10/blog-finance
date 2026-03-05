@@ -25,7 +25,7 @@ export default function BlogArticle({ post }: { post: Blog }) {
         <Tag title={data?.categories && data?.categories[0]?.title} />
         <p className="text-sm lg:text-lg text-tertiary my-auto font-canva-sans font-bold">
           {new Date(
-            data?.publishedAt ? data?.publishedAt?.slice(0, 10) : ""
+            data?.publishedAt ? data?.publishedAt?.slice(0, 10) : "",
           ).toLocaleDateString("es-ES", {
             day: "2-digit",
             month: "2-digit",
@@ -34,7 +34,7 @@ export default function BlogArticle({ post }: { post: Blog }) {
         </p>
       </div>
 
-      <div className="relative w-full md:w-[70%] mx-auto my-8">
+      <div className="relative w-full md:w-[70%] aspect-video mx-auto my-8">
         {data?.mainImage && (
           <Image
             src={urlFor(data.mainImage).url()}

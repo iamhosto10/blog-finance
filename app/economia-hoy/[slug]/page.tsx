@@ -34,7 +34,7 @@ async function getPost(slug: string) {
     }
   }`,
     { slug },
-    { next: { tags: ["all-blogs", `blog-${slug}`] } }
+    { next: { tags: ["all-blogs", `blog-${slug}`, "global-data"] } },
   );
 }
 

@@ -1,3 +1,5 @@
+import { client } from "./sanity";
+
 export const blogsQuery = `*[_type == "blog"]{
     title,
     focusTitle,
@@ -107,3 +109,50 @@ export const cardsQuery = `*[_type == "cards"]{
   seguridad,
   score  
 }[] `;
+
+export async function getBlogsByCategory(categoryName: string) {
+  const query = `
+    *[_type == "blog" && $categoryName in categories[]->title] | order(publishedAt desc) {
+    title,
+    focusTitle,
+    continueTitle,
+    slug,
+    publishedAt,
+    mainImage,
+    miniatureImage,
+    excerpt,
+    audio {
+      asset->
+    },
+    body,
+    categories[]->{
+      _id,
+      title,
+      slug
+    },
+    relatedNews[]->{
+      _id,
+      title,
+      focusTitle,
+      continueTitle,
+      slug,
+      mainImage,
+      excerpt,
+      publishedAt,
+      categories[]->{
+        _id,
+        title,
+        slug
+      }
+    }
+  }
+  `;
+
+  return client.fetch(
+    query,
+    { categoryName },
+    {
+      next: { tags: ["all-blogs", `category-${categoryName}`, "global-data"] },
+    },
+  );
+}
