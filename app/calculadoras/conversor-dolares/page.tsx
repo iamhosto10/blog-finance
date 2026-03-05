@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import ClientPage from "./Clientpage";
+import { client } from "@/lib/sanity";
+import { dolarQuery } from "@/lib/queries"; // Asegúrate de que esta ruta sea correcta
 
 export const metadata: Metadata = {
   title: "Conversor de Dólares a Pesos Colombianos | Monopolombiano",
@@ -44,8 +46,12 @@ export const metadata: Metadata = {
   },
 };
 
-const page = () => {
-  return <ClientPage />;
-};
+export default async function ConversorDolaresPage() {
+  const dolar = await client.fetch(
+    dolarQuery,
+    {},
+    { next: { tags: ["global-data"] } },
+  );
 
-export default page;
+  return <ClientPage dolar={dolar} />;
+}

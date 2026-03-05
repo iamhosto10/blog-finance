@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Tag from "../CommonComponents/Tag";
 import { Button } from "../ui/button";
@@ -48,7 +50,7 @@ const PostPreviewCardHorizontal = () => {
               <Tag title={categories && categories[0]?.title} />
               <p className="text-sm text-tertiary my-auto font-canva-sans font-bold">
                 {new Date(
-                  publishedAt ? publishedAt.slice(0, 10) : ""
+                  publishedAt ? publishedAt.slice(0, 10) : "",
                 ).toLocaleDateString("es-ES", {
                   day: "2-digit",
                   month: "2-digit",

@@ -4,13 +4,11 @@ import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import Tag from "@/components/CommonComponents/Tag";
 import DolarConversor from "@/components/DolarConversor/DolarConversor";
 import { Card, CardContent } from "@/components/ui/card";
-import { RootState } from "@/store/store";
 import Link from "next/link";
 import React from "react";
-import { useSelector } from "react-redux";
+import { Dolar } from "@/lib/interface";
 
-const ClientPage = () => {
-  const { dolar } = useSelector((state: RootState) => state.sanity);
+const ClientPage = ({ dolar }: { dolar: Dolar }) => {
   if (!dolar) return null;
 
   return (
@@ -23,22 +21,16 @@ const ClientPage = () => {
           </h1>
           <p className="text-lg text-tertiary font-canva-sans">
             Con esta herramienta puedes convertir dólares estadounidenses (USD)
-            a pesos colombianos (COP) en segundos, utilizando la tasa de cambio
-            actual del mercado. Es ideal para conocer el valor real de tus
-            compras, viajes o transacciones internacionales.
+            a pesos colombianos (COP) en segundos...
             <br />
             <br />
-            Solo ingresa la cantidad en dólares que deseas convertir, y el
-            conversor te mostrará cuántos pesos recibirías según el tipo de
-            cambio del día. También puedes usarlo para comparar la tasa oficial
-            con la ofrecida por bancos, casas de cambio o plataformas digitales.
+            Solo ingresa la cantidad en dólares que deseas convertir...
             <br />
             <br />
-            💡 Consejo: la tasa de cambio varía diariamente según el mercado y
-            el precio del dólar en Colombia. Usa esta herramienta para
-            mantenerte actualizado y tomar mejores decisiones financieras.
+            💡 Consejo: la tasa de cambio varía diariamente...
           </p>
         </section>
+
         <div className="flex flex-col md:flex-row max-md:gap-5 w-full justify-start">
           <div className="h-auto flex md:block">
             <Link href="/calculadoras">
@@ -47,7 +39,7 @@ const ClientPage = () => {
           </div>
           <img
             src="/assets/convertdolar/dolartopesos.webp"
-            alt="4x1000"
+            alt="Dolar a pesos"
             className="mx-auto max-w-5/6 md:max-w-3/6 lg:max-w-2/6"
           />
           <div className="h-auto hidden md:block ">
@@ -62,6 +54,7 @@ const ClientPage = () => {
             <DolarConversor dolar={dolar} />
           </CardContent>
         </Card>
+
         <AdBanner
           dataAdFormat="auto"
           dataFullWidthResponsive={true}
