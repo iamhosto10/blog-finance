@@ -30,7 +30,7 @@ export default function Home() {
         </div>
         <div className="flex flex-col lg:flex-row py-10 gap-10">
           <div className="flex-[5]">
-            <ArticleHome />
+            <ArticleHome blog={data[Math.floor(Math.random() * data.length)]} />
           </div>
           <div className="flex-[2] w-full h-auto bg-secondary-background rounded-lg p-6">
             <CategoriesHome />
