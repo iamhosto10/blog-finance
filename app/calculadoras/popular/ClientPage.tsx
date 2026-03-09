@@ -6,9 +6,7 @@ import { InfoSection } from "@/components/CommonComponents/InfoSection/InfoSecti
 import Profitability from "@/components/CommonComponents/Profitability/Profitability";
 import Tag from "@/components/CommonComponents/Tag";
 import { Card, CardContent } from "@/components/ui/card";
-import { RootState } from "@/store/store";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 
 const info = [
   {

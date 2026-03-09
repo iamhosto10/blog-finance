@@ -1,9 +1,8 @@
-import CalculatorCard from "@/components/CommonComponents/Cards/CalculatorCard";
-import Tag from "@/components/CommonComponents/Tag";
 import { Metadata } from "next";
-import Link from "next/link";
 import React from "react";
 import ClientPage from "./ClientPage";
+import { profitabilityQuery } from "@/lib/queries";
+import { client } from "@/lib/sanity";
 
 export const metadata: Metadata = {
   title: "Calculadora de Rentabilidad | Compara cuentas de ahorro en Colombia",
@@ -47,8 +46,12 @@ export const metadata: Metadata = {
   },
 };
 
-const Page = () => {
-  return <ClientPage />;
-};
+export default async function CalculadoraRentabilidadPage() {
+  const profitabilityData = await client.fetch(
+    profitabilityQuery,
+    {},
+    { next: { tags: ["global-data"] } },
+  );
 
-export default Page;
+  return <ClientPage profitability={profitabilityData} />;
+}
