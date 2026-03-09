@@ -1,5 +1,7 @@
 import ClientPage from "./ClientPage";
 import type { Metadata } from "next";
+import { client } from "@/lib/sanity";
+import { profitabilityQuery } from "@/lib/queries";
 
 export const metadata: Metadata = {
   title: "Calculadora de Rentabilidad RappiPay | Monopolombiano",
@@ -46,6 +48,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
-  return <ClientPage />;
+export default async function Page() {
+  const data = await client.fetch(
+    profitabilityQuery,
+    {},
+    { next: { tags: ["global-data"] } },
+  );
+
+  return <ClientPage profitabilityData={data?.rappi || []} />;
 }

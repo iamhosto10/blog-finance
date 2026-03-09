@@ -49,7 +49,7 @@ const Profitability = ({
     const finalEarning = calculatefinalAmountLulo(
       annualRate * 100,
       Number(convertStringtoNumber(days)),
-      Number(convertStringtoNumber(initialAmount))
+      Number(convertStringtoNumber(initialAmount)),
     );
 
     setFinalAmount(finalEarning);
@@ -140,7 +140,7 @@ const Profitability = ({
           </h2>
           <p className="mt-2 grid grid-cols-2 gap-2 text-sm">
             <p className="text-sm text-secondary font-canva-sans font-bold">
-              EA ingresada
+              EA (efectivo anual)
             </p>
             <div className="text-right">{finalAmount.eaPercent}%</div>
 

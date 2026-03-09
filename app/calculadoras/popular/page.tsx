@@ -1,4 +1,6 @@
 import ClientPage from "./ClientPage";
+import { client } from "@/lib/sanity";
+import { profitabilityQuery } from "@/lib/queries";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -44,6 +46,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
-  return <ClientPage />;
+export default async function Page() {
+  const data = await client.fetch(
+    profitabilityQuery,
+    {},
+    { next: { tags: ["global-data"] } },
+  );
+  return <ClientPage profitabilityData={data?.popular || []} />;
 }

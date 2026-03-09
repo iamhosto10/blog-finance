@@ -66,8 +66,7 @@ const Faq = [
   },
 ];
 
-const Page = () => {
-  const { profitability } = useSelector((state: RootState) => state.sanity);
+const Page = ({ profitabilityData }: { profitabilityData: number[] }) => {
   const [selected, setSelected] = useState(0);
 
   return (
@@ -80,8 +79,7 @@ const Page = () => {
               DE GlOBAL 66
             </h1>
             <p className="text-lg text-tertiary font-canva-sans">
-              Tasa de{" "}
-              {(Number(profitability?.global66[selected]) * 100).toFixed(2)} %
+              Tasa de {(Number(profitabilityData[selected]) * 100).toFixed(2)} %
             </p>
           </section>
           <div className="flex flex-col md:flex-row max-md:gap-5 w-full justify-start">
@@ -112,7 +110,7 @@ const Page = () => {
           <Card className="shadow-xl bg-tertiary-foreground">
             <CardContent className="p-3 md:p-5 lg:p-8">
               <Profitability
-                profitability={profitability?.global66}
+                profitability={profitabilityData}
                 selected={selected}
                 setSelected={setSelected}
               />
