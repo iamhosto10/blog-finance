@@ -2,6 +2,7 @@ import ArticleList from "@/components/ArticleList/ArticleList";
 import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
+import { getBlogsByCategory } from "@/lib/queries";
 import { Metadata } from "next";
 import React from "react";
 
@@ -48,7 +49,8 @@ export const metadata: Metadata = {
   },
 };
 
-const page = () => {
+const page = async () => {
+  const blogs = await getBlogsByCategory("Apps y Herramientas Útiles");
   return (
     <>
       <div className="container mx-auto flex flex-col gap-16">
@@ -82,27 +84,29 @@ const page = () => {
           herramientas digitales.
         </p>
 
-        <ArticleShowcase
-          category="Apps y Herramientas Útiles"
-          indexes={[0, 4]}
-        />
+        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
         <AdBanner
           dataAdFormat="auto"
           dataFullWidthResponsive={true}
           dataAdSlot="7506188604"
         />
-        <ArticleList category="Apps y Herramientas Útiles" indexes={[4, 7]} />
-        <ArticleHome category="Apps y Herramientas Útiles" />
-        <ArticleShowcase
+        <ArticleList
+          blogs={blogs}
           category="Apps y Herramientas Útiles"
-          indexes={[7, 11]}
+          indexes={[4, 7]}
         />
+        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
+        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
         <AdBanner
           dataAdFormat="auto"
           dataFullWidthResponsive={true}
           dataAdSlot="7506188604"
         />
-        <ArticleList category="Apps y Herramientas Útiles" indexes={[11, 20]} />
+        <ArticleList
+          blogs={blogs}
+          category="Apps y Herramientas Útiles"
+          indexes={[11, 20]}
+        />
       </div>
     </>
   );

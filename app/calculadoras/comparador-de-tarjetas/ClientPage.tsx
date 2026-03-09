@@ -1,10 +1,7 @@
 "use client";
 
 import { urlFor } from "@/lib/sanity";
-import { RootState } from "@/store/store";
-import React from "react";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import {
   Listbox,
   ListboxButton,
@@ -33,10 +30,14 @@ const fistFranchiese: Franchise = {
     current: "",
   },
 };
-const ClientPage = () => {
-  const { banks, franchieses, cards } = useSelector(
-    (state: RootState) => state.sanity
-  );
+
+interface ComparadorProps {
+  banks: Bank[];
+  franchieses: Franchise[];
+  cards: Card[];
+}
+
+const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
   const [selectedBank, setSelectedBank] = useState<Bank>(firstBank);
   const [selectedFranchiese, setSelectedFranchiese] =
     useState<Franchise>(fistFranchiese);
@@ -73,6 +74,7 @@ const ClientPage = () => {
         técnicas, comisiones y valoraciones de distintas entidades. Toma
         decisiones más seguras y eficientes con información clara y detallada.
       </p>
+
       <div className="grid grid-cols-1 lg:grid-cols-10 gap-2.5 lg:gap-1.5 ">
         <div className="lg:col-span-3">
           <p className="font-agrandir font-bold text-secondary text-lg md:text-xl xl:text-xl text-left">
@@ -86,7 +88,7 @@ const ClientPage = () => {
             }}
           >
             <div className="relative">
-              <ListboxButton className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer">
+              <ListboxButton className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer w-full bg-white">
                 {selectedBank.asset && (
                   <img
                     src={urlFor(selectedBank.asset).url()}
@@ -94,7 +96,7 @@ const ClientPage = () => {
                     className="w-6 h-6 rounded"
                   />
                 )}
-                {selectedBank.title}
+                <span className="flex-1 text-left">{selectedBank.title}</span>
                 <ChevronDown />
               </ListboxButton>
               <ListboxOptions className="absolute z-50 max-h-60 overflow-auto w-full border mt-1 rounded shadow bg-white">
@@ -104,11 +106,13 @@ const ClientPage = () => {
                     value={bank}
                     className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer"
                   >
-                    <img
-                      src={urlFor(bank.asset).url()}
-                      alt={bank.title}
-                      className="w-6 h-6 rounded"
-                    />
+                    {bank.asset && (
+                      <img
+                        src={urlFor(bank.asset).url()}
+                        alt={bank.title}
+                        className="w-6 h-6 rounded"
+                      />
+                    )}
                     {bank.title}
                   </ListboxOption>
                 ))}
@@ -129,7 +133,7 @@ const ClientPage = () => {
             }}
           >
             <div className="relative">
-              <ListboxButton className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer">
+              <ListboxButton className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer w-full bg-white">
                 {selectedFranchiese.image && (
                   <img
                     src={urlFor(selectedFranchiese.image).url()}
@@ -137,7 +141,9 @@ const ClientPage = () => {
                     className="w-6 h-6 rounded"
                   />
                 )}
-                {selectedFranchiese.name}
+                <span className="flex-1 text-left">
+                  {selectedFranchiese.name}
+                </span>
                 <ChevronDown />
               </ListboxButton>
               <ListboxOptions className=" absolute z-50 max-h-60 overflow-auto w-full border mt-1 rounded shadow bg-white">
@@ -147,11 +153,13 @@ const ClientPage = () => {
                     value={franchiese}
                     className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer"
                   >
-                    <img
-                      src={urlFor(franchiese.image).url()}
-                      alt={franchiese.name}
-                      className="w-6 h-6 rounded"
-                    />
+                    {franchiese.image && (
+                      <img
+                        src={urlFor(franchiese.image).url()}
+                        alt={franchiese.name}
+                        className="w-6 h-6 rounded"
+                      />
+                    )}
                     {franchiese.name}
                   </ListboxOption>
                 ))}
@@ -165,16 +173,24 @@ const ClientPage = () => {
           </p>
           <Listbox value={selectedCard} onChange={setSelectedCard}>
             <div className="relative">
-              <ListboxButton className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer">
-                {selectedCard && (
+              <ListboxButton className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer w-full bg-white">
+                {selectedCard ? (
                   <>
-                    <img
-                      src={urlFor(selectedCard.image).url()}
-                      alt={selectedCard.name}
-                      className="w-6 h-6 rounded"
-                    />
-                    {selectedCard.name}
+                    {selectedCard.image && (
+                      <img
+                        src={urlFor(selectedCard.image).url()}
+                        alt={selectedCard.name}
+                        className="w-6 h-6 rounded"
+                      />
+                    )}
+                    <span className="flex-1 text-left">
+                      {selectedCard.name}
+                    </span>
                   </>
+                ) : (
+                  <span className="flex-1 text-left">
+                    Seleccione una tarjeta
+                  </span>
                 )}
                 <ChevronDown />
               </ListboxButton>
@@ -183,8 +199,7 @@ const ClientPage = () => {
                   .filter(
                     (ele) =>
                       ele.franchise?.name === selectedFranchiese.name &&
-                      ele.bank?.title === selectedBank.title &&
-                      selectedBank.title
+                      ele.bank?.title === selectedBank.title,
                   )
                   .map((card) => (
                     <ListboxOption
@@ -192,11 +207,13 @@ const ClientPage = () => {
                       value={card}
                       className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer"
                     >
-                      <img
-                        src={urlFor(card.image).url()}
-                        alt={card.name}
-                        className="w-6 h-6 rounded"
-                      />
+                      {card.image && (
+                        <img
+                          src={urlFor(card.image).url()}
+                          alt={card.name}
+                          className="w-6 h-6 rounded"
+                        />
+                      )}
                       {card.name}
                     </ListboxOption>
                   ))}
@@ -206,36 +223,40 @@ const ClientPage = () => {
         </div>
       </div>
 
-      <div className="flex flex-row bg-primary-foreground rounded-md p-2 gap-2">
+      <div className="flex flex-row bg-primary-foreground rounded-md p-2 gap-2 flex-wrap">
         {selectedCards?.map((card) => (
           <div
-            className="flex flex-row gap-1 bg-secondary-background rounded-md w-auto px-3 py-1 cursor-pointer"
+            className="flex flex-row gap-1 bg-secondary-background rounded-md w-auto px-3 py-1 cursor-pointer items-center"
             key={card._id}
             onClick={() => DeleteCards(card._id)}
           >
-            <img
-              src={urlFor(card?.image).url()}
-              alt={card?.name}
-              className="w-6 h-6 rounded my-auto"
-            />
+            {card.image && (
+              <img
+                src={urlFor(card.image).url()}
+                alt={card.name}
+                className="w-6 h-6 rounded my-auto"
+              />
+            )}
             <p>{card?.name}</p>
             <X className="size-6 my-auto" />
           </div>
         ))}
         {selectedCards?.length < 2 && (
           <div
-            className="flex flex-row gap-1 bg-secondary-background rounded-md w-auto px-3 py-1 cursor-pointer"
+            className="flex flex-row gap-1 bg-secondary-background rounded-md w-auto px-3 py-1 cursor-pointer items-center"
             onClick={AddCards}
           >
             <PlusIcon className="size-6 my-auto" />
           </div>
         )}
       </div>
+
       <AdBanner
         dataAdFormat="auto"
         dataFullWidthResponsive={true}
         dataAdSlot="7506188604"
       />
+
       <div className=" w-full ">
         <h2 className="text-xl font-bold font-agrandir text-secondary mb-6">
           FICHA TÉCNICA

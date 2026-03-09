@@ -6,11 +6,22 @@ import Tag from "@/components/CommonComponents/Tag";
 import { RootState } from "@/store/store";
 import Link from "next/link";
 import React from "react";
-import { useSelector } from "react-redux";
 
-const ClientPage = () => {
-  const { profitability } = useSelector((state: RootState) => state.sanity);
+interface ProfitabilityData {
+  lulo: number[];
+  nu: number[];
+  pibank: number[];
+  bold: number[];
+  rappi: number[];
+  popular: number[];
+  global66: number[];
+}
 
+const ClientPage = ({
+  profitability,
+}: {
+  profitability: ProfitabilityData;
+}) => {
   const banks = [
     {
       label: "Lulo Bank",

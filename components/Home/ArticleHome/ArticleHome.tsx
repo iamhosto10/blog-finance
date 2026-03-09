@@ -1,34 +1,12 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { urlFor } from "@/lib/sanity";
-import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
 import Tag from "@/components/CommonComponents/Tag";
 import { Blog } from "@/lib/interface";
 
-const ArticleHome = ({ category = "1" }: { category?: string }) => {
-  const { blogs } = useSelector((state: RootState) => state.sanity);
-  const [randomBlog, setRandomBlog] = useState<Blog | null>(null);
-
-  useEffect(() => {
-    if (!blogs?.length) return;
-    const filtered =
-      category === "1"
-        ? blogs
-        : blogs.filter((blog) =>
-            blog.categories?.some(
-              (cat) => cat.title.toLowerCase() === category.toLowerCase()
-            )
-          );
-    const blog = filtered[Math.floor(Math.random() * filtered.length)];
-    setRandomBlog(blog);
-  }, [blogs, category]);
-
-  if (!randomBlog) {
+const ArticleHome = ({ blog }: { blog: Blog }) => {
+  if (!blog) {
     return <div className="w-full lg:w-2/3" />;
   }
 
@@ -42,9 +20,9 @@ const ArticleHome = ({ category = "1" }: { category?: string }) => {
     miniatureImage,
     categories,
     excerpt,
-  } = randomBlog;
+  } = blog;
 
-  const categoryUrl = (categories && categories[0]?.slug?.current) ?? "";
+  const categoryUrl = categories?.[0]?.slug?.current ?? "";
 
   return (
     <div className="flex flex-col gap-4 w-full">
@@ -56,7 +34,7 @@ const ArticleHome = ({ category = "1" }: { category?: string }) => {
 
       <div className="flex flex-row w-full justify-start gap-2">
         <Link href={"/" + categoryUrl}>
-          <Tag title={categories && categories[0]?.title} />
+          <Tag title={categories?.[0]?.title} />
         </Link>
         <p className="text-sm text-tertiary my-auto font-canva-sans font-bold">
           {new Date(publishedAt?.slice(0, 10) || "").toLocaleDateString(
@@ -65,25 +43,27 @@ const ArticleHome = ({ category = "1" }: { category?: string }) => {
               day: "2-digit",
               month: "2-digit",
               year: "numeric",
-            }
+            },
           )}
         </p>
       </div>
 
-      <div className="relative w-full md:w-4/5 mx-auto mt-8">
+      <div className="relative w-full md:w-4/5 mx-auto mt-8 aspect-video">
         {mainImage && (
-          <img
+          <Image
             src={urlFor(mainImage).url()}
             alt={`${title} ${focusTitle || ""} ${continueTitle || ""}`}
-            className="rounded-md w-full object-cover"
+            fill // Usamos fill para que ocupe el contenedor relativo
+            className="rounded-md object-cover"
           />
         )}
         {miniatureImage && (
-          <div className="absolute -top-8 -right-8 md:-top-10 md:-right-10 size-20 md:size-28">
-            <img
+          <div className="absolute -top-8 -right-8 md:-top-10 md:-right-10 w-20 h-20 md:w-28 md:h-28">
+            <Image
               src={urlFor(miniatureImage).url()}
               alt="Miniature Image"
-              className="size-20 md:size-28"
+              fill
+              className="object-contain" // Contain para no deformar el icono
             />
           </div>
         )}
@@ -97,9 +77,8 @@ const ArticleHome = ({ category = "1" }: { category?: string }) => {
         className="rounded-full cursor-pointer self-end items-center hover:scale-115 transition-all"
         asChild
       >
-        <Link
-          href={`/${blogs[0]?.categories ? blogs[0]?.categories[0]?.slug.current : ""}/${slug?.current}`}
-        >
+        {/* Bug corregido: Ahora usa la categoría del propio blog, no del array global */}
+        <Link href={`/${categoryUrl}/${slug?.current}`}>
           <p className="text-shadow-lg text-shadow-black/20 font-agrandir font-bold">
             Leer más {">>"}
           </p>

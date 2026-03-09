@@ -2,6 +2,8 @@ import ArticleList from "@/components/ArticleList/ArticleList";
 import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
+import { getBlogsByCategory } from "@/lib/queries";
+import { client } from "@/lib/sanity";
 import { Metadata } from "next";
 import React from "react";
 
@@ -48,7 +50,8 @@ export const metadata: Metadata = {
   },
 };
 
-const page = () => {
+const page = async () => {
+  const blogs = await getBlogsByCategory("Tasas de Interés");
   return (
     <>
       <div className="container mx-auto flex flex-col gap-16">
@@ -76,21 +79,29 @@ const page = () => {
           y economía colombiana.
         </p>
 
-        <ArticleShowcase category="tasas de interes" indexes={[0, 4]} />
+        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
         <AdBanner
           dataAdFormat="auto"
           dataFullWidthResponsive={true}
           dataAdSlot="7506188604"
         />
-        <ArticleList category="tasas de interes" indexes={[4, 7]} />
-        <ArticleHome category="tasas de interes" />
-        <ArticleShowcase category="tasas de interes" indexes={[7, 11]} />
+        <ArticleList
+          blogs={blogs}
+          category="tasas de interes"
+          indexes={[4, 7]}
+        />
+        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
+        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
         <AdBanner
           dataAdFormat="auto"
           dataFullWidthResponsive={true}
           dataAdSlot="7506188604"
         />
-        <ArticleList category="tasas de interes" indexes={[11, 20]} />
+        <ArticleList
+          blogs={blogs}
+          category="tasas de interes"
+          indexes={[11, 20]}
+        />
       </div>
     </>
   );

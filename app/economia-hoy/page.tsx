@@ -2,6 +2,7 @@ import ArticleList from "@/components/ArticleList/ArticleList";
 import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
+import { client } from "@/lib/sanity";
 import { Metadata } from "next";
 import React from "react";
 
@@ -48,7 +49,55 @@ export const metadata: Metadata = {
   },
 };
 
-const page = () => {
+async function getBlogsByCategory(categoryName: string) {
+  const query = `
+    *[_type == "blog" && $categoryName in categories[]->title] | order(publishedAt desc) {
+    title,
+    focusTitle,
+    continueTitle,
+    slug,
+    publishedAt,
+    mainImage,
+    miniatureImage,
+    excerpt,
+    audio {
+      asset->
+    },
+    body,
+    categories[]->{
+      _id,
+      title,
+      slug
+    },
+    relatedNews[]->{
+      _id,
+      title,
+      focusTitle,
+      continueTitle,
+      slug,
+      mainImage,
+      excerpt,
+      publishedAt,
+      categories[]->{
+        _id,
+        title,
+        slug
+      }
+    }
+  }
+  `;
+
+  return client.fetch(
+    query,
+    { categoryName },
+    {
+      next: { tags: ["all-blogs", `category-${categoryName}`, "global-data"] },
+    },
+  );
+}
+
+const page = async () => {
+  const blogs = await getBlogsByCategory("Economia Hoy");
   return (
     <>
       <div className="container mx-auto flex flex-col gap-16">
@@ -68,21 +117,22 @@ const page = () => {
           interés, regulaciones, bancos, impuestos, criptomonedas y economía
           digital.
         </p>
-        <ArticleShowcase category="Economia Hoy" indexes={[0, 4]} />
+        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
         <AdBanner
           dataAdFormat="auto"
           dataFullWidthResponsive={true}
           dataAdSlot="7506188604"
         />
-        <ArticleList category="Economia Hoy" indexes={[4, 7]} />
-        <ArticleHome category="Economia Hoy" />
-        <ArticleShowcase category="Economia Hoy" indexes={[7, 11]} />
+        <ArticleList category="Economia Hoy" indexes={[4, 7]} blogs={blogs} />
+        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
+
+        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
         <AdBanner
           dataAdFormat="auto"
           dataFullWidthResponsive={true}
           dataAdSlot="7506188604"
         />
-        <ArticleList category="Economia Hoy" indexes={[11, 20]} />
+        <ArticleList category="Economia Hoy" indexes={[11, 20]} blogs={blogs} />
       </div>
     </>
   );

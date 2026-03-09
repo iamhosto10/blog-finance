@@ -6,9 +6,7 @@ import { InfoSection } from "@/components/CommonComponents/InfoSection/InfoSecti
 import Tag from "@/components/CommonComponents/Tag";
 import TableNu from "@/components/nu/Table";
 import { Card, CardContent } from "@/components/ui/card";
-import { RootState } from "@/store/store";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 
 export const metadata = {
   title: "Cuenta de Ahorros Nu en Colombia - Simulador y Rentabilidad 2025",
@@ -89,9 +87,9 @@ const Faq = [
   },
 ];
 
-export default function Page() {
-  const { profitability } = useSelector((state: RootState) => state.sanity);
+const ClientPage = ({ profitabilityData }: { profitabilityData: number[] }) => {
   const [selected, setSelected] = useState(0);
+
   return (
     <div className="p-6">
       <div className="container md:-mt-6">
@@ -102,7 +100,8 @@ export default function Page() {
               DE NU
             </h1>
             <p className="text-lg text-tertiary font-canva-sans">
-              Tasa de {(Number(profitability?.nu[selected]) * 100).toFixed(2)} %
+              Tasa de {(Number(profitabilityData?.[selected]) * 100).toFixed(2)}{" "}
+              %
             </p>
           </section>
           <div className="flex flex-col md:flex-row max-md:gap-5 w-full justify-start">
@@ -133,7 +132,7 @@ export default function Page() {
           <Card className="shadow-xl bg-tertiary-foreground">
             <CardContent className="p-3 md:p-5 lg:p-8">
               <TableNu
-                profitabilityNu={profitability?.nu}
+                profitabilityNu={profitabilityData}
                 selected={selected}
                 setSelected={setSelected}
               />
@@ -151,4 +150,6 @@ export default function Page() {
       </div>
     </div>
   );
-}
+};
+
+export default ClientPage;

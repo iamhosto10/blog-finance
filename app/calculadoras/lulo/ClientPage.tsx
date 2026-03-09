@@ -6,9 +6,7 @@ import { InfoSection } from "@/components/CommonComponents/InfoSection/InfoSecti
 import Profitability from "@/components/CommonComponents/Profitability/Profitability";
 import Tag from "@/components/CommonComponents/Tag";
 import { Card, CardContent } from "@/components/ui/card";
-import { RootState } from "@/store/store";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 
 const info = [
   {
@@ -66,8 +64,7 @@ const Faq = [
   },
 ];
 
-const Page = () => {
-  const { profitability } = useSelector((state: RootState) => state.sanity);
+const Page = ({ profitabilityData }: { profitabilityData: number[] }) => {
   const [selected, setSelected] = useState(0);
 
   return (
@@ -80,7 +77,7 @@ const Page = () => {
               DE LULO
             </h1>
             <p className="text-lg text-tertiary font-canva-sans">
-              Tasa de {(Number(profitability?.lulo[selected]) * 100).toFixed(2)}{" "}
+              Tasa de {(Number(profitabilityData?.[selected]) * 100).toFixed(2)}{" "}
               %
             </p>
           </section>
@@ -112,7 +109,7 @@ const Page = () => {
           <Card className="shadow-xl bg-tertiary-foreground">
             <CardContent className="p-3 md:p-5 lg:p-8">
               <Profitability
-                profitability={profitability?.lulo}
+                profitability={profitabilityData}
                 selected={selected}
                 setSelected={setSelected}
               />
