@@ -1,5 +1,7 @@
 import ClientPage from "./ClientPage";
 import { Metadata } from "next";
+import { banksQuery, franchieseQuery, cardsQuery } from "@/lib/queries"; // Las queries de Sanity
+import { client } from "@/lib/sanity";
 
 export const metadata: Metadata = {
   title: "Comparador de Tarjetas | Monopolombiano",
@@ -43,8 +45,21 @@ export const metadata: Metadata = {
     images: ["https://monopolombiano.com/favicon.icos"],
   },
 };
-const page = () => {
-  return <ClientPage />;
-};
+export default async function ComparadorTarjetasPage() {
+  // Usamos Promise.all para hacer las 3 consultas al mismo tiempo en el servidor
+  // Esto es vital para el rendimiento, tardará los mismos milisegundos que hacer solo 1.
+  const [banks, franchieses, cards] = await Promise.all([
+    client.fetch(banksQuery, {}, { next: { tags: ["global-data"] } }),
+    client.fetch(franchieseQuery, {}, { next: { tags: ["global-data"] } }),
+    client.fetch(cardsQuery, {}, { next: { tags: ["global-data"] } }),
+  ]);
 
-export default page;
+  // Pasamos los datos al Client Component
+  return (
+    <ClientPage
+      banks={banks || []}
+      franchieses={franchieses || []}
+      cards={cards || []}
+    />
+  );
+}
