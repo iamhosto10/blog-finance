@@ -4,13 +4,12 @@ import React from "react";
 import Tag from "../CommonComponents/Tag";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { Blog } from "@/lib/interface";
+
 import { urlFor } from "@/lib/sanity";
 
-const PostPreviewCardHorizontal = () => {
-  const { blogs } = useSelector((state: RootState) => state.sanity);
-  if (!blogs[0]) {
+const PostPreviewCardHorizontal = ({ blog }: { blog: Blog }) => {
+  if (!blog) {
     return <div className="w-full lg:w-2/3"></div>;
   }
 
@@ -23,7 +22,7 @@ const PostPreviewCardHorizontal = () => {
     mainImage,
     categories,
     excerpt,
-  } = blogs[0];
+  } = blog;
 
   const titleComplete = [title, focusTitle, continueTitle]
     .filter(Boolean)
@@ -31,7 +30,7 @@ const PostPreviewCardHorizontal = () => {
   return (
     <div className="w-full hover:scale-115 transition-all">
       <Link
-        href={`/${blogs[0]?.categories ? blogs[0]?.categories[0]?.slug.current : ""}/${blogs[0].slug?.current}`}
+        href={`/${blog?.categories ? blog?.categories[0]?.slug.current : ""}/${blog.slug?.current}`}
         className="w-full "
       >
         <div className=" flex flex-col lg:flex-row gap-10 my-10">

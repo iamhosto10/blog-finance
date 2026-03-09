@@ -1,4 +1,3 @@
-// 1. ELIMINAMOS "use client" y Redux
 import News from "../News/News";
 import Simulators from "../Simulators/Simulators";
 import ArticleHome from "./ArticleHome/ArticleHome";
@@ -7,14 +6,10 @@ import IntroductionSection from "../IntroductionSection/IntroductionSection";
 import PostPreviewCardHorizontal from "../PostPreviewCardHorizontal/PostPreviewCardHorizontal";
 import CategoriesHome from "../CategoriesHome/CategoriesHome";
 import AdInfeed from "../CommonComponents/Adsense/AdInfeed";
-
-// 2. Importamos el cliente de Sanity y tus queries
 import { client } from "@/lib/sanity";
-import { blogsQuery } from "@/lib/queries"; // Asegúrate de que esta ruta sea la correcta
+import { blogsQuery } from "@/lib/queries";
 
-// 3. Convertimos el componente en asíncrono (async)
 export default async function Home() {
-  // 4. Hacemos el fetching directamente aquí en el servidor con ISR (caché)
   const data = await client.fetch(
     blogsQuery,
     {},
@@ -23,7 +18,6 @@ export default async function Home() {
 
   const blogs = data || [];
 
-  // 5. Lógica para el artículo aleatorio del <ArticleHome /> (del paso anterior)
   const randomBlog =
     blogs.length > 0 ? blogs[Math.floor(Math.random() * blogs.length)] : null;
 
@@ -32,7 +26,7 @@ export default async function Home() {
       <Header />
       <div className="container">
         <IntroductionSection />
-        <PostPreviewCardHorizontal />
+        <PostPreviewCardHorizontal blog={blogs[0]} />
 
         <News data={blogs.slice(1)} />
 
