@@ -15,7 +15,9 @@ async function getPost(slug: string) {
     mainImage,
     miniatureImage,
     excerpt,
-    audio,
+    audio{
+      asset->
+    },
     body,
     categories[]->{
       _id,

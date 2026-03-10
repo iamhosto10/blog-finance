@@ -15,7 +15,9 @@ async function getPost(slug: string) {
     mainImage,
     miniatureImage,
     excerpt,
-    audio,
+    audio{
+      asset->
+    },
     body,
     categories[]->{
       _id,
@@ -101,7 +103,7 @@ export async function generateMetadata(props: {
 const Page = async (props: { params: Promise<{ slug: string }> }) => {
   const { slug } = await props.params;
   const post: Blog = await getPost(slug);
-
+  console.log(post, "post data");
   if (!post) {
     notFound();
   }

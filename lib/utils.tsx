@@ -30,7 +30,9 @@ export async function getPost(slug: string) {
     mainImage,
     miniatureImage,
     excerpt,
-    audio,
+    audio{
+      asset->
+    },
     body,
     categories[]->{
       _id,
@@ -46,7 +48,7 @@ export async function getPost(slug: string) {
       publishedAt
     }
   }`,
-    { slug }
+    { slug },
   );
 }
 
@@ -139,7 +141,7 @@ export function cn(...inputs: ClassValue[]) {
 export function convertCurrency(
   amount: number,
   rate: number,
-  to: "USD" | "COP"
+  to: "USD" | "COP",
 ): number {
   if (to === "COP") {
     return amount * rate;
@@ -197,7 +199,7 @@ export function validarNumero(input: string) {
 export const calculateDailyGrowth = (
   initialAmount: number,
   days: number,
-  annualRate: number
+  annualRate: number,
 ): DailyGrowth[] => {
   const results: DailyGrowth[] = [];
   const dailyRate = Math.pow(1 + annualRate, 1 / 365) - 1;
@@ -221,17 +223,17 @@ export const calculateDailyGrowth = (
 export const calculateFinalAmount = (
   initialAmount: number,
   days: number,
-  annualRate: number
+  annualRate: number,
 ): number => {
   return parseFloat(
-    (initialAmount * Math.pow(1 + annualRate, days / 365)).toFixed(2)
+    (initialAmount * Math.pow(1 + annualRate, days / 365)).toFixed(2),
   );
 };
 
 export const calculatefinalAmountLulo = (
   eaPercent: number,
   monthsCount: number,
-  capital: number
+  capital: number,
 ) => {
   const EA = Number(eaPercent) / 100;
   const n = Math.max(0, Math.floor(Number(monthsCount)));
@@ -278,7 +280,7 @@ export function generarPlanPagos(
   monto: number,
   tasaEA: number,
   meses: number,
-  seguro: number = 0
+  seguro: number = 0,
 ): table {
   // Convertir EA -> NMV (tasa nominal mensual vencida)
   const tasaMensual = Math.pow(1 + tasaEA, 1 / 12) - 1;
@@ -328,7 +330,7 @@ export function calcularAmortizacionFrancesa(
   monto: number,
   tasaAnual: number,
   meses: number,
-  seguroVida: number = 0
+  seguroVida: number = 0,
 ): table {
   const tasaMensual = Math.pow(1 + tasaAnual, 1 / 12) - 1;
   const cuotaFija =
@@ -461,7 +463,7 @@ export function calcSavingsSchedule(inputs: CalcInputs): CalcResult {
       balance = round2(balance + contributionPerCompPeriod);
       additionsThisYear = round2(additionsThisYear + contributionPerCompPeriod);
       accumulatedContribution = round2(
-        accumulatedContribution + contributionPerCompPeriod
+        accumulatedContribution + contributionPerCompPeriod,
       );
     }
 
@@ -476,7 +478,7 @@ export function calcSavingsSchedule(inputs: CalcInputs): CalcResult {
       balance = round2(balance + contributionPerCompPeriod);
       additionsThisYear = round2(additionsThisYear + contributionPerCompPeriod);
       accumulatedContribution = round2(
-        accumulatedContribution + contributionPerCompPeriod
+        accumulatedContribution + contributionPerCompPeriod,
       );
     }
 
@@ -521,7 +523,7 @@ export const simulateInvestment = (
   initialInvestment: number,
   monthlyContribution: number,
   annualRate: number,
-  years: number
+  years: number,
 ): SimulationResult => {
   const monthlyRate = annualRate / 12 / 100; // convertir % anual a decimal mensual
   const months = years * 12;
@@ -545,7 +547,7 @@ export const simulateInvestment = (
       month: m,
       year: Math.ceil(m / 12),
       initialBalance: parseFloat(
-        (balance - interest - monthlyContribution).toFixed(2)
+        (balance - interest - monthlyContribution).toFixed(2),
       ),
       contribution: monthlyContribution,
       interest: parseFloat(interest.toFixed(2)),
