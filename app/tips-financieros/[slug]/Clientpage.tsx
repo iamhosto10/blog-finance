@@ -8,12 +8,13 @@ import News from "@/components/News/News";
 import { PortableText } from "@portabletext/react";
 import { components } from "@/lib/utils";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
-import React from "react";
+import React, { useState } from "react";
 import AdInfeed from "@/components/CommonComponents/Adsense/AdInfeed";
 import Image from "next/image";
 
 export default function BlogArticle({ post }: { post: Blog }) {
   const data = post;
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <div className="container md:-mt-6">
@@ -45,10 +46,11 @@ export default function BlogArticle({ post }: { post: Blog }) {
               " " +
               (data?.continueTitle || "")
             }
-            className="rounded-md w-full object-cover"
+            className={`rounded-md w-full object-cover transition-all duration-1000 ease-in-out ${isLoading ? "scale-75 blur-md opacity-0" : "scale-100 blur-0 opacity-100"}`}
             width={1200}
             height={630}
             priority={true}
+            onLoad={() => setIsLoading(false)}
           />
         )}
         {data?.miniatureImage && (
