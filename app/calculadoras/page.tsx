@@ -3,6 +3,7 @@ import Simulators from "@/components/Simulators/Simulators";
 import React from "react";
 import type { Metadata } from "next";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
+import CalculatorCards from "@/components/CommonComponents/Cards/CalculatorCards";
 
 export const metadata: Metadata = {
   title: "Calculadoras Financieras en Línea | Monopolombiano",
@@ -135,18 +136,7 @@ const Page = () => {
           calculadora de ahorro, inversión, intereses, 4x1000, dólar-peso, y
           mucho más.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {subcategories.map((subcategory, index) => (
-            <CalculatorCard
-              key={index}
-              asset={subcategory.icon}
-              buttonText={subcategory.buttonText}
-              description={subcategory.description}
-              href={subcategory.href}
-              label={subcategory.label}
-            />
-          ))}
-        </div>
+        <CalculatorCards subcategories={subcategories} />
 
         <AdBanner
           dataAdFormat="auto"

@@ -1,25 +1,69 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
+import { motion, Variants } from "framer-motion";
+
+const backgroundVariants: Variants = {
+  hidden: { scale: 1.1, opacity: 0 },
+  show: {
+    scale: 1,
+    opacity: 1,
+    transition: { duration: 1.5, ease: "easeOut" },
+  },
+};
+
+const titleContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+      delayChildren: 0.5,
+    },
+  },
+};
+
+const textItemVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
 
 const Header = () => {
   return (
     <div className="relative w-full h-[250px] md:h-[400px] lg:h-[600px] 2xl:h-[1000px] -mt-20 lg:top-[-60px] z-0 mb-10 overflow-hidden">
-      {/* 1. Fondo Principal Optimizado */}
-      <Image
-        src="/assets/Header/headerBackground1.png"
-        alt="Fondo Header"
-        fill
-        priority // Esto le dice a Google que cargue esta imagen PRIMERO
-        className="object-cover object-center -z-10"
-        sizes="100vw"
-        quality={90}
-      />
+      <motion.div
+        variants={backgroundVariants}
+        initial="hidden"
+        animate="show"
+        className="absolute inset-0 -z-10"
+      >
+        <Image
+          src="/assets/Header/headerBackground1.png"
+          alt="Fondo Header"
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+          quality={90}
+        />
+      </motion.div>
 
       <div className="relative flex flex-col justify-center items-center h-full lg:px-12">
-        <div className="flex flex-col items-center -mt-10 md:-mt-20">
-          {/* 2. El contenedor del título con su propia imagen de fondo optimizada */}
-          <div className="relative w-auto group">
-            {/* Imagen de "Screen" optimizada */}
+        <motion.div
+          variants={titleContainerVariants}
+          initial="hidden"
+          animate="show"
+          className="flex flex-col items-center -mt-10 md:-mt-20"
+        >
+          <motion.div
+            variants={textItemVariants}
+            className="relative w-auto group"
+          >
             <div className="absolute inset-0 -z-10">
               <Image
                 src="/assets/Layout/Screen.png"
@@ -33,12 +77,14 @@ const Header = () => {
             <h1 className="py-2 px-5 md:py-4 md:px-10 xl:py-6 xl:px-20 font-league-gothics font-bold text-white text-xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-9xl relative">
               EL BLOG PERFECTO
             </h1>
-          </div>
-
-          <h2 className="bg-secondary py-1 px-6 md:py-2 md:px-16 xl:py-5 xl:px-28 font-league-gothics font-bold text-white text-lg md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-7xl">
+          </motion.div>
+          <motion.h2
+            variants={textItemVariants}
+            className="bg-secondary py-1 px-6 md:py-2 md:px-16 xl:py-5 xl:px-28 font-league-gothics font-bold text-white text-lg md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-7xl"
+          >
             PARA UNA VIDA FINANCIERA PRECISA
-          </h2>
-        </div>
+          </motion.h2>
+        </motion.div>
       </div>
     </div>
   );
