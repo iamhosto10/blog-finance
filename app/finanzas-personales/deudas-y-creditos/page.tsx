@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  const blogs = await getBlogsByCategory("Deudas y Créditos");
+  const blogs = await getBlogsByCategory("Deudas y créditos");
 
   return (
     <>

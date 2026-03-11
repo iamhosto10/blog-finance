@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  const blogs = await getBlogsByCategory("Tasas de Interés");
+  const blogs = await getBlogsByCategory("Tasas de interes");
   return (
     <>
       <div className="container mx-auto flex flex-col gap-16">

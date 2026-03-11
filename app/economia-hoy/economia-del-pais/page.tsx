@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  const blogs = await getBlogsByCategory("Economía del País");
+  const blogs = await getBlogsByCategory("Economía del pais");
 
   return (
     <>

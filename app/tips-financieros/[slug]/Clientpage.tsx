@@ -11,6 +11,22 @@ import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import React, { useState } from "react";
 import AdInfeed from "@/components/CommonComponents/Adsense/AdInfeed";
 import Image from "next/image";
+import { Variants, motion } from "framer-motion";
+
+const imageZoomVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.75,
+  },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 1,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
 
 export default function BlogArticle({ post }: { post: Blog }) {
   const data = post;
@@ -136,20 +152,22 @@ export default function BlogArticle({ post }: { post: Blog }) {
               )}
 
               {section.asset && section.asset._type === "image" && (
-                <div className="relative w-full md:w-[70%] mx-auto my-8">
-                  <img
-                    key={urlFor(section.asset).url()}
+                <motion.div
+                  variants={imageZoomVariants}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, margin: "-100px" }}
+                  className="relative w-full md:w-[70%] mx-auto my-8 aspect-video overflow-hidden rounded-md"
+                >
+                  <Image
                     src={urlFor(section.asset).url()}
-                    alt={
-                      (data?.title || "") +
-                      " " +
-                      (data?.focusTitle || "") +
-                      " " +
-                      (data?.continueTitle || "")
-                    }
-                    className="w-full rounded-md"
+                    alt={`${data?.title || ""} ${data?.focusTitle || ""} ${data?.continueTitle || ""}`}
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 768px) 100vw, 70vw"
+                    loading="lazy"
                   />
-                </div>
+                </motion.div>
               )}
               {index % 3 === 0 && (
                 <>

@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  const blogs = await getBlogsByCategory("Cripto y Nuevas Tecnologías");
+  const blogs = await getBlogsByCategory("Cripto y nuevas tecnologías");
 
   return (
     <>

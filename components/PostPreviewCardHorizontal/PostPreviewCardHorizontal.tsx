@@ -5,8 +5,17 @@ import Tag from "../CommonComponents/Tag";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { Blog } from "@/lib/interface";
-
 import { urlFor } from "@/lib/sanity";
+import { motion, Variants } from "framer-motion";
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
 
 const PostPreviewCardHorizontal = ({ blog }: { blog: Blog }) => {
   if (!blog) {
@@ -27,20 +36,28 @@ const PostPreviewCardHorizontal = ({ blog }: { blog: Blog }) => {
   const titleComplete = [title, focusTitle, continueTitle]
     .filter(Boolean)
     .join(" ");
+
   return (
-    <div className="w-full hover:scale-115 transition-all">
+    <motion.div
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-50px" }}
+      className="w-full hover:scale-115 transition-all duration-300"
+    >
       <Link
         href={`/${blog?.categories ? blog?.categories[0]?.slug.current : ""}/${blog.slug?.current}`}
-        className="w-full "
+        className="w-full block"
       >
-        <div className=" flex flex-col lg:flex-row gap-10 my-10">
+        <div className="flex flex-col lg:flex-row gap-10 my-10">
           <img
             src={urlFor(mainImage).url()}
             alt={titleComplete}
             className="rounded-md w-full lg:w-2/5 object-cover"
           />
+
           <div className="flex flex-col gap-4">
-            <h2 className="font-agrandir font-bold text-xl text-secondary text-left line-clamp-4 lg:line-clamp-3 ">
+            <h2 className="font-agrandir font-bold text-xl text-secondary text-left line-clamp-4 lg:line-clamp-3">
               {title}
               <span className="text-primary"> {focusTitle} </span>
               {continueTitle}
@@ -62,17 +79,17 @@ const PostPreviewCardHorizontal = ({ blog }: { blog: Blog }) => {
             </div>
 
             <Button
-              className="rounded-full cursor-pointer self-end items-center hover:scale-115 transition-all"
+              className="rounded-full cursor-pointer self-end items-center hover:scale-110 transition-all"
               asChild
             >
-              <p className="text-shadow-lg  text-shadow-black/20 font-agrandir font-bold ">
+              <div className="text-shadow-lg text-shadow-black/20 font-agrandir font-bold">
                 Leer mas {">>"}
-              </p>
+              </div>
             </Button>
           </div>
         </div>
       </Link>
-    </div>
+    </motion.div>
   );
 };
 

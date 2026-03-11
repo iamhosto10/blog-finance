@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  const blogs = await getBlogsByCategory("Historial Crediticio");
+  const blogs = await getBlogsByCategory("Historial crediticio");
   return (
     <>
       <div className="container mx-auto flex flex-col gap-16">
