@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ReactSVG } from "react-svg";
 
@@ -10,19 +9,21 @@ const Footer = () => {
       <div className=" mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-3">
         {/* Imagen */}
         <div className="flex flex-col flex-shrink-0 gap-8">
-          <Image
+          <img
             src="/assets/Layout/Navbar/logop.png" // Cambia por tu imagen
             alt="Wallet en la nube"
             width={220}
             height={220}
             className="rounded-2xl block lg:hidden"
+            loading="lazy"
           />
-          <Image
+          <img
             src="/assets/Layout/Navbar/logop.png" // Cambia por tu imagen
             alt="Wallet en la nube"
             width={320}
             height={320}
             className="rounded-2xl lg:block hidden"
+            loading="lazy"
           />
           <div className="hidden md:flex gap-4">
             <span className="font-semibold font-agrandir text-xl self-end">

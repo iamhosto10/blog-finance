@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 
 const backgroundVariants: Variants = {
@@ -42,14 +41,11 @@ const Header = () => {
         animate="show"
         className="absolute inset-0 -z-10"
       >
-        <Image
+        <img
           src="/assets/Header/headerBackground1.png"
           alt="Fondo Header"
-          fill
-          priority
-          className="object-cover object-center"
-          sizes="100vw"
-          quality={90}
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          loading="eager"
         />
       </motion.div>
 
@@ -65,12 +61,11 @@ const Header = () => {
             className="relative w-auto group"
           >
             <div className="absolute inset-0 -z-10">
-              <Image
+              <img
                 src="/assets/Layout/Screen.png"
                 alt="Background Screen"
-                fill
-                priority
-                className="object-cover"
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="eager"
               />
             </div>
 

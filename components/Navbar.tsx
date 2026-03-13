@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { MenuIcon, XIcon, SearchIcon } from "lucide-react";
@@ -64,12 +63,13 @@ export default function Navbar({ open, setOpen }: IProps) {
         {/* Logo */}
         <div className="flex items-center">
           <Link href="/">
-            <Image
+            <img
               src="/assets/Layout/Navbar/logo.jpeg"
               alt="Logo"
               width={180}
               height={180}
               className="rounded-lg"
+              loading="eager"
             />
           </Link>
         </div>
@@ -124,12 +124,13 @@ export default function Navbar({ open, setOpen }: IProps) {
             {/* Logo */}
             <div className="flex items-center gap-2 -bottom-5 relative">
               <Link href="/">
-                <Image
+                <img
                   src="/assets/Layout/Navbar/logo.jpeg"
                   alt="Logo"
                   width={80}
                   height={80}
                   className="rounded-lg"
+                  loading="eager"
                 />
               </Link>
             </div>

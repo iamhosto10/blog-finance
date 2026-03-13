@@ -2,7 +2,6 @@
 
 import { urlFor } from "@/lib/sanity";
 import Link from "next/link";
-import Image from "next/image";
 import { Blog } from "@/lib/interface";
 import { motion, Variants } from "framer-motion";
 
@@ -67,11 +66,11 @@ const ArticleShowcase = ({
         >
           <div className="">
             <div className="relative w-full aspect-video rounded-xl overflow-hidden">
-              <Image
+              <img
                 src={urlFor(blogs[index1].mainImage).url()}
                 alt={titleComplete}
-                fill
-                className="rounded-md object-cover"
+                className="absolute inset-0 w-full h-full rounded-md object-cover"
+                loading="lazy"
               />
             </div>
             <h2 className="mt-4 text-sm md:text-lg text-secondary font-agrandir font-bold text-left line-clamp-3 lg:line-clamp-2 ">
@@ -103,11 +102,11 @@ const ArticleShowcase = ({
               >
                 <div key={article._id} className="flex gap-2">
                   <div className="relative rounded-lg w-2/5 aspect-video overflow-hidden flex-shrink-0">
-                    <Image
+                    <img
                       src={urlFor(article.mainImage).url()}
                       alt={`${article.title} ${article.focusTitle} ${article.continueTitle}`}
-                      fill
-                      className="rounded-md object-cover"
+                      className="absolute inset-0 w-full h-full rounded-md object-cover"
+                      loading="lazy"
                     />
                   </div>
                   <div className="w-3/5">

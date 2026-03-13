@@ -1,7 +1,6 @@
 // import { urlFor } from "@/lib/sanity";
 // import { ArrowRight } from "lucide-react";
 // import Link from "next/link";
-// import Image from "next/image";
 // import { Blog } from "@/lib/interface";
 
 // const categories: Record<
@@ -99,11 +98,11 @@
 //               >
 //                 <div key={article._id} className="flex gap-2">
 //                   <div className="relative rounded-lg w-2/5 aspect-video overflow-hidden flex-shrink-0">
-//                     <Image
+//                     <img
 //                       src={urlFor(article.mainImage).url()}
 //                       alt={`${article.title} ${article.focusTitle || ""} ${article.continueTitle || ""}`}
-//                       fill
-//                       className="rounded-md object-cover"
+//                       className="absolute inset-0 w-full h-full rounded-md object-cover"
+//                       loading="lazy"
 //                     />
 //                   </div>
 
@@ -178,7 +177,6 @@
 import { urlFor } from "@/lib/sanity";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { Blog } from "@/lib/interface";
 import { motion, Variants } from "framer-motion";
 
@@ -302,11 +300,11 @@ const ArticleList = ({
               >
                 <div className="flex gap-2">
                   <div className="relative rounded-lg w-2/5 aspect-video overflow-hidden flex-shrink-0">
-                    <Image
+                    <img
                       src={urlFor(article.mainImage).url()}
                       alt={`${article.title} ${article.focusTitle || ""} ${article.continueTitle || ""}`}
-                      fill
-                      className="rounded-md object-cover"
+                      className="absolute inset-0 w-full h-full rounded-md object-cover"
+                      loading="lazy"
                     />
                   </div>
 
