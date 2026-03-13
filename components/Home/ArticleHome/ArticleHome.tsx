@@ -2,7 +2,6 @@
 
 import { urlFor } from "@/lib/sanity";
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Tag from "@/components/CommonComponents/Tag";
 import { Blog } from "@/lib/interface";
@@ -85,11 +84,11 @@ const ArticleHome = ({ blog }: { blog: Blog }) => {
         className="relative w-full md:w-4/5 mx-auto mt-8 aspect-video"
       >
         {mainImage && (
-          <Image
+          <img
             src={urlFor(mainImage).url()}
             alt={`${title} ${focusTitle || ""} ${continueTitle || ""}`}
-            fill
-            className="rounded-md object-cover"
+            className="absolute inset-0 w-full h-full rounded-md object-cover"
+            loading="lazy"
           />
         )}
         {miniatureImage && (
@@ -99,11 +98,11 @@ const ArticleHome = ({ blog }: { blog: Blog }) => {
             transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
             className="absolute -top-8 -right-8 md:-top-10 md:-right-10 w-20 h-20 md:w-28 md:h-28"
           >
-            <Image
+            <img
               src={urlFor(miniatureImage).url()}
               alt="Miniature Image"
-              fill
-              className="object-contain"
+              className="absolute inset-0 w-full h-full object-contain"
+              loading="lazy"
             />
           </motion.div>
         )}

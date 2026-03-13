@@ -10,7 +10,6 @@ import { components } from "@/lib/utils";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import React, { useState } from "react";
 import AdInfeed from "@/components/CommonComponents/Adsense/AdInfeed";
-import Image from "next/image";
 import { Variants, motion } from "framer-motion";
 
 const imageZoomVariants: Variants = {
@@ -53,30 +52,32 @@ export default function BlogArticle({ post }: { post: Blog }) {
 
       <div className="relative w-full md:w-[70%] aspect-video mx-auto my-8">
         {data?.mainImage && (
-          <Image
-            src={urlFor(data.mainImage).url()}
-            alt={
-              (data?.title || "") +
-              " " +
-              (data?.focusTitle || "") +
-              " " +
-              (data?.continueTitle || "")
-            }
-            className={`rounded-md w-full object-cover transition-all duration-1000 ease-in-out ${isLoading ? "scale-75 blur-md opacity-0" : "scale-100 blur-0 opacity-100"}`}
-            width={1200}
-            height={630}
-            priority={true}
-            onLoad={() => setIsLoading(false)}
-          />
+          <motion.div
+            variants={imageZoomVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            className="relative w-full mx-auto my-8 aspect-video overflow-hidden rounded-md"
+          >
+            <img
+              src={urlFor(data.mainImage).url()}
+              alt={`${data?.title || ""} ${data?.focusTitle || ""} ${data?.continueTitle || ""}`}
+              className="absolute inset-0 w-full h-full object-cover object-center"
+              width={1200}
+              height={630}
+              loading="eager"
+            />
+          </motion.div>
         )}
         {data?.miniatureImage && (
           <div className="absolute -top-8 -right-8 md:-top-10 md:-right-10 size-20 md:size-28">
-            <Image
+            <img
               src={urlFor(data.miniatureImage).url()}
               alt="Miniature Image"
               className="size-20 md:size-28 object-cover"
               width={120}
               height={120}
+              loading="lazy"
             />
           </div>
         )}
@@ -159,12 +160,10 @@ export default function BlogArticle({ post }: { post: Blog }) {
                   viewport={{ once: true, margin: "-100px" }}
                   className="relative w-full md:w-[70%] mx-auto my-8 aspect-video overflow-hidden rounded-md"
                 >
-                  <Image
+                  <img
                     src={urlFor(section.asset).url()}
                     alt={`${data?.title || ""} ${data?.focusTitle || ""} ${data?.continueTitle || ""}`}
-                    fill
-                    className="object-cover object-center"
-                    sizes="(max-width: 768px) 100vw, 70vw"
+                    className="absolute inset-0 w-full h-full object-cover object-center"
                     loading="lazy"
                   />
                 </motion.div>
