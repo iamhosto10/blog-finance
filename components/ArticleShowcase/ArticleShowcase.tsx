@@ -70,7 +70,7 @@ const ArticleShowcase = ({
                 src={urlFor(blogs[index1].mainImage).url()}
                 alt={titleComplete}
                 className="absolute inset-0 w-full h-full rounded-md object-cover"
-                loading="lazy"
+                loading="eager"
               />
             </div>
             <h2 className="mt-4 text-sm md:text-lg text-secondary font-agrandir font-bold text-left line-clamp-3 lg:line-clamp-2 ">
@@ -106,7 +106,7 @@ const ArticleShowcase = ({
                       src={urlFor(article.mainImage).url()}
                       alt={`${article.title} ${article.focusTitle} ${article.continueTitle}`}
                       className="absolute inset-0 w-full h-full rounded-md object-cover"
-                      loading="lazy"
+                      loading="eager"
                     />
                   </div>
                   <div className="w-3/5">

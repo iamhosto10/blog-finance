@@ -51,21 +51,22 @@ export default function BlogArticle({ post }: { post: Blog }) {
       </div>
       <div className="relative w-full md:w-[70%] aspect-[16/9] mx-auto my-8">
         {data?.mainImage && (
-          <img
-            src={urlFor(data.mainImage).url()}
-            alt={
-              (data?.title || "") +
-              " " +
-              (data?.focusTitle || "") +
-              " " +
-              (data?.continueTitle || "")
-            }
-            className={`rounded-md w-full object-cover transition-all duration-1000 ease-in-out ${isLoading ? "scale-75 blur-md opacity-0" : "scale-100 blur-0 opacity-100"}`}
-            width={1200}
-            height={630}
-            loading="eager"
-            onLoad={() => setIsLoading(false)}
-          />
+          <motion.div
+            variants={imageZoomVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            className="relative w-full mx-auto my-8 aspect-video overflow-hidden rounded-md"
+          >
+            <img
+              src={urlFor(data.mainImage).url()}
+              alt={`${data?.title || ""} ${data?.focusTitle || ""} ${data?.continueTitle || ""}`}
+              className="absolute inset-0 w-full h-full object-cover object-center"
+              width={1200}
+              height={630}
+              loading="eager"
+            />
+          </motion.div>
         )}
         {data?.miniatureImage && (
           <div className="absolute -top-8 -right-8 md:-top-10 md:-right-10 size-20 md:size-28">
