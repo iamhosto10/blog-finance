@@ -7,11 +7,11 @@ import PostPreviewCardHorizontal from "../PostPreviewCardHorizontal/PostPreviewC
 import CategoriesHome from "../CategoriesHome/CategoriesHome";
 import AdInfeed from "../CommonComponents/Adsense/AdInfeed";
 import { client } from "@/lib/sanity";
-import { blogsQuery } from "@/lib/queries";
+import { blogsPreviewQuery } from "@/lib/queries";
 
 export default async function Home() {
   const data = await client.fetch(
-    blogsQuery,
+    blogsPreviewQuery,
     {},
     { next: { tags: ["all-blogs", "global-data"] } },
   );

@@ -156,3 +156,19 @@ export async function getBlogsByCategory(categoryName: string) {
     },
   );
 }
+
+export const blogsPreviewQuery = `*[_type == "blog"]{
+    title,
+    focusTitle,
+    continueTitle,
+    slug,
+    publishedAt,
+    mainImage,
+    miniatureImage,
+    excerpt,
+    categories[]->{
+      _id,
+      title,
+      slug
+    }
+  }| order(publishedAt desc)`;
