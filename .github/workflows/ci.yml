@@ -1,0 +1,40 @@
+# 1. EL NOMBRE: Así se verá en la pestaña "Actions" de GitHub
+name: Integración Continua (CI)
+
+# 2. LOS EVENTOS (Triggers): ¿Cuándo queremos que GitHub ejecute esto?
+on:
+    # Se ejecutará cada vez que hagas un push directo a la rama main
+    push:
+        branches: ["main"]
+    # Se ejecutará cada vez que alguien intente fusionar código (Pull Request) hacia main
+    pull_request:
+        branches: ["main"]
+
+# 3. LOS TRABAJOS (Jobs): Lo que la máquina virtual va a hacer
+jobs:
+    revisar-codigo:
+        # Le decimos a GitHub que nos preste un servidor gratuito con Ubuntu (Linux)
+        runs-on: ubuntu-latest
+
+        # 4. LOS PASOS (Steps): La receta de cocina secuencial
+        steps:
+            - name: 📥 1. Descargar el código en la máquina virtual
+              uses: actions/checkout@v4
+
+            - name: ⚙️ 2. Instalar y configurar Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20" # Puedes cambiarlo si usas la v18
+
+            - name: 📦 3. Instalar dependencias exactas
+              # Nota: 'npm ci' es como 'npm install', pero más estricto.
+              # Lee tu package-lock.json y asegura que instala exactamente esas versiones.
+              run: npm ci
+
+            - name: 🧹 4. Ejecutar el Linter
+              run: npm run lint
+
+            - name: 🏗️ 5. Probar que el proyecto compile (Build)
+              # Esto asegura que si una página tiene un error crítico de React/Next,
+              # nos enteremos aquí y no cuando Vercel intente publicarlo.
+              run: npm run build
