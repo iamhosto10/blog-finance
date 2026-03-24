@@ -24,11 +24,9 @@ jobs:
       - name: ⚙️ 2. Instalar y configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20" # Puedes cambiarlo si usas la v18
+          node-version: "20"
 
       - name: 📦 3. Instalar dependencias exactas
-        # Nota: 'npm ci' es como 'npm install', pero más estricto.
-        # Lee tu package-lock.json y asegura que instala exactamente esas versiones.
         run: npm ci
       - name: 🧹 4. Ejecutar el Linter
         run: npm run lint
@@ -46,3 +44,8 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
         run: npm run build
+
+      - name: 🌐 5.1. Instalar Navegadores para Playwright
+        run: npx playwright install --with-deps
+      - name: 🎭 5.2. Ejecutar Pruebas End-to-End (Playwright) Luego de hacer el build
+        run: npx playwright test
