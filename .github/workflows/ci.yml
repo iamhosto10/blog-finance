@@ -32,9 +32,15 @@ jobs:
               run: npm ci
             - name: 🧹 4. Ejecutar el Linter
               run: npm run lint
-            - name: 🔐 4.5. Preparar variables de entorno falsas
-              run: cp .env.example .env.local
             - name: 🏗️ 5. Probar que el proyecto compile (Build)
-              # Esto asegura que si una página tiene un error crítico de React/Next,
-              # nos enteremos aquí y no cuando Vercel intente publicarlo.
+              env:
+                  SANITY_TOKEN: ${{ secrets.SANITY_TOKEN }}
+                  NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+                  SANITY_DATASET: ${{ secrets.SANITY_DATASET }}
+                  REVALIDATE_SECRET: ${{ secrets.REVALIDATE_SECRET }}
+                  NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
+                  SITE_URL: ${{ secrets.SITE_URL }}
+                  NEXT_PUBLIC_ADSENSE_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_ADSENSE_CLIENT_ID }}
+                  RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+                  EMAIL_TO: ${{ secrets.EMAIL_TO }}
               run: npm run build
