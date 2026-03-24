@@ -23,5 +23,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/lib/sanity.jsx", "components/CommonComponents/Adsense/AdBanner.jsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "studio-nextjs-blog"]
 }
