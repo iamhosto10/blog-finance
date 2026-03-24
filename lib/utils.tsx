@@ -624,3 +624,11 @@ export const simularCreditoVivienda = ({
     tabla,
   };
 };
+
+export function calcularLogica4x1000(montoNumerico: number) {
+  const impuesto = montoNumerico * 0.004;
+  const total = montoNumerico - impuesto;
+  const resultado = montoNumerico / (1 - 0.004);
+
+  return { impuesto, total, resultado };
+}

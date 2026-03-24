@@ -4,7 +4,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DollarSignIcon } from "lucide-react";
-import { convertStringtoNumber, validarNumero } from "@/lib/utils";
+import {
+  calcularLogica4x1000,
+  convertStringtoNumber,
+  validarNumero,
+} from "@/lib/utils";
 import { convertNumbertoString } from "../../lib/utils";
 
 export function Calculator() {
@@ -19,7 +23,14 @@ export function Calculator() {
     const impuesto = Number(convertStringtoNumber(monto)) * 0.004;
     const total = Number(convertStringtoNumber(monto)) - impuesto;
     const resultado = Number(convertStringtoNumber(monto)) / (1 - 0.004);
-    setResultado({ impuesto, total, resultado });
+
+    const montoNumerico = Number(convertStringtoNumber(monto));
+    const valoresCalculados = calcularLogica4x1000(montoNumerico);
+    setResultado({
+      impuesto: valoresCalculados.impuesto,
+      total: valoresCalculados.total,
+      resultado: valoresCalculados.resultado,
+    });
   }
 
   function handleChangeMonto(value: string) {
