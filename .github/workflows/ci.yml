@@ -3,44 +3,46 @@ name: Integración Continua (CI)
 
 # 2. LOS EVENTOS (Triggers): ¿Cuándo queremos que GitHub ejecute esto?
 on:
-    # Se ejecutará cada vez que hagas un push directo a la rama main
-    push:
-        branches: ["main"]
-    # Se ejecutará cada vez que alguien intente fusionar código (Pull Request) hacia main
-    pull_request:
-        branches: ["main"]
+  # Se ejecutará cada vez que hagas un push directo a la rama main
+  push:
+    branches: ["main"]
+  # Se ejecutará cada vez que alguien intente fusionar código (Pull Request) hacia main
+  pull_request:
+    branches: ["main"]
 
 # 3. LOS TRABAJOS (Jobs): Lo que la máquina virtual va a hacer
 jobs:
-    revisar-codigo:
-        # Le decimos a GitHub que nos preste un servidor gratuito con Ubuntu (Linux)
-        runs-on: ubuntu-latest
+  revisar-codigo:
+    # Le decimos a GitHub que nos preste un servidor gratuito con Ubuntu (Linux)
+    runs-on: ubuntu-latest
 
-        # 4. LOS PASOS (Steps): La receta de cocina secuencial
-        steps:
-            - name: 📥 1. Descargar el código en la máquina virtual
-              uses: actions/checkout@v4
+    # 4. LOS PASOS (Steps): La receta de cocina secuencial
+    steps:
+      - name: 📥 1. Descargar el código en la máquina virtual
+        uses: actions/checkout@v4
 
-            - name: ⚙️ 2. Instalar y configurar Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: "20" # Puedes cambiarlo si usas la v18
+      - name: ⚙️ 2. Instalar y configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Puedes cambiarlo si usas la v18
 
-            - name: 📦 3. Instalar dependencias exactas
-              # Nota: 'npm ci' es como 'npm install', pero más estricto.
-              # Lee tu package-lock.json y asegura que instala exactamente esas versiones.
-              run: npm ci
-            - name: 🧹 4. Ejecutar el Linter
-              run: npm run lint
-            - name: 🏗️ 5. Probar que el proyecto compile (Build)
-              env:
-                  SANITY_TOKEN: ${{ secrets.SANITY_TOKEN }}
-                  NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
-                  SANITY_DATASET: ${{ secrets.SANITY_DATASET }}
-                  REVALIDATE_SECRET: ${{ secrets.REVALIDATE_SECRET }}
-                  NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
-                  SITE_URL: ${{ secrets.SITE_URL }}
-                  NEXT_PUBLIC_ADSENSE_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_ADSENSE_CLIENT_ID }}
-                  RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-                  EMAIL_TO: ${{ secrets.EMAIL_TO }}
-              run: npm run build
+      - name: 📦 3. Instalar dependencias exactas
+        # Nota: 'npm ci' es como 'npm install', pero más estricto.
+        # Lee tu package-lock.json y asegura que instala exactamente esas versiones.
+        run: npm ci
+      - name: 🧹 4. Ejecutar el Linter
+        run: npm run lint
+      - name: 🧪 4.2. Ejecutar Tests Unitarios
+        run: npm run test
+      - name: 🏗️ 5. Probar que el proyecto compile (Build)
+        env:
+          SANITY_TOKEN: ${{ secrets.SANITY_TOKEN }}
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          SANITY_DATASET: ${{ secrets.SANITY_DATASET }}
+          REVALIDATE_SECRET: ${{ secrets.REVALIDATE_SECRET }}
+          NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
+          SITE_URL: ${{ secrets.SITE_URL }}
+          NEXT_PUBLIC_ADSENSE_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_ADSENSE_CLIENT_ID }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        run: npm run build
