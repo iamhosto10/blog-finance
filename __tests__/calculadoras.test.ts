@@ -1,5 +1,3 @@
-// __tests__/calculadoras.test.ts
-
 import { describe, it, expect } from "vitest";
 
 function calcularLogica4x1000(monto: number) {
