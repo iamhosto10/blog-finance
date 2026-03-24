@@ -30,10 +30,10 @@ jobs:
               # Nota: 'npm ci' es como 'npm install', pero más estricto.
               # Lee tu package-lock.json y asegura que instala exactamente esas versiones.
               run: npm ci
-
             - name: 🧹 4. Ejecutar el Linter
               run: npm run lint
-
+            - name: 🔐 4.5. Preparar variables de entorno falsas
+              run: cp .env.example .env.local
             - name: 🏗️ 5. Probar que el proyecto compile (Build)
               # Esto asegura que si una página tiene un error crítico de React/Next,
               # nos enteremos aquí y no cuando Vercel intente publicarlo.
