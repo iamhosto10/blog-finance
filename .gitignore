@@ -43,3 +43,10 @@ next-env.d.ts
 #sanity
 studio-nextjs-blog/
 
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

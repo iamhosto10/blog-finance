@@ -18,8 +18,8 @@ const DolarConversor = ({ dolar }: { dolar: Dolar }) => {
     setUsd(convertNumbertoString(value));
     setCop(
       convertNumbertoString(
-        convertCurrency(Number(value), Number(dolar.valor), "COP")
-      )
+        convertCurrency(Number(value), Number(dolar.valor), "COP"),
+      ),
     );
   };
 
@@ -29,8 +29,8 @@ const DolarConversor = ({ dolar }: { dolar: Dolar }) => {
     setCop(convertNumbertoString(value));
     setUsd(
       convertNumbertoString(
-        convertCurrency(Number(value), Number(dolar.valor), "USD")
-      )
+        convertCurrency(Number(value), Number(dolar.valor), "USD"),
+      ),
     );
   };
 
@@ -45,6 +45,7 @@ const DolarConversor = ({ dolar }: { dolar: Dolar }) => {
             <DollarSignIcon strokeWidth={3} />
             {/* Campo de entrada */}
             <input
+              id="input-usd"
               type="text"
               value={usd}
               onChange={(e) => handleUsdChange(e)}
@@ -72,6 +73,7 @@ const DolarConversor = ({ dolar }: { dolar: Dolar }) => {
             <DollarSignIcon strokeWidth={3} />
             {/* Campo de entrada */}
             <input
+              id="input-cop"
               type="text"
               value={cop}
               onChange={(e) => handleCopChange(e)}
