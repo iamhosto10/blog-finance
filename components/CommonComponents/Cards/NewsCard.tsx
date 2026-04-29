@@ -29,6 +29,7 @@ const NewsCard = (props: INewsCard) => {
     slug,
     mainCategory,
   } = props;
+  console.log("Rendering NewsCard with slug:", slug?.current);
   return (
     <Link
       href={`/${mainCategory}/${slug?.current}`}
