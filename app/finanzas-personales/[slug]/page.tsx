@@ -32,7 +32,12 @@ async function getPost(slug: string) {
       slug,
       mainImage,
       excerpt,
-      publishedAt
+      publishedAt,
+      categories[]->{
+      _id,
+      title,
+      slug
+    }
     }
   }`,
     { slug },
@@ -101,6 +106,7 @@ export async function generateMetadata(props: {
 const Page = async (props: { params: Promise<{ slug: string }> }) => {
   const { slug } = await props.params;
   const post: Blog = await getPost(slug);
+  console.log("Fetched post for slug:", post.relatedNews);
 
   if (!post) {
     notFound();
