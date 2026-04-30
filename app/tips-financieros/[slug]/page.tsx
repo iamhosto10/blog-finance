@@ -32,7 +32,12 @@ async function getPost(slug: string) {
       slug,
       mainImage,
       excerpt,
-      publishedAt
+      publishedAt,
+       categories[]->{
+      _id,
+      title,
+      slug
+    }
     }
   }`,
     { slug },
