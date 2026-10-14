@@ -33,9 +33,9 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Calculadoras Financieras Monopolombiano",
       },
     ],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "Calculadoras Financieras en Línea | Monopolombiano",
     description:
       "Explora nuestras calculadoras financieras para Colombia: ahorro, inversión, crédito, leasing, 4x1000, dólar y más. Herramientas gratuitas para tu bolsillo.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

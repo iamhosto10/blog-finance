@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 630,
-        height: 630,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Historial Crediticio",
       },
     ],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "Historial Crediticio",
     description:
       "Descubre cómo construir un buen historial crediticio y aumentar tu puntaje para acceder a mejores oportunidades financieras.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

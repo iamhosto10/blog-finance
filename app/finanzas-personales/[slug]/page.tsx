@@ -67,7 +67,7 @@ export async function generateMetadata(props: {
 
   const ogImageUrl = post?.mainImage
     ? urlFor(post.mainImage).width(1200).height(630).fit("crop").url()
-    : "https://monopolombiano.com/favicon.ico";
+    : "https://monopolombiano.com/og-image.jpg";
 
   return {
     title: formatedTitle,
@@ -106,7 +106,6 @@ export async function generateMetadata(props: {
 const Page = async (props: { params: Promise<{ slug: string }> }) => {
   const { slug } = await props.params;
   const post: Blog = await getPost(slug);
-  console.log("Fetched post for slug:", post.relatedNews);
 
   if (!post) {
     notFound();

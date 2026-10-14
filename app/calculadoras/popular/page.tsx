@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Calculadora de rentabilidad Banco Popular",
       },
     ],
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "Calculadora de rentabilidad Banco Popular | Monopolombiano",
     description:
       "Conoce la tasa de interés del Banco Popular y simula cuánto podrías ganar al ahorrar con una de las entidades más tradicionales de Colombia.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
   alternates: {
     canonical: "https://monopolombiano.com/calculadoras/popular",

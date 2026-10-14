@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Calculadora del 4x1000 en Colombia",
       },
     ],
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "Calculadora 4x1000 en Colombia",
     description:
       "Calcula cuánto pagas por el impuesto 4x1000 y aprende cómo funciona este gravamen financiero en Colombia.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

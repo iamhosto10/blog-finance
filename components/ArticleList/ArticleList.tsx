@@ -1,10 +1,8 @@
-"use client";
-
-import { urlFor } from "@/lib/sanity";
+import SanityImage from "@/components/CommonComponents/SanityImage";
+import { formatPublishedDate } from "@/lib/date";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Blog } from "@/lib/interface";
-import { motion, Variants } from "framer-motion";
 
 const categories: Record<
   string,
@@ -27,7 +25,7 @@ const categories: Record<
         label: "Apps y herramientas útiles",
       },
       {
-        href: "/tips-financieros/manejo-del-dinero-en-el-extranjero",
+        href: "/tips-financieros/manejo-de-dinero-en-el-extranjero",
         label: "Manejo del dinero en el extranjero",
       },
       {
@@ -54,36 +52,16 @@ const categories: Record<
     title: "FINANZAS PERSONALES",
     items: [
       {
-        href: "/tips-financieros/ahorro-y-presupuesto",
+        href: "/finanzas-personales/ahorro-y-presupuesto",
         label: "Ahorro y presupuesto",
       },
-      { href: "/tips-financieros/inversion", label: "Inversión" },
+      { href: "/finanzas-personales/inversion", label: "Inversión" },
       {
-        href: "/tips-financieros/deudas-y-creditos",
+        href: "/finanzas-personales/deudas-y-creditos",
         label: "Deudas y créditos",
       },
-      { href: "/tips-financieros/comprar-vivienda", label: "Comprar vivienda" },
+      { href: "/finanzas-personales/comprar-vivienda", label: "Comprar vivienda" },
     ],
-  },
-};
-
-// Variantes de animación
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15, // Los artículos aparecerán con 0.15s de diferencia
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, x: -20 }, // Vienen un poco desde la izquierda
-  show: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
@@ -103,11 +81,7 @@ const ArticleList = ({
   }
 
   return (
-    <motion.section
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-50px" }}
+    <section
       className="w-full grid gap-4 lg:grid-cols-12 rounded-3xl"
     >
       <div
@@ -119,18 +93,21 @@ const ArticleList = ({
         {blogs
           .slice(indexes ? indexes[0] : 0, indexes ? indexes[1] : 6)
           .map((article, index) => (
-            <motion.div key={article._id + "_" + index} variants={itemVariants}>
+            <div key={article._id + "_" + index} className="reveal">
               <Link
                 href={`/${article?.categories ? article?.categories[0]?.slug.current : ""}/${article.slug?.current}`}
                 className="w-full flex flex-col justify-between gap-1 hover:scale-105 transition-all duration-300"
               >
                 <div className="flex gap-2">
                   <div className="relative rounded-lg w-2/5 aspect-video overflow-hidden flex-shrink-0">
-                    <img
-                      src={urlFor(article.mainImage).url()}
-                      alt={`${article.title} ${article.focusTitle || ""} ${article.continueTitle || ""}`}
-                      className="absolute inset-0 w-full h-full rounded-md object-cover"
-                      loading="lazy"
+                    <SanityImage
+                      image={article.mainImage}
+                      alt={[article.title, article.focusTitle, article.continueTitle]
+                        .filter(Boolean)
+                        .join(" ")}
+                      fill
+                      sizes="(min-width: 1024px) 25vw, 40vw"
+                      className="rounded-md object-cover"
                     />
                   </div>
 
@@ -144,26 +121,17 @@ const ArticleList = ({
                       {article.continueTitle}
                     </h3>
                     <p className="text-xs text-gray-500 mt-1">
-                      {new Date(
-                        article.publishedAt
-                          ? article.publishedAt.slice(0, 10)
-                          : "",
-                      ).toLocaleDateString("es-ES", {
-                        day: "2-digit",
-                        month: "2-digit",
-                        year: "numeric",
-                      })}
+                      {formatPublishedDate(article.publishedAt)}
                     </p>
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </div>
           ))}
       </div>
 
       {currentCategory && (
-        <motion.div
-          variants={itemVariants} // El menú lateral también entra en la secuencia
+        <div
           className={
             "bg-secondary-background rounded-lg " +
             (indexes[0] === 4 ? "lg:col-span-4" : "lg:col-span-0")
@@ -194,9 +162,9 @@ const ArticleList = ({
               ))}
             </ul>
           </div>
-        </motion.div>
+        </div>
       )}
-    </motion.section>
+    </section>
   );
 };
 

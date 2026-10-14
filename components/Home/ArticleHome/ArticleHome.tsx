@@ -1,30 +1,9 @@
-"use client";
-
-import { urlFor } from "@/lib/sanity";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Tag from "@/components/CommonComponents/Tag";
+import SanityImage from "@/components/CommonComponents/SanityImage";
 import { Blog } from "@/lib/interface";
-import { motion, Variants } from "framer-motion";
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
+import { formatPublishedDate } from "@/lib/date";
 
 const ArticleHome = ({ blog }: { blog: Blog }) => {
   if (!blog) {
@@ -46,75 +25,47 @@ const ArticleHome = ({ blog }: { blog: Blog }) => {
   const categoryUrl = categories?.[0]?.slug?.current ?? "";
 
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-50px" }}
-      className="flex flex-col gap-4 w-full"
-    >
-      <motion.h2
-        variants={itemVariants}
-        className="font-agrandir font-bold text-2xl lg:text-3xl text-secondary text-left line-clamp-4 lg:line-clamp-3"
-      >
+    <div className="reveal flex flex-col gap-4 w-full">
+      <h2 className="font-agrandir font-bold text-2xl lg:text-3xl text-secondary text-left line-clamp-4 lg:line-clamp-3">
         {title}
         <span className="text-primary"> {focusTitle} </span>
         {continueTitle}
-      </motion.h2>
-      <motion.div
-        variants={itemVariants}
-        className="flex flex-row w-full justify-start gap-2"
-      >
+      </h2>
+      <div className="flex flex-row w-full justify-start gap-2">
         <Link href={"/" + categoryUrl}>
           <Tag title={categories?.[0]?.title} />
         </Link>
         <p className="text-sm text-tertiary my-auto font-canva-sans font-bold">
-          {new Date(publishedAt?.slice(0, 10) || "").toLocaleDateString(
-            "es-ES",
-            {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            },
-          )}
+          {formatPublishedDate(publishedAt)}
         </p>
-      </motion.div>
-      <motion.div
-        variants={itemVariants}
-        className="relative w-full md:w-4/5 mx-auto mt-8 aspect-video"
-      >
+      </div>
+      <div className="relative w-full md:w-4/5 mx-auto mt-8 aspect-video">
         {mainImage && (
-          <img
-            src={urlFor(mainImage).url()}
-            alt={`${title} ${focusTitle || ""} ${continueTitle || ""}`}
-            className="absolute inset-0 w-full h-full rounded-md object-cover"
-            loading="lazy"
+          <SanityImage
+            image={mainImage}
+            alt={[title, focusTitle, continueTitle].filter(Boolean).join(" ")}
+            fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="rounded-md object-cover"
           />
         )}
         {miniatureImage && (
-          <motion.div
-            initial={{ scale: 0, rotate: -20 }}
-            whileInView={{ scale: 1, rotate: 0 }}
-            transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
-            className="absolute -top-8 -right-8 md:-top-10 md:-right-10 w-20 h-20 md:w-28 md:h-28"
-          >
-            <img
-              src={urlFor(miniatureImage).url()}
-              alt="Miniature Image"
-              className="absolute inset-0 w-full h-full object-contain"
-              loading="lazy"
+          <div className="absolute -top-8 -right-8 md:-top-10 md:-right-10 w-20 h-20 md:w-28 md:h-28">
+            <SanityImage
+              image={miniatureImage}
+              alt=""
+              fill
+              sizes="112px"
+              className="object-contain"
             />
-          </motion.div>
+          </div>
         )}
-      </motion.div>
-      <motion.div
-        variants={itemVariants}
-        className="font-canva-sans text-tertiary text-md text-justify line-clamp-6"
-      >
+      </div>
+      <div className="font-canva-sans text-tertiary text-md text-justify line-clamp-6">
         <p>{excerpt}</p>
-      </motion.div>
+      </div>
 
-      <motion.div variants={itemVariants} className="self-end">
+      <div className="self-end">
         <Button
           className="rounded-full cursor-pointer items-center hover:scale-115 transition-all duration-300"
           asChild
@@ -125,8 +76,8 @@ const ArticleHome = ({ blog }: { blog: Blog }) => {
             </p>
           </Link>
         </Button>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 };
 

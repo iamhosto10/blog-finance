@@ -1,35 +1,25 @@
 "use client";
 
 import { Blog } from "@/lib/interface";
-import { urlFor } from "@/lib/sanity";
-import AudioPlayer from "@/components/MusicPlayer/MusicPlayer";
+import SanityImage from "@/components/CommonComponents/SanityImage";
+import { formatPublishedDate } from "@/lib/date";
+import dynamic from "next/dynamic";
 import Tag from "@/components/CommonComponents/Tag";
 import News from "@/components/News/News";
 import { PortableText } from "@portabletext/react";
 import { components } from "@/lib/utils";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
-import React, { useState } from "react";
+import React from "react";
 import AdInfeed from "@/components/CommonComponents/Adsense/AdInfeed";
-import { Variants, motion } from "framer-motion";
 
-const imageZoomVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    scale: 0.75,
-  },
-  show: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 1,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
+// wavesurfer.js solo se descarga en los artículos que tienen audio.
+const AudioPlayer = dynamic(
+  () => import("@/components/MusicPlayer/MusicPlayer"),
+  { ssr: false },
+);
 
 export default function BlogArticle({ post }: { post: Blog }) {
   const data = post;
-  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <div className="container md:-mt-6">
@@ -40,44 +30,34 @@ export default function BlogArticle({ post }: { post: Blog }) {
       <div className="flex flex-row w-full justify-start gap-2 mt-4">
         <Tag title={data?.categories && data?.categories[0]?.title} />
         <p className="text-sm lg:text-lg text-tertiary my-auto font-canva-sans font-bold">
-          {new Date(
-            data?.publishedAt ? data?.publishedAt?.slice(0, 10) : "",
-          ).toLocaleDateString("es-ES", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-          })}
+          {formatPublishedDate(data?.publishedAt)}
         </p>
       </div>
 
       <div className="relative w-full md:w-[70%] aspect-video mx-auto my-8">
         {data?.mainImage && (
-          <motion.div
-            variants={imageZoomVariants}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-100px" }}
-            className="relative w-full mx-auto my-8 aspect-video overflow-hidden rounded-md"
-          >
-            <img
-              src={urlFor(data.mainImage).url()}
-              alt={`${data?.title || ""} ${data?.focusTitle || ""} ${data?.continueTitle || ""}`}
-              className="absolute inset-0 w-full h-full object-cover object-center"
-              width={1200}
-              height={630}
-              loading="eager"
+          <div className="relative w-full mx-auto my-8 aspect-video overflow-hidden rounded-md">
+            <SanityImage
+              image={data.mainImage}
+              alt={[data?.title, data?.focusTitle, data?.continueTitle]
+                .filter(Boolean)
+                .join(" ")}
+              fill
+              priority
+              sizes="(min-width: 768px) 70vw, 100vw"
+              className="object-cover object-center"
             />
-          </motion.div>
+          </div>
         )}
         {data?.miniatureImage && (
           <div className="absolute -top-8 -right-8 md:-top-10 md:-right-10 size-20 md:size-28">
-            <img
-              src={urlFor(data.miniatureImage).url()}
-              alt="Miniature Image"
+            <SanityImage
+              image={data.miniatureImage}
+              alt=""
+              width={112}
+              height={112}
+              sizes="(min-width: 768px) 112px, 80px"
               className="size-20 md:size-28 object-cover"
-              width={120}
-              height={120}
-              loading="lazy"
             />
           </div>
         )}
@@ -153,20 +133,17 @@ export default function BlogArticle({ post }: { post: Blog }) {
               )}
 
               {section.asset && section.asset._type === "image" && (
-                <motion.div
-                  variants={imageZoomVariants}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true, margin: "-100px" }}
-                  className="relative w-full md:w-[70%] mx-auto my-8 aspect-video overflow-hidden rounded-md"
-                >
-                  <img
-                    src={urlFor(section.asset).url()}
-                    alt={`${data?.title || ""} ${data?.focusTitle || ""} ${data?.continueTitle || ""}`}
-                    className="absolute inset-0 w-full h-full object-cover object-center"
-                    loading="lazy"
+                <div className="reveal relative w-full md:w-[70%] mx-auto my-8 aspect-video overflow-hidden rounded-md">
+                  <SanityImage
+                    image={section.asset}
+                    alt={[data?.title, data?.focusTitle, data?.continueTitle]
+                      .filter(Boolean)
+                      .join(" ")}
+                    fill
+                    sizes="(min-width: 768px) 70vw, 100vw"
+                    className="object-cover object-center"
                   />
-                </motion.div>
+                </div>
               )}
               {index % 3 === 0 && (
                 <>

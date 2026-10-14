@@ -1,6 +1,6 @@
 "use client";
 
-import { urlFor } from "@/lib/sanity";
+import { urlFor } from "@/lib/sanityImage";
 import React, { useState } from "react";
 import {
   Listbox,
@@ -91,7 +91,7 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
               <ListboxButton className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer w-full bg-white">
                 {selectedBank.asset && (
                   <img
-                    src={urlFor(selectedBank.asset).url()}
+                    src={urlFor(selectedBank.asset).width(48).height(48).fit("max").auto("format").url()}
                     alt={selectedBank.title}
                     className="w-6 h-6 rounded"
                   />
@@ -108,7 +108,7 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
                   >
                     {bank.asset && (
                       <img
-                        src={urlFor(bank.asset).url()}
+                        src={urlFor(bank.asset).width(48).height(48).fit("max").auto("format").url()}
                         alt={bank.title}
                         className="w-6 h-6 rounded"
                       />
@@ -136,7 +136,7 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
               <ListboxButton className="flex items-center gap-2 border px-3 py-2 rounded cursor-pointer w-full bg-white">
                 {selectedFranchiese.image && (
                   <img
-                    src={urlFor(selectedFranchiese.image).url()}
+                    src={urlFor(selectedFranchiese.image).width(48).height(48).fit("max").auto("format").url()}
                     alt={selectedFranchiese.name}
                     className="w-6 h-6 rounded"
                   />
@@ -155,7 +155,7 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
                   >
                     {franchiese.image && (
                       <img
-                        src={urlFor(franchiese.image).url()}
+                        src={urlFor(franchiese.image).width(48).height(48).fit("max").auto("format").url()}
                         alt={franchiese.name}
                         className="w-6 h-6 rounded"
                       />
@@ -178,7 +178,7 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
                   <>
                     {selectedCard.image && (
                       <img
-                        src={urlFor(selectedCard.image).url()}
+                        src={urlFor(selectedCard.image).width(48).height(48).fit("max").auto("format").url()}
                         alt={selectedCard.name}
                         className="w-6 h-6 rounded"
                       />
@@ -209,7 +209,7 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
                     >
                       {card.image && (
                         <img
-                          src={urlFor(card.image).url()}
+                          src={urlFor(card.image).width(48).height(48).fit("max").auto("format").url()}
                           alt={card.name}
                           className="w-6 h-6 rounded"
                         />
@@ -232,7 +232,7 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
           >
             {card.image && (
               <img
-                src={urlFor(card.image).url()}
+                src={urlFor(card.image).width(48).height(48).fit("max").auto("format").url()}
                 alt={card.name}
                 className="w-6 h-6 rounded my-auto"
               />
@@ -269,7 +269,7 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
           <div className="flex flex-col items-center gap-3">
             {selectedCards[0] && (
               <img
-                src={urlFor(selectedCards[0]?.image)?.url()}
+                src={urlFor(selectedCards[0]?.image)?.width(320).auto("format").url()}
                 alt={selectedCards[0]?.name}
                 className="w-[160px] h-[90px] rounded-md"
               />
@@ -286,7 +286,7 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
           <div className="flex flex-col items-center gap-3">
             {selectedCards[1] && (
               <img
-                src={urlFor(selectedCards[1]?.image)?.url()}
+                src={urlFor(selectedCards[1]?.image)?.width(320).auto("format").url()}
                 alt={selectedCards[1]?.name}
                 className="w-[160px] h-[90px] rounded-md"
               />

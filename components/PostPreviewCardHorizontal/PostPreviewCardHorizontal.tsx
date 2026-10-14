@@ -1,60 +1,39 @@
-"use client";
-
 import React from "react";
 import Tag from "../CommonComponents/Tag";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { Blog } from "@/lib/interface";
-import { urlFor } from "@/lib/sanity";
-import { motion, Variants } from "framer-motion";
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-};
+import { formatPublishedDate } from "@/lib/date";
+import SanityImage from "../CommonComponents/SanityImage";
 
 const PostPreviewCardHorizontal = ({ blog }: { blog: Blog }) => {
   if (!blog) {
     return <div className="w-full lg:w-2/3"></div>;
   }
 
-  const {
-    publishedAt,
-    slug,
-    title,
-    continueTitle,
-    focusTitle,
-    mainImage,
-    categories,
-    excerpt,
-  } = blog;
+  const { publishedAt, title, continueTitle, focusTitle, mainImage, categories, excerpt } =
+    blog;
 
   const titleComplete = [title, focusTitle, continueTitle]
     .filter(Boolean)
     .join(" ");
 
   return (
-    <motion.div
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-50px" }}
-      className="w-full hover:scale-115 transition-all duration-300"
-    >
+    <div className="reveal w-full hover:scale-115 transition-all duration-300">
       <Link
         href={`/${blog?.categories ? blog?.categories[0]?.slug.current : ""}/${blog.slug?.current}`}
         className="w-full block"
       >
         <div className="flex flex-col lg:flex-row gap-10 my-10">
-          <img
-            src={urlFor(mainImage).url()}
-            alt={titleComplete}
-            className="rounded-md w-full lg:w-2/5 object-cover"
-          />
+          <div className="relative w-full lg:w-2/5 aspect-video shrink-0">
+            <SanityImage
+              image={mainImage}
+              alt={titleComplete}
+              fill
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              className="rounded-md object-cover"
+            />
+          </div>
 
           <div className="flex flex-col gap-4">
             <h2 className="font-agrandir font-bold text-xl text-secondary text-left line-clamp-4 lg:line-clamp-3">
@@ -65,13 +44,7 @@ const PostPreviewCardHorizontal = ({ blog }: { blog: Blog }) => {
             <div className="flex flex-row w-full justify-start gap-2">
               <Tag title={categories && categories[0]?.title} />
               <p className="text-sm text-tertiary my-auto font-canva-sans font-bold">
-                {new Date(
-                  publishedAt ? publishedAt.slice(0, 10) : "",
-                ).toLocaleDateString("es-ES", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                })}
+                {formatPublishedDate(publishedAt)}
               </p>
             </div>
             <div className="font-canva-sans text-tertiary text-md text-justify line-clamp-6">
@@ -89,7 +62,7 @@ const PostPreviewCardHorizontal = ({ blog }: { blog: Blog }) => {
           </div>
         </div>
       </Link>
-    </motion.div>
+    </div>
   );
 };
 

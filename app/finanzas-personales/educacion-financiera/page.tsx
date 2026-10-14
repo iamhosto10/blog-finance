@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Educación Financiera",
       },
     ],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "Educación Financiera",
     description:
       "Aprende a tomar mejores decisiones con tu dinero y desarrolla hábitos financieros sólidos para toda la vida.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

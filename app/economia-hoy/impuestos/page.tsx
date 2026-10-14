@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 425,
-        height: 425,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Impuestos",
       },
     ],
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "Impuestos",
     description:
       "Todo lo que necesitas saber sobre impuestos en Colombia: declaración de renta, IVA, reformas y más.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

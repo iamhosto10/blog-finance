@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 630,
-        height: 630,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Apps y Herramientas Útiles",
       },
     ],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "Apps y Herramientas Útiles",
     description:
       "Explora las mejores aplicaciones y plataformas digitales para mejorar tu organización y salud financiera.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

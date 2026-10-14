@@ -15,42 +15,8 @@ import {
   table,
   YearRow,
 } from "./interface";
-import { client } from "./sanity";
 import { PortableTextComponents } from "@portabletext/react";
 import Link from "next/link";
-
-export async function getPost(slug: string) {
-  return client.fetch(
-    `*[_type == "blog" && slug.current == $slug][0]{
-    title,
-    focusTitle,
-    continueTitle,
-    slug,
-    publishedAt,
-    mainImage,
-    miniatureImage,
-    excerpt,
-    audio{
-      asset->
-    },
-    body,
-    categories[]->{
-      _id,
-      title,
-      slug
-    },
-    relatedNews[]->{
-      _id,
-      title,
-      slug,
-      mainImage,
-      excerpt,
-      publishedAt
-    }
-  }`,
-    { slug },
-  );
-}
 
 export const components: PortableTextComponents = {
   block: {

@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Inversión",
       },
     ],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "Inversión",
     description:
       "Descubre cómo invertir tu dinero paso a paso: desde fondos y acciones hasta proyectos inmobiliarios y más.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
+import logo from "@/public/assets/Layout/Navbar/logop.webp";
 
 const COOKIE_NAME = "monopolombiano_cookie_consent";
 const EXPIRE_DAYS = 365;
@@ -77,15 +79,13 @@ export default function CookieBanner() {
       {/* Banner principal */}
       <div className="fixed inset-x-4 bottom-4 z-50">
         <div className="max-w-5xl mx-auto bg-white/95 dark:bg-primary-background border-2 border-primary rounded-xl p-5 md:p-6 shadow-lg flex flex-col md:flex-row md:items-center gap-4">
-          {/* Left: imagen estilo (puedes reemplazar con tu logo) */}
-          {/* Si tienes un logo, reemplaza por <img src="/logo.png" ... /> */}
-          <div className="w-28 h-28 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-            <img src="/../../favicon.ico" alt="" />
+          <div className="hidden md:flex w-28 h-28 shrink-0 rounded-full bg-primary items-center justify-center overflow-hidden">
+            <Image src={logo} alt="" width={112} height={112} sizes="112px" />
           </div>
 
           {/* Texto */}
           <div className="flex-1">
-            <h3 className="text-lg md:text-xl font-agrandir font-bold text-primary">
+            <h3 className="text-lg md:text-xl font-agrandir font-bold text-secondary dark:text-primary">
               Usamos cookies para mejorar tu experiencia
             </h3>
             <p className="text-sm md:text-base text-tertiary mt-1">
@@ -97,7 +97,7 @@ export default function CookieBanner() {
               Consulta nuestra{" "}
               <a
                 href="/politica-de-privacidad"
-                className="underline text-primary"
+                className="underline text-secondary font-semibold dark:text-primary"
               >
                 Política de Privacidad
               </a>
@@ -108,7 +108,7 @@ export default function CookieBanner() {
           <div className="flex flex-col sm:flex-row gap-2 items-stretch">
             <button
               onClick={declineNonEssential}
-              className="px-3 py-2 text-sm rounded-md border border-primary text-primary bg-transparent hover:bg-primary/5 cursor-pointer"
+              className="px-3 py-2 text-sm rounded-md border border-primary text-tertiary dark:text-primary bg-transparent hover:bg-primary/10 cursor-pointer"
               aria-label="Rechazar no esenciales"
             >
               Rechazar no esenciales
@@ -124,7 +124,7 @@ export default function CookieBanner() {
 
             <button
               onClick={acceptAll}
-              className="px-4 py-2 text-sm rounded-md bg-primary text-background font-semibold shadow cursor-pointer"
+              className="px-4 py-2 text-sm rounded-md bg-primary text-tertiary font-semibold shadow cursor-pointer"
               aria-label="Aceptar todas las cookies"
             >
               Aceptar todo
@@ -216,7 +216,7 @@ export default function CookieBanner() {
                 Cancelar
               </button>
               <button
-                className="px-4 py-2 rounded bg-primary text-background font-semibold"
+                className="px-4 py-2 rounded bg-primary text-tertiary font-semibold"
                 onClick={acceptSelected}
               >
                 Guardar preferencias

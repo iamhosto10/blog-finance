@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 425,
-        height: 425,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Tasas de Interés",
       },
     ],
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "Tasas de Interés",
     description:
       "Aprende cómo las tasas de interés impactan tus finanzas personales, tus créditos y tus inversiones en Colombia.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

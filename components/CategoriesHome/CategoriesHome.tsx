@@ -1,32 +1,10 @@
-"use client";
-
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { motion, Variants } from "framer-motion";
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.05,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, x: -15 },
-  show: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.3, ease: "easeOut" },
-  },
-};
 
 const CategoriesHome = () => {
   const renderLink = (href: string, label: string) => (
-    <motion.li variants={itemVariants}>
+    <li key={href}>
       <Link href={href} className="flex items-center group">
         <div className="w-5 transition-transform duration-200 group-hover:translate-x-1">
           <ArrowRight
@@ -40,22 +18,16 @@ const CategoriesHome = () => {
           {label}
         </span>
       </Link>
-    </motion.li>
+    </li>
   );
 
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-50px" }}
-    >
-      <motion.h2
-        variants={itemVariants}
+    <div className="reveal">
+      <h2
         className="font-agrandir font-bold text-lg"
       >
         FINANZAS PERSONALES
-      </motion.h2>
+      </h2>
       <ul className="space-y-2 mt-2">
         {renderLink(
           "/finanzas-personales/ahorro-y-presupuesto",
@@ -80,12 +52,11 @@ const CategoriesHome = () => {
         )}
       </ul>
 
-      <motion.h2
-        variants={itemVariants}
+      <h2
         className="font-agrandir font-bold text-lg mt-5"
       >
         ECONOMÍA HOY
-      </motion.h2>
+      </h2>
       <ul className="space-y-2 mt-2">
         {renderLink("/economia-hoy/bancos-en-colombia", "Bancos en Colombia")}
         {renderLink(
@@ -98,12 +69,11 @@ const CategoriesHome = () => {
         {renderLink("/economia-hoy/impuestos", "Impuestos")}
       </ul>
 
-      <motion.h2
-        variants={itemVariants}
+      <h2
         className="font-agrandir font-bold text-lg mt-5"
       >
         TIPS FINANCIEROS
-      </motion.h2>
+      </h2>
       <ul className="space-y-2 mt-2">
         {renderLink("/tips-financieros/cajeros-y-bancos", "Cajeros y bancos")}
         {renderLink(
@@ -127,7 +97,7 @@ const CategoriesHome = () => {
           "Historial crediticio",
         )}
       </ul>
-    </motion.div>
+    </div>
   );
 };
 

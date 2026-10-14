@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Deudas y Créditos",
       },
     ],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "Deudas y Créditos",
     description:
       "Consejos para salir de deudas, mejorar tu puntaje crediticio y usar el crédito de forma inteligente.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

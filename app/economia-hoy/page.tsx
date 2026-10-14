@@ -2,7 +2,7 @@ import ArticleList from "@/components/ArticleList/ArticleList";
 import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
-import { client } from "@/lib/sanity";
+import { getBlogsByCategory } from "@/lib/queries";
 import { Metadata } from "next";
 import React from "react";
 
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "Mi Sitio Web",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico", // 👈 puedes usar /public o Sanity
+        url: "https://monopolombiano.com/og-image.jpg", // 👈 puedes usar /public o Sanity
         width: 1200,
         height: 630,
         alt: "Economía Hoy en Colombia",
@@ -45,56 +45,9 @@ export const metadata: Metadata = {
     title: "Economía Hoy",
     description:
       "Todo sobre bancos, cripto, inflación, regulaciones, tasas de interés e impuestos en Colombia.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
-
-async function getBlogsByCategory(categoryName: string) {
-  const query = `
-    *[_type == "blog" && $categoryName in categories[]->title] | order(publishedAt desc) {
-    title,
-    focusTitle,
-    continueTitle,
-    slug,
-    publishedAt,
-    mainImage,
-    miniatureImage,
-    excerpt,
-    audio {
-      asset->
-    },
-    body,
-    categories[]->{
-      _id,
-      title,
-      slug
-    },
-    relatedNews[]->{
-      _id,
-      title,
-      focusTitle,
-      continueTitle,
-      slug,
-      mainImage,
-      excerpt,
-      publishedAt,
-      categories[]->{
-        _id,
-        title,
-        slug
-      }
-    }
-  }
-  `;
-
-  return client.fetch(
-    query,
-    { categoryName },
-    {
-      next: { tags: ["all-blogs", `category-${categoryName}`, "global-data"] },
-    },
-  );
-}
 
 const page = async () => {
   const blogs = await getBlogsByCategory("Economia Hoy");

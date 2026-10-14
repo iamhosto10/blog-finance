@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Calculadora de rentabilidad Lulo Bank",
       },
     ],
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "Calculadora de rentabilidad Lulo Bank | Monopolombiano",
     description:
       "Descubre cuánto puedes ganar con la cuenta de ahorros de Lulo Bank. Calcula tus intereses y aprende cómo funciona su rentabilidad diaria.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
   alternates: {
     canonical: "https://monopolombiano.com/herramientas/lulo",

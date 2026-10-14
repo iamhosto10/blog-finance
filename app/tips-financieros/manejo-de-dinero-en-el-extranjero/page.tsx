@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 630,
-        height: 630,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Manejo de Dinero en el Extranjero",
       },
     ],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "Manejo de Dinero en el Extranjero",
     description:
       "Descubre cómo manejar tus finanzas en el exterior: transferencias, divisas, remesas y más.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

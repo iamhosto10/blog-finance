@@ -1,7 +1,7 @@
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
-import { ReactSVG } from "react-svg";
+import SocialIcon from "../SocialIcon";
+import logo from "@/public/assets/Layout/Navbar/logop.webp";
 
 const Footer = () => {
   return (
@@ -9,38 +9,29 @@ const Footer = () => {
       <div className=" mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-3">
         {/* Imagen */}
         <div className="flex flex-col flex-shrink-0 gap-8">
-          <img
-            src="/assets/Layout/Navbar/logop.png" // Cambia por tu imagen
-            alt="Wallet en la nube"
+          <Image
+            src={logo}
+            alt="Logo Monopolombiano"
             width={220}
             height={220}
+            sizes="220px"
             className="rounded-2xl block lg:hidden"
-            loading="lazy"
           />
-          <img
-            src="/assets/Layout/Navbar/logop.png" // Cambia por tu imagen
-            alt="Wallet en la nube"
+          <Image
+            src={logo}
+            alt="Logo Monopolombiano"
             width={320}
             height={320}
+            sizes="320px"
             className="rounded-2xl lg:block hidden"
-            loading="lazy"
           />
           <div className="hidden md:flex gap-4">
             <span className="font-semibold font-agrandir text-xl self-end">
               Síguenos
             </span>
-            <ReactSVG
-              src="/assets/Layout/Facebook.svg"
-              className="size-10 fill-background self-start cursor-pointer"
-            />
-            <ReactSVG
-              src="/assets/Layout/Instagram.svg"
-              className="size-10 fill-background self-start cursor-pointer"
-            />
-            <ReactSVG
-              src="/assets/Layout/Youtube.svg"
-              className="size-10 fill-background self-start cursor-pointer"
-            />
+            <SocialIcon network="Facebook" className="size-10 fill-background self-start cursor-pointer" />
+            <SocialIcon network="Instagram" className="size-10 fill-background self-start cursor-pointer" />
+            <SocialIcon network="Youtube" className="size-10 fill-background self-start cursor-pointer" />
           </div>
         </div>
 
@@ -63,18 +54,9 @@ const Footer = () => {
       <div className="flex flex-col items-center mt-10 gap-4 ">
         <div className="flex items-center gap-4 md:hidden">
           <span className="font-semibold font-agrandir">Síguenos</span>
-          <ReactSVG
-            src="/assets/Layout/Facebook.svg"
-            className="size-6 fill-background"
-          />
-          <ReactSVG
-            src="/assets/Layout/Instagram.svg"
-            className="size-6 fill-background"
-          />
-          <ReactSVG
-            src="/assets/Layout/Youtube.svg"
-            className="size-6 fill-background"
-          />
+          <SocialIcon network="Facebook" className="size-6 fill-background" />
+          <SocialIcon network="Instagram" className="size-6 fill-background" />
+          <SocialIcon network="Youtube" className="size-6 fill-background" />
         </div>
 
         {/* Línea divisoria */}

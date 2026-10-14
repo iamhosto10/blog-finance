@@ -23,12 +23,26 @@ const CalculatorCard = ({
   return (
     <div className="rounded-xl bg-tertiary-foreground  h-full flex flex-col">
       {rentability && (
-        <img src={asset} alt={label} className="rounded-xl w-full h-auto" />
+        <img
+          src={asset}
+          alt={label}
+          width={800}
+          height={533}
+          loading="lazy"
+          className="rounded-xl w-full h-auto"
+        />
       )}
       <div className="p-6 text-center flex flex-col items-center justify-between gap-3 h-full">
         <div className="flex flex-col gap-2 items-center">
           {!rentability && (
-            <img src={asset} alt={label} className="size-20 object-contain" />
+            <img
+              src={asset}
+              alt={label}
+              width={80}
+              height={80}
+              loading="lazy"
+              className="size-20 object-contain"
+            />
           )}
 
           <h2 className="text-lg font-agrandir font-bold line-clamp-3 text-secondary h-14 lg:h-24 flex items-center">

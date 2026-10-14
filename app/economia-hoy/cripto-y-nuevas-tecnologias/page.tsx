@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 425,
-        height: 425,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Cripto y Nuevas Tecnologías",
       },
     ],
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "Cripto y Nuevas Tecnologías",
     description:
       "Aprende sobre blockchain, criptomonedas, IA y las nuevas tecnologías que transforman el mundo financiero.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

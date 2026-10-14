@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 630,
-        height: 630,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Finanzas en Pareja",
       },
     ],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "Finanzas en Pareja",
     description:
       "Aprende a manejar las finanzas en pareja sin estrés: presupuesto, ahorro y comunicación efectiva.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 
