@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 1200,
-        height: 630,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Comprar Vivienda",
       },
     ],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "Comprar Vivienda",
     description:
       "Aprende a comprar vivienda en Colombia paso a paso: créditos, subsidios y planificación financiera para lograrlo.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

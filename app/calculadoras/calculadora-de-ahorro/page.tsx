@@ -24,9 +24,9 @@ export const metadata: Metadata = {
     siteName: "Calculadora de Ahorro",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Gráfico de crecimiento de ahorro",
       },
     ],
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: "Calculadora de Ahorro 💰",
     description:
       "Simula tus aportes e intereses y observa cómo crece tu ahorro con el tiempo.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
   alternates: {
     canonical: "https://monopolombiano.com/calculadoras/calculadora-de-ahorro",

@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 630,
-        height: 630,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Compras y Ahorro Diario",
       },
     ],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "Compras y Ahorro Diario",
     description:
       "Aprende a ahorrar todos los días con estrategias simples para tus compras y gastos del hogar.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

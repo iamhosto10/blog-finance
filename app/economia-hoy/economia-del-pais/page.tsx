@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 425,
-        height: 425,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Economía del País",
       },
     ],
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "Economía del País",
     description:
       "Entiende cómo la economía colombiana evoluciona y qué decisiones del gobierno o del Banco de la República pueden afectar tus finanzas.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

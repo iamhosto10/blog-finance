@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Calculadora de Rentabilidad Global66",
       },
     ],
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title: "Calculadora de Rentabilidad Global66 | Monopolombiano",
     description:
       "Simula los intereses que podrías obtener con una cuenta Global66 según la tasa anual efectiva (EA). Calculadora gratuita y actualizada para usuarios en Colombia.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
   alternates: {
     canonical: "https://monopolombiano.com/calculadoras/global66",

@@ -68,7 +68,7 @@ export async function generateMetadata(props: {
 
   const ogImageUrl = post?.mainImage
     ? urlFor(post.mainImage).width(1200).height(630).fit("crop").url()
-    : "https://monopolombiano.com/favicon.ico";
+    : "https://monopolombiano.com/og-image.jpg";
 
   return {
     title: formatedTitle,

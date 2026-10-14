@@ -1,6 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
+import Image from "next/image";
+import gerardoPhoto from "@/public/assets/aboutUs/gerardo.jpg";
+import luisaPhoto from "@/public/assets/aboutUs/luisa.jpg";
 
 const Clientpage = () => {
   const [form, setForm] = useState({
@@ -62,10 +65,11 @@ const Clientpage = () => {
             intercambio de monedas con React Native.
           </p>
         </div>
-        <img
-          src="/assets/aboutUs/gerardo.jpg"
+        <Image
+          src={gerardoPhoto}
           alt="Gerardo Ramirez"
-          className="h-[375px] w-[305px] md:h-[461px] md:w-[375px] rounded-2xl mx-auto "
+          sizes="(min-width: 768px) 375px, 305px"
+          className="h-[375px] w-[305px] md:h-[461px] md:w-[375px] rounded-2xl mx-auto object-cover"
         />
       </div>
       <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center content-center">
@@ -84,10 +88,11 @@ const Clientpage = () => {
             aplicarlo de manera segura y eficiente en las finanzas personales.
           </p>
         </div>
-        <img
-          src="/assets/aboutUs/luisa.jpg"
-          alt="Gerardo Ramirez"
-          className="h-[375px] w-[305px] md:h-[461px] md:w-[375px] rounded-2xl mx-auto "
+        <Image
+          src={luisaPhoto}
+          alt="Luisa Vargas"
+          sizes="(min-width: 768px) 375px, 305px"
+          className="h-[375px] w-[305px] md:h-[461px] md:w-[375px] rounded-2xl mx-auto object-cover"
         />
       </div>
 

@@ -22,9 +22,9 @@ export const metadata: Metadata = {
     siteName: "Simulador de Inversión",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 650,
-        height: 650,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Simulador de Inversión - Calcula tu rentabilidad",
       },
     ],
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     title: "Simulador de Inversión | Calcula tu rentabilidad fácilmente",
     description:
       "Simula tus inversiones y visualiza el crecimiento de tu dinero con gráficos y tablas interactivas.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
   alternates: {
     canonical: "https://monopolombiano.com/calculadoras/simulador-de-inversion",

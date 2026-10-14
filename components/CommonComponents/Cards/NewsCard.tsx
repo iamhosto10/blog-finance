@@ -1,6 +1,6 @@
-import { urlFor } from "@/lib/sanity";
 import Link from "next/link";
 import React from "react";
+import SanityImage from "../SanityImage";
 
 interface INewsCard {
   title?: string;
@@ -29,7 +29,6 @@ const NewsCard = (props: INewsCard) => {
     slug,
     mainCategory,
   } = props;
-  console.log("Rendering NewsCard with slug:", slug?.current);
   return (
     <Link
       href={`/${mainCategory}/${slug?.current}`}
@@ -41,12 +40,15 @@ const NewsCard = (props: INewsCard) => {
         {continueTitle}
       </h2>
       <div className="flex flex-col mt-auto gap-2">
-        <img
-          src={urlFor(image).url()}
-          alt="image"
-          height={500}
-          className="rounded-lg object-cover w-full h-48 xl:h-64"
-        />
+        <div className="relative w-full h-48 xl:h-64">
+          <SanityImage
+            image={image}
+            alt={[title, focusTitle, continueTitle].filter(Boolean).join(" ")}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            className="rounded-lg object-cover"
+          />
+        </div>
         <p className="line-clamp-5 text-sm  text-tertiary font-canva-sans text-justify ">
           {excerpt}
         </p>

@@ -95,7 +95,7 @@
 
 .dark {
   --font-agrandir: var(--agrandir);
-  --font-canva-sans: var(--canvaSans);
+  --font-canva-sans: var(--canva-sans);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -155,7 +155,7 @@ body {
 /* Imagen de fondo */
 @layer utilities {
   .bg-layout {
-    background-image: url("/assets/Layout/Screen.png");
+    background-image: url("/assets/Layout/Screen.webp");
     background-repeat: repeat;
     background-size: cover;
   }
@@ -236,6 +236,74 @@ input[type="number"] {
 
 .pause-animation {
   animation-play-state: paused !important;
+}
+
+/*
+ * Animaciones de entrada solo con CSS: el contenido es visible desde el
+ * primer pintado (sin esperar a que cargue JavaScript), así no se retrasan
+ * FCP ni LCP. "reveal" usa scroll-driven animations donde existen; en los
+ * navegadores sin soporte el contenido simplemente aparece sin animar.
+ */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-hero-zoom {
+    animation: hero-zoom 1.5s ease-out both;
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.8s ease-out both;
+  }
+
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: fade-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 160px;
+    }
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 100s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee:focus-within {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
 }
 
 .container {

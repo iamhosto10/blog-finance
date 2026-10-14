@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 
-import { blogsQuery, categoriesQuery } from "@/lib/queries";
+import { blogsPreviewQuery, categoriesQuery } from "@/lib/queries";
 import { client } from "@/lib/sanity";
 import { MetadataRoute } from "next";
 
@@ -108,7 +108,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // 🔹 4. Artículos desde Sanity
   const [blogs, categories] = await Promise.all([
-    client.fetch(blogsQuery),
+    client.fetch(blogsPreviewQuery),
     client.fetch(categoriesQuery),
   ]);
 

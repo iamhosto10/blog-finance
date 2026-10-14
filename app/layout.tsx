@@ -46,9 +46,9 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Monopolombiano - Educación y Herramientas Financieras",
       },
     ],
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
       "Monopolombiano | Educación y Herramientas Financieras para Colombia",
     description:
       "Artículos, comparadores y calculadoras financieras para Colombia. Aprende a ahorrar, invertir y manejar tu dinero con Monopolombiano.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
   alternates: {
     canonical: "./",
@@ -99,7 +99,7 @@ export default async function RootLayout({
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
-                page_path: window.location.pathname,
+                send_page_view: false,
               });
             `,
           }}
@@ -108,11 +108,14 @@ export default async function RootLayout({
           name="google-adsense-account"
           content={`${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}`}
         />
+        {/* AdSense se carga cuando la página ya terminó de cargar: no compite
+            con el contenido ni con el LCP. Los <ins> que se empujaron antes
+            quedan en la cola window.adsbygoogle y se procesan al llegar. */}
         <Script
-          async
+          strategy="lazyOnload"
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}`}
           crossOrigin="anonymous"
-        ></Script>
+        />
       </head>
       <body className={`${inter.className} bg-layout`}>
         <ThemeProvider

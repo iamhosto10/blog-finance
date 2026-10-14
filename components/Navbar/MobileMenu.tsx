@@ -1,14 +1,8 @@
 "use client";
 
-import {
-  MenuIcon,
-  XIcon,
-  SearchIcon,
-  ChevronRight,
-  ChevronDown,
-} from "lucide-react";
-import { ReactSVG } from "react-svg";
+import { MenuIcon, XIcon, ChevronRight, ChevronDown } from "lucide-react";
 import Logo from "./Logo";
+import SocialIcon, { SocialNetwork } from "../SocialIcon";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -41,17 +35,19 @@ export default function MobileMenu({
           {/* Logo pequeño se importa desde el padre */}
           <div className="flex items-center gap-4">
             {/* <SearchIcon className="text-primary w-6 h-6 cursor-pointer" /> */}
-            {open ? (
-              <XIcon
-                className="w-6 h-6 text-primary cursor-pointer"
-                onClick={() => setOpen(false)}
-              />
-            ) : (
-              <MenuIcon
-                className="w-6 h-6 text-primary cursor-pointer"
-                onClick={() => setOpen(true)}
-              />
-            )}
+            <button
+              type="button"
+              onClick={() => setOpen(!open)}
+              aria-label={open ? "Cerrar menú" : "Abrir menú"}
+              aria-expanded={open}
+              className="p-2 -m-2 cursor-pointer"
+            >
+              {open ? (
+                <XIcon className="w-6 h-6 text-primary" />
+              ) : (
+                <MenuIcon className="w-6 h-6 text-primary" />
+              )}
+            </button>
           </div>
         </nav>
       </div>
@@ -102,14 +98,15 @@ export default function MobileMenu({
 
           <div className="flex gap-4 mt-8">
             <div className="flex flex-wrap items-end justify-end gap-2 max-w-full bg-background rounded-b-4xl">
-              {["Facebook", "Instagram", "Youtube"].map((network) => (
-                <ReactSVG
-                  key={network}
-                  src={`/assets/Layout/${network}.svg`}
-                  className="w-6 h-6 fill-accent"
-                  aria-label={network}
-                />
-              ))}
+              {(["Facebook", "Instagram", "Youtube"] as SocialNetwork[]).map(
+                (network) => (
+                  <SocialIcon
+                    key={network}
+                    network={network}
+                    className="w-6 h-6 fill-accent"
+                  />
+                ),
+              )}
             </div>
           </div>
         </div>

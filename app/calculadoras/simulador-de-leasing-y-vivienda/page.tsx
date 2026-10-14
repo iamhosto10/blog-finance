@@ -28,9 +28,9 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Simulador de Leasing y Vivienda Monopolombiano",
       },
     ],
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title: "Simulador de Leasing y Vivienda | Monopolombiano",
     description:
       "Calcula tu crédito hipotecario o leasing habitacional. Descubre cuánto pagarías en cuotas mensuales y visualiza la evolución de tu deuda con gráficos interactivos.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

@@ -28,9 +28,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Comparador de Tarjetas en Colombia",
       },
     ],
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: "Comparador de Tarjetas",
     description:
       "Descubre y compara tarjetas de crédito y débito de los principales bancos en Colombia. Encuentra la tarjeta perfecta para ti.",
-    images: ["https://monopolombiano.com/favicon.icos"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 export default async function ComparadorTarjetasPage() {

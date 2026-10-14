@@ -2,7 +2,7 @@ import ArticleList from "@/components/ArticleList/ArticleList";
 import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
-import { client } from "@/lib/sanity";
+import { getBlogsByCategory } from "@/lib/queries";
 import { Metadata } from "next";
 import React from "react";
 
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     siteName: "Mi Sitio Web",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 630,
-        height: 630,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Tips Financieros",
       },
     ],
@@ -45,56 +45,9 @@ export const metadata: Metadata = {
     title: "Tips Financieros",
     description:
       "Consejos sobre cajeros, ahorro, seguridad financiera, historial crediticio y más.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
-
-async function getBlogsByCategory(categoryName: string) {
-  const query = `
-    *[_type == "blog" && $categoryName in categories[]->title] | order(publishedAt desc) {
-    title,
-    focusTitle,
-    continueTitle,
-    slug,
-    publishedAt,
-    mainImage,
-    miniatureImage,
-    excerpt,
-    audio {
-      asset->
-    },
-    body,
-    categories[]->{
-      _id,
-      title,
-      slug
-    },
-    relatedNews[]->{
-      _id,
-      title,
-      focusTitle,
-      continueTitle,
-      slug,
-      mainImage,
-      excerpt,
-      publishedAt,
-      categories[]->{
-        _id,
-        title,
-        slug
-      }
-    }
-  }
-  `;
-
-  return client.fetch(
-    query,
-    { categoryName },
-    {
-      next: { tags: ["all-blogs", `category-${categoryName}`, "global-data"] },
-    },
-  );
-}
 
 const page = async () => {
   const blogs = await getBlogsByCategory("Tips Financieros");

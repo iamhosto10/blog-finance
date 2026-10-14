@@ -110,9 +110,13 @@ export const cardsQuery = `*[_type == "cards"]{
   score  
 }[] `;
 
+// Solo los campos que pintan las tarjetas de las páginas de categoría: traer
+// body/audio/relatedNews de todos los artículos inflaba la respuesta y la
+// caché de datos de Next (que no guarda respuestas de más de 2 MB).
 export async function getBlogsByCategory(categoryName: string) {
   const query = `
     *[_type == "blog" && $categoryName in categories[]->title] | order(publishedAt desc) {
+    _id,
     title,
     focusTitle,
     continueTitle,
@@ -121,29 +125,10 @@ export async function getBlogsByCategory(categoryName: string) {
     mainImage,
     miniatureImage,
     excerpt,
-    audio {
-      asset->
-    },
-    body,
     categories[]->{
       _id,
       title,
       slug
-    },
-    relatedNews[]->{
-      _id,
-      title,
-      focusTitle,
-      continueTitle,
-      slug,
-      mainImage,
-      excerpt,
-      publishedAt,
-      categories[]->{
-        _id,
-        title,
-        slug
-      }
     }
   }
   `;
@@ -158,6 +143,7 @@ export async function getBlogsByCategory(categoryName: string) {
 }
 
 export const blogsPreviewQuery = `*[_type == "blog"]{
+    _id,
     title,
     focusTitle,
     continueTitle,

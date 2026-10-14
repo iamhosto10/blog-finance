@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 630,
-        height: 630,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Cajeros y Bancos",
       },
     ],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "Cajeros y Bancos",
     description:
       "Aprende sobre cajeros automáticos, servicios bancarios, comisiones y banca digital en Colombia.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

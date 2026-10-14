@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Calculadora de rentabilidad Nu Bank",
       },
     ],
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "Calculadora de rentabilidad Nu Bank | Monopolombiano",
     description:
       "Simula tus ganancias con la cuenta de ahorros de Nu Colombia. Calcula intereses, conoce su tasa y descubre si es una buena opción para ti.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
   alternates: {
     canonical: "https://monopolombiano.com/calculadoras/nu",

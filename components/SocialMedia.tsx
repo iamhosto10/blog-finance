@@ -1,22 +1,12 @@
-"use client";
+import SocialIcon from "./SocialIcon";
 
-import { ReactSVG } from "react-svg";
 const SocialMedia = () => {
   return (
     <div className="hidden mx-16 px-6 py-8 lg:flex flex-row flex-wrap items-end justify-end gap-2 max-w-full bg-background rounded-b-4xl">
-      <p className="text-accent">Proximamente Siguenos</p>
-      <ReactSVG
-        src="/assets/Layout/Facebook.svg"
-        className="w-6 h-6 fill-accent"
-      />
-      <ReactSVG
-        src="/assets/Layout/Instagram.svg"
-        className="w-6 h-6 fill-accent"
-      />
-      <ReactSVG
-        src="/assets/Layout/Youtube.svg"
-        className="w-6 h-6 fill-accent"
-      />
+      <p className="text-muted-foreground">Proximamente Siguenos</p>
+      <SocialIcon network="Facebook" className="w-6 h-6 fill-accent" />
+      <SocialIcon network="Instagram" className="w-6 h-6 fill-accent" />
+      <SocialIcon network="Youtube" className="w-6 h-6 fill-accent" />
     </div>
   );
 };

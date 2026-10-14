@@ -30,9 +30,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Ahorro y Presupuesto",
       },
     ],
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: "Ahorro y Presupuesto",
     description:
       "Consejos para ahorrar dinero, controlar tus gastos y organizar tu presupuesto personal o familiar.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 1200,
-        height: 630,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Seguridad Financiera",
       },
     ],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "Seguridad Financiera",
     description:
       "Protege tus finanzas personales y evita fraudes con estrategias sencillas y efectivas.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 

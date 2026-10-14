@@ -29,9 +29,9 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "RappiPay Monopolombiano",
       },
     ],
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     title: "Calculadora de Rentabilidad RappiPay | Monopolombiano",
     description:
       "Descubre cuánto gana tu dinero en RappiPay con nuestra calculadora de rentabilidad. Una herramienta fácil, rápida y 100% gratuita.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
   alternates: {
     canonical: "https://monopolombiano.com/calculadoras/rappi",

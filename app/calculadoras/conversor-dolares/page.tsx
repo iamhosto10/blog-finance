@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico",
-        width: 625,
-        height: 625,
+        url: "https://monopolombiano.com/og-image.jpg",
+        width: 600,
+        height: 600,
         alt: "Conversor de Dólares a Pesos Colombianos",
       },
     ],
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "Conversor de Dólares a Pesos Colombianos | Monopolombiano",
     description:
       "Convierte dólares (USD) a pesos colombianos (COP) con la tasa del día. Ideal para viajeros, compras y transacciones internacionales.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
   alternates: {
     canonical: "https://monopolombiano.com/calculadoras/conversor-dolares",

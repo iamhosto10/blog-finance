@@ -1,5 +1,7 @@
-import { createClient } from "next-sanity";
-import imageUrlBuilder from "@sanity/image-url";
+// Se importa de @sanity/client y no de "next-sanity": la raíz de next-sanity
+// re-exporta componentes de cliente (Live, VisualEditing) que Next terminaba
+// metiendo en el JavaScript del navegador de cada página (~55 KB gzip).
+import { createClient } from "@sanity/client";
 
 export const client = createClient({
   apiVersion: "2025-07-30",
@@ -9,8 +11,4 @@ export const client = createClient({
   token: process.env.SANITY_TOKEN,
 });
 
-const builder = imageUrlBuilder(client);
-
-export function urlFor(source) {
-  return builder.image(source);
-}
+export { urlFor } from "./sanityImage";

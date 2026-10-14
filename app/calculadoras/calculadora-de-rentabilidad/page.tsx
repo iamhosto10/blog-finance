@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://monopolombiano.com/favicon.ico", // puedes cambiarlo por un banner real
+        url: "https://monopolombiano.com/og-image.jpg", // puedes cambiarlo por un banner real
         width: 625,
         height: 625,
         alt: "Comparador de cuentas de ahorro rentables en Colombia",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: "Calculadora de Rentabilidad 💰 | Compara bancos en Colombia",
     description:
       "Simula tus rendimientos con Lulo Bank, Nu Bank, Pibank, Rappi y más. Encuentra la mejor rentabilidad para tus ahorros.",
-    images: ["https://monopolombiano.com/favicon.ico"],
+    images: ["https://monopolombiano.com/og-image.jpg"],
   },
 };
 
