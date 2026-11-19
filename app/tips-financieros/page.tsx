@@ -24,11 +24,11 @@ export const metadata: Metadata = {
   ],
   icons: { icon: "/favicon.ico" },
   openGraph: {
-    title: "Tips Financieros",
+    title: "Tips Financieros | Monopolombiano",
     description:
       "Aprende a manejar tu dinero con consejos sobre ahorro, bancos, seguridad financiera, apps útiles e historial crediticio.",
-    url: "https://tusitio.com/tips-financieros",
-    siteName: "Mi Sitio Web",
+    url: "https://monopolombiano.com/tips-financieros",
+    siteName: "Monopolombiano",
     images: [
       {
         url: "https://monopolombiano.com/og-image.jpg",
@@ -37,8 +37,11 @@ export const metadata: Metadata = {
         alt: "Tips Financieros",
       },
     ],
-    locale: "es_ES",
-    type: "article",
+    locale: "es_CO",
+    type: "website",
+  },
+  alternates: {
+    canonical: "https://monopolombiano.com/tips-financieros",
   },
   twitter: {
     card: "summary_large_image",

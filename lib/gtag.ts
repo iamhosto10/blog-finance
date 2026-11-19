@@ -11,8 +11,18 @@ declare global {
 }
 
 export const pageview = (url: string): void => {
-  if (!window.gtag || !GA_MEASUREMENT_ID) return;
+  if (typeof window === "undefined" || !window.gtag || !GA_MEASUREMENT_ID)
+    return;
   window.gtag("config", GA_MEASUREMENT_ID, {
     page_path: url,
   });
+};
+
+export const trackEvent = (
+  action: string,
+  params?: Record<string, string | number | boolean>,
+): void => {
+  if (typeof window === "undefined" || !window.gtag || !GA_MEASUREMENT_ID)
+    return;
+  window.gtag("event", action, params);
 };

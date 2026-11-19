@@ -13,8 +13,8 @@ on:
 # 3. LOS TRABAJOS (Jobs): Lo que la máquina virtual va a hacer
 jobs:
   revisar-codigo:
-    # Le decimos a GitHub que nos preste un servidor gratuito con Ubuntu (Linux)
-    runs-on: ubuntu-latest
+    # Fijar Ubuntu 24.04 porque ubuntu-latest (26.04) aún no es soportado por Playwright 1.58.x
+    runs-on: ubuntu-24.04
 
     # 4. LOS PASOS (Steps): La receta de cocina secuencial
     steps:

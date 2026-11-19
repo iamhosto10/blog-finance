@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import SocialIcon from "../SocialIcon";
+import NewsletterForm from "./NewsletterForm";
 import logo from "@/public/assets/Layout/Navbar/logop.webp";
 
 const Footer = () => {
@@ -41,12 +42,10 @@ const Footer = () => {
             EL MONOPOLOMBIANO
           </h2>
           <p className="mt-4 text-sm font-canva-sans">
-            Para más información, ayuda y asesoría, puedes suscribirte a nuestra
-            página web y recibir contenido personalizado
+            Recibe gratis nuestras guías de finanzas en Colombia, alertas de
+            tasas y herramientas exclusivas en tu correo
           </p>
-          <button className="mt-6 px-6 py-2  border-background border-4 rounded-full font-semibold hover:bg-background hover:text-tertiary transition cursor-pointer">
-            SUSCRÍBETE
-          </button>
+          <NewsletterForm source="footer_newsletter" />
         </div>
       </div>
 
@@ -65,7 +64,7 @@ const Footer = () => {
         {/* Links legales */}
         <div className="flex flex-col-reverse md:flex-row items-center justify-between w-full gap-4">
           <p className="font-agrandir font-bold text-sm lg:text-lg">
-            © El Monopolombiano 2025
+            © El Monopolombiano 2026
           </p>
 
           <div className="grid grid-cols-3 xl:flex xl:flex-row items-center gap-4 text-sm lg:text-lg">
