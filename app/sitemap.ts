@@ -46,6 +46,7 @@ const structure = {
     "pibank",
     "popular",
     "rappi",
+    "simulador-de-inversion",
     "simulador-de-leasing-y-vivienda",
   ],
 };
