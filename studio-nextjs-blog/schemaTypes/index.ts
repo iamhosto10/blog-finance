@@ -6,5 +6,6 @@ import category from './category'
 import dolar from './dolar'
 import franchises from './franchises'
 import profitability from './profitability'
+import subscriber from './subscriber'
 
-export const schemaTypes = [blog, category, dolar, profitability, banks, franchises, cards, archivo]
+export const schemaTypes = [blog, category, dolar, profitability, banks, franchises, cards, archivo, subscriber]

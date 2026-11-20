@@ -35,9 +35,16 @@ export default function NewsletterForm({
 
       if (res.ok && data.ok) {
         setStatus("success");
-        setMessage("¡Listo! Ya quedaste suscrito a Monopolombiano.");
+        setMessage(
+          data.alreadySubscribed
+            ? "¡Ya estabas suscrito! Actualizamos tu registro en Monopolombiano."
+            : "¡Listo! Ya quedaste suscrito a Monopolombiano.",
+        );
         setEmail("");
-        trackEvent("lead_signup", { source });
+        trackEvent("lead_signup", {
+          source,
+          returning: Boolean(data.alreadySubscribed),
+        });
       } else {
         setStatus("error");
         setMessage(data.error || "No pudimos registrar tu correo.");

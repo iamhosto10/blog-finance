@@ -27,7 +27,7 @@ export default function DesktopMenu({
 
   return (
     <div
-      className={`flex w-full  justify-evenly  bg-primary-background py-2 rounded-lg ${first ? "rounded-r-none pr-24 pl-5" : "rounded-l-none justify-end pl-24 pr-5"}  relative top-[-10px]`}
+      className={`flex w-full justify-evenly gap-3 bg-primary-background py-2 rounded-lg ${first ? "rounded-r-none pr-24 pl-5" : "rounded-l-none pl-24 pr-5"}  relative top-[-10px]`}
     >
       {menuItems.map((item, index) => {
         const isActive =
@@ -48,7 +48,7 @@ export default function DesktopMenu({
               className="font-semibold text-white  drop-shadow-md"
             >
               <div className="w-full text-center transition-all">
-                <h2 className="relative w-auto line-clamp-1 text-sm xl:text-lg 2xl:text-3xl">
+                <h2 className="relative w-auto line-clamp-1 text-xs xl:text-base 2xl:text-2xl">
                   {item.label}
                   {isActive && (
                     <span className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-transparent border-b-background" />
