@@ -25,24 +25,38 @@
 
 ## Backlog Priorizado de Próximos Experimentos
 
-1. **Exp #2 — Página `/recursos` (Tienda de Plantillas PRO + Diagnóstico Financiero 1-a-1)**:
-   - Crear vitrina en `/recursos` + agregarla al menú principal y footer.
-   - Ofrecer: (a) Plantilla Maestra Finanzas Personales Colombia (Excel/Sheets, \$39.000 COP), (b) Kit Comprador de Vivienda VIS/No VIS y Leasing (\$39.000 COP), (c) Diagnóstico Financiero 1-a-1 (\$110.000 COP).
-   - Mientras se conectan links de pago colombianos, implementar formulario de solicitud/reserva rápida que registra intención en GA4 (`product_cta_click`, `service_inquiry`) y notifica a Gerardo vía Resend.
-2. **Exp #3 — Lead Magnet Gratuito real en `/api/files/[slug]` + CTAs en Calculadoras**:
+1. **Exp #3 — Lead Magnet Gratuito real en `/api/files/[slug]` + CTAs en Calculadoras**:
    - Generar archivo real descargable (Excel/CSV/PDF guía de presupuesto 50/30/20 + control 4x1000 Colombia), subirlo al esquema `archivo` en Sanity y mostrar CTA contextual debajo de los resultados de las calculadoras (4x1000, crédito, ahorro, leasing, rentabilidad).
-3. **Exp #4 — Datos Estructurados JSON-LD (`Article`, `FAQPage`, `WebApplication`, `BreadcrumbList`)**:
+2. **Exp #4 — Datos Estructurados JSON-LD (`Article`, `FAQPage`, `WebApplication`, `BreadcrumbList`)**:
    - Inyectar schema.org válido en artículos (`economia-hoy`, `finanzas-personales`, `tips-financieros`) y calculadoras para mejorar CTR orgánico en Google Colombia.
-4. **Exp #5 — Actualizar tasas `profitability` en Sanity + copy de calculadoras**:
+3. **Exp #5 — Actualizar tasas `profitability` en Sanity + copy de calculadoras**:
    - Sincronizar tasas actuales de Nu, Lulo, Pibank, Global66, Bold, Rappi y Banco Popular en Sanity y eliminar porcentajes hardcodeados desactualizados en textos (ej. `8.25%` en Nu).
-5. **Exp #6 — Enlaces de solicitud/afiliados en Comparador de Tarjetas y Rentabilidad**:
+4. **Exp #6 — Enlaces de solicitud/afiliados en Comparador de Tarjetas y Rentabilidad**:
    - Agregar campo `applyUrl` en `cards` y botones con tracking `affiliate_click` y aviso legal de transparencia.
-6. **Exp #7 — Página `/anunciate` (Media Kit B2B)**:
+5. **Exp #7 — Página `/anunciate` (Media Kit B2B)**:
    - Propuesta comercial para fintechs, neobancos y constructoras en Colombia con formulario de contacto comercial.
 
 ---
 
 ## Registro de Experimentos Ejecutados
+
+### 2026-11-20 — Persistencia de Suscriptores en Sanity + Experimento #2: Vitrina `/recursos` (Plantillas PRO + Diagnóstico 1-a-1)
+- **Hipótesis**: Persistir todos los suscriptores y leads en Sanity sin duplicados asegura una base propia reutilizable para futuras campañas, mientras que lanzar una vitrina dedicada en `/recursos` con precios claros en COP (plantillas de $39.000 COP y diagnóstico 1-a-1 de $110.000 COP) y solicitud directa captura intención de compra real desde el tráfico orgánico y las calculadoras.
+- **Cambios realizados**:
+  - **Esquema `subscriber` y deduplicación en Sanity**: creado esquema `subscriber` en Sanity Studio (`email`, `name`, `source`, `sources`, `interest`, `status`, `createdAt`, `lastSeenAt`) y helper `upsertSubscriber` con `_id` determinístico SHA-256 + consulta previa para actualizar fuentes sin crear duplicados.
+  - **Actualización de `/api/subscribe` y `NewsletterForm`**: ahora persiste en Sanity antes de enviar la alerta por Resend e informa cuando un correo ya estaba registrado (`alreadySubscribed`).
+  - **Vitrina `/recursos` + `/api/recursos`**: catálogo centralizado en COP (`Plantilla Maestra de Finanzas Personales Colombia` $39.000, `Kit Comprador de Vivienda VIS / No VIS y Leasing` $39.000, `Diagnóstico Financiero 1-a-1` $110.000), formulario de reserva rápida conectado a Sanity (`subscriber`) + notificación Resend, tracking GA4 (`product_cta_click`, `service_inquiry`), datos estructurados JSON-LD (`BreadcrumbList`, `ItemList`, `Product`, `Service`) y enlace en Navbar, Footer y `sitemap.xml`.
+  - **Pruebas unitarias**: añadidas pruebas en `__tests__/subscribers.test.ts` para normalización, deduplicación en Sanity y catálogo de `/recursos`.
+- **Archivos tocados**:
+  - `studio-nextjs-blog/schemaTypes/subscriber.ts`, `studio-nextjs-blog/schemaTypes/index.ts`
+  - `lib/subscribers.ts`, `lib/recursos.ts`
+  - `app/api/subscribe/route.ts`, `app/api/recursos/route.ts`
+  - `app/recursos/page.tsx`, `app/recursos/RecursosClient.tsx`
+  - `components/Footer/NewsletterForm.tsx`, `components/Footer/footer.tsx`
+  - `components/Navbar/Navbar.tsx`, `components/Navbar/DesktopMenu.tsx`
+  - `app/sitemap.ts`, `__tests__/subscribers.test.ts`, `MONETIZATION_LOG.md`
+- **Métrica esperada**: 100% de los leads de newsletter y `/recursos` almacenados sin duplicados en Sanity + primeros clics `product_cta_click` y solicitudes `service_inquiry` medidos en GA4 y notificados por correo.
+- **Próximos pasos**: Ejecutar Exp #3 (lead magnet descargable real vía `/api/files/[slug]` + CTAs contextuales debajo de los resultados de las calculadoras) y conectar links de pago colombianos (Wompi / Bold / Mercado Pago / Hotmart) en `/recursos` en cuanto Gerardo los comparta.
 
 ### 2026-11-19 — Experimento #1: Captura de Leads en Footer + Tracking GA4 + Higiene SEO (Prueba Inicial)
 - **Hipótesis**: Activar el botón muerto `SUSCRÍBETE` del footer con un formulario real de captura de leads + instrumentar eventos en GA4 + corregir metadata/sitemap rotos establece la base de medición y captación sin afectar rendimiento.

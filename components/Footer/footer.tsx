@@ -86,6 +86,9 @@ const Footer = () => {
             >
               Términos y Condiciones
             </Link>
+            <Link href="/recursos" className="font-agrandir font-bold">
+              Recursos PRO
+            </Link>
             <Link href="/aviso-legal" className="font-agrandir font-bold">
               Aviso Legal
             </Link>

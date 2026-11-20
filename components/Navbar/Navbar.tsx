@@ -114,6 +114,24 @@ const menuItems = [
       },
     ],
   },
+  {
+    label: "RECURSOS",
+    href: "/recursos",
+    subCategories: [
+      {
+        label: "Plantilla Finanzas Colombia",
+        href: "/recursos#solicitar-recurso",
+      },
+      {
+        label: "Kit Comprador de Vivienda",
+        href: "/recursos#solicitar-recurso",
+      },
+      {
+        label: "Diagnóstico Financiero 1-a-1",
+        href: "/recursos#solicitar-recurso",
+      },
+    ],
+  },
 ];
 
 interface NavbarProps {
@@ -133,7 +151,7 @@ export default function Navbar({ open, setOpen, pathname }: NavbarProps) {
           first
         />
         <Logo />
-        <DesktopMenu menuItems={menuItems.slice(2, 4)} pathname={pathname} />
+        <DesktopMenu menuItems={menuItems.slice(2)} pathname={pathname} />
       </nav>
 
       {/* Mobile */}
