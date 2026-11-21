@@ -1,6 +1,8 @@
 import React from "react";
 import ClientPage from "./ClientPage";
 import type { Metadata } from "next";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Simulador de Leasing y Vivienda | Monopolombiano",
@@ -42,10 +44,25 @@ export const metadata: Metadata = {
       "Calcula tu crédito hipotecario o leasing habitacional. Descubre cuánto pagarías en cuotas mensuales y visualiza la evolución de tu deuda con gráficos interactivos.",
     images: ["https://monopolombiano.com/og-image.jpg"],
   },
+  alternates: {
+    canonical: "https://monopolombiano.com/calculadoras/simulador-de-leasing-y-vivienda",
+  },
 };
 
 const page = () => {
-  return <ClientPage />;
+  return (
+    <>
+      <JsonLd
+        data={buildCalculatorJsonLd({
+          name: "Simulador de Leasing Habitacional y Crédito de Vivienda",
+          description:
+            "Calcula cuotas mensuales, intereses, seguros y tabla de amortización para crédito hipotecario o leasing habitacional en Colombia.",
+          slug: "simulador-de-leasing-y-vivienda",
+        })}
+      />
+      <ClientPage />
+    </>
+  );
 };
 
 export default page;

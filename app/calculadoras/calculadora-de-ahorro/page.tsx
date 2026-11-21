@@ -1,6 +1,8 @@
 import React from "react";
 import ClientPage from "./ClientPage";
 import type { Metadata } from "next";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadora de Ahorro | Proyecta tus finanzas fácilmente",
@@ -45,7 +47,19 @@ export const metadata: Metadata = {
   },
 };
 const page = () => {
-  return <ClientPage />;
+  return (
+    <>
+      <JsonLd
+        data={buildCalculatorJsonLd({
+          name: "Calculadora de Ahorro e Interés Compuesto",
+          description:
+            "Proyecta cómo crecerán tus ahorros con aportes periódicos e interés compuesto en Colombia.",
+          slug: "calculadora-de-ahorro",
+        })}
+      />
+      <ClientPage />
+    </>
+  );
 };
 
 export default page;

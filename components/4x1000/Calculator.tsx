@@ -10,6 +10,7 @@ import {
   validarNumero,
 } from "@/lib/utils";
 import { convertNumbertoString } from "../../lib/utils";
+import CalculatorResultCta from "@/components/CommonComponents/CalculatorResultCta";
 
 export function Calculator() {
   const [monto, setMonto] = useState("");
@@ -67,25 +68,28 @@ export function Calculator() {
       </Button>
 
       {resultado && (
-        <Card className="bg-primary-foreground shadow-lg">
-          <CardContent className="p-4 space-y-2 font-canva-sans text-tertiary">
-            <p>
-              Impuesto 4x1000:{" "}
-              <strong>${convertNumbertoString(resultado.impuesto)}</strong>
-            </p>
-            <p>
-              Total restante:{" "}
-              <strong>${convertNumbertoString(resultado.total)}</strong>
-            </p>
-            <p>
-              si deseas que el destinatario reciba <strong>${monto}</strong>{" "}
-              pesos exactamente debes enviar:{" "}
-              <strong>
-                ${convertNumbertoString(resultado.resultado.toFixed(2))}
-              </strong>
-            </p>
-          </CardContent>
-        </Card>
+        <>
+          <Card className="bg-primary-foreground shadow-lg">
+            <CardContent className="p-4 space-y-2 font-canva-sans text-tertiary">
+              <p>
+                Impuesto 4x1000:{" "}
+                <strong>${convertNumbertoString(resultado.impuesto)}</strong>
+              </p>
+              <p>
+                Total restante:{" "}
+                <strong>${convertNumbertoString(resultado.total)}</strong>
+              </p>
+              <p>
+                si deseas que el destinatario reciba <strong>${monto}</strong>{" "}
+                pesos exactamente debes enviar:{" "}
+                <strong>
+                  ${convertNumbertoString(resultado.resultado.toFixed(2))}
+                </strong>
+              </p>
+            </CardContent>
+          </Card>
+          <CalculatorResultCta calculatorId="4x1000" />
+        </>
       )}
     </div>
   );

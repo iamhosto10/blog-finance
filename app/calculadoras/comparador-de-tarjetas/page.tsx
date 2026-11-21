@@ -2,6 +2,8 @@ import ClientPage from "./ClientPage";
 import { Metadata } from "next";
 import { banksQuery, franchieseQuery, cardsQuery } from "@/lib/queries"; // Las queries de Sanity
 import { client } from "@/lib/sanity";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Comparador de Tarjetas | Monopolombiano",
@@ -56,10 +58,20 @@ export default async function ComparadorTarjetasPage() {
 
   // Pasamos los datos al Client Component
   return (
-    <ClientPage
-      banks={banks || []}
-      franchieses={franchieses || []}
-      cards={cards || []}
-    />
+    <>
+      <JsonLd
+        data={buildCalculatorJsonLd({
+          name: "Comparador de Tarjetas de Crédito y Débito en Colombia",
+          description:
+            "Compara tarjetas de crédito y débito de los principales bancos en Colombia: tasas EA, cuota de manejo, beneficios y recompensas.",
+          slug: "comparador-de-tarjetas",
+        })}
+      />
+      <ClientPage
+        banks={banks || []}
+        franchieses={franchieses || []}
+        cards={cards || []}
+      />
+    </>
   );
 }

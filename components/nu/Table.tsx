@@ -19,6 +19,7 @@ import {
 import { DollarSignIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { DailyGrowth } from "@/lib/interface";
+import CalculatorResultCta from "@/components/CommonComponents/CalculatorResultCta";
 
 interface ICalculateNu {
   profitabilityNu: number[] | undefined;
@@ -171,6 +172,9 @@ const CalculatorNu = ({
           </TableRow>
         </TableFooter>
       </Table>
+      {data.length > 0 && (
+        <CalculatorResultCta calculatorId="rentabilidad" contextLabel="Nu" />
+      )}
     </div>
   );
 };

@@ -2,6 +2,8 @@ import ClientPage from "./ClientPage";
 import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import type { Metadata } from "next";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadora de rentabilidad Lulo Bank | Monopolombiano",
@@ -42,7 +44,7 @@ export const metadata: Metadata = {
     images: ["https://monopolombiano.com/og-image.jpg"],
   },
   alternates: {
-    canonical: "https://monopolombiano.com/herramientas/lulo",
+    canonical: "https://monopolombiano.com/calculadoras/lulo",
   },
 };
 
@@ -53,5 +55,17 @@ export default async function Page() {
     { next: { tags: ["global-data"] } },
   );
 
-  return <ClientPage profitabilityData={data?.lulo || []} />;
+  return (
+    <>
+      <JsonLd
+        data={buildCalculatorJsonLd({
+          name: "Calculadora de Rentabilidad Lulo Bank Colombia",
+          description:
+            "Simula los rendimientos de tu dinero en Lulo Bank y sus bolsillos en Colombia.",
+          slug: "lulo",
+        })}
+      />
+      <ClientPage profitabilityData={data?.lulo || []} />
+    </>
+  );
 }

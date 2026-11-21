@@ -3,6 +3,8 @@ import React from "react";
 import ClientPage from "./ClientPage";
 import { profitabilityQuery } from "@/lib/queries";
 import { client } from "@/lib/sanity";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadora de Rentabilidad | Compara cuentas de ahorro en Colombia",
@@ -53,5 +55,17 @@ export default async function CalculadoraRentabilidadPage() {
     { next: { tags: ["global-data"] } },
   );
 
-  return <ClientPage profitability={profitabilityData} />;
+  return (
+    <>
+      <JsonLd
+        data={buildCalculatorJsonLd({
+          name: "Calculadora de Rentabilidad de Cuentas en Colombia",
+          description:
+            "Compara la rentabilidad de cuentas de ahorro en Colombia entre Nu, Lulo Bank, Pibank, Bold, Global66, Rappi y Banco Popular.",
+          slug: "calculadora-de-rentabilidad",
+        })}
+      />
+      <ClientPage profitability={profitabilityData} />
+    </>
+  );
 }

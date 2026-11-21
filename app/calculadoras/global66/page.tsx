@@ -2,6 +2,8 @@ import ClientPage from "./ClientPage";
 import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import { Metadata } from "next";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadora de Rentabilidad Global66 | Monopolombiano",
@@ -53,5 +55,17 @@ export default async function Page() {
     {},
     { next: { tags: ["global-data"] } },
   );
-  return <ClientPage profitabilityData={data?.global66 || []} />;
+  return (
+    <>
+      <JsonLd
+        data={buildCalculatorJsonLd({
+          name: "Calculadora de Rentabilidad Global66 Colombia",
+          description:
+            "Simula los intereses de tu cuenta Global66 en Colombia según su tasa efectiva anual.",
+          slug: "global66",
+        })}
+      />
+      <ClientPage profitabilityData={data?.global66 || []} />
+    </>
+  );
 }

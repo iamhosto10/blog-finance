@@ -6,6 +6,8 @@ import { FAQ } from "@/components/CommonComponents/FAQ/FAQ";
 import Tag from "@/components/CommonComponents/Tag";
 import Link from "next/link";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadora 4x1000 en Colombia | Monopolombiano",
@@ -99,6 +101,15 @@ const Faq = [
 export default function Page() {
   return (
     <div className="container md:-mt-6">
+      <JsonLd
+        data={buildCalculatorJsonLd({
+          name: "Calculadora 4x1000 en Colombia",
+          description:
+            "Calcula fácilmente cuánto pagarás por el impuesto 4x1000 (GMF) en Colombia, cuánto dinero recibes neto o cuánto debes enviar.",
+          slug: "4x1000",
+          faqs: Faq,
+        })}
+      />
       <div className="min-h-screen p-6 md:p-6 max-w-4xl mx-auto space-y-5">
         <section className="text-center space-y-4 w-5/6 mx-auto">
           <h1 className="font-agrandir font-bold text-secondary text-3xl  md:text-4xl">

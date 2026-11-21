@@ -3,6 +3,8 @@ import { client, urlFor } from "@/lib/sanity";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BlogArticle from "./Clientpage";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildArticleJsonLd, formatArticleTitle, SITE_URL } from "@/lib/structuredData";
 
 async function getPost(slug: string) {
   return client.fetch(
@@ -58,12 +60,8 @@ export async function generateMetadata(props: {
     };
   }
 
-  const title = [post?.title, post?.focusTitle, post?.continueTitle]
-    .filter(Boolean)
-    .join(" ");
-
-  const formatedTitle =
-    title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
+  const formatedTitle = formatArticleTitle(post);
+  const articleUrl = `${SITE_URL}/finanzas-personales/${slug}`;
 
   const ogImageUrl = post?.mainImage
     ? urlFor(post.mainImage).width(1200).height(630).fit("crop").url()
@@ -73,9 +71,15 @@ export async function generateMetadata(props: {
     title: formatedTitle,
     description: post.excerpt,
     icons: { icon: "/favicon.ico" },
+    alternates: {
+      canonical: articleUrl,
+    },
     openGraph: {
       title: formatedTitle,
-
+      url: articleUrl,
+      siteName: "Monopolombiano",
+      locale: "es_CO",
+      type: "article",
       description: post.excerpt,
       images: [
         {
@@ -111,7 +115,23 @@ const Page = async (props: { params: Promise<{ slug: string }> }) => {
     notFound();
   }
 
-  return <BlogArticle post={post} />;
+  const imageUrl = post?.mainImage
+    ? urlFor(post.mainImage).width(1200).height(630).fit("crop").url()
+    : undefined;
+
+  return (
+    <>
+      <JsonLd
+        data={buildArticleJsonLd({
+          post,
+          sectionPath: "finanzas-personales",
+          sectionLabel: "Finanzas Personales",
+          imageUrl,
+        })}
+      />
+      <BlogArticle post={post} />
+    </>
+  );
 };
 
 export default Page;

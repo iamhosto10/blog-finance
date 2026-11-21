@@ -2,6 +2,8 @@ import ClientPage from "./ClientPage";
 import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import type { Metadata } from "next";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Cuenta de Ahorros Bold en Colombia - Simulador y Rentabilidad 2025",
@@ -33,5 +35,17 @@ export default async function BoldPage() {
     { next: { tags: ["global-data"] } },
   );
 
-  return <ClientPage profitabilityData={data?.bold || []} />;
+  return (
+    <>
+      <JsonLd
+        data={buildCalculatorJsonLd({
+          name: "Calculadora de Rentabilidad Bold Colombia",
+          description:
+            "Simula tus rendimientos con la cuenta de ahorros Bold en Colombia según su tasa efectiva anual.",
+          slug: "bold",
+        })}
+      />
+      <ClientPage profitabilityData={data?.bold || []} />
+    </>
+  );
 }
