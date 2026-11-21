@@ -1,5 +1,7 @@
 import ClientPage from "./ClientPage";
 import type { Metadata } from "next";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Simulador de Inversión | Calcula el crecimiento de tu dinero",
@@ -44,7 +46,19 @@ export const metadata: Metadata = {
 };
 
 const page = () => {
-  return <ClientPage />;
+  return (
+    <>
+      <JsonLd
+        data={buildCalculatorJsonLd({
+          name: "Simulador de Inversión en Colombia",
+          description:
+            "Simula cómo crece tu inversión con aportes periódicos y rentabilidad anual efectiva.",
+          slug: "simulador-de-inversion",
+        })}
+      />
+      <ClientPage />
+    </>
+  );
 };
 
 export default page;

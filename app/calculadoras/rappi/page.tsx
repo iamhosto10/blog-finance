@@ -2,6 +2,8 @@ import ClientPage from "./ClientPage";
 import type { Metadata } from "next";
 import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadora de Rentabilidad RappiPay | Monopolombiano",
@@ -55,5 +57,17 @@ export default async function Page() {
     { next: { tags: ["global-data"] } },
   );
 
-  return <ClientPage profitabilityData={data?.rappi || []} />;
+  return (
+    <>
+      <JsonLd
+        data={buildCalculatorJsonLd({
+          name: "Calculadora de Rentabilidad RappiPay Colombia",
+          description:
+            "Simula cuánto ganas ahorrando en las bóvedas y cuenta de RappiPay en Colombia.",
+          slug: "rappi",
+        })}
+      />
+      <ClientPage profitabilityData={data?.rappi || []} />
+    </>
+  );
 }

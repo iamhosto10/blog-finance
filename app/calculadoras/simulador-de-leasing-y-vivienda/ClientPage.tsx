@@ -37,6 +37,7 @@ import { Cuota, TotalesVivienda } from "@/lib/interface";
 import Link from "next/link";
 import Tag from "@/components/CommonComponents/Tag";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
+import CalculatorResultCta from "@/components/CommonComponents/CalculatorResultCta";
 
 ChartJS.register(
   CategoryScale,
@@ -583,6 +584,7 @@ const ClientPage = () => {
               <div className="bg-white w-full min-h-[300px] md:min-h-[600px] h-full">
                 <Line data={chartData} options={options} />
               </div>
+              <CalculatorResultCta calculatorId="leasing-vivienda" />
             </div>
           </>
         ) : (

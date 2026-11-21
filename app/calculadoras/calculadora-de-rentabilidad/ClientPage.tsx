@@ -1,6 +1,7 @@
 "use client";
 
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
+import CalculatorResultCta from "@/components/CommonComponents/CalculatorResultCta";
 import CalculatorCard from "@/components/CommonComponents/Cards/CalculatorCard";
 import Tag from "@/components/CommonComponents/Tag";
 import { RootState } from "@/store/store";
@@ -172,6 +173,8 @@ const ClientPage = ({
           </div>
         ))}
       </div>
+
+      <CalculatorResultCta calculatorId="rentabilidad" />
 
       <AdBanner
         dataAdFormat="auto"

@@ -2,6 +2,8 @@ import ClientPage from "./ClientPage";
 import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import { Metadata } from "next";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadora de rentabilidad Banco Popular | Monopolombiano",
@@ -52,5 +54,17 @@ export default async function Page() {
     {},
     { next: { tags: ["global-data"] } },
   );
-  return <ClientPage profitabilityData={data?.popular || []} />;
+  return (
+    <>
+      <JsonLd
+        data={buildCalculatorJsonLd({
+          name: "Calculadora de Rentabilidad Banco Popular Colombia",
+          description:
+            "Simula los rendimientos de tu dinero en la cuenta de ahorros del Banco Popular en Colombia.",
+          slug: "popular",
+        })}
+      />
+      <ClientPage profitabilityData={data?.popular || []} />
+    </>
+  );
 }

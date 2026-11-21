@@ -2,6 +2,8 @@ import ClientPage from "./ClientPage";
 import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import { Metadata } from "next";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadora de rentabilidad Pibank | Monopolombiano",
@@ -52,5 +54,17 @@ export default async function Page() {
     {},
     { next: { tags: ["global-data"] } },
   );
-  return <ClientPage profitabilityData={data?.pibank || []} />;
+  return (
+    <>
+      <JsonLd
+        data={buildCalculatorJsonLd({
+          name: "Calculadora de Rentabilidad Pibank Colombia",
+          description:
+            "Calcula los rendimientos de la cuenta de ahorros Pibank en Colombia.",
+          slug: "pibank",
+        })}
+      />
+      <ClientPage profitabilityData={data?.pibank || []} />
+    </>
+  );
 }

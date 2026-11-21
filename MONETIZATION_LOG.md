@@ -25,20 +25,33 @@
 
 ## Backlog Priorizado de Próximos Experimentos
 
-1. **Exp #3 — Lead Magnet Gratuito real en `/api/files/[slug]` + CTAs en Calculadoras**:
-   - Generar archivo real descargable (Excel/CSV/PDF guía de presupuesto 50/30/20 + control 4x1000 Colombia), subirlo al esquema `archivo` en Sanity y mostrar CTA contextual debajo de los resultados de las calculadoras (4x1000, crédito, ahorro, leasing, rentabilidad).
-2. **Exp #4 — Datos Estructurados JSON-LD (`Article`, `FAQPage`, `WebApplication`, `BreadcrumbList`)**:
-   - Inyectar schema.org válido en artículos (`economia-hoy`, `finanzas-personales`, `tips-financieros`) y calculadoras para mejorar CTR orgánico en Google Colombia.
-3. **Exp #5 — Actualizar tasas `profitability` en Sanity + copy de calculadoras**:
+1. **Exp #5 — Actualizar tasas `profitability` en Sanity + copy de calculadoras**:
    - Sincronizar tasas actuales de Nu, Lulo, Pibank, Global66, Bold, Rappi y Banco Popular en Sanity y eliminar porcentajes hardcodeados desactualizados en textos (ej. `8.25%` en Nu).
-4. **Exp #6 — Enlaces de solicitud/afiliados en Comparador de Tarjetas y Rentabilidad**:
+2. **Exp #6 — Enlaces de solicitud/afiliados en Comparador de Tarjetas y Rentabilidad**:
    - Agregar campo `applyUrl` en `cards` y botones con tracking `affiliate_click` y aviso legal de transparencia.
-5. **Exp #7 — Página `/anunciate` (Media Kit B2B)**:
+3. **Exp #7 — Página `/anunciate` (Media Kit B2B)**:
    - Propuesta comercial para fintechs, neobancos y constructoras en Colombia con formulario de contacto comercial.
 
 ---
 
 ## Registro de Experimentos Ejecutados
+
+### 2026-11-21 — Experimento #3: Lead Magnets en `/api/files/[slug]` + CTAs en Calculadoras y Experimento #4: JSON-LD (`Article`, `WebApplication`, `FAQPage`, `BreadcrumbList`)
+- **Hipótesis**: Ofrecer un lead magnet descargable inmediato (plantilla CSV UTF-8 de presupuesto 50/30/20 + control 4x1000 y checklist de vivienda VIS/Leasing) justo debajo de los resultados de las calculadoras captura leads con alta intención sin competir con AdSense, mientras que inyectar JSON-LD válido (`Article`, `WebApplication`, `FAQPage`, `BreadcrumbList`) + canonicals en artículos y las 15 calculadoras incrementa el CTR orgánico en Google Colombia.
+- **Cambios realizados**:
+  - **Lead magnets reales + fallback en `/api/files/[slug]`**: creado `lib/leadMagnets.ts` con plantillas `.csv` UTF-8 BOM compatibles con Excel y Google Sheets (`guia-presupuesto-50-30-20-colombia` y `checklist-vivienda-vis-colombia`) y actualizado `app/api/files/[slug]/route.ts` para servir primero desde Sanity (`archivo`) cuando exista el documento y usar el generador local integrado como respaldo automático.
+  - **CTAs contextuales en calculadoras (`CalculatorResultCta`)**: creado componente reutilizable `components/CommonComponents/CalculatorResultCta.tsx` con captura de correo conectada a `/api/subscribe` (Sanity `subscriber` + alerta Resend), descarga automática del archivo, eventos GA4 (`lead_signup`, `lead_magnet_download`, `product_cta_click`) y enlace contextual a `/recursos`. Integrado debajo de los resultados en 4x1000, crédito, ahorro, leasing y vivienda, simulador de inversión, comparador de rentabilidad y en las calculadoras bancarias (`Profitability` y `TableNu`).
+  - **Datos estructurados JSON-LD + higiene canonical**: creados `lib/structuredData.ts` y `components/CommonComponents/JsonLd.tsx`. Inyectado `BreadcrumbList` + `Article` + `alternates.canonical` en `economia-hoy/[slug]`, `finanzas-personales/[slug]` y `tips-financieros/[slug]`, y `BreadcrumbList` + `WebApplication` (+ `FAQPage` en `4x1000`) en las 15 calculadoras; corregidas URLs canonical/OpenGraph erróneas en `calculadora-de-credito` y `lulo`.
+  - **Pruebas unitarias**: añadida suite `__tests__/monetization-seo.test.ts` (5 pruebas nuevas) y alias `@` en `vitest.config.ts`. Validado localmente con `npm run test` (12/12 pruebas pasando), `npm run lint`, `npx tsc --noEmit` y `npm run build`.
+- **Archivos tocados**:
+  - `lib/leadMagnets.ts`, `lib/structuredData.ts`, `vitest.config.ts`, `__tests__/monetization-seo.test.ts`
+  - `app/api/files/[slug]/route.ts`, `components/CommonComponents/CalculatorResultCta.tsx`, `components/CommonComponents/JsonLd.tsx`
+  - `components/4x1000/Calculator.tsx`, `components/CommonComponents/Profitability/Profitability.tsx`, `components/nu/Table.tsx`
+  - `app/calculadoras/calculadora-de-credito/ClientPage.tsx`, `app/calculadoras/calculadora-de-ahorro/ClientPage.tsx`, `app/calculadoras/simulador-de-leasing-y-vivienda/ClientPage.tsx`, `app/calculadoras/calculadora-de-rentabilidad/ClientPage.tsx`, `app/calculadoras/simulador-de-inversion/ClientPage.tsx`
+  - `app/economia-hoy/[slug]/page.tsx`, `app/finanzas-personales/[slug]/page.tsx`, `app/tips-financieros/[slug]/page.tsx`
+  - Las 15 páginas `app/calculadoras/*/page.tsx`, `MONETIZATION_LOG.md`
+- **Métrica esperada**: Incremento en la tasa de conversión visitante → suscriptor desde calculadoras (`lead_magnet_download` y `lead_signup` en GA4), tráfico hacia `/recursos` (`product_cta_click`) y mejor elegibilidad de rich snippets en resultados de Google Colombia.
+- **Próximos pasos**: Opcionalmente subir versiones `.xlsx` en Sanity `archivo` con los mismos slugs (`guia-presupuesto-50-30-20-colombia`, `checklist-vivienda-vis-colombia`) y continuar con Exp #5 (actualizar tasas `profitability` en Sanity y eliminar porcentajes hardcodeados).
 
 ### 2026-11-20 — Persistencia de Suscriptores en Sanity + Experimento #2: Vitrina `/recursos` (Plantillas PRO + Diagnóstico 1-a-1)
 - **Hipótesis**: Persistir todos los suscriptores y leads en Sanity sin duplicados asegura una base propia reutilizable para futuras campañas, mientras que lanzar una vitrina dedicada en `/recursos` con precios claros en COP (plantillas de $39.000 COP y diagnóstico 1-a-1 de $110.000 COP) y solicitud directa captura intención de compra real desde el tráfico orgánico y las calculadoras.

@@ -2,6 +2,8 @@ import ClientPage from "./ClientPage";
 import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import type { Metadata } from "next";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadora de rentabilidad Nu Bank | Monopolombiano",
@@ -53,5 +55,17 @@ export default async function Page() {
     { next: { tags: ["global-data"] } },
   );
 
-  return <ClientPage profitabilityData={data?.nu || []} />;
+  return (
+    <>
+      <JsonLd
+        data={buildCalculatorJsonLd({
+          name: "Calculadora de Rentabilidad Nu Colombia",
+          description:
+            "Calcula cuánto puedes ganar con la cuenta de ahorros y cajitas de Nu en Colombia según su tasa EA.",
+          slug: "nu",
+        })}
+      />
+      <ClientPage profitabilityData={data?.nu || []} />
+    </>
+  );
 }

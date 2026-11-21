@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import ClientPage from "./Clientpage";
 import { client } from "@/lib/sanity";
 import { dolarQuery } from "@/lib/queries"; // Asegúrate de que esta ruta sea correcta
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Conversor de Dólares a Pesos Colombianos | Monopolombiano",
@@ -53,5 +55,17 @@ export default async function ConversorDolaresPage() {
     { next: { tags: ["global-data"] } },
   );
 
-  return <ClientPage dolar={dolar} />;
+  return (
+    <>
+      <JsonLd
+        data={buildCalculatorJsonLd({
+          name: "Conversor de Dólares (USD) a Pesos Colombianos (COP)",
+          description:
+            "Convierte dólares a pesos colombianos al instante con la tasa representativa del mercado (TRM).",
+          slug: "conversor-dolares",
+        })}
+      />
+      <ClientPage dolar={dolar} />
+    </>
+  );
 }

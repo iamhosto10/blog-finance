@@ -12,6 +12,7 @@ import {
 } from "@/lib/utils";
 import { Button } from "../../ui/button";
 import { DailyGrowth } from "@/lib/interface";
+import CalculatorResultCta from "@/components/CommonComponents/CalculatorResultCta";
 
 interface IProfitability {
   profitability: number[] | undefined;
@@ -185,6 +186,7 @@ const Profitability = ({
             aproximados y te ayudan a aproximar tu inversion, para un valor
             exacto se debe consultar con su banco
           </p>
+          <CalculatorResultCta calculatorId="rentabilidad" />
         </div>
       )}
     </div>
