@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Calculadora de rentabilidad Pibank | Monopolombiano",
     description:
-      "Simula tus ganancias con la cuenta de ahorros de Pibank. Descubre cuánto puedes ganar con su tasa del 11% EA y conoce si es la mejor opción de ahorro digital en Colombia.",
+      "Simula tus ganancias con la cuenta de ahorros de Pibank. Descubre cuánto puedes ganar con su tasa vigente EA y conoce si es la mejor opción de ahorro digital en Colombia.",
     url: "https://monopolombiano.com/calculadoras/pibank",
     siteName: "Monopolombiano",
     images: [

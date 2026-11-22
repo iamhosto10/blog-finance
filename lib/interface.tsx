@@ -113,6 +113,8 @@ export interface Card {
   bancaDigital?: boolean;
   seguridad?: string[];
   score?: number;
+  applyUrl?: string;
+  ctaLabel?: string;
 }
 
 export interface BodySection {

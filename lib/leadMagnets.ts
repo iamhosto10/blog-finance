@@ -12,7 +12,8 @@ export type CalculatorCtaId =
   | "ahorro"
   | "leasing-vivienda"
   | "rentabilidad"
-  | "inversion";
+  | "inversion"
+  | "comparador-tarjetas";
 
 export interface CalculatorCtaConfig {
   id: CalculatorCtaId;
@@ -172,6 +173,18 @@ export const CALCULATOR_CTA_CONFIG: Record<CalculatorCtaId, CalculatorCtaConfig>
     proProductId: "plantilla-finanzas-colombia",
     proHref: "/recursos#plantilla-finanzas-colombia",
     proLabel: "Explorar Plantillas PRO en /recursos",
+  },
+  "comparador-tarjetas": {
+    id: "comparador-tarjetas",
+    leadMagnetSlug: "guia-presupuesto-50-30-20-colombia",
+    badge: "Guía gratuita",
+    headline: "Controla tus tarjetas de crédito sin regalar intereses ni cuota de manejo",
+    description:
+      "Descarga la plantilla gratuita 50/30/20 + inventario de deudas para planificar tus pagos a 1 cuota, optimizar cashback/millas y cuidar tu flujo mensual.",
+    buttonLabel: "Descargar plantilla gratis (.CSV)",
+    proProductId: "diagnostico-financiero-1a1",
+    proHref: "/recursos#diagnostico-financiero-1a1",
+    proLabel: "Diagnóstico 1-a-1 para ordenar tarjetas",
   },
 };
 

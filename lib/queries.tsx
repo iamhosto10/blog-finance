@@ -107,7 +107,9 @@ export const cardsQuery = `*[_type == "cards"]{
   comprasInternacionales,
   bancaDigital,
   seguridad,
-  score  
+  score,
+  applyUrl,
+  ctaLabel
 }[] `;
 
 // Solo los campos que pintan las tarjetas de las páginas de categoría: traer

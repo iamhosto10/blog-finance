@@ -1,71 +1,21 @@
 "use client";
 
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
+import BankAffiliateCta from "@/components/CommonComponents/BankAffiliateCta";
 import { FAQ } from "@/components/CommonComponents/FAQ/FAQ";
 import { InfoSection } from "@/components/CommonComponents/InfoSection/InfoSection";
 import Profitability from "@/components/CommonComponents/Profitability/Profitability";
 import Tag from "@/components/CommonComponents/Tag";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  buildBankPageCopy,
+  formatSelectedRateLabel,
+} from "@/lib/profitabilityCopy";
 import { useState } from "react";
-
-const info = [
-  {
-    title: "¿Qué es Lulo Bank?",
-    description:
-      "Lulo Bank es un banco 100% digital colombiano que busca ofrecer productos simples y transparentes. Su cuenta de ahorros de alta rentabilidad permite que tu dinero genere intereses diarios.",
-  },
-  {
-    title: "¿Cómo funciona la cuenta de ahorros Lulo?",
-    description:
-      "Al depositar tu dinero en Lulo Bank, este genera rendimientos diarios con una tasa efectiva anual atractiva. Todo se maneja desde la app móvil, sin necesidad de sucursales físicas.",
-  },
-  {
-    title: "Ventajas de Lulo Bank",
-    description:
-      "✔ Rendimientos diarios sobre el saldo disponible.\n✔ Sin cuota de manejo ni costos por transferencias.\n✔ Apertura fácil desde el celular.\n✔ Notificaciones en tiempo real y control desde la app.\n✔ Respaldado por el seguro de Fogafín.",
-  },
-  {
-    title: "Desventajas de Lulo Bank",
-    description:
-      "❌ Solo opera de manera digital, no tiene oficinas físicas.\n❌ Al ser un banco relativamente nuevo, algunos usuarios pueden desconfiar.\n❌ Oferta de productos limitada frente a bancos tradicionales.",
-  },
-  {
-    title: "Ejemplo práctico",
-    description:
-      "Si depositas $2.000.000 COP en Lulo Bank con una tasa del 8% EA, al cabo de un mes podrías recibir alrededor de 12.868 COP en intereses, los cuales se suman automáticamente a tu saldo.",
-  },
-];
-
-const Faq = [
-  {
-    title: "¿Cuánto paga Lulo Bank por ahorrar?",
-    description:
-      "Lulo Bank ofrece una tasa efectiva anual competitiva 8% EA (10% si eres lulo pro), generando intereses diarios que se abonan automáticamente a tu cuenta.",
-  },
-  {
-    title: "¿Es seguro ahorrar en Lulo Bank?",
-    description:
-      "Sí, Lulo Bank está vigilado por la Superintendencia Financiera de Colombia y tu dinero cuenta con la protección de Fogafín hasta por $50 millones de pesos.",
-  },
-  {
-    title: "¿Cómo abrir una cuenta en Lulo Bank?",
-    description:
-      "Debes descargar la app de Lulo Bank, registrarte con tu cédula y realizar el proceso de validación. La apertura es gratuita y 100% digital.",
-  },
-  {
-    title: "¿Qué costos tiene la cuenta Lulo?",
-    description:
-      "No tiene cuota de manejo ni costos por transferencias. Todo está diseñado para ser transparente y sin comisiones ocultas.",
-  },
-  {
-    title: "¿Puedo retirar mi dinero en cualquier momento?",
-    description:
-      "Sí, el dinero está disponible en todo momento. Puedes transferir a otros bancos o usar la tarjeta débito Lulo para compras y retiros.",
-  },
-];
 
 const Page = ({ profitabilityData }: { profitabilityData: number[] }) => {
   const [selected, setSelected] = useState(0);
+  const { info, faq } = buildBankPageCopy("lulo", profitabilityData);
 
   return (
     <div className="p-6">
@@ -77,8 +27,7 @@ const Page = ({ profitabilityData }: { profitabilityData: number[] }) => {
               DE LULO
             </h1>
             <p className="text-lg text-tertiary font-canva-sans">
-              Tasa de {(Number(profitabilityData?.[selected]) * 100).toFixed(2)}{" "}
-              %
+              {formatSelectedRateLabel(profitabilityData, selected)}
             </p>
           </section>
           <div className="flex flex-col md:flex-row max-md:gap-5 w-full justify-start">
@@ -115,6 +64,7 @@ const Page = ({ profitabilityData }: { profitabilityData: number[] }) => {
               />
             </CardContent>
           </Card>
+          <BankAffiliateCta bankKey="lulo" bankDisplayName="Lulo Bank" />
           <AdBanner
             dataAdFormat="auto"
             dataFullWidthResponsive={true}
@@ -123,7 +73,7 @@ const Page = ({ profitabilityData }: { profitabilityData: number[] }) => {
 
           <InfoSection data={info} />
 
-          <FAQ data={Faq} />
+          <FAQ data={faq} />
         </div>
       </div>
     </div>

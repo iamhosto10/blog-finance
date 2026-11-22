@@ -36,8 +36,11 @@ export const metadata: Metadata = {
         alt: "Comparador de Tarjetas en Colombia",
       },
     ],
-    locale: "es_ES",
+    locale: "es_CO",
     type: "website",
+  },
+  alternates: {
+    canonical: "https://monopolombiano.com/calculadoras/comparador-de-tarjetas",
   },
   twitter: {
     card: "summary_large_image",
