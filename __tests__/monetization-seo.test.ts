@@ -12,6 +12,14 @@ import {
   SITE_URL,
 } from "../lib/structuredData";
 import { findRecursoById } from "../lib/recursos";
+import {
+  buildBankPageCopy,
+  estimateMonthlyExample,
+  formatEaRangeLabel,
+  formatRentabilidadCardInterest,
+  formatSelectedRateLabel,
+} from "../lib/profitabilityCopy";
+import { isSafeExternalUrl } from "../lib/affiliates";
 import { GET as getFileRoute } from "../app/api/files/[slug]/route";
 import type { Blog } from "../lib/interface";
 
@@ -51,6 +59,7 @@ describe("Lead Magnets y /api/files/[slug]", () => {
       "leasing-vivienda",
       "rentabilidad",
       "inversion",
+      "comparador-tarjetas",
     ]);
 
     for (const id of ids) {
@@ -149,5 +158,37 @@ describe("Datos estructurados JSON-LD (Schema.org)", () => {
       slug: "calculadora-de-credito",
     });
     expect(withoutFaq["@graph"]).toHaveLength(2);
+  });
+});
+
+describe("Copy dinámico de tasas (profitabilityCopy) y validación de URLs de afiliado", () => {
+  it("calcula tasas y ejemplos mensuales dinámicos desde Sanity sin porcentajes hardcodeados", () => {
+    expect(formatEaRangeLabel([0.093])).toBe("9.30% EA");
+    expect(formatEaRangeLabel([0.075, 0.0925])).toBe("entre 7.50% y 9.25% EA");
+    expect(formatEaRangeLabel([])).toBe("tasa variable vigente");
+
+    expect(formatRentabilidadCardInterest([0.075, 0.0925])).toBe("7.50 a 9.25");
+    expect(formatSelectedRateLabel([], 0)).toBe("Tasa variable vigente");
+    expect(formatSelectedRateLabel([0.093], 0)).toBe("Tasa de 9.30 % EA");
+
+    const nuCopy = buildBankPageCopy("nu", [0.093]);
+    expect(nuCopy.cardDescription).toContain("9.30% EA");
+    expect(nuCopy.cardDescription).not.toContain("8.25%");
+    expect(nuCopy.faq[0].description).toContain("9.30% EA");
+    expect(nuCopy.info[4].description).toContain("9.30%");
+
+    const example = estimateMonthlyExample(1_000_000, [0.093]);
+    expect(example).not.toBeNull();
+    expect(example!.monthlyInterestCop).toBeGreaterThan(7000);
+    expect(example!.monthlyInterestCop).toBeLessThan(8000);
+  });
+
+  it("valida URLs externas seguras para botones de afiliado o solicitud", () => {
+    expect(isSafeExternalUrl("https://www.banco.com.co/tarjeta?ref=123")).toBe(true);
+    expect(isSafeExternalUrl("http://ejemplo.com/oferta")).toBe(true);
+    expect(isSafeExternalUrl("javascript:alert(1)")).toBe(false);
+    expect(isSafeExternalUrl("/ruta-relativa")).toBe(false);
+    expect(isSafeExternalUrl("")).toBe(false);
+    expect(isSafeExternalUrl(undefined)).toBe(false);
   });
 });

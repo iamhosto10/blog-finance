@@ -1,71 +1,21 @@
 "use client";
 
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
+import BankAffiliateCta from "@/components/CommonComponents/BankAffiliateCta";
 import { FAQ } from "@/components/CommonComponents/FAQ/FAQ";
 import { InfoSection } from "@/components/CommonComponents/InfoSection/InfoSection";
 import Profitability from "@/components/CommonComponents/Profitability/Profitability";
 import Tag from "@/components/CommonComponents/Tag";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  buildBankPageCopy,
+  formatSelectedRateLabel,
+} from "@/lib/profitabilityCopy";
 import { useState } from "react";
-
-const info = [
-  {
-    title: "¿Qué es Pibank?",
-    description:
-      "Pibank es un banco 100% digital que hace parte de Banco Pichincha. En Colombia ofrece una cuenta de ahorros de alta rentabilidad con tasas competitivas y manejo completamente en línea.",
-  },
-  {
-    title: "¿Cómo funciona la cuenta de ahorros Pibank?",
-    description:
-      "La cuenta Pibank permite que tu dinero genere intereses diarios con una tasa efectiva anual destacada. Se abre en minutos desde la app o página web y no requiere papeleo ni visitas a oficinas.",
-  },
-  {
-    title: "Ventajas de Pibank",
-    description:
-      "✔ Intereses altos comparados con bancos tradicionales.\n✔ Sin cuota de manejo.\n✔ Apertura y manejo 100% digital.\n✔ Respaldado por Banco Pichincha y protegido por Fogafín.\n✔ Transferencias sin costo a otros bancos.",
-  },
-  {
-    title: "Desventajas de Pibank",
-    description:
-      "❌ No tiene oficinas físicas en Colombia.\n❌ Menor reconocimiento en comparación con bancos tradicionales.\n❌ Su portafolio de productos es limitado frente a bancos más grandes.",
-  },
-  {
-    title: "Ejemplo práctico",
-    description:
-      "Si depositas $5.000.000 COP en Pibank con una tasa del 11% EA, al cabo de un mes podrías recibir aproximadamente $43.673 COP en intereses, los cuales se abonan directamente a tu saldo.",
-  },
-];
-
-const Faq = [
-  {
-    title: "¿Cuánto paga Pibank por ahorrar?",
-    description:
-      "Pibank ofrece una de las tasas de interés más altas en cuentas de ahorro en Colombia, alrededor del 11% EA, con abono diario de intereses.",
-  },
-  {
-    title: "¿Es seguro ahorrar en Pibank?",
-    description:
-      "Sí, Pibank pertenece al Banco Pichincha y está vigilado por la Superintendencia Financiera de Colombia. Además, tu dinero está protegido por Fogafín hasta $50 millones.",
-  },
-  {
-    title: "¿Cómo abrir una cuenta en Pibank?",
-    description:
-      "Puedes abrir tu cuenta descargando la app de Pibank o desde su página web. Solo necesitas tu cédula y completar el proceso de validación en línea.",
-  },
-  {
-    title: "¿Qué costos tiene la cuenta Pibank?",
-    description:
-      "La cuenta no tiene cuota de manejo ni cobros por transferencias nacionales, lo que la hace muy competitiva frente a bancos tradicionales.",
-  },
-  {
-    title: "¿Puedo retirar mi dinero en cualquier momento?",
-    description:
-      "Sí, tu dinero siempre está disponible. Puedes transferirlo a cualquier banco en Colombia de forma gratuita.",
-  },
-];
 
 const Page = ({ profitabilityData }: { profitabilityData: number[] }) => {
   const [selected, setSelected] = useState(0);
+  const { info, faq } = buildBankPageCopy("pibank", profitabilityData);
 
   return (
     <div className="p-6">
@@ -77,7 +27,7 @@ const Page = ({ profitabilityData }: { profitabilityData: number[] }) => {
               DE PIBANK
             </h1>
             <p className="text-lg text-tertiary font-canva-sans">
-              Tasa de {(Number(profitabilityData[selected]) * 100).toFixed(2)} %
+              {formatSelectedRateLabel(profitabilityData, selected)}
             </p>
           </section>
           <div className="flex flex-col md:flex-row max-md:gap-5 w-full justify-start">
@@ -107,6 +57,7 @@ const Page = ({ profitabilityData }: { profitabilityData: number[] }) => {
               />
             </CardContent>
           </Card>
+          <BankAffiliateCta bankKey="pibank" bankDisplayName="Pibank" />
           <AdBanner
             dataAdFormat="auto"
             dataFullWidthResponsive={true}
@@ -114,7 +65,7 @@ const Page = ({ profitabilityData }: { profitabilityData: number[] }) => {
           />
           <InfoSection data={info} />
 
-          <FAQ data={Faq} />
+          <FAQ data={faq} />
         </div>
       </div>
     </div>

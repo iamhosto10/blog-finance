@@ -8,12 +8,15 @@ import {
   ListboxOption,
   ListboxOptions,
 } from "@headlessui/react";
-import { CheckCircle, ChevronDown, PlusIcon, X } from "lucide-react";
+import { CheckCircle, ChevronDown, ExternalLink, PlusIcon, X } from "lucide-react";
 import { Bank, Card, Franchise } from "@/lib/interface";
 import Link from "next/link";
 import Tag from "@/components/CommonComponents/Tag";
 import { formatCOP } from "@/lib/utils";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
+import CalculatorResultCta from "@/components/CommonComponents/CalculatorResultCta";
+import { trackEvent } from "@/lib/gtag";
+import { AFFILIATE_DISCLOSURE_TEXT, isSafeExternalUrl } from "@/lib/affiliates";
 
 const firstBank: Bank = {
   _id: "",
@@ -250,12 +253,6 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
           </div>
         )}
       </div>
-
-      <AdBanner
-        dataAdFormat="auto"
-        dataFullWidthResponsive={true}
-        dataAdSlot="7506188604"
-      />
 
       <div className=" w-full ">
         <h2 className="text-xl font-bold font-agrandir text-secondary mb-6">
@@ -499,7 +496,7 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
           <p className="font-bold font-agrandir self-end hidden md:flex h-full items-center">
             BENEFICIOS:
           </p>
-          <p className="font-canva-sans self-end  text-center h-full">
+          <div className="font-canva-sans self-end  text-center h-full">
             <span className="font-bold font-agrandir self-end md:hidden">
               BENEFICIOS:
             </span>
@@ -511,8 +508,8 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
                 </li>
               ))}
             </ul>
-          </p>
-          <p className="font-canva-sans self-end  text-center h-full">
+          </div>
+          <div className="font-canva-sans self-end  text-center h-full">
             <span className="font-bold font-agrandir self-end md:hidden">
               BENEFICIOS:
             </span>
@@ -524,7 +521,7 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
                 </li>
               ))}
             </ul>
-          </p>
+          </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 bg-primary-foreground rounded-md p-2">
           <p className="font-bold font-agrandir self-end hidden md:block">
@@ -549,7 +546,7 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
           <p className="font-bold font-agrandir self-end hidden md:flex h-full items-center">
             ALIANZAS:
           </p>
-          <p className="font-canva-sans self-end  text-center h-full">
+          <div className="font-canva-sans self-end  text-center h-full">
             <span className="font-bold font-agrandir self-end md:hidden">
               ALIANZAS:
             </span>
@@ -561,8 +558,8 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
                 </li>
               ))}
             </ul>
-          </p>
-          <p className="font-canva-sans self-end  text-center h-full">
+          </div>
+          <div className="font-canva-sans self-end  text-center h-full">
             <span className="font-bold font-agrandir self-end md:hidden">
               ALIANZAS:
             </span>
@@ -574,7 +571,7 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
                 </li>
               ))}
             </ul>
-          </p>
+          </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 bg-primary-foreground rounded-md p-2">
           <p className="font-bold font-agrandir self-end hidden md:block">
@@ -691,7 +688,7 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
           <p className="font-bold font-agrandir self-end hidden md:flex h-full items-center">
             SEGURIDAD:
           </p>
-          <p className="font-canva-sans self-end  text-center h-full">
+          <div className="font-canva-sans self-end  text-center h-full">
             <span className="font-bold font-agrandir self-end md:hidden">
               SEGURIDAD:
             </span>
@@ -703,8 +700,8 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
                 </li>
               ))}
             </ul>
-          </p>
-          <p className="font-canva-sans self-end  text-center h-full">
+          </div>
+          <div className="font-canva-sans self-end  text-center h-full">
             <span className="font-bold font-agrandir self-end md:hidden">
               SEGURIDAD:
             </span>
@@ -716,9 +713,72 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
                 </li>
               ))}
             </ul>
-          </p>
+          </div>
         </div>
+
+        {(selectedCards[0] || selectedCards[1]) && (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 bg-primary-foreground rounded-md p-3 mt-2 items-center">
+            <p className="font-bold font-agrandir hidden md:block">
+              SOLICITAR / SIGUIENTE PASO:
+            </p>
+            {[selectedCards[0], selectedCards[1]].map((card, idx) => {
+              const safeApplyUrl = card && isSafeExternalUrl(card.applyUrl) ? card.applyUrl : null;
+              return (
+              <div key={card?._id ?? `empty-${idx}`} className="flex justify-center">
+                {card ? (
+                  safeApplyUrl ? (
+                    <a
+                      href={safeApplyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer sponsored nofollow"
+                      onClick={() =>
+                        trackEvent("affiliate_click", {
+                          item_type: "credit_card",
+                          item_name: card.name,
+                          bank_name: card.bank?.title || "",
+                          placement: "comparador_de_tarjetas",
+                          destination_url: safeApplyUrl,
+                        })
+                      }
+                      className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-primary px-4 py-2 text-xs md:text-sm font-agrandir font-bold text-secondary hover:bg-primary/90 transition-colors"
+                    >
+                      {card.ctaLabel?.trim() || "Solicitar tarjeta"}
+                      <ExternalLink className="size-3.5" />
+                    </a>
+                  ) : (
+                    <Link
+                      href="/recursos#diagnostico-financiero-1a1"
+                      onClick={() =>
+                        trackEvent("product_cta_click", {
+                          product_id: "diagnostico-financiero-1a1",
+                          source: "comparador_de_tarjetas",
+                          card_name: card.name,
+                        })
+                      }
+                      className="inline-flex items-center justify-center rounded-xl bg-secondary px-4 py-2 text-xs md:text-sm font-agrandir font-bold text-white hover:bg-secondary/90 transition-colors"
+                    >
+                      Evaluar en asesoría 1-a-1
+                    </Link>
+                  )
+                ) : null}
+              </div>
+              );
+            })}
+          </div>
+        )}
       </div>
+
+      <p className="text-center font-canva-sans text-xs text-tertiary/75">
+        {AFFILIATE_DISCLOSURE_TEXT}
+      </p>
+
+      <CalculatorResultCta calculatorId="comparador-tarjetas" />
+
+      <AdBanner
+        dataAdFormat="auto"
+        dataFullWidthResponsive={true}
+        dataAdSlot="7506188604"
+      />
     </div>
   );
 };

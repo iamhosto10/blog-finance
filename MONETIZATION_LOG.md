@@ -25,16 +25,33 @@
 
 ## Backlog Priorizado de Próximos Experimentos
 
-1. **Exp #5 — Actualizar tasas `profitability` en Sanity + copy de calculadoras**:
-   - Sincronizar tasas actuales de Nu, Lulo, Pibank, Global66, Bold, Rappi y Banco Popular en Sanity y eliminar porcentajes hardcodeados desactualizados en textos (ej. `8.25%` en Nu).
-2. **Exp #6 — Enlaces de solicitud/afiliados en Comparador de Tarjetas y Rentabilidad**:
-   - Agregar campo `applyUrl` en `cards` y botones con tracking `affiliate_click` y aviso legal de transparencia.
-3. **Exp #7 — Página `/anunciate` (Media Kit B2B)**:
-   - Propuesta comercial para fintechs, neobancos y constructoras en Colombia con formulario de contacto comercial.
+1. **Exp #7 — Página `/anunciate` (Media Kit B2B)**:
+   - Propuesta comercial para fintechs, neobancos, apps tributarias y constructoras en Colombia con formulario de contacto comercial (`/api/anunciate` -> Sanity `subscriber` + alerta Resend) y enlace en footer/sitemap.
+2. **Exp #8 — Comparativa cruzada de "Mejor cuenta hoy" + Calculadora de Retención y GMF (4x1000) combinada**:
+   - Ranking automático ordenado por tasa neta en `/calculadoras/calculadora-de-rentabilidad` y vinculación directa con `applyUrl` / referidos al recibir links de Gerardo.
+3. **Exp #9 — Actualización de tasas `profitability` y `applyUrl` en Sanity Studio**:
+   - Confirmar y ajustar en Sanity Studio las tasas exactas vigentes de Nu, Lulo, Pibank, Global66, Bold, Rappi y Banco Popular, y poblar `applyUrl` en los 20 documentos `cards` o variables `NEXT_PUBLIC_AFFILIATE_*_URL`.
 
 ---
 
 ## Registro de Experimentos Ejecutados
+
+### 2026-11-22 — Experimento #5: Copy y ejemplos dinámicos desde Sanity en Rentabilidad y Experimento #6: Soporte de afiliados (`applyUrl` + `affiliate_click`) y embudo en Comparador de Tarjetas
+- **Hipótesis**: Eliminar porcentajes y ejemplos mensuales hardcodeados desactualizados (ej. `8.25%` en Nu cuando Sanity tiene `9.30%`, `8%` en Lulo/Popular, `10%` en Bold) y calcularlos dinámicamente desde Sanity aumenta la confianza del usuario en las calculadoras, mientras que preparar `applyUrl` en `cards`, botones de referido con tracking `affiliate_click`, aviso de transparencia y `CalculatorResultCta` en el Comparador de Tarjetas convierte el tráfico de comparación financiera en clics monetizables y leads.
+- **Cambios realizados**:
+  - **Copy y cálculos 100% dinámicos desde Sanity (`lib/profitabilityCopy.ts`)**: creado helper centralizado (`formatEaRangeLabel`, `formatRentabilidadCardInterest`, `formatSelectedRateLabel`, `estimateMonthlyExample`, `buildBankPageCopy`) conectado al cálculo real de `calculateDailyGrowth`. Reemplazado todo copy estático con tasas viejas en `nu`, `lulo`, `pibank`, `global66`, `bold`, `rappi`, `popular` y `calculadora-de-rentabilidad`, además de corregir el texto duplicado y agregar a Bold en la intro de `calculadora-de-rentabilidad` y limpiar `11%` fijo en OpenGraph de `pibank`.
+  - **Infraestructura de afiliados/referidos (`lib/affiliates.ts` + `BankAffiliateCta`)**: creada validación segura de URLs externas (`isSafeExternalUrl`, solo `http:`/`https:`), lectura opcional de variables `NEXT_PUBLIC_AFFILIATE_<BANCO>_URL` y aviso legal de transparencia (`AFFILIATE_DISCLOSURE_TEXT`). Integrado `components/CommonComponents/BankAffiliateCta.tsx` en las 7 calculadoras bancarias con eventos GA4 (`affiliate_click`, `calculator_compare_click`, `product_cta_click`).
+  - **Esquema `cards` + embudo en Comparador de Tarjetas**: añadidos `applyUrl` y `ctaLabel` en `studio-nextjs-blog/schemaTypes/cards.ts`, `lib/queries.tsx` y `lib/interface.tsx`. En `app/calculadoras/comparador-de-tarjetas/ClientPage.tsx` se añadió fila `"SOLICITAR / SIGUIENTE PASO:"` (botón `affiliate_click` cuando `applyUrl` existe, o enlace a `/recursos#diagnostico-financiero-1a1` como respaldo), aviso de transparencia, `<CalculatorResultCta calculatorId="comparador-tarjetas" />` (nuevo perfil en `lib/leadMagnets.ts`), corrección de HTML inválido (`<p>` envolviendo `<ul>`) y reubicación de `<AdBanner />` debajo de los CTAs propios. También corregido `locale: "es_CO"` y `canonical` en `comparador-de-tarjetas/page.tsx`.
+  - **Pruebas unitarias**: ampliada `__tests__/monetization-seo.test.ts` (14/14 pruebas pasando) cubriendo copy dinámico, ejemplos mensuales y validación anti-XSS de URLs de afiliado. Validado con `npx tsc --noEmit`, `npm run lint`, `npm run test` y `npm run build`.
+- **Archivos tocados**:
+  - `lib/profitabilityCopy.ts`, `lib/affiliates.ts`, `lib/leadMagnets.ts`, `lib/queries.tsx`, `lib/interface.tsx`
+  - `studio-nextjs-blog/schemaTypes/cards.ts`
+  - `components/CommonComponents/BankAffiliateCta.tsx`
+  - `app/calculadoras/nu/ClientPage.tsx`, `app/calculadoras/lulo/ClientPage.tsx`, `app/calculadoras/pibank/ClientPage.tsx`, `app/calculadoras/pibank/page.tsx`, `app/calculadoras/global66/ClientPage.tsx`, `app/calculadoras/bold/ClientPage.tsx`, `app/calculadoras/rappi/ClientPage.tsx`, `app/calculadoras/popular/ClientPage.tsx`, `app/calculadoras/calculadora-de-rentabilidad/ClientPage.tsx`
+  - `app/calculadoras/comparador-de-tarjetas/ClientPage.tsx`, `app/calculadoras/comparador-de-tarjetas/page.tsx`
+  - `__tests__/monetization-seo.test.ts`, `MONETIZATION_LOG.md`
+- **Métrica esperada**: Mayor retención y confianza en calculadoras bancarias, primeros clics medidos en `affiliate_click` / `calculator_compare_click` / `product_cta_click` y captación de leads desde `comparador-de-tarjetas`.
+- **Próximos pasos**: Ejecutar Exp #7 (Media Kit `/anunciate`), pedir a Gerardo confirmación de tasas vigentes en Sanity `profitability` (actualmente actualizadas al `2026-07-09`: Nu 9.30%, Lulo 7.50%–9.25%, Bold 9.50%, Pibank 11.00%, Global66 11.00%, Popular 9.00%, Rappi 9.00%) y links de referido/solicitud (`applyUrl` en `cards` o `NEXT_PUBLIC_AFFILIATE_*_URL`).
 
 ### 2026-11-21 — Experimento #3: Lead Magnets en `/api/files/[slug]` + CTAs en Calculadoras y Experimento #4: JSON-LD (`Article`, `WebApplication`, `FAQPage`, `BreadcrumbList`)
 - **Hipótesis**: Ofrecer un lead magnet descargable inmediato (plantilla CSV UTF-8 de presupuesto 50/30/20 + control 4x1000 y checklist de vivienda VIS/Leasing) justo debajo de los resultados de las calculadoras captura leads con alta intención sin competir con AdSense, mientras que inyectar JSON-LD válido (`Article`, `WebApplication`, `FAQPage`, `BreadcrumbList`) + canonicals en artículos y las 15 calculadoras incrementa el CTR orgánico en Google Colombia.

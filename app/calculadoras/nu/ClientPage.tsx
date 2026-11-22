@@ -1,71 +1,21 @@
 "use client";
 
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
+import BankAffiliateCta from "@/components/CommonComponents/BankAffiliateCta";
 import { FAQ } from "@/components/CommonComponents/FAQ/FAQ";
 import { InfoSection } from "@/components/CommonComponents/InfoSection/InfoSection";
 import Tag from "@/components/CommonComponents/Tag";
 import TableNu from "@/components/nu/Table";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  buildBankPageCopy,
+  formatSelectedRateLabel,
+} from "@/lib/profitabilityCopy";
 import { useState } from "react";
-
-const info = [
-  {
-    title: "¿Qué es Nu en Colombia?",
-    description:
-      "Nu es un banco digital que llegó a Colombia ofreciendo productos financieros 100% digitales. Su cuenta de ahorros de alta rentabilidad permite a los usuarios ganar intereses diarios sobre el dinero depositado.",
-  },
-  {
-    title: "¿Cómo funciona la cuenta de ahorros Nu?",
-    description:
-      "Tu dinero genera rendimientos diarios con una tasa efectiva anual competitiva en el mercado colombiano. Todo se maneja desde la aplicación móvil sin necesidad de oficinas físicas.",
-  },
-  {
-    title: "Ventajas de Nu",
-    description:
-      "✔ Rendimientos diarios sobre tu saldo.\n✔ Sin cuota de manejo.\n✔ Apertura y uso totalmente digital.\n✔ Transferencias gratuitas a otros bancos en Colombia.\n✔ Transparencia y control desde la app.",
-  },
-  {
-    title: "Desventajas de Nu",
-    description:
-      "❌ No tiene oficinas físicas, todo es digital.\n❌ La tarjeta débito física puede tardar en llegar.\n❌ Todavía no ofrece todos los productos de un banco tradicional (créditos hipotecarios, CDT, etc.).",
-  },
-  {
-    title: "Ejemplo práctico",
-    description:
-      "Si depositas $1.000.000 COP en tu cuenta Nu y la tasa efectiva anual es del 8.25%, al final de un mes podrías recibir aproximadamente $6,536 COP de intereses, que se suman automáticamente a tu saldo.",
-  },
-];
-
-const Faq = [
-  {
-    title: "¿Cuánto paga Nu por ahorrar en Colombia?",
-    description:
-      "Nu ofrece una tasa efectiva anual que varía según el mercado, generalmente alrededor del 8.25% EA, generando intereses diarios que se abonan a tu cuenta.",
-  },
-  {
-    title: "¿Es seguro ahorrar en Nu?",
-    description:
-      "Sí, Nu está vigilado por la Superintendencia Financiera de Colombia y tu dinero está protegido por el seguro de depósitos de Fogafín.",
-  },
-  {
-    title: "¿Cómo abrir una cuenta en Nu?",
-    description:
-      "Solo necesitas descargar la app de Nu, registrarte con tu cédula y verificar tu identidad. En minutos puedes abrir tu cuenta sin papeleo.",
-  },
-  {
-    title: "¿Tiene costos ocultos?",
-    description:
-      "No. La cuenta Nu no tiene cuota de manejo ni costos por transferencias, lo que la hace muy competitiva frente a bancos tradicionales.",
-  },
-  {
-    title: "¿Puedo retirar mi dinero en cualquier momento?",
-    description:
-      "Sí, tu dinero siempre está disponible. Puedes transferirlo a otros bancos o retirarlo con tu tarjeta débito Nu en cajeros.",
-  },
-];
 
 const ClientPage = ({ profitabilityData }: { profitabilityData: number[] }) => {
   const [selected, setSelected] = useState(0);
+  const { info, faq } = buildBankPageCopy("nu", profitabilityData);
 
   return (
     <div className="p-6">
@@ -77,8 +27,7 @@ const ClientPage = ({ profitabilityData }: { profitabilityData: number[] }) => {
               DE NU
             </h1>
             <p className="text-lg text-tertiary font-canva-sans">
-              Tasa de {(Number(profitabilityData?.[selected]) * 100).toFixed(2)}{" "}
-              %
+              {formatSelectedRateLabel(profitabilityData, selected)}
             </p>
           </section>
           <div className="flex flex-col md:flex-row max-md:gap-5 w-full justify-start">
@@ -115,6 +64,7 @@ const ClientPage = ({ profitabilityData }: { profitabilityData: number[] }) => {
               />
             </CardContent>
           </Card>
+          <BankAffiliateCta bankKey="nu" bankDisplayName="Nu Colombia" />
           <AdBanner
             dataAdFormat="auto"
             dataFullWidthResponsive={true}
@@ -122,7 +72,7 @@ const ClientPage = ({ profitabilityData }: { profitabilityData: number[] }) => {
           />
           <InfoSection data={info} />
 
-          <FAQ data={Faq} />
+          <FAQ data={faq} />
         </div>
       </div>
     </div>
