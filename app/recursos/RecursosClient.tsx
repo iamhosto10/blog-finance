@@ -5,13 +5,19 @@ import Link from "next/link";
 import {
   ArrowRight,
   CalendarCheck,
+  Check,
   CheckCircle2,
+  Copy,
   FileSpreadsheet,
   Home,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
-import { RECURSOS_CATALOG, RecursoItem } from "@/lib/recursos";
+import {
+  type BrebPaymentInstructions,
+  RECURSOS_CATALOG,
+  RecursoItem,
+} from "@/lib/recursos";
 import { trackEvent } from "@/lib/gtag";
 import { Button } from "@/components/ui/button";
 
@@ -28,8 +34,8 @@ function getProductIcon(id: string) {
 
 const FAQS = [
   {
-    q: "¿Cómo recibo la plantilla o agendo el diagnóstico?",
-    a: "Al enviar tu solicitud te contactamos por correo en menos de 24 horas hábiles con el enlace de pago (PSE, Nequi o tarjeta) y, una vez confirmado, recibes acceso inmediato al archivo o el calendario para tu sesión.",
+    q: "¿Cómo pago por Bre-B y recibo la plantilla o agendo el diagnóstico?",
+    a: "Al enviar tu solicitud te mostramos al instante los datos de transferencia por Bre-B (y te los enviamos a tu correo). Solo haces la transferencia sin costo desde cualquier banco o billetera en Colombia y respondes el correo con el comprobante para recibir entrega inmediata.",
   },
   {
     q: "¿Las plantillas funcionan en Excel y Google Sheets?",
@@ -45,10 +51,19 @@ export default function RecursosClient() {
   const [selectedId, setSelectedId] = useState<string>(RECURSOS_CATALOG[0].id);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [paymentPreference, setPaymentPreference] = useState("PSE / Nequi");
+  const [paymentPreference, setPaymentPreference] = useState(
+    "Transferencia Bre-B (inmediata)",
+  );
   const [notes, setNotes] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [feedback, setFeedback] = useState("");
+  const [brebDetails, setBrebDetails] = useState<{
+    breb: BrebPaymentInstructions;
+    productTitle: string;
+    priceFormatted: string;
+    submittedEmail: string;
+  } | null>(null);
+  const [copiedKey, setCopiedKey] = useState(false);
   const formRef = useRef<HTMLElement | null>(null);
 
   const selectedProduct =
@@ -58,6 +73,8 @@ export default function RecursosClient() {
     setSelectedId(item.id);
     setStatus("idle");
     setFeedback("");
+    setBrebDetails(null);
+    setCopiedKey(false);
     trackEvent("product_cta_click", {
       product_id: item.id,
       product_kind: item.kind,
@@ -66,10 +83,24 @@ export default function RecursosClient() {
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  async function handleCopyBrebKey(key: string) {
+    try {
+      await navigator.clipboard.writeText(key);
+      setCopiedKey(true);
+      setTimeout(() => setCopiedKey(false), 2500);
+    } catch {
+      setCopiedKey(false);
+    }
+  }
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("loading");
     setFeedback("");
+    setBrebDetails(null);
+    setCopiedKey(false);
+
+    const submittedEmail = email.trim();
 
     try {
       const res = await fetch("/api/recursos", {
@@ -77,7 +108,7 @@ export default function RecursosClient() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: name.trim(),
-          email: email.trim(),
+          email: submittedEmail,
           productId: selectedId,
           paymentPreference,
           notes: notes.trim(),
@@ -89,8 +120,16 @@ export default function RecursosClient() {
       if (res.ok && data.ok) {
         setStatus("success");
         setFeedback(
-          `¡Solicitud recibida para "${data.productTitle}"! Revisaremos tu mensaje y te enviaremos el enlace de pago (${paymentPreference}) a ${email.trim()} en menos de 24 horas.`,
+          `¡Solicitud recibida para "${data.productTitle}"! También enviamos estos datos de pago Bre-B a ${submittedEmail}.`,
         );
+        if (data.breb) {
+          setBrebDetails({
+            breb: data.breb,
+            productTitle: data.productTitle || selectedProduct.title,
+            priceFormatted: data.priceFormatted || selectedProduct.priceFormatted,
+            submittedEmail,
+          });
+        }
         trackEvent("service_inquiry", {
           product_id: selectedId,
           price_cop: selectedProduct.priceCop,
@@ -130,7 +169,7 @@ export default function RecursosClient() {
           <div className="flex flex-wrap items-center gap-4 pt-2 text-sm font-canva-sans text-background/95">
             <span className="inline-flex items-center gap-1.5">
               <ShieldCheck className="size-4 text-primary" />
-              Pagos en COP vía PSE, Nequi o tarjeta
+              Pago inmediato en COP por Bre-B (desde cualquier banco o billetera)
             </span>
             <span className="inline-flex items-center gap-1.5">
               <CheckCircle2 className="size-4 text-primary" />
@@ -261,9 +300,9 @@ export default function RecursosClient() {
               Solicita tu plantilla o agenda tu diagnóstico
             </h2>
             <p className="font-canva-sans text-sm text-tertiary/80 leading-relaxed">
-              Déjanos tus datos y el recurso seleccionado. Te enviaremos el enlace de pago en pesos
-              colombianos (PSE, Nequi o tarjeta) junto con las instrucciones de entrega directa a tu
-              correo.
+              Déjanos tus datos y el recurso seleccionado. Al enviar el formulario verás al instante
+              los datos de transferencia inmediata por <strong>Bre-B</strong> (sin comisiones) y
+              también los recibirás en tu correo.
             </p>
             <div className="rounded-2xl bg-tertiary-foreground p-4 flex flex-col gap-1">
               <span className="text-xs font-agrandir font-bold text-secondary uppercase">
@@ -360,10 +399,14 @@ export default function RecursosClient() {
                   disabled={status === "loading"}
                   className="rounded-xl border border-border bg-background px-4 py-2.5 text-sm text-tertiary focus:outline-none focus:ring-2 focus:ring-secondary"
                 >
-                  <option value="PSE / Nequi">PSE / Nequi</option>
-                  <option value="Tarjeta débito o crédito">Tarjeta débito o crédito</option>
-                  <option value="Transferencia Bancolombia / Nu">
-                    Transferencia Bancolombia / Nu
+                  <option value="Transferencia Bre-B (inmediata)">
+                    Transferencia Bre-B (inmediata, cualquier banco)
+                  </option>
+                  <option value="Bre-B desde Nequi / Daviplata">
+                    Bre-B desde Nequi / Daviplata
+                  </option>
+                  <option value="Bre-B desde Bancolombia / Nu / Lulo / Davivienda">
+                    Bre-B desde Bancolombia / Nu / Lulo / Davivienda
                   </option>
                 </select>
               </div>
@@ -408,6 +451,56 @@ export default function RecursosClient() {
                 }`}
               >
                 {feedback}
+              </div>
+            )}
+
+            {status === "success" && brebDetails && (
+              <div className="rounded-2xl border-2 border-primary bg-primary/10 p-5 flex flex-col gap-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-xs font-agrandir font-bold uppercase tracking-wide text-secondary">
+                    Datos para transferencia inmediata vía Bre-B
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => handleCopyBrebKey(brebDetails.breb.key)}
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-secondary px-3 py-1.5 text-xs font-agrandir font-bold text-background hover:opacity-90 cursor-pointer"
+                  >
+                    {copiedKey ? (
+                      <>
+                        <Check className="size-3.5" />
+                        Llave copiada
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="size-3.5" />
+                        Copiar llave Bre-B
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm font-canva-sans text-tertiary">
+                  <p>
+                    <strong>Llave Bre-B:</strong>{" "}
+                    <span className="font-mono font-semibold">{brebDetails.breb.key}</span>
+                  </p>
+                  <p>
+                    <strong>Banco:</strong> {brebDetails.breb.bank}
+                  </p>
+                  <p>
+                    <strong>Titular:</strong> {brebDetails.breb.holder}
+                  </p>
+                  <p>
+                    <strong>Valor a transferir:</strong> {brebDetails.priceFormatted}
+                  </p>
+                </div>
+
+                <p className="text-xs font-canva-sans text-tertiary/85 leading-relaxed">
+                  <strong>Último paso:</strong> realiza la transferencia por Bre-B y responde el
+                  correo de confirmación que acabamos de enviar a{" "}
+                  <strong>{brebDetails.submittedEmail}</strong> adjuntando el comprobante para
+                  entregarte tu acceso o agendar tu sesión de inmediato.
+                </p>
               </div>
             )}
           </form>

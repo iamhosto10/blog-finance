@@ -1,4 +1,5 @@
 import { LEAD_MAGNETS, type BuiltInLeadMagnet } from "@/lib/leadMagnets";
+import { getBrebPaymentInstructions, type BrebPaymentInstructions } from "@/lib/recursos";
 import { escapeHtml } from "@/lib/subscribers";
 
 export const DEFAULT_FROM_EMAIL = "info@monopolombiano.com";
@@ -174,37 +175,48 @@ export function buildRecursosConfirmationEmail(params: {
   productTitle: string;
   priceFormatted: string;
   paymentPreference: string;
+  breb?: BrebPaymentInstructions;
 }): { subject: string; html: string } {
   const siteUrl = getSiteBaseUrl();
+  const breb = params.breb ?? getBrebPaymentInstructions();
 
   const bodyHtml = `
     <p style="margin:0 0 16px 0;">Hola <strong>${escapeHtml(params.name)}</strong>,</p>
     <p style="margin:0 0 18px 0;">
-      Recibimos tu solicitud en <strong>Monopolombiano Recursos</strong>. Aquí tienes el resumen de tu reserva:
+      Recibimos tu solicitud en <strong>Monopolombiano Recursos</strong>. Para completar tu compra o reserva de forma inmediata y sin comisiones, realiza la transferencia vía <strong>Bre-B</strong> desde cualquier banco o billetera en Colombia:
     </p>
+
+    <div style="background-color:#fefce8;border:1px solid #fde047;border-radius:12px;padding:18px 20px;margin:0 0 20px 0;">
+      <p style="margin:0 0 10px 0;font-size:13px;font-weight:700;color:#854d0e;text-transform:uppercase;letter-spacing:0.04em;">
+        Datos para transferencia inmediata por Bre-B
+      </p>
+      <p style="margin:0 0 6px 0;"><strong>Llave Bre-B:</strong> <span style="font-family:monospace;font-size:15px;color:#0f172a;">${escapeHtml(breb.key)}</span></p>
+      <p style="margin:0 0 6px 0;"><strong>Banco:</strong> ${escapeHtml(breb.bank)}</p>
+      <p style="margin:0 0 6px 0;"><strong>Titular:</strong> ${escapeHtml(breb.holder)}</p>
+      <p style="margin:0;"><strong>Valor a transferir:</strong> ${escapeHtml(params.priceFormatted)}</p>
+    </div>
 
     <div style="background-color:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px 20px;margin:0 0 22px 0;">
       <p style="margin:0 0 8px 0;"><strong>Recurso / Servicio:</strong> ${escapeHtml(params.productTitle)}</p>
-      <p style="margin:0 0 8px 0;"><strong>Valor:</strong> ${escapeHtml(params.priceFormatted)}</p>
-      <p style="margin:0;"><strong>Medio de pago preferido:</strong> ${escapeHtml(params.paymentPreference)}</p>
+      <p style="margin:0;"><strong>Medio seleccionado:</strong> ${escapeHtml(params.paymentPreference)}</p>
     </div>
 
     <p style="margin:0 0 18px 0;">
-      Muy pronto te responderemos a este mismo correo con el enlace de pago (${escapeHtml(params.paymentPreference)}) y los siguientes pasos para la entrega o agendamiento.
+      <strong>Paso final:</strong> una vez hagas la transferencia, <strong>responde a este mismo correo adjuntando el comprobante</strong> para enviarte de inmediato el acceso a tu plantilla o el enlace para agendar tu diagnóstico 1-a-1.
     </p>
     <p style="margin:0 0 22px 0;">
-      Si necesitas agregar algún detalle adicional, solo responde directamente a este mensaje. Mientras tanto, puedes explorar nuestras
+      Si tienes cualquier pregunta, solo responde este mensaje. Mientras tanto, puedes explorar nuestras
       <a href="${siteUrl}/calculadoras" style="color:#0f172a;font-weight:600;">calculadoras gratuitas</a>.
     </p>
     <p style="margin:0;font-weight:700;color:#0f172a;">Gracias por tu confianza,<br />Gerardo · Monopolombiano</p>
   `;
 
   return {
-    subject: `Recibimos tu solicitud: ${params.productTitle}`,
+    subject: `Instrucciones de pago Bre-B: ${params.productTitle}`,
     html: wrapEmailLayout({
-      preheader: `Confirmación de tu solicitud de ${params.productTitle} en Monopolombiano`,
-      badge: "Confirmación de solicitud",
-      title: "¡Recibimos tu solicitud!",
+      preheader: `Datos Bre-B para completar tu solicitud de ${params.productTitle} (${params.priceFormatted})`,
+      badge: "Pago inmediato vía Bre-B",
+      title: "Instrucciones para completar tu solicitud",
       bodyHtml,
     }),
   };
