@@ -1,7 +1,7 @@
 import { Resend } from "resend";
 import { buildRecursosConfirmationEmail, getEmailFrom } from "@/lib/emails";
 import { client } from "@/lib/sanity";
-import { findRecursoById } from "@/lib/recursos";
+import { findRecursoById, getBrebPaymentInstructions } from "@/lib/recursos";
 import {
   escapeHtml,
   formatColombiaDate,
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     const rawPaymentPreference =
       typeof body?.paymentPreference === "string"
         ? body.paymentPreference.trim().slice(0, 60)
-        : "PSE / Nequi";
+        : "Transferencia Bre-B (inmediata)";
 
     if (!rawName || rawName.length < 2) {
       return Response.json(
@@ -99,6 +99,7 @@ export async function POST(req: Request) {
       `,
     });
 
+    const breb = getBrebPaymentInstructions();
     let confirmationEmailSent = false;
     try {
       const confirmation = buildRecursosConfirmationEmail({
@@ -106,6 +107,7 @@ export async function POST(req: Request) {
         productTitle: product.title,
         priceFormatted: product.priceFormatted,
         paymentPreference: rawPaymentPreference,
+        breb,
       });
       await resend.emails.send({
         from: getEmailFrom("Monopolombiano"),
@@ -125,6 +127,8 @@ export async function POST(req: Request) {
       alreadySubscribed,
       confirmationEmailSent,
       productTitle: product.title,
+      priceFormatted: product.priceFormatted,
+      breb,
     });
   } catch (error) {
     console.error("Error procesando solicitud en /recursos:", error);

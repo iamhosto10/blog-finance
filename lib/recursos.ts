@@ -86,6 +86,20 @@ export const RECURSOS_CATALOG: RecursoItem[] = [
   },
 ];
 
+export interface BrebPaymentInstructions {
+  key: string;
+  bank: string;
+  holder: string;
+}
+
+export function getBrebPaymentInstructions(): BrebPaymentInstructions {
+  return {
+    key: process.env.BREB_KEY?.trim() || "gerav0400@gmail.com",
+    bank: process.env.BREB_BANK?.trim() || "Lulo Bank",
+    holder: process.env.BREB_HOLDER?.trim() || "Gerardo Ramirez",
+  };
+}
+
 export function findRecursoById(id: string): RecursoItem | undefined {
   return RECURSOS_CATALOG.find((item) => item.id === id);
 }

@@ -175,7 +175,7 @@ describe("Correos automáticos de bienvenida y confirmación (Resend)", () => {
     expect(data.welcomeEmailSent).toBe(false);
   });
 
-  it("POST /api/recursos envía alerta al dueño y confirmación al comprador desde info@monopolombiano.com", async () => {
+  it("POST /api/recursos envía alerta al dueño y confirmación con datos Bre-B al comprador desde info@monopolombiano.com", async () => {
     mockUpsertSubscriber.mockResolvedValueOnce({
       id: "subscriber-789",
       email: "comprador@ejemplo.co",
@@ -192,7 +192,7 @@ describe("Correos automáticos de bienvenida y confirmación (Resend)", () => {
         name: "Laura Martínez",
         email: "comprador@ejemplo.co",
         productId: "plantilla-finanzas-colombia",
-        paymentPreference: "Nequi",
+        paymentPreference: "Transferencia Bre-B (inmediata)",
       }),
     });
 
@@ -201,6 +201,11 @@ describe("Correos automáticos de bienvenida y confirmación (Resend)", () => {
     const data = await res.json();
     expect(data.ok).toBe(true);
     expect(data.confirmationEmailSent).toBe(true);
+    expect(data.breb).toEqual({
+      key: "gerav0400@gmail.com",
+      bank: "Lulo Bank",
+      holder: "Gerardo Ramirez",
+    });
 
     expect(mockResendSend).toHaveBeenCalledTimes(2);
     expect(mockResendSend.mock.calls[0][0]).toMatchObject({
@@ -214,5 +219,8 @@ describe("Correos automáticos de bienvenida y confirmación (Resend)", () => {
       replyTo: "dueno@monopolombiano.com",
     });
     expect(mockResendSend.mock.calls[1][0].html).toContain("Laura Mart");
+    expect(mockResendSend.mock.calls[1][0].html).toContain("gerav0400@gmail.com");
+    expect(mockResendSend.mock.calls[1][0].html).toContain("Lulo Bank");
+    expect(mockResendSend.mock.calls[1][0].html).toContain("Gerardo Ramirez");
   });
 });
