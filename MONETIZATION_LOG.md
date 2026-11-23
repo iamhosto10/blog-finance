@@ -25,16 +25,33 @@
 
 ## Backlog Priorizado de Próximos Experimentos
 
-1. **Exp #7 — Página `/anunciate` (Media Kit B2B)**:
-   - Propuesta comercial para fintechs, neobancos, apps tributarias y constructoras en Colombia con formulario de contacto comercial (`/api/anunciate` -> Sanity `subscriber` + alerta Resend) y enlace en footer/sitemap.
-2. **Exp #8 — Comparativa cruzada de "Mejor cuenta hoy" + Calculadora de Retención y GMF (4x1000) combinada**:
-   - Ranking automático ordenado por tasa neta en `/calculadoras/calculadora-de-rentabilidad` y vinculación directa con `applyUrl` / referidos al recibir links de Gerardo.
-3. **Exp #9 — Actualización de tasas `profitability` y `applyUrl` en Sanity Studio**:
+1. **Exp #9 — Actualización de tasas `profitability` y `applyUrl` en Sanity Studio**:
    - Confirmar y ajustar en Sanity Studio las tasas exactas vigentes de Nu, Lulo, Pibank, Global66, Bold, Rappi y Banco Popular, y poblar `applyUrl` en los 20 documentos `cards` o variables `NEXT_PUBLIC_AFFILIATE_*_URL`.
+2. **Exp #10 — Links de pago directos en `/recursos` + Automatización de entrega**:
+   - Activar links de pago de Wompi / Bold / Mercado Pago / Hotmart en `lib/recursos.ts` cuando Gerardo los comparta y correo de entrega inmediata al verificar `monopolombiano.com` en Resend.
+3. **Exp #11 — CTA contextual de leads y `/recursos` dentro de artículos del blog**:
+   - Inyectar un bloque compacto de captación (lead magnet + `/recursos` + calculadora relacionada) en el cuerpo/pie de artículos de `economia-hoy`, `finanzas-personales` y `tips-financieros` sin competir con AdSense.
 
 ---
 
 ## Registro de Experimentos Ejecutados
+
+### 2026-11-23 — Experimento #7: Media Kit B2B (`/anunciate` + `/api/anunciate`) y Experimento #8: Ranking cruzado "Mejor cuenta hoy" con Retención y 4x1000
+- **Hipótesis**: Lanzar una página B2B dedicada (`/anunciate`) con formatos comerciales en COP y formulario de contacto directo abre la línea de patrocinios con fintechs y neobancos en Colombia, mientras que transformar `/calculadoras/calculadora-de-rentabilidad` de un listado estático a un comparador cruzado ordenado automáticamente por ganancia neta (con retención del 7% y 4x1000 opcional) retiene más tiempo al usuario y canaliza clics hacia cada simulador y enlaces de afiliado.
+- **Cambios realizados**:
+  - **Media Kit B2B (`/anunciate` + `/api/anunciate`)**: creados `lib/anunciate.ts` (4 formatos comerciales en COP: patrocinio en calculadoras `$650.000/mes`, artículo SEO + newsletter `$450.000`, alianza CPA/referidos y paquete lanzamiento 360° `$1.100.000/mes`), `app/anunciate/AnunciateClient.tsx`, `app/anunciate/page.tsx` (metadata SEO, canonical, OpenGraph y JSON-LD `BreadcrumbList` + `WebPage` + `ItemList`) y endpoint `app/api/anunciate/route.ts` que valida, sanitiza URLs con `isSafeExternalUrl`, guarda el contacto sin duplicados en Sanity (`subscriber`) y envía notificación HTML vía Resend. Enlazado en `components/Footer/footer.tsx` y `app/sitemap.ts`.
+  - **Comparador cruzado de rentabilidad neta (`lib/profitabilityRanking.ts` + `ProfitabilityRankingComparator`)**: implementado ranking automático de los 7 bancos desde Sanity (`nu`, `lulo`, `pibank`, `bold`, `global66`, `rappi`, `popular`) con selector rápido de capital en COP (`$1M`–`$50M` o monto libre), horizonte (`1`–`24` meses), descuento de retención en la fuente del 7% (`calculatefinalAmountLulo`) y toggle de 4x1000 (`0,4%`) sobre el retiro. Muestra insignia `#1 Mejor hoy`, link a cada calculadora y botón directo de afiliado (`getBankAffiliateConfig`) con evento GA4 `affiliate_click`.
+  - **Higiene SEO en `/calculadoras/calculadora-de-rentabilidad`**: corregido `siteName` a `"Monopolombiano"`, añadido Bold en la descripción OpenGraph y agregado `alternates.canonical`.
+  - **Pruebas y validación**: añadida suite `__tests__/anunciate-ranking.test.ts` (6 pruebas nuevas). Validado localmente con `npx tsc --noEmit`, `npm run lint`, `npm run test` (4 archivos, 20/20 pruebas pasando) y `npm run build`.
+- **Archivos tocados**:
+  - `lib/anunciate.ts`, `lib/profitabilityRanking.ts`
+  - `app/api/anunciate/route.ts`, `app/anunciate/page.tsx`, `app/anunciate/AnunciateClient.tsx`
+  - `components/CommonComponents/Profitability/ProfitabilityRankingComparator.tsx`
+  - `app/calculadoras/calculadora-de-rentabilidad/ClientPage.tsx`, `app/calculadoras/calculadora-de-rentabilidad/page.tsx`
+  - `components/Footer/footer.tsx`, `app/sitemap.ts`
+  - `__tests__/anunciate-ranking.test.ts`, `MONETIZATION_LOG.md`
+- **Métrica esperada**: Primeras solicitudes comerciales B2B vía `/api/anunciate` (`b2b_sponsor_inquiry` en GA4) y mayor CTR desde `/calculadoras/calculadora-de-rentabilidad` hacia calculadoras individuales y botones de apertura (`affiliate_click` / `calculator_compare_click`).
+- **Próximos pasos**: Ejecutar Exp #9 en cuanto Gerardo confirme tasas `profitability` y comparta `applyUrl` / links de referido y links de pago colombianos para `/recursos`, o avanzar con Exp #11 (CTAs contextuales dentro de artículos del blog).
 
 ### 2026-11-22 — Experimento #5: Copy y ejemplos dinámicos desde Sanity en Rentabilidad y Experimento #6: Soporte de afiliados (`applyUrl` + `affiliate_click`) y embudo en Comparador de Tarjetas
 - **Hipótesis**: Eliminar porcentajes y ejemplos mensuales hardcodeados desactualizados (ej. `8.25%` en Nu cuando Sanity tiene `9.30%`, `8%` en Lulo/Popular, `10%` en Bold) y calcularlos dinámicamente desde Sanity aumenta la confianza del usuario en las calculadoras, mientras que preparar `applyUrl` en `cards`, botones de referido con tracking `affiliate_click`, aviso de transparencia y `CalculatorResultCta` en el Comparador de Tarjetas convierte el tráfico de comparación financiera en clics monetizables y leads.

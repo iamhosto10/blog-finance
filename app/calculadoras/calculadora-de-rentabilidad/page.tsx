@@ -22,12 +22,15 @@ export const metadata: Metadata = {
     "mejor banco para ahorrar",
     "simulador financiero",
   ],
+  alternates: {
+    canonical: "https://monopolombiano.com/calculadoras/calculadora-de-rentabilidad",
+  },
   openGraph: {
     title: "💰 Calculadora de Rentabilidad | Compara bancos en Colombia",
     description:
-      "Descubre qué banco te paga más por tus ahorros. Compara tasas, simula rendimientos y elige la cuenta más rentable entre Lulo Bank, Nu Bank, Banco Popular, Pibank, Global 66 y Rappi.",
+      "Descubre qué banco te paga más por tus ahorros. Compara tasas, simula rendimientos y elige la cuenta más rentable entre Lulo Bank, Nu Bank, Banco Popular, Pibank, Global 66, Bold y Rappi.",
     url: "https://monopolombiano.com/calculadoras/calculadora-de-rentabilidad",
-    siteName: "Tu Sitio Financiero",
+    siteName: "Monopolombiano",
     locale: "es_CO",
     type: "website",
     images: [
