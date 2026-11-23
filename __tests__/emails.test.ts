@@ -104,6 +104,9 @@ describe("Correos automáticos de bienvenida y confirmación (Resend)", () => {
       alreadySubscribed: false,
     });
     expect(welcome.html).toContain("/api/files/checklist-vivienda-vis-colombia");
+    expect(welcome.html).toContain("https://monopolombiano.com/icon.png");
+    expect(welcome.html).toContain("#327e41");
+    expect(welcome.html).toContain("#fbd028");
   });
 
   it("POST /api/subscribe envía alerta al dueño y correo de bienvenida al suscriptor desde info@monopolombiano.com", async () => {
