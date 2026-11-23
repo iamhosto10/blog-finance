@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { buildRecursosConfirmationEmail, getEmailFrom } from "@/lib/emails";
 import { client } from "@/lib/sanity";
 import { findRecursoById } from "@/lib/recursos";
 import {
@@ -81,8 +82,9 @@ export async function POST(req: Request) {
     const fechaColombia = formatColombiaDate();
 
     await resend.emails.send({
-      from: "Monopolombiano Recursos <onboarding@resend.dev>",
+      from: getEmailFrom("Monopolombiano Recursos"),
       to: emailTo,
+      replyTo: email,
       subject: `Nueva solicitud en /recursos: ${product.title} (${product.priceFormatted})`,
       html: `
         <h2>Nueva solicitud de recurso / asesoría en Monopolombiano</h2>
@@ -97,10 +99,31 @@ export async function POST(req: Request) {
       `,
     });
 
+    let confirmationEmailSent = false;
+    try {
+      const confirmation = buildRecursosConfirmationEmail({
+        name: rawName,
+        productTitle: product.title,
+        priceFormatted: product.priceFormatted,
+        paymentPreference: rawPaymentPreference,
+      });
+      await resend.emails.send({
+        from: getEmailFrom("Monopolombiano"),
+        to: email,
+        replyTo: emailTo,
+        subject: confirmation.subject,
+        html: confirmation.html,
+      });
+      confirmationEmailSent = true;
+    } catch (confirmationError) {
+      console.error("Error enviando confirmación al solicitante de /recursos:", confirmationError);
+    }
+
     return Response.json({
       ok: true,
       persisted,
       alreadySubscribed,
+      confirmationEmailSent,
       productTitle: product.title,
     });
   } catch (error) {

@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { buildSubscriberWelcomeEmail, getEmailFrom } from "@/lib/emails";
 import { client } from "@/lib/sanity";
 import {
   escapeHtml,
@@ -59,8 +60,9 @@ export async function POST(req: Request) {
       : "No guardado en Sanity (revisar logs / token)";
 
     await resend.emails.send({
-      from: "Monopolombiano Leads <onboarding@resend.dev>",
+      from: getEmailFrom("Monopolombiano Leads"),
       to: emailTo,
+      replyTo: email,
       subject: alreadySubscribed
         ? `Re-interacción de suscriptor en Monopolombiano (${rawSource})`
         : `Nuevo suscriptor en Monopolombiano (${rawSource})`,
@@ -73,7 +75,25 @@ export async function POST(req: Request) {
       `,
     });
 
-    return Response.json({ ok: true, alreadySubscribed, persisted });
+    let welcomeEmailSent = false;
+    try {
+      const welcome = buildSubscriberWelcomeEmail({
+        source: rawSource,
+        alreadySubscribed,
+      });
+      await resend.emails.send({
+        from: getEmailFrom("Monopolombiano"),
+        to: email,
+        replyTo: emailTo,
+        subject: welcome.subject,
+        html: welcome.html,
+      });
+      welcomeEmailSent = true;
+    } catch (welcomeError) {
+      console.error("Error enviando correo de bienvenida al suscriptor:", welcomeError);
+    }
+
+    return Response.json({ ok: true, alreadySubscribed, persisted, welcomeEmailSent });
   } catch (error) {
     console.error("Error registrando suscriptor:", error);
     return Response.json(

@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { buildAnunciateConfirmationEmail, getEmailFrom } from "@/lib/emails";
 import { client } from "@/lib/sanity";
 import { isSafeExternalUrl } from "@/lib/affiliates";
 import { findAdPackageById } from "@/lib/anunciate";
@@ -100,8 +101,9 @@ export async function POST(req: Request) {
     const fechaColombia = formatColombiaDate();
 
     await resend.emails.send({
-      from: "Monopolombiano B2B <onboarding@resend.dev>",
+      from: getEmailFrom("Monopolombiano B2B"),
       to: emailTo,
+      replyTo: email,
       subject: `Nueva propuesta comercial B2B: ${company} — ${pkg.title}`,
       html: `
         <h2>Nueva solicitud de pauta / alianza en Monopolombiano</h2>
@@ -117,10 +119,31 @@ export async function POST(req: Request) {
       `,
     });
 
+    let confirmationEmailSent = false;
+    try {
+      const confirmation = buildAnunciateConfirmationEmail({
+        contactName,
+        company,
+        packageTitle: pkg.title,
+        priceLabel: pkg.priceLabel,
+      });
+      await resend.emails.send({
+        from: getEmailFrom("Monopolombiano"),
+        to: email,
+        replyTo: emailTo,
+        subject: confirmation.subject,
+        html: confirmation.html,
+      });
+      confirmationEmailSent = true;
+    } catch (confirmationError) {
+      console.error("Error enviando confirmación B2B al anunciante:", confirmationError);
+    }
+
     return Response.json({
       ok: true,
       persisted,
       alreadySubscribed,
+      confirmationEmailSent,
       packageTitle: pkg.title,
     });
   } catch (error) {
