@@ -3,13 +3,14 @@
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import CalculatorResultCta from "@/components/CommonComponents/CalculatorResultCta";
 import CalculatorCard from "@/components/CommonComponents/Cards/CalculatorCard";
+import ProfitabilityRankingComparator from "@/components/CommonComponents/Profitability/ProfitabilityRankingComparator";
 import Tag from "@/components/CommonComponents/Tag";
 import { AFFILIATE_DISCLOSURE_TEXT } from "@/lib/affiliates";
 import {
   buildBankPageCopy,
   formatRentabilidadCardInterest,
-  type ProfitabilityBankKey,
 } from "@/lib/profitabilityCopy";
+import { BANK_DIRECTORY } from "@/lib/profitabilityRanking";
 import Link from "next/link";
 import React from "react";
 
@@ -23,62 +24,12 @@ interface ProfitabilityData {
   global66: number[];
 }
 
-const BANK_CARDS: Array<{
-  key: ProfitabilityBankKey;
-  label: string;
-  href: string;
-  icon: string;
-}> = [
-  {
-    key: "lulo",
-    label: "Lulo Bank",
-    href: "/calculadoras/lulo",
-    icon: "/assets/calculadoras/rentabilidad/luloBank.png",
-  },
-  {
-    key: "nu",
-    label: "Nu bank",
-    href: "/calculadoras/nu",
-    icon: "/assets/calculadoras/rentabilidad/nu.png",
-  },
-  {
-    key: "popular",
-    label: "Banco Popular",
-    href: "/calculadoras/popular",
-    icon: "/assets/calculadoras/rentabilidad/bancoPopular.png",
-  },
-  {
-    key: "pibank",
-    label: "Pibank",
-    href: "/calculadoras/pibank",
-    icon: "/assets/calculadoras/rentabilidad/pibank.png",
-  },
-  {
-    key: "global66",
-    label: "Global 66",
-    href: "/calculadoras/global66",
-    icon: "/assets/calculadoras/rentabilidad/global66.png",
-  },
-  {
-    key: "rappi",
-    label: "Rappi",
-    href: "/calculadoras/rappi",
-    icon: "/assets/calculadoras/rentabilidad/rapi.png",
-  },
-  {
-    key: "bold",
-    label: "Bold",
-    href: "/calculadoras/bold",
-    icon: "/assets/calculadoras/rentabilidad/bold.png",
-  },
-];
-
 const ClientPage = ({
   profitability,
 }: {
   profitability: ProfitabilityData;
 }) => {
-  const banks = BANK_CARDS.map((bank) => {
+  const banks = BANK_DIRECTORY.map((bank) => {
     const rates = profitability?.[bank.key];
     return {
       ...bank,
@@ -111,11 +62,12 @@ const ClientPage = ({
         rendimiento total neto.
         <br />
         <br />
-        💡 Usa nuestras calculadoras de rentabilidad y descubre qué banco te
-        paga más por tus ahorros. Compara tasas, analiza resultados y toma
-        decisiones financieras inteligentes con información actualizada y
-        confiable.
+        💡 Usa nuestro comparador cruzado o abre la calculadora individual de cada entidad para
+        simular tus rendimientos con información actualizada y confiable.
       </p>
+
+      <ProfitabilityRankingComparator profitability={profitability} />
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {banks.map((bank, index) => (
           <div
