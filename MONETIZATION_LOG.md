@@ -16,7 +16,7 @@
 
 ## Bloqueos / Solicitudes Pendientes para Gerardo (pedir o recordar por correo)
 
-- [ ] **Verificar dominio `monopolombiano.com` en Resend** (actualmente `onboarding@resend.dev` solo permite enviar correos al dueño de la cuenta `EMAIL_TO`; verificar el dominio permitirá enviar correos automáticos de bienvenida y entrega de plantillas directamente a los suscriptores).
+- [x] **Verificar dominio `monopolombiano.com` en Resend** — Completado (`2026-11-23`): dominio verificado y activo con remitente `info@monopolombiano.com`, correos automáticos de bienvenida y entrega de plantillas en `/api/subscribe` y confirmaciones automáticas en `/api/recursos` y `/api/anunciate`.
 - [ ] **Activar links de pago en Colombia** (Wompi, Bold, Mercado Pago o Hotmart) para cobrar automáticamente en COP (PSE / Nequi / tarjeta) por plantillas PRO y asesorías 1-a-1 en `/recursos`.
 - [ ] **Compartir links de referido / afiliado** (Global66, Lulo, Nu, Trii, Tyba, Wise, Tributi, ComparaOnline, Amazon) para integrarlos en las calculadoras y el comparador de tarjetas.
 - [ ] **(Opcional) Instalar `edge-tts`** si se desea voz neuronal colombiana (`es-CO-SalomeNeural` / `es-CO-GonzaloNeural`) en lugar de la voz local de macOS (`say -v Paulina`) para los audios de los blogs.

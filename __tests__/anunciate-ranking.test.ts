@@ -84,7 +84,7 @@ describe("Media Kit /anunciate y endpoint /api/anunciate", () => {
       alreadySubscribed: false,
       persisted: true,
     });
-    mockResendSend.mockResolvedValueOnce({ id: "email-123" });
+    mockResendSend.mockResolvedValue({ id: "email-123" });
 
     const req = new Request("https://monopolombiano.com/api/anunciate", {
       method: "POST",
@@ -105,6 +105,7 @@ describe("Media Kit /anunciate y endpoint /api/anunciate", () => {
     const data = await res.json();
     expect(data.ok).toBe(true);
     expect(data.persisted).toBe(true);
+    expect(data.confirmationEmailSent).toBe(true);
 
     expect(mockUpsertSubscriber).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -115,9 +116,13 @@ describe("Media Kit /anunciate y endpoint /api/anunciate", () => {
       expect.anything(),
     );
 
-    expect(mockResendSend).toHaveBeenCalledTimes(1);
+    expect(mockResendSend).toHaveBeenCalledTimes(2);
     const emailPayload = mockResendSend.mock.calls[0][0];
+    expect(emailPayload.from).toContain("info@monopolombiano.com");
     expect(emailPayload.to).toBe("dueno@monopolombiano.com");
+    const confirmationPayload = mockResendSend.mock.calls[1][0];
+    expect(confirmationPayload.from).toContain("info@monopolombiano.com");
+    expect(confirmationPayload.to).toBe("mercadeo@neobanco.co");
     expect(emailPayload.subject).toContain("Neobanco Colombia");
     expect(emailPayload.html).toContain("https://neobanco.co");
   });
