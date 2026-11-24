@@ -13,7 +13,8 @@ export type CalculatorCtaId =
   | "leasing-vivienda"
   | "rentabilidad"
   | "inversion"
-  | "comparador-tarjetas";
+  | "comparador-tarjetas"
+  | "conversor-dolares";
 
 export interface CalculatorCtaConfig {
   id: CalculatorCtaId;
@@ -185,6 +186,18 @@ export const CALCULATOR_CTA_CONFIG: Record<CalculatorCtaId, CalculatorCtaConfig>
     proProductId: "diagnostico-financiero-1a1",
     proHref: "/recursos#diagnostico-financiero-1a1",
     proLabel: "Diagnóstico 1-a-1 para ordenar tarjetas",
+  },
+  "conversor-dolares": {
+    id: "conversor-dolares",
+    leadMagnetSlug: "guia-presupuesto-50-30-20-colombia",
+    badge: "Descarga gratuita",
+    headline: "Controla tus gastos en dólares y tu presupuesto mensual en COP",
+    description:
+      "Descarga gratis la plantilla 50/30/20 + control de 4x1000 para presupuestar compras internacionales, viajes o ingresos en USD sin descuadrar tus cuentas en Colombia.",
+    buttonLabel: "Descargar plantilla gratis (.CSV)",
+    proProductId: "plantilla-finanzas-colombia",
+    proHref: "/recursos#plantilla-finanzas-colombia",
+    proLabel: "Ver Plantilla Maestra PRO ($39.000 COP)",
   },
 };
 

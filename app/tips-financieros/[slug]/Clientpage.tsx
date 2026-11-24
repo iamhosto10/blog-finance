@@ -11,6 +11,7 @@ import { components } from "@/lib/utils";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import React from "react";
 import AdInfeed from "@/components/CommonComponents/Adsense/AdInfeed";
+import ArticleConversionCta from "@/components/CommonComponents/ArticleConversionCta";
 
 // wavesurfer.js solo se descarga en los artículos que tienen audio.
 const AudioPlayer = dynamic(
@@ -166,6 +167,7 @@ export default function BlogArticle({ post }: { post: Blog }) {
             </React.Fragment>
           ))}
       </div>
+      <ArticleConversionCta post={data} sectionPath="tips-financieros" />
       {data?.relatedNews && (
         <News title="Articulos relacionados" data={data?.relatedNews} />
       )}

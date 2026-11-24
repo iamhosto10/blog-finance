@@ -154,3 +154,103 @@ export function buildCalculatorJsonLd(options: {
     "@graph": graph,
   };
 }
+
+export function buildWebSiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: "Monopolombiano",
+        url: SITE_URL,
+        logo: {
+          "@type": "ImageObject",
+          url: `${SITE_URL}/icon.png`,
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: "Monopolombiano",
+        description:
+          "Educación financiera, noticias económicas, calculadoras y comparadores gratuitos para Colombia.",
+        inLanguage: "es-CO",
+        publisher: {
+          "@id": `${SITE_URL}/#organization`,
+        },
+      },
+    ],
+  };
+}
+
+export interface CollectionItemEntry {
+  name: string;
+  url: string;
+  description?: string;
+}
+
+export function buildCollectionPageJsonLd(options: {
+  name: string;
+  description: string;
+  path: string;
+  items?: CollectionItemEntry[];
+}) {
+  const { name, description, path, items } = options;
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  const pageUrl = `${SITE_URL}${cleanPath}`;
+
+  const graph: Record<string, unknown>[] = [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Inicio",
+          item: SITE_URL,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name,
+          item: pageUrl,
+        },
+      ],
+    },
+    {
+      "@type": "CollectionPage",
+      name,
+      description,
+      url: pageUrl,
+      inLanguage: "es-CO",
+      isPartOf: {
+        "@type": "WebSite",
+        url: SITE_URL,
+        name: "Monopolombiano",
+      },
+      publisher: PUBLISHER_ORG,
+    },
+  ];
+
+  const validItems = (items ?? []).filter((item) => item.name && item.url);
+  if (validItems.length > 0) {
+    graph.push({
+      "@type": "ItemList",
+      name,
+      itemListElement: validItems.map((item, idx) => ({
+        "@type": "ListItem",
+        position: idx + 1,
+        name: item.name,
+        url: item.url.startsWith("http") ? item.url : `${SITE_URL}${item.url}`,
+        ...(item.description ? { description: item.description } : {}),
+      })),
+    });
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": graph,
+  };
+}

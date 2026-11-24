@@ -5,6 +5,8 @@ import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
 import { getBlogsByCategory } from "@/lib/queries";
 import { Metadata } from "next";
 import React from "react";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCollectionPageJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Finanzas Personales",
@@ -24,10 +26,10 @@ export const metadata: Metadata = {
   ],
   icons: { icon: "/favicon.ico" },
   openGraph: {
-    title: "Finanzas Personales",
+    title: "Finanzas Personales | Monopolombiano",
     description:
-      "Consejos prácticos sobre ahorro, inversión y manejo del dinero para las personas comunes.",
-    url: "https://www.monopolombiano.com/finanzas-personales",
+      "Consejos prácticos sobre ahorro, inversión y manejo del dinero para las personas comunes en Colombia.",
+    url: "https://monopolombiano.com/finanzas-personales",
     siteName: "Monopolombiano",
     images: [
       {
@@ -37,8 +39,11 @@ export const metadata: Metadata = {
         alt: "Finanzas Personales",
       },
     ],
-    locale: "es_ES",
-    type: "article",
+    locale: "es_CO",
+    type: "website",
+  },
+  alternates: {
+    canonical: "https://monopolombiano.com/finanzas-personales",
   },
   twitter: {
     card: "summary_large_image",
@@ -53,6 +58,14 @@ const page = async () => {
 
   return (
     <>
+      <JsonLd
+        data={buildCollectionPageJsonLd({
+          name: "Finanzas Personales en Colombia",
+          description:
+            "Guías prácticas de ahorro, presupuesto, inversión, créditos, vivienda y educación financiera para Colombia.",
+          path: "/finanzas-personales",
+        })}
+      />
       <div className="container mx-auto flex flex-col gap-16">
         <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
           Finanzas Personales

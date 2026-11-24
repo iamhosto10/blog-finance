@@ -5,6 +5,8 @@ import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
 import { getBlogsByCategory } from "@/lib/queries";
 import { Metadata } from "next";
 import React from "react";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCollectionPageJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Economía Hoy",
@@ -24,21 +26,24 @@ export const metadata: Metadata = {
   ],
   icons: { icon: "/favicon.ico" },
   openGraph: {
-    title: "Economía Hoy",
+    title: "Economía Hoy | Monopolombiano",
     description:
       "Análisis de bancos, criptomonedas, inflación, impuestos y regulaciones en Colombia.",
     url: "https://monopolombiano.com/economia-hoy",
-    siteName: "Mi Sitio Web",
+    siteName: "Monopolombiano",
     images: [
       {
-        url: "https://monopolombiano.com/og-image.jpg", // 👈 puedes usar /public o Sanity
+        url: "https://monopolombiano.com/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Economía Hoy en Colombia",
       },
     ],
-    locale: "es_ES",
-    type: "article",
+    locale: "es_CO",
+    type: "website",
+  },
+  alternates: {
+    canonical: "https://monopolombiano.com/economia-hoy",
   },
   twitter: {
     card: "summary_large_image",
@@ -53,6 +58,14 @@ const page = async () => {
   const blogs = await getBlogsByCategory("Economia Hoy");
   return (
     <>
+      <JsonLd
+        data={buildCollectionPageJsonLd({
+          name: "Economía Hoy en Colombia",
+          description:
+            "Noticias y análisis sobre bancos en Colombia, criptomonedas, economía del país, regulaciones financieras, tasas de interés e impuestos.",
+          path: "/economia-hoy",
+        })}
+      />
       <div className="container mx-auto flex flex-col gap-16">
         <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
           Economia Hoy
