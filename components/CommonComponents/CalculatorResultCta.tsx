@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2, Download, FileSpreadsheet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/gtag";
+import { submitLeadMagnetSubscription } from "@/lib/leadMagnetClient";
 import {
   type CalculatorCtaId,
   getCalculatorCtaConfig,
@@ -26,15 +27,6 @@ export default function CalculatorResultCta({
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
-  function triggerFileDownload() {
-    const link = document.createElement("a");
-    link.href = downloadHref;
-    link.setAttribute("download", "");
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-  }
-
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const cleanedEmail = email.trim();
@@ -44,35 +36,20 @@ export default function CalculatorResultCta({
     setMessage("");
 
     try {
-      const res = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: cleanedEmail,
-          source: `calc_${calculatorId}_lead_magnet`,
-        }),
+      const result = await submitLeadMagnetSubscription({
+        email: cleanedEmail,
+        source: `calc_${calculatorId}_lead_magnet`,
+        fileSlug: config.leadMagnetSlug,
+        trackingContext: { calculator_id: calculatorId },
       });
-      const data = await res.json();
 
-      if (res.ok && data.ok) {
+      if (result.ok) {
         setStatus("success");
-        setMessage(
-          data.alreadySubscribed
-            ? "¡Listo! Tu correo ya estaba registrado y tu descarga ha comenzado."
-            : "¡Registro exitoso! Tu descarga ha comenzado automáticamente.",
-        );
-        trackEvent("lead_signup", {
-          source: `calc_${calculatorId}_lead_magnet`,
-        });
-        trackEvent("lead_magnet_download", {
-          calculator_id: calculatorId,
-          file_slug: config.leadMagnetSlug,
-        });
+        setMessage(result.message);
         setEmail("");
-        triggerFileDownload();
       } else {
         setStatus("error");
-        setMessage(data.error || "Ingresa un correo electrónico válido.");
+        setMessage(result.message);
       }
     } catch {
       setStatus("error");

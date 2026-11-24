@@ -4,6 +4,8 @@ import React from "react";
 import type { Metadata } from "next";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import CalculatorCards from "@/components/CommonComponents/Cards/CalculatorCards";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCollectionPageJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadoras Financieras en Línea | Monopolombiano",
@@ -46,6 +48,9 @@ export const metadata: Metadata = {
     description:
       "Explora nuestras calculadoras financieras para Colombia: ahorro, inversión, crédito, leasing, 4x1000, dólar y más. Herramientas gratuitas para tu bolsillo.",
     images: ["https://monopolombiano.com/og-image.jpg"],
+  },
+  alternates: {
+    canonical: "https://monopolombiano.com/calculadoras",
   },
 };
 
@@ -118,6 +123,19 @@ const subcategories = [
 const Page = () => {
   return (
     <>
+      <JsonLd
+        data={buildCollectionPageJsonLd({
+          name: "Calculadoras Financieras en Línea",
+          description:
+            "Herramientas financieras gratuitas para Colombia: rentabilidad bancaria, crédito, ahorro, inversión, comparador de tarjetas, leasing y vivienda, 4x1000 y dólar TRM.",
+          path: "/calculadoras",
+          items: subcategories.map((item) => ({
+            name: item.label,
+            url: item.href,
+            description: item.description,
+          })),
+        })}
+      />
       <div className="container mx-auto flex flex-col gap-16">
         <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
           Calculadoras

@@ -8,6 +8,8 @@ import {
 import {
   buildArticleJsonLd,
   buildCalculatorJsonLd,
+  buildCollectionPageJsonLd,
+  buildWebSiteJsonLd,
   formatArticleTitle,
   SITE_URL,
 } from "../lib/structuredData";
@@ -60,6 +62,7 @@ describe("Lead Magnets y /api/files/[slug]", () => {
       "rentabilidad",
       "inversion",
       "comparador-tarjetas",
+      "conversor-dolares",
     ]);
 
     for (const id of ids) {
@@ -158,6 +161,30 @@ describe("Datos estructurados JSON-LD (Schema.org)", () => {
       slug: "calculadora-de-credito",
     });
     expect(withoutFaq["@graph"]).toHaveLength(2);
+  });
+
+  it("construye WebSite y CollectionPage con ItemList para Home y hubs de categorías", () => {
+    const website = buildWebSiteJsonLd();
+    expect(website["@context"]).toBe("https://schema.org");
+    expect(website["@graph"]).toHaveLength(2);
+    expect((website["@graph"][1] as Record<string, unknown>)["@type"]).toBe("WebSite");
+
+    const collection = buildCollectionPageJsonLd({
+      name: "Calculadoras Financieras",
+      description: "Herramientas financieras para Colombia.",
+      path: "/calculadoras",
+      items: [
+        { name: "Calculadora 4x1000", url: "/calculadoras/4x1000" },
+        { name: "Conversor de dólares", url: "/calculadoras/conversor-dolares" },
+      ],
+    });
+    expect(collection["@graph"]).toHaveLength(3);
+    const itemList = collection["@graph"][2] as {
+      "@type": string;
+      itemListElement: Array<{ url: string }>;
+    };
+    expect(itemList["@type"]).toBe("ItemList");
+    expect(itemList.itemListElement[0].url).toBe(`${SITE_URL}/calculadoras/4x1000`);
   });
 });
 

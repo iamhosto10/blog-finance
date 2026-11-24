@@ -1,6 +1,7 @@
 "use client";
 
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
+import CalculatorResultCta from "@/components/CommonComponents/CalculatorResultCta";
 import Tag from "@/components/CommonComponents/Tag";
 import DolarConversor from "@/components/DolarConversor/DolarConversor";
 import { Card, CardContent } from "@/components/ui/card";
@@ -54,6 +55,8 @@ const ClientPage = ({ dolar }: { dolar: Dolar }) => {
             <DolarConversor dolar={dolar} />
           </CardContent>
         </Card>
+
+        <CalculatorResultCta calculatorId="conversor-dolares" />
 
         <AdBanner
           dataAdFormat="auto"

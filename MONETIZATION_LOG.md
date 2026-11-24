@@ -27,14 +27,32 @@
 
 1. **Exp #9 — Actualización de tasas `profitability` y `applyUrl` en Sanity Studio**:
    - Confirmar y ajustar en Sanity Studio las tasas exactas vigentes de Nu, Lulo, Pibank, Global66, Bold, Rappi y Banco Popular, y poblar `applyUrl` en los 20 documentos `cards` o variables `NEXT_PUBLIC_AFFILIATE_*_URL`.
-2. **Exp #10 — Links de pago directos en `/recursos` + Automatización de entrega**:
-   - Activar links de pago de Wompi / Bold / Mercado Pago / Hotmart en `lib/recursos.ts` cuando Gerardo los comparta y correo de entrega inmediata al verificar `monopolombiano.com` en Resend.
-3. **Exp #11 — CTA contextual de leads y `/recursos` dentro de artículos del blog**:
-   - Inyectar un bloque compacto de captación (lead magnet + `/recursos` + calculadora relacionada) en el cuerpo/pie de artículos de `economia-hoy`, `finanzas-personales` y `tips-financieros` sin competir con AdSense.
+2. **Exp #10 — Pasarela de pago automática con tarjeta/PSE en `/recursos` (complemento a Bre-B)**:
+   - Activar links de pago de Wompi / Bold / Mercado Pago / Hotmart en `lib/recursos.ts` cuando Gerardo los comparta para complementar el cobro inmediato por Bre-B (`Lulo Bank`) ya activo.
+3. **Exp #13 — Higiene SEO y JSON-LD en las 18 subcategorías del blog + CTA en Home**:
+   - Auditar `alternates.canonical`, `locale: "es_CO"`, `siteName: "Monopolombiano"` y JSON-LD `CollectionPage` en todas las subcategorías de `economia-hoy`, `finanzas-personales` y `tips-financieros`, y agregar acceso destacado a `/recursos` y al comparador cruzado desde el Home.
 
 ---
 
 ## Registro de Experimentos Ejecutados
+
+### 2026-11-24 — Experimento #11: CTA Contextual en Artículos del Blog y Experimento #12: Cobertura 15/15 de Calculadoras (`conversor-dolares`) + Higiene SEO/JSON-LD en Hubs
+- **Hipótesis**: Conectar los artículos editoriales (`economia-hoy`, `finanzas-personales`, `tips-financieros`) con la calculadora exacta del tema, un lead magnet descargable y una oferta de `/recursos` convierte el tráfico orgánico de lectura en leads y usuarios activos de herramientas; además, cerrar la brecha de `conversor-dolares` (la única calculadora sin CTA de lead magnet) y corregir metadata/JSON-LD en Home y hubs principales mejora el rastreo e indexación en Google Colombia.
+- **Cambios realizados**:
+  - **CTA contextual en artículos del blog (`lib/articleCta.ts` + `ArticleConversionCta.tsx`)**: creada resolución temática por categoría/título/slug (`vivienda`, `impuestos`, `deuda-tarjetas`, `divisas`, `inversion`, `rentabilidad`) que muestra al pie del artículo (antes de `Articulos relacionados`, sin competir con bloques AdSense) un botón directo a la calculadora afín, captura inline de correo conectada a `/api/subscribe` con descarga automática vía `/api/files/[slug]`, enlace contextual a `/recursos` y eventos GA4 (`article_calculator_click`, `lead_signup`, `lead_magnet_download`, `product_cta_click`). Integrado en `app/economia-hoy/[slug]/Clientpage.tsx`, `app/finanzas-personales/[slug]/Clientpage.tsx` y `app/tips-financieros/[slug]/Clientpage.tsx`.
+  - **Helper compartido de descarga (`lib/leadMagnetClient.ts`)**: extraída la lógica compartida de suscripción + descarga + tracking GA4 usada tanto por `CalculatorResultCta.tsx` como por `ArticleConversionCta.tsx`.
+  - **Cobertura 15/15 en calculadoras (`conversor-dolares`)**: añadido perfil `"conversor-dolares"` en `lib/leadMagnets.ts` e integrado `<CalculatorResultCta calculatorId="conversor-dolares" />` en `app/calculadoras/conversor-dolares/Clientpage.tsx` encima de AdSense.
+  - **Higiene SEO y JSON-LD en Home y hubs (`lib/structuredData.ts`)**: añadidos `buildWebSiteJsonLd` y `buildCollectionPageJsonLd`. Corregidos `siteName: "Monopolombiano"`, `locale: "es_CO"`, `type: "website"`, URL sin `www` y `alternates.canonical` en `app/economia-hoy/page.tsx`, `app/finanzas-personales/page.tsx` y `app/calculadoras/page.tsx`, e inyectado `<JsonLd>` en `app/page.tsx`, `app/calculadoras/page.tsx`, `app/economia-hoy/page.tsx`, `app/finanzas-personales/page.tsx` y `app/tips-financieros/page.tsx`.
+  - **Pruebas y validación**: añadida suite `__tests__/article-cta.test.ts` (4 pruebas) y ampliada `__tests__/monetization-seo.test.ts` (8 pruebas). Validado localmente con `npx tsc --noEmit`, `npm run lint`, `npm run test` (6 archivos, 31/31 pruebas pasando) y `npm run build`.
+- **Archivos tocados**:
+  - `lib/leadMagnetClient.ts`, `lib/articleCta.ts`, `lib/leadMagnets.ts`, `lib/structuredData.ts`
+  - `components/CommonComponents/ArticleConversionCta.tsx`, `components/CommonComponents/CalculatorResultCta.tsx`
+  - `app/economia-hoy/[slug]/Clientpage.tsx`, `app/finanzas-personales/[slug]/Clientpage.tsx`, `app/tips-financieros/[slug]/Clientpage.tsx`
+  - `app/calculadoras/conversor-dolares/Clientpage.tsx`
+  - `app/page.tsx`, `app/calculadoras/page.tsx`, `app/economia-hoy/page.tsx`, `app/finanzas-personales/page.tsx`, `app/tips-financieros/page.tsx`
+  - `__tests__/article-cta.test.ts`, `__tests__/monetization-seo.test.ts`, `MONETIZATION_LOG.md`
+- **Métrica esperada**: Primeros clics medidos desde artículos hacia calculadoras (`article_calculator_click`), incremento de leads captados desde contenido editorial (`lead_signup` / `lead_magnet_download`) y mayor CTR hacia `/recursos` desde las 15/15 calculadoras.
+- **Próximos pasos**: Ejecutar Exp #13 (auditoría SEO y JSON-LD en las 18 subcategorías del blog + acceso destacado en Home) y activar Exp #9 / Exp #10 en cuanto Gerardo comparta links de afiliado/referido y opcionalmente pasarela de tarjeta/PSE.
 
 ### 2026-11-23 — Experimento #7: Media Kit B2B (`/anunciate` + `/api/anunciate`) y Experimento #8: Ranking cruzado "Mejor cuenta hoy" con Retención y 4x1000
 - **Hipótesis**: Lanzar una página B2B dedicada (`/anunciate`) con formatos comerciales en COP y formulario de contacto directo abre la línea de patrocinios con fintechs y neobancos en Colombia, mientras que transformar `/calculadoras/calculadora-de-rentabilidad` de un listado estático a un comparador cruzado ordenado automáticamente por ganancia neta (con retención del 7% y 4x1000 opcional) retiene más tiempo al usuario y canaliza clics hacia cada simulador y enlaces de afiliado.

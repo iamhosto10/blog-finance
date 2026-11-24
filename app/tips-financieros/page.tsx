@@ -5,6 +5,8 @@ import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
 import { getBlogsByCategory } from "@/lib/queries";
 import { Metadata } from "next";
 import React from "react";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildCollectionPageJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Tips Financieros",
@@ -56,6 +58,14 @@ const page = async () => {
   const blogs = await getBlogsByCategory("Tips Financieros");
   return (
     <>
+      <JsonLd
+        data={buildCollectionPageJsonLd({
+          name: "Tips Financieros para Colombia",
+          description:
+            "Consejos prácticos sobre cajeros, bancos, ahorro diario, seguridad financiera, manejo de divisas, historial crediticio y apps útiles.",
+          path: "/tips-financieros",
+        })}
+      />
       <div className="container mx-auto flex flex-col gap-16">
         <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
           Tips Financieros
