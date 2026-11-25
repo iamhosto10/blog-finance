@@ -1,15 +1,20 @@
-import ArticleList from "@/components/ArticleList/ArticleList";
-import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
-import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
-import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
-import { getBlogsByCategory } from "@/lib/queries";
-import { Metadata } from "next";
 import React from "react";
+import type { Metadata } from "next";
+import SubcategoryPageView from "@/components/CategoryHub/SubcategoryPageView";
+import { getBlogsByCategory } from "@/lib/queries";
+import { buildSubcategoryMetadata } from "@/lib/structuredData";
 
-export const metadata: Metadata = {
-  title: "Ahorro y Presupuesto | Monopolombiano",
-  description:
+const TITLE = "Ahorro y Presupuesto";
+const DESCRIPTION =
+  "Aprende a planificar tus finanzas, crear un presupuesto efectivo y alcanzar tus metas de ahorro sin complicaciones.";
+
+export const metadata: Metadata = buildSubcategoryMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraphDescription:
     "Aprende a planificar tus finanzas, crear un presupuesto efectivo y alcanzar tus metas de ahorro sin complicaciones.",
+  twitterDescription:
+    "Consejos para ahorrar dinero, controlar tus gastos y organizar tu presupuesto personal o familiar.",
   keywords: [
     "ahorro",
     "presupuesto",
@@ -21,43 +26,22 @@ export const metadata: Metadata = {
     "finanzas del hogar",
     "educación financiera",
   ],
-  icons: { icon: "/favicon.ico" },
-  openGraph: {
-    title: "Ahorro y Presupuesto",
-    description:
-      "Aprende a planificar tus finanzas, crear un presupuesto efectivo y alcanzar tus metas de ahorro sin complicaciones.",
-    url: "https://monopolombiano.com/finanzas-personales/ahorro-y-presupuesto",
-    siteName: "Monopolombiano",
-    images: [
-      {
-        url: "https://monopolombiano.com/og-image.jpg",
-        width: 600,
-        height: 600,
-        alt: "Ahorro y Presupuesto",
-      },
-    ],
-    locale: "es_ES",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Ahorro y Presupuesto",
-    description:
-      "Consejos para ahorrar dinero, controlar tus gastos y organizar tu presupuesto personal o familiar.",
-    images: ["https://monopolombiano.com/og-image.jpg"],
-  },
-};
+  path: "/finanzas-personales/ahorro-y-presupuesto",
+});
 
-const page = async () => {
+export default async function Page() {
   const blogs = await getBlogsByCategory("Ahorro y presupuesto");
 
   return (
-    <>
-      <div className="container mx-auto flex flex-col gap-16">
-        <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
-          Ahorro y Presupuesto
-        </h1>
-        <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
+    <SubcategoryPageView
+      title={TITLE}
+      description={DESCRIPTION}
+      sectionPath="finanzas-personales"
+      subcategorySlug="ahorro-y-presupuesto"
+      categoryLabel="Ahorro y Presupuesto"
+      blogs={blogs}
+      intro={
+        <>
           Descubre cómo organizar tus finanzas personales creando un
           <span className="font-bold"> presupuesto inteligente </span> que te
           permita alcanzar tus metas de ahorro y mantener tus gastos bajo
@@ -70,34 +54,8 @@ const page = async () => {
           <span className="font-bold">Temas principales: </span> gestión del
           presupuesto, ahorro mensual, control de gastos, fondo de emergencia y
           metas financieras.
-        </p>
-
-        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Ahorro y Presupuesto"
-          indexes={[4, 7]}
-        />
-        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
-        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Ahorro y Presupuesto"
-          indexes={[11, 20]}
-        />
-      </div>
-    </>
+        </>
+      }
+    />
   );
-};
-
-export default page;
+}

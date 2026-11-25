@@ -161,27 +161,12 @@ function hasAnyKeyword(text: string, keywords: string[]): boolean {
   return keywords.some((keyword) => text.includes(keyword));
 }
 
-/**
- * Selecciona la calculadora, lead magnet y oferta PRO de `/recursos` más afines al artículo actual.
- */
-export function resolveArticleCta(
-  post: Pick<Blog, "title" | "focusTitle" | "continueTitle" | "slug" | "categories">,
-  sectionPath: ArticleSectionPath,
-): ArticleCtaRecommendation {
-  const categoryTerms = (post.categories ?? [])
-    .flatMap((cat) => [cat.slug?.current ?? "", cat.title ?? ""])
-    .join(" ");
-  const titleTerms = [
-    post.title,
-    post.focusTitle,
-    post.continueTitle,
-    post.slug?.current,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  const searchable = normalizeSearchText(`${categoryTerms} ${titleTerms}`);
-
+function resolveTopicFromSearchable(
+  searchable: string,
+): {
+  topicKey: ArticleTopicKey;
+  overrideCalculator: { label: string; href: string } | null;
+} {
   let topicKey: ArticleTopicKey = "rentabilidad";
   let overrideCalculator: { label: string; href: string } | null = null;
 
@@ -208,6 +193,7 @@ export function resolveArticleCta(
       "uvt",
       "retencion en la fuente",
       "tribut",
+      "regulacion",
     ])
   ) {
     topicKey = "impuestos";
@@ -260,6 +246,14 @@ export function resolveArticleCta(
     topicKey = "inversion";
   }
 
+  return { topicKey, overrideCalculator };
+}
+
+function buildRecommendationFromTopic(
+  topicKey: ArticleTopicKey,
+  subscribeSource: string,
+  overrideCalculator: { label: string; href: string } | null,
+): ArticleCtaRecommendation {
   const template = TOPIC_TEMPLATES[topicKey];
 
   return {
@@ -271,10 +265,71 @@ export function resolveArticleCta(
     headline: template.headline,
     description: template.description,
     leadMagnetSlug: template.leadMagnetSlug,
-    subscribeSource: `article_${sectionPath}_${template.sourceTag}_lead`,
+    subscribeSource,
     buttonLabel: template.buttonLabel,
     proProductId: template.proProductId,
     proHref: template.proHref,
     proLabel: template.proLabel,
   };
+}
+
+/**
+ * Selecciona la calculadora, lead magnet y oferta PRO de `/recursos` más afines al artículo actual.
+ */
+export function resolveArticleCta(
+  post: Pick<Blog, "title" | "focusTitle" | "continueTitle" | "slug" | "categories">,
+  sectionPath: ArticleSectionPath,
+): ArticleCtaRecommendation {
+  const categoryTerms = (post.categories ?? [])
+    .flatMap((cat) => [cat.slug?.current ?? "", cat.title ?? ""])
+    .join(" ");
+  const titleTerms = [
+    post.title,
+    post.focusTitle,
+    post.continueTitle,
+    post.slug?.current,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const searchable = normalizeSearchText(`${categoryTerms} ${titleTerms}`);
+  const { topicKey, overrideCalculator } = resolveTopicFromSearchable(searchable);
+  const template = TOPIC_TEMPLATES[topicKey];
+
+  return buildRecommendationFromTopic(
+    topicKey,
+    `article_${sectionPath}_${template.sourceTag}_lead`,
+    overrideCalculator,
+  );
+}
+
+/**
+ * Selecciona la calculadora, lead magnet y oferta PRO de `/recursos` para una subcategoría editorial.
+ */
+export function resolveSubcategoryCta(
+  sectionPath: ArticleSectionPath,
+  subcategorySlug: string,
+  subcategoryTitle: string,
+): ArticleCtaRecommendation {
+  const searchable = normalizeSearchText(`${subcategorySlug} ${subcategoryTitle}`);
+  const { topicKey, overrideCalculator: topicOverride } =
+    resolveTopicFromSearchable(searchable);
+
+  let overrideCalculator = topicOverride;
+  if (
+    topicKey === "rentabilidad" &&
+    hasAnyKeyword(searchable, ["ahorro-y-presupuesto", "compras-y-ahorro-diario"])
+  ) {
+    overrideCalculator = {
+      label: "Abrir Calculadora de Ahorro",
+      href: "/calculadoras/calculadora-de-ahorro",
+    };
+  }
+
+  const template = TOPIC_TEMPLATES[topicKey];
+  return buildRecommendationFromTopic(
+    topicKey,
+    `category_${sectionPath}_${template.sourceTag}_lead`,
+    overrideCalculator,
+  );
 }

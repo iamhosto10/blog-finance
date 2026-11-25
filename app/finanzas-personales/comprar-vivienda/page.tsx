@@ -1,15 +1,20 @@
-import ArticleList from "@/components/ArticleList/ArticleList";
-import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
-import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
-import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
-import { getBlogsByCategory } from "@/lib/queries";
-import { Metadata } from "next";
 import React from "react";
+import type { Metadata } from "next";
+import SubcategoryPageView from "@/components/CategoryHub/SubcategoryPageView";
+import { getBlogsByCategory } from "@/lib/queries";
+import { buildSubcategoryMetadata } from "@/lib/structuredData";
 
-export const metadata: Metadata = {
-  title: "Comprar Vivienda | Monopolombiano",
-  description:
-    "Todo lo que necesitas saber para comprar vivienda en Colombia: créditos, subsidios, cuotas iniciales y consejos para tomar la mejor decisión financiera.",
+const TITLE = "Comprar Vivienda";
+const DESCRIPTION =
+  "Todo lo que necesitas saber para comprar vivienda en Colombia: créditos, subsidios, cuotas iniciales y consejos para tomar la mejor decisión financiera.";
+
+export const metadata: Metadata = buildSubcategoryMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraphDescription:
+    "Guías, consejos y herramientas para comprar vivienda en Colombia. Aprende sobre créditos, subsidios y estrategias para cumplir tu sueño de tener casa propia.",
+  twitterDescription:
+    "Aprende a comprar vivienda en Colombia paso a paso: créditos, subsidios y planificación financiera para lograrlo.",
   keywords: [
     "comprar vivienda",
     "crédito hipotecario",
@@ -22,43 +27,22 @@ export const metadata: Metadata = {
     "vivienda en Colombia",
     "educación financiera",
   ],
-  icons: { icon: "/favicon.ico" },
-  openGraph: {
-    title: "Comprar Vivienda",
-    description:
-      "Guías, consejos y herramientas para comprar vivienda en Colombia. Aprende sobre créditos, subsidios y estrategias para cumplir tu sueño de tener casa propia.",
-    url: "https://monopolombiano.com/finanzas-personales/comprar-vivienda",
-    siteName: "Monopolombiano",
-    images: [
-      {
-        url: "https://monopolombiano.com/og-image.jpg",
-        width: 600,
-        height: 600,
-        alt: "Comprar Vivienda",
-      },
-    ],
-    locale: "es_ES",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Comprar Vivienda",
-    description:
-      "Aprende a comprar vivienda en Colombia paso a paso: créditos, subsidios y planificación financiera para lograrlo.",
-    images: ["https://monopolombiano.com/og-image.jpg"],
-  },
-};
+  path: "/finanzas-personales/comprar-vivienda",
+});
 
-const page = async () => {
+export default async function Page() {
   const blogs = await getBlogsByCategory("Comprar Vivienda");
-  return (
-    <>
-      <div className="container mx-auto flex flex-col gap-16">
-        <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
-          Comprar Vivienda
-        </h1>
 
-        <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
+  return (
+    <SubcategoryPageView
+      title={TITLE}
+      description={DESCRIPTION}
+      sectionPath="finanzas-personales"
+      subcategorySlug="comprar-vivienda"
+      categoryLabel="Comprar Vivienda"
+      blogs={blogs}
+      intro={
+        <>
           Si estás pensando en{" "}
           <span className="font-bold">comprar vivienda</span>, aquí encontrarás
           toda la información que necesitas para hacerlo con seguridad y buena
@@ -78,34 +62,8 @@ const page = async () => {
           <span className="font-bold">Temas principales:</span> créditos
           hipotecarios, subsidios, ahorro para vivienda, leasing habitacional,
           inversión inmobiliaria y planificación financiera.
-        </p>
-
-        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Comprar Vivienda"
-          indexes={[4, 7]}
-        />
-        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
-        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Comprar Vivienda"
-          indexes={[11, 20]}
-        />
-      </div>
-    </>
+        </>
+      }
+    />
   );
-};
-
-export default page;
+}

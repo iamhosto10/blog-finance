@@ -1,16 +1,20 @@
-import ArticleList from "@/components/ArticleList/ArticleList";
-import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
-import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
-import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
-import { getBlogsByCategory } from "@/lib/queries";
-import { client } from "@/lib/sanity";
-import { Metadata } from "next";
 import React from "react";
+import type { Metadata } from "next";
+import SubcategoryPageView from "@/components/CategoryHub/SubcategoryPageView";
+import { getBlogsByCategory } from "@/lib/queries";
+import { buildSubcategoryMetadata } from "@/lib/structuredData";
 
-export const metadata: Metadata = {
-  title: "Tasas de Interés | Monopolombiano",
-  description:
-    "Entérate de las últimas decisiones sobre tasas de interés en Colombia y cómo impactan tus créditos, inversiones y ahorros. Análisis del Banco de la República y tendencias económicas.",
+const TITLE = "Tasas de Interés";
+const DESCRIPTION =
+  "Entérate de las últimas decisiones sobre tasas de interés en Colombia y cómo impactan tus créditos, inversiones y ahorros. Análisis del Banco de la República y tendencias económicas.";
+
+export const metadata: Metadata = buildSubcategoryMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraphDescription:
+    "Conoce cómo las tasas de interés del Banco de la República afectan tu dinero, los créditos, los ahorros y la inversión en Colombia.",
+  twitterDescription:
+    "Aprende cómo las tasas de interés impactan tus finanzas personales, tus créditos y tus inversiones en Colombia.",
   keywords: [
     "tasas de interés",
     "Banco de la República",
@@ -23,43 +27,22 @@ export const metadata: Metadata = {
     "rendimientos",
     "deuda",
   ],
-  icons: { icon: "/favicon.ico" },
-  openGraph: {
-    title: "Tasas de Interés",
-    description:
-      "Conoce cómo las tasas de interés del Banco de la República afectan tu dinero, los créditos, los ahorros y la inversión en Colombia.",
-    url: "https://www.monopolombiano.com/economia-hoy/tasas-de-interes",
-    siteName: "Monopolombiano",
-    images: [
-      {
-        url: "https://monopolombiano.com/og-image.jpg",
-        width: 600,
-        height: 600,
-        alt: "Tasas de Interés",
-      },
-    ],
-    locale: "es_ES",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Tasas de Interés",
-    description:
-      "Aprende cómo las tasas de interés impactan tus finanzas personales, tus créditos y tus inversiones en Colombia.",
-    images: ["https://monopolombiano.com/og-image.jpg"],
-  },
-};
+  path: "/economia-hoy/tasas-de-interes",
+});
 
-const page = async () => {
+export default async function Page() {
   const blogs = await getBlogsByCategory("Tasas de interes");
-  return (
-    <>
-      <div className="container mx-auto flex flex-col gap-16">
-        <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
-          Tasas de Interés
-        </h1>
 
-        <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
+  return (
+    <SubcategoryPageView
+      title={TITLE}
+      description={DESCRIPTION}
+      sectionPath="economia-hoy"
+      subcategorySlug="tasas-de-interes"
+      categoryLabel="tasas de interes"
+      blogs={blogs}
+      intro={
+        <>
           Mantente informado sobre las{" "}
           <span className="font-bold">tasas de interés</span> y su impacto en la
           economía colombiana. Aquí analizamos las decisiones del{" "}
@@ -77,34 +60,8 @@ const page = async () => {
           <span className="font-bold">Temas principales:</span> Banco de la
           República, inflación, créditos, ahorro, política monetaria, inversión
           y economía colombiana.
-        </p>
-
-        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="tasas de interes"
-          indexes={[4, 7]}
-        />
-        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
-        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="tasas de interes"
-          indexes={[11, 20]}
-        />
-      </div>
-    </>
+        </>
+      }
+    />
   );
-};
-
-export default page;
+}

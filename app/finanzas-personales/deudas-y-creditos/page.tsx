@@ -1,15 +1,20 @@
-import ArticleList from "@/components/ArticleList/ArticleList";
-import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
-import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
-import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
-import { getBlogsByCategory } from "@/lib/queries";
-import { Metadata } from "next";
 import React from "react";
+import type { Metadata } from "next";
+import SubcategoryPageView from "@/components/CategoryHub/SubcategoryPageView";
+import { getBlogsByCategory } from "@/lib/queries";
+import { buildSubcategoryMetadata } from "@/lib/structuredData";
 
-export const metadata: Metadata = {
-  title: "Deudas y Créditos | Monopolombiano",
-  description:
-    "Aprende a manejar tus deudas y utilizar los créditos de forma responsable. Conoce estrategias para mejorar tu historial y salir de deudas sin perder tu estabilidad financiera.",
+const TITLE = "Deudas y Créditos";
+const DESCRIPTION =
+  "Aprende a manejar tus deudas y utilizar los créditos de forma responsable. Conoce estrategias para mejorar tu historial y salir de deudas sin perder tu estabilidad financiera.";
+
+export const metadata: Metadata = buildSubcategoryMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraphDescription:
+    "Guías y estrategias para entender y manejar tus créditos de manera inteligente. Aprende a evitar el sobreendeudamiento y mejora tu historial financiero.",
+  twitterDescription:
+    "Consejos para salir de deudas, mejorar tu puntaje crediticio y usar el crédito de forma inteligente.",
   keywords: [
     "deudas",
     "créditos",
@@ -22,44 +27,22 @@ export const metadata: Metadata = {
     "cómo salir de deudas",
     "educación financiera",
   ],
-  icons: { icon: "/favicon.ico" },
-  openGraph: {
-    title: "Deudas y Créditos",
-    description:
-      "Guías y estrategias para entender y manejar tus créditos de manera inteligente. Aprende a evitar el sobreendeudamiento y mejora tu historial financiero.",
-    url: "https://monopolombiano.com/finanzas-personales/deudas-y-creditos",
-    siteName: "Monopolombiano",
-    images: [
-      {
-        url: "https://monopolombiano.com/og-image.jpg",
-        width: 600,
-        height: 600,
-        alt: "Deudas y Créditos",
-      },
-    ],
-    locale: "es_ES",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Deudas y Créditos",
-    description:
-      "Consejos para salir de deudas, mejorar tu puntaje crediticio y usar el crédito de forma inteligente.",
-    images: ["https://monopolombiano.com/og-image.jpg"],
-  },
-};
+  path: "/finanzas-personales/deudas-y-creditos",
+});
 
-const page = async () => {
+export default async function Page() {
   const blogs = await getBlogsByCategory("Deudas y créditos");
 
   return (
-    <>
-      <div className="container mx-auto flex flex-col gap-16">
-        <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
-          Deudas y Créditos
-        </h1>
-
-        <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
+    <SubcategoryPageView
+      title={TITLE}
+      description={DESCRIPTION}
+      sectionPath="finanzas-personales"
+      subcategorySlug="deudas-y-creditos"
+      categoryLabel="Deudas y Créditos"
+      blogs={blogs}
+      intro={
+        <>
           Entiende cómo funcionan las{" "}
           <span className="font-bold">deudas y los créditos</span> para tomar
           mejores decisiones financieras. Aprende a identificar cuándo
@@ -76,34 +59,8 @@ const page = async () => {
           <span className="font-bold">Temas principales:</span> manejo de
           créditos, puntaje crediticio, consolidación de deudas, préstamos,
           tarjetas de crédito y educación financiera.
-        </p>
-
-        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Deudas y Créditos"
-          indexes={[4, 7]}
-        />
-        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
-        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Deudas y Créditos"
-          indexes={[11, 20]}
-        />
-      </div>
-    </>
+        </>
+      }
+    />
   );
-};
-
-export default page;
+}

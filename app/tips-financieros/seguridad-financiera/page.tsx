@@ -1,15 +1,20 @@
-import ArticleList from "@/components/ArticleList/ArticleList";
-import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
-import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
-import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
-import { getBlogsByCategory } from "@/lib/queries";
-import { Metadata } from "next";
 import React from "react";
+import type { Metadata } from "next";
+import SubcategoryPageView from "@/components/CategoryHub/SubcategoryPageView";
+import { getBlogsByCategory } from "@/lib/queries";
+import { buildSubcategoryMetadata } from "@/lib/structuredData";
 
-export const metadata: Metadata = {
-  title: "Seguridad Financiera | Monopolombiano",
-  description:
-    "Aprende a proteger tus finanzas personales, evitar fraudes y construir una base económica sólida para el futuro.",
+const TITLE = "Seguridad Financiera";
+const DESCRIPTION =
+  "Aprende a proteger tus finanzas personales, evitar fraudes y construir una base económica sólida para el futuro.";
+
+export const metadata: Metadata = buildSubcategoryMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraphDescription:
+    "Consejos prácticos para cuidar tu dinero, prevenir fraudes y lograr estabilidad económica.",
+  twitterDescription:
+    "Protege tus finanzas personales y evita fraudes con estrategias sencillas y efectivas.",
   keywords: [
     "seguridad financiera",
     "fraudes bancarios",
@@ -22,43 +27,22 @@ export const metadata: Metadata = {
     "riesgos financieros",
     "plan de ahorro",
   ],
-  icons: { icon: "/favicon.ico" },
-  openGraph: {
-    title: "Seguridad Financiera",
-    description:
-      "Consejos prácticos para cuidar tu dinero, prevenir fraudes y lograr estabilidad económica.",
-    url: "https://monopolombiano.com/tips-financieros/seguridad-financiera",
-    siteName: "Monopolombiano",
-    images: [
-      {
-        url: "https://monopolombiano.com/og-image.jpg",
-        width: 600,
-        height: 600,
-        alt: "Seguridad Financiera",
-      },
-    ],
-    locale: "es_ES",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Seguridad Financiera",
-    description:
-      "Protege tus finanzas personales y evita fraudes con estrategias sencillas y efectivas.",
-    images: ["https://monopolombiano.com/og-image.jpg"],
-  },
-};
+  path: "/tips-financieros/seguridad-financiera",
+});
 
-const page = async () => {
+export default async function Page() {
   const blogs = await getBlogsByCategory("Seguridad Financiera");
-  return (
-    <>
-      <div className="container mx-auto flex flex-col gap-16">
-        <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
-          Seguridad Financiera
-        </h1>
 
-        <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
+  return (
+    <SubcategoryPageView
+      title={TITLE}
+      description={DESCRIPTION}
+      sectionPath="tips-financieros"
+      subcategorySlug="seguridad-financiera"
+      categoryLabel="Seguridad Financiera"
+      blogs={blogs}
+      intro={
+        <>
           La <span className="font-bold">seguridad financiera</span> consiste en
           proteger tus ingresos, ahorros e inversiones ante imprevistos, fraudes
           o crisis económicas. En esta sección encontrarás{" "}
@@ -79,34 +63,8 @@ const page = async () => {
           <span className="font-bold">Temas principales:</span> prevención de
           fraudes, ahorro de emergencia, seguros, protección del dinero,
           estabilidad financiera y gestión de riesgos.
-        </p>
-
-        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Compras y Ahorro Diario"
-          indexes={[4, 7]}
-        />
-        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
-        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Compras y Ahorro Diario"
-          indexes={[11, 20]}
-        />
-      </div>
-    </>
+        </>
+      }
+    />
   );
-};
-
-export default page;
+}

@@ -1,16 +1,20 @@
-import ArticleList from "@/components/ArticleList/ArticleList";
-import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
-import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
-import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
-import { getBlogsByCategory } from "@/lib/queries";
-import { client } from "@/lib/sanity";
-import { Metadata } from "next";
 import React from "react";
+import type { Metadata } from "next";
+import SubcategoryPageView from "@/components/CategoryHub/SubcategoryPageView";
+import { getBlogsByCategory } from "@/lib/queries";
+import { buildSubcategoryMetadata } from "@/lib/structuredData";
 
-export const metadata: Metadata = {
-  title: "Cripto y Nuevas Tecnologías | Monopolombiano",
-  description:
-    "Noticias, guías y análisis sobre criptomonedas, blockchain, inteligencia artificial, fintech y las tecnologías que están transformando el mundo financiero.",
+const TITLE = "Cripto y Nuevas Tecnologías";
+const DESCRIPTION =
+  "Noticias, guías y análisis sobre criptomonedas, blockchain, inteligencia artificial, fintech y las tecnologías que están transformando el mundo financiero.";
+
+export const metadata: Metadata = buildSubcategoryMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraphDescription:
+    "Explora cómo las criptomonedas, el blockchain y la inteligencia artificial están cambiando las finanzas modernas.",
+  twitterDescription:
+    "Aprende sobre blockchain, criptomonedas, IA y las nuevas tecnologías que transforman el mundo financiero.",
   keywords: [
     "criptomonedas",
     "blockchain",
@@ -23,44 +27,22 @@ export const metadata: Metadata = {
     "nuevas tecnologías",
     "criptoactivos",
   ],
-  icons: { icon: "/favicon.ico" },
-  openGraph: {
-    title: "Cripto y Nuevas Tecnologías",
-    description:
-      "Explora cómo las criptomonedas, el blockchain y la inteligencia artificial están cambiando las finanzas modernas.",
-    url: "https://www.monopolombiano.com/economia-hoy/cripto-y-nuevas-tecnologias",
-    siteName: "Monopolombiano",
-    images: [
-      {
-        url: "https://monopolombiano.com/og-image.jpg",
-        width: 600,
-        height: 600,
-        alt: "Cripto y Nuevas Tecnologías",
-      },
-    ],
-    locale: "es_ES",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Cripto y Nuevas Tecnologías",
-    description:
-      "Aprende sobre blockchain, criptomonedas, IA y las nuevas tecnologías que transforman el mundo financiero.",
-    images: ["https://monopolombiano.com/og-image.jpg"],
-  },
-};
+  path: "/economia-hoy/cripto-y-nuevas-tecnologias",
+});
 
-const page = async () => {
+export default async function Page() {
   const blogs = await getBlogsByCategory("Cripto y nuevas tecnologías");
 
   return (
-    <>
-      <div className="container mx-auto flex flex-col gap-16">
-        <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
-          Cripto y Nuevas Tecnologías
-        </h1>
-
-        <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
+    <SubcategoryPageView
+      title={TITLE}
+      description={DESCRIPTION}
+      sectionPath="economia-hoy"
+      subcategorySlug="cripto-y-nuevas-tecnologias"
+      categoryLabel="Cripto y Nuevas Tecnologías"
+      blogs={blogs}
+      intro={
+        <>
           Explora cómo la{" "}
           <span className="font-bold">
             tecnología está revolucionando las finanzas
@@ -82,34 +64,8 @@ const page = async () => {
           <span className="font-bold">Temas principales:</span> criptomonedas,
           blockchain, IA, fintech, innovación financiera, Web3 y activos
           digitales.
-        </p>
-
-        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Cripto y Nuevas Tecnologías"
-          indexes={[4, 7]}
-        />
-        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
-        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Cripto y Nuevas Tecnologías"
-          indexes={[11, 20]}
-        />
-      </div>
-    </>
+        </>
+      }
+    />
   );
-};
-
-export default page;
+}
