@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildBankPageCopy } from "@/lib/profitabilityCopy";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
@@ -56,6 +57,7 @@ export default async function Page() {
     {},
     { next: { tags: ["global-data"] } },
   );
+  const rappiRates = data?.rappi || [];
 
   return (
     <>
@@ -65,9 +67,10 @@ export default async function Page() {
           description:
             "Simula cuánto ganas ahorrando en las bóvedas y cuenta de RappiPay en Colombia.",
           slug: "rappi",
+          faqs: buildBankPageCopy("rappi", rappiRates).faq,
         })}
       />
-      <ClientPage profitabilityData={data?.rappi || []} />
+      <ClientPage profitabilityData={rappiRates} />
     </>
   );
 }

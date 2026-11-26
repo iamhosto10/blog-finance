@@ -2,6 +2,7 @@ import React from "react";
 import ClientPage from "./ClientPage";
 import type { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import { CALCULATOR_FAQS } from "@/lib/calculatorFaqs";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
     description:
       "Haz aportes periódicos, mira cómo se acumulan intereses y proyecta el crecimiento de tu ahorro con nuestra calculadora interactiva.",
     url: "https://monopolombiano.com/calculadoras/calculadora-de-ahorro",
-    siteName: "Calculadora de Ahorro",
+    siteName: "Monopolombiano",
     images: [
       {
         url: "https://monopolombiano.com/og-image.jpg",
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
         alt: "Gráfico de crecimiento de ahorro",
       },
     ],
-    locale: "es_ES",
+    locale: "es_CO",
     type: "website",
   },
   twitter: {
@@ -55,6 +56,7 @@ const page = () => {
           description:
             "Proyecta cómo crecerán tus ahorros con aportes periódicos e interés compuesto en Colombia.",
           slug: "calculadora-de-ahorro",
+          faqs: CALCULATOR_FAQS["calculadora-de-ahorro"],
         })}
       />
       <ClientPage />

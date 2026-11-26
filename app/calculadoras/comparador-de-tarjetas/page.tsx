@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { banksQuery, franchieseQuery, cardsQuery } from "@/lib/queries"; // Las queries de Sanity
 import { client } from "@/lib/sanity";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import { CALCULATOR_FAQS } from "@/lib/calculatorFaqs";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
@@ -68,6 +69,7 @@ export default async function ComparadorTarjetasPage() {
           description:
             "Compara tarjetas de crédito y débito de los principales bancos en Colombia: tasas EA, cuota de manejo, beneficios y recompensas.",
           slug: "comparador-de-tarjetas",
+          faqs: CALCULATOR_FAQS["comparador-de-tarjetas"],
         })}
       />
       <ClientPage

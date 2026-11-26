@@ -1,6 +1,7 @@
 import ClientPage from "./ClientPage";
 import type { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import { CALCULATOR_FAQS } from "@/lib/calculatorFaqs";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     description:
       "Conoce cómo crece tu dinero mes a mes. Visualiza tus aportes, intereses y el valor total de tu inversión con una tabla y una gráfica clara.",
     url: "https://monopolombiano.com/calculadoras/simulador-de-inversion",
-    siteName: "Simulador de Inversión",
+    siteName: "Monopolombiano",
     images: [
       {
         url: "https://monopolombiano.com/og-image.jpg",
@@ -54,6 +55,7 @@ const page = () => {
           description:
             "Simula cómo crece tu inversión con aportes periódicos y rentabilidad anual efectiva.",
           slug: "simulador-de-inversion",
+          faqs: CALCULATOR_FAQS["simulador-de-inversion"],
         })}
       />
       <ClientPage />

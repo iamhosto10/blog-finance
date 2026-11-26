@@ -40,8 +40,11 @@ export const metadata: Metadata = {
         alt: "Calculadora del 4x1000 en Colombia",
       },
     ],
-    locale: "es_ES",
+    locale: "es_CO",
     type: "website",
+  },
+  alternates: {
+    canonical: "https://monopolombiano.com/calculadoras/4x1000",
   },
   twitter: {
     card: "summary_large_image",

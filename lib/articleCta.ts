@@ -13,6 +13,11 @@ export type ArticleTopicKey =
   | "inversion"
   | "rentabilidad";
 
+export type LeadMagnetSlug =
+  | "guia-presupuesto-50-30-20-colombia"
+  | "checklist-vivienda-vis-colombia"
+  | "plan-salida-deudas-y-tarjetas-colombia";
+
 export interface ArticleCtaRecommendation {
   topicKey: ArticleTopicKey;
   badge: string;
@@ -21,7 +26,7 @@ export interface ArticleCtaRecommendation {
   calculatorDescription: string;
   headline: string;
   description: string;
-  leadMagnetSlug: "guia-presupuesto-50-30-20-colombia" | "checklist-vivienda-vis-colombia";
+  leadMagnetSlug: LeadMagnetSlug;
   subscribeSource: string;
   buttonLabel: string;
   proProductId: string;
@@ -37,7 +42,7 @@ interface TopicTemplate {
   calculatorDescription: string;
   headline: string;
   description: string;
-  leadMagnetSlug: "guia-presupuesto-50-30-20-colombia" | "checklist-vivienda-vis-colombia";
+  leadMagnetSlug: LeadMagnetSlug;
   sourceTag: string;
   buttonLabel: string;
   proProductId: string;
@@ -87,12 +92,12 @@ const TOPIC_TEMPLATES: Record<ArticleTopicKey, TopicTemplate> = {
     calculatorHref: "/calculadoras/comparador-de-tarjetas",
     calculatorDescription:
       "Revisa tasas EA, cuota de manejo, exoneraciones y beneficios de cashback o millas antes de elegir o refinanciar.",
-    headline: "Organiza tus deudas y tarjetas con la Plantilla 50/30/20 gratuita",
+    headline: "Descarga gratis el Plan de Salida de Deudas y Control de Tarjetas",
     description:
-      "Incluye hoja de presupuesto mensual e inventario de deudas para aplicar el método avalancha sin descuadrar tu flujo.",
-    leadMagnetSlug: "guia-presupuesto-50-30-20-colombia",
+      "Incluye inventario de tarjetas (cuota de manejo, corte, tasa EA) y plan Avalancha vs. Bola de Nieve para evaluar compra de cartera.",
+    leadMagnetSlug: "plan-salida-deudas-y-tarjetas-colombia",
     sourceTag: "deudas",
-    buttonLabel: "Descargar guía (.CSV)",
+    buttonLabel: "Descargar plan de deudas (.CSV)",
     proProductId: "diagnostico-financiero-1a1",
     proHref: "/recursos#diagnostico-financiero-1a1",
     proLabel: "Agendar Diagnóstico Financiero 1-a-1 ($110.000 COP)",

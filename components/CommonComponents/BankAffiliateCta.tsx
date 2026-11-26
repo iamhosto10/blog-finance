@@ -9,6 +9,7 @@ import {
   getBankAffiliateConfig,
 } from "@/lib/affiliates";
 import type { ProfitabilityBankKey } from "@/lib/profitabilityCopy";
+import B2bSponsorNotice from "./B2bSponsorNotice";
 
 interface BankAffiliateCtaProps {
   bankKey: ProfitabilityBankKey;
@@ -93,6 +94,8 @@ export default function BankAffiliateCta({
           {AFFILIATE_DISCLOSURE_TEXT}
         </p>
       )}
+
+      <B2bSponsorNotice placement={`bank_calculator_${bankKey}`} />
     </section>
   );
 }

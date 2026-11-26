@@ -2,6 +2,7 @@ import React from "react";
 import ClientPage from "./ClientPage";
 import type { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import { CALCULATOR_FAQS } from "@/lib/calculatorFaqs";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
@@ -58,6 +59,7 @@ const page = () => {
           description:
             "Calcula cuotas mensuales, intereses, seguros y tabla de amortización para crédito hipotecario o leasing habitacional en Colombia.",
           slug: "simulador-de-leasing-y-vivienda",
+          faqs: CALCULATOR_FAQS["simulador-de-leasing-y-vivienda"],
         })}
       />
       <ClientPage />

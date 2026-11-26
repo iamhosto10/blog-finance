@@ -57,6 +57,17 @@ export function resolveLeadMagnetForSource(source: string): {
     };
   }
 
+  if (
+    normalized.includes("deuda") ||
+    normalized.includes("tarjeta") ||
+    normalized.includes("credito")
+  ) {
+    return {
+      leadMagnet: LEAD_MAGNETS["plan-salida-deudas-y-tarjetas-colombia"],
+      isCalculatorLead,
+    };
+  }
+
   return {
     leadMagnet: LEAD_MAGNETS["guia-presupuesto-50-30-20-colombia"],
     isCalculatorLead,

@@ -3,6 +3,7 @@ import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildBankPageCopy } from "@/lib/profitabilityCopy";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
@@ -55,6 +56,7 @@ export default async function Page() {
     {},
     { next: { tags: ["global-data"] } },
   );
+  const global66Rates = data?.global66 || [];
   return (
     <>
       <JsonLd
@@ -63,9 +65,10 @@ export default async function Page() {
           description:
             "Simula los intereses de tu cuenta Global66 en Colombia según su tasa efectiva anual.",
           slug: "global66",
+          faqs: buildBankPageCopy("global66", global66Rates).faq,
         })}
       />
-      <ClientPage profitabilityData={data?.global66 || []} />
+      <ClientPage profitabilityData={global66Rates} />
     </>
   );
 }

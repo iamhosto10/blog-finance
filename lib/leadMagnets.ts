@@ -100,6 +100,33 @@ export const LEAD_MAGNETS: Record<string, BuiltInLeadMagnet> = {
         ["¿Quieres el Kit PRO de Vivienda en Excel/Sheets con simulador Pesos vs UVR vs Leasing y abonos a capital? Visita https://monopolombiano.com/recursos", "", "", "", ""],
       ]),
   },
+  "plan-salida-deudas-y-tarjetas-colombia": {
+    slug: "plan-salida-deudas-y-tarjetas-colombia",
+    title: "Plantilla Gratis: Control de Tarjetas y Plan Salida de Deudas Colombia",
+    filename: "monopolombiano-control-tarjetas-y-deudas-colombia.csv",
+    contentType: "text/csv; charset=utf-8",
+    buildContent: () =>
+      toCsv([
+        ["MONOPOLOMBIANO.COM — CONTROL DE TARJETAS Y PLAN SALIDA DE DEUDAS (COLOMBIA)", "", "", "", "", ""],
+        ["Instrucciones: Lista tus tarjetas y créditos vigentes, ordena por tasa EA (Avalancha) o saldo (Bola de Nieve) y asigna un abono extra mensual.", "", "", "", "", ""],
+        ["", "", "", "", "", ""],
+        ["1. INVENTARIO DE TARJETAS DE CRÉDITO", "Banco / Franquicia", "Cuota de Manejo Mensual (COP)", "Fecha de Corte / Pago", "Tasa EA %", "Saldo Actual (COP)"],
+        ["Tarjeta Principal (1 cuota / cashback)", "Banco 1 / Visa", "0", "Corte 15 / Pago 05", "27.5%", "850000"],
+        ["Tarjeta Secundaria (compras diferidas)", "Banco 2 / Mastercard", "29900", "Corte 20 / Pago 10", "28.9%", "3200000"],
+        ["", "", "", "", "", ""],
+        ["2. PLAN DE ATAQUE (AVALANCHA VS BOLA DE NIEVE)", "Entidad", "Saldo Actual (COP)", "Tasa EA %", "Cuota Mínima (COP)", "Abono Extra Mensual (COP)"],
+        ["Prioridad 1 (Mayor Tasa EA / Avalancha)", "Tarjeta Secundaria", "3200000", "28.9%", "210000", "250000"],
+        ["Prioridad 2 (Siguiente Tasa EA)", "Crédito Libre Inversión", "7500000", "21.4%", "320000", "0"],
+        ["Prioridad 3 (Menor Tasa EA)", "Crédito Vehículo / Libranza", "14000000", "16.5%", "480000", "0"],
+        ["", "", "", "", "", ""],
+        ["3. CHECKLIST ANTES DE PEDIR COMPRA DE CARTERA O NUEVA TARJETA", "Criterio a Verificar", "Tu Banco Actual", "Oferta Nueva", "Ahorro Estimado", "Decisión"],
+        ["Tasa EA efectiva", "Debe bajar al menos 3 a 5 puntos EA reales", "28.9%", "19.5%", "Calcular en /calculadoras/calculadora-de-credito", "Evaluar"],
+        ["Cuota de manejo y seguros", "Sumar cuota de manejo + seguro de vida mensual", "29900", "0", "358800/año", "Revisar"],
+        ["Plazo total", "No alargar el plazo solo para bajar la cuota si sube el interés total", "18 meses", "18 meses", "Mantener plazo", "Validar"],
+        ["", "", "", "", "", ""],
+        ["¿Quieres ordenar tus tarjetas y armar tu plan paso a paso en vivo? Reserva tu Diagnóstico Financiero 1-a-1 en https://monopolombiano.com/recursos", "", "", "", "", ""],
+      ]),
+  },
 };
 
 export const CALCULATOR_CTA_CONFIG: Record<CalculatorCtaId, CalculatorCtaConfig> = {
@@ -117,12 +144,12 @@ export const CALCULATOR_CTA_CONFIG: Record<CalculatorCtaId, CalculatorCtaConfig>
   },
   credito: {
     id: "credito",
-    leadMagnetSlug: "guia-presupuesto-50-30-20-colombia",
-    badge: "Recurso gratuito",
-    headline: "Organiza tus cuotas y acelera el pago de deudas",
+    leadMagnetSlug: "plan-salida-deudas-y-tarjetas-colombia",
+    badge: "Plan gratuito",
+    headline: "Organiza tus cuotas y arma tu plan para salir de deudas",
     description:
-      "Recibe gratis nuestra hoja de presupuesto 50/30/20 + inventario de deudas para saber cuánto puedes abonar a capital cada mes sin ahorcarte.",
-    buttonLabel: "Recibir guía gratis (.CSV)",
+      "Recibe gratis nuestra plantilla de control de tarjetas y deudas (Avalancha vs. Bola de Nieve) para evaluar compra de cartera y abonos a capital sin ahorcarte.",
+    buttonLabel: "Recibir plan de deudas gratis (.CSV)",
     proProductId: "plantilla-finanzas-colombia",
     proHref: "/recursos#plantilla-finanzas-colombia",
     proLabel: "Plantilla PRO con bola de nieve ($39.000 COP)",
@@ -177,12 +204,12 @@ export const CALCULATOR_CTA_CONFIG: Record<CalculatorCtaId, CalculatorCtaConfig>
   },
   "comparador-tarjetas": {
     id: "comparador-tarjetas",
-    leadMagnetSlug: "guia-presupuesto-50-30-20-colombia",
-    badge: "Guía gratuita",
+    leadMagnetSlug: "plan-salida-deudas-y-tarjetas-colombia",
+    badge: "Plantilla gratuita",
     headline: "Controla tus tarjetas de crédito sin regalar intereses ni cuota de manejo",
     description:
-      "Descarga la plantilla gratuita 50/30/20 + inventario de deudas para planificar tus pagos a 1 cuota, optimizar cashback/millas y cuidar tu flujo mensual.",
-    buttonLabel: "Descargar plantilla gratis (.CSV)",
+      "Descarga gratis la plantilla de Control de Tarjetas y Plan Salida de Deudas para registrar fechas de corte, cuotas de manejo, tasas EA y evaluar compra de cartera.",
+    buttonLabel: "Descargar plantilla de tarjetas (.CSV)",
     proProductId: "diagnostico-financiero-1a1",
     proHref: "/recursos#diagnostico-financiero-1a1",
     proLabel: "Diagnóstico 1-a-1 para ordenar tarjetas",

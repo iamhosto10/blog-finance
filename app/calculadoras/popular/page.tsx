@@ -3,6 +3,7 @@ import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildBankPageCopy } from "@/lib/profitabilityCopy";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
@@ -54,6 +55,7 @@ export default async function Page() {
     {},
     { next: { tags: ["global-data"] } },
   );
+  const popularRates = data?.popular || [];
   return (
     <>
       <JsonLd
@@ -62,9 +64,10 @@ export default async function Page() {
           description:
             "Simula los rendimientos de tu dinero en la cuenta de ahorros del Banco Popular en Colombia.",
           slug: "popular",
+          faqs: buildBankPageCopy("popular", popularRates).faq,
         })}
       />
-      <ClientPage profitabilityData={data?.popular || []} />
+      <ClientPage profitabilityData={popularRates} />
     </>
   );
 }

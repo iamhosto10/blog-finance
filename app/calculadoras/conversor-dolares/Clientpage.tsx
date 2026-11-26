@@ -2,9 +2,11 @@
 
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import CalculatorResultCta from "@/components/CommonComponents/CalculatorResultCta";
+import { FAQ } from "@/components/CommonComponents/FAQ/FAQ";
 import Tag from "@/components/CommonComponents/Tag";
 import DolarConversor from "@/components/DolarConversor/DolarConversor";
 import { Card, CardContent } from "@/components/ui/card";
+import { CALCULATOR_FAQS } from "@/lib/calculatorFaqs";
 import Link from "next/link";
 import React from "react";
 import { Dolar } from "@/lib/interface";
@@ -57,6 +59,8 @@ const ClientPage = ({ dolar }: { dolar: Dolar }) => {
         </Card>
 
         <CalculatorResultCta calculatorId="conversor-dolares" />
+
+        <FAQ data={CALCULATOR_FAQS["conversor-dolares"]} />
 
         <AdBanner
           dataAdFormat="auto"

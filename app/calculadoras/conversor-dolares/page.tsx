@@ -3,6 +3,7 @@ import ClientPage from "./Clientpage";
 import { client } from "@/lib/sanity";
 import { dolarQuery } from "@/lib/queries"; // Asegúrate de que esta ruta sea correcta
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import { CALCULATOR_FAQS } from "@/lib/calculatorFaqs";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
@@ -63,6 +64,7 @@ export default async function ConversorDolaresPage() {
           description:
             "Convierte dólares a pesos colombianos al instante con la tasa representativa del mercado (TRM).",
           slug: "conversor-dolares",
+          faqs: CALCULATOR_FAQS["conversor-dolares"],
         })}
       />
       <ClientPage dolar={dolar} />

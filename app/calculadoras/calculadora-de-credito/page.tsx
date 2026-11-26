@@ -2,6 +2,7 @@ import React from "react";
 import Clientpage from "./ClientPage";
 import { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import { CALCULATOR_FAQS } from "@/lib/calculatorFaqs";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
@@ -41,6 +42,7 @@ const page = () => {
           description:
             "Simula tu crédito fácil y rápido. Calcula cuotas, intereses, seguros y tabla de amortización en Colombia.",
           slug: "calculadora-de-credito",
+          faqs: CALCULATOR_FAQS["calculadora-de-credito"],
         })}
       />
       <Clientpage />

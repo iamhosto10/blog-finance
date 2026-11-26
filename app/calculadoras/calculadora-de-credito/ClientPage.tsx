@@ -39,6 +39,8 @@ import Link from "next/link";
 import Tag from "@/components/CommonComponents/Tag";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import CalculatorResultCta from "@/components/CommonComponents/CalculatorResultCta";
+import { FAQ } from "@/components/CommonComponents/FAQ/FAQ";
+import { CALCULATOR_FAQS } from "@/lib/calculatorFaqs";
 
 ChartJS.register(
   CategoryScale,
@@ -527,6 +529,7 @@ const Clientpage = () => {
           <div className="flex flex-col items-center py-6 px-5 lg:px-14 gap-10"></div>
         )}
       </div>
+      <FAQ data={CALCULATOR_FAQS["calculadora-de-credito"]} />
     </div>
   );
 };
