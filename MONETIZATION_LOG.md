@@ -29,12 +29,30 @@
    - Confirmar y ajustar en Sanity Studio las tasas exactas vigentes de Nu, Lulo, Pibank, Global66, Bold, Rappi y Banco Popular, y poblar `applyUrl` en los 20 documentos `cards` o variables `NEXT_PUBLIC_AFFILIATE_*_URL`.
 2. **Exp #10 — Pasarela de pago automática con tarjeta/PSE en `/recursos` (complemento a Bre-B)**:
    - Activar links de pago de Wompi / Bold / Mercado Pago / Hotmart en `lib/recursos.ts` cuando Gerardo los comparta para complementar el cobro inmediato por Bre-B (`Lulo Bank`) ya activo.
-3. **Exp #13 — Higiene SEO y JSON-LD en las 18 subcategorías del blog + CTA en Home**:
-   - Auditar `alternates.canonical`, `locale: "es_CO"`, `siteName: "Monopolombiano"` y JSON-LD `CollectionPage` en todas las subcategorías de `economia-hoy`, `finanzas-personales` y `tips-financieros`, y agregar acceso destacado a `/recursos` y al comparador cruzado desde el Home.
+3. **Exp #15 — Higiene `locale: "es_CO"` / `canonical` en las 15 calculadoras + `FAQPage` JSON-LD extendido**:
+   - Auditar `openGraph.locale` (`es_ES` → `es_CO`), `alternates.canonical` y ampliar `FAQPage` en las calculadoras que aún solo tienen `WebApplication` (ej. `calculadora-de-credito`, `calculadora-de-ahorro`, `simulador-de-inversion`, `comparador-de-tarjetas`, `conversor-dolares`).
+4. **Exp #16 — Lead Magnet de Deuda/Tarjetas + Enlazado interno a `/anunciate` en páginas de alta intención**:
+   - Crear una plantilla `.csv` específica para comparación de tarjetas / bola de nieve de deudas en `lib/leadMagnets.ts` y reforzar el embudo B2B hacia `/anunciate` desde las calculadoras bancarias.
 
 ---
 
 ## Registro de Experimentos Ejecutados
+
+### 2026-11-25 — Experimento #13: Higiene SEO y JSON-LD en las 18 subcategorías del blog y Experimento #14: CTAs de Conversión en Home y Subcategorías
+- **Hipótesis**: Corregir errores críticos de SEO en las 18 subcategorías editoriales (`Mi Sitio Web`, `Monopolombianos`, `www.`, URL equivocada en `educacion-financiera`, `locale: "es_ES"` y `type: "article"`, ausencia de `canonical` y JSON-LD) mejora la indexación y el CTR en Google Colombia; al mismo tiempo, exponer accesos directos al comparador de rentabilidad `#1` y `/recursos` desde el Home y añadir un CTA contextual en cada subcategoría convierte el tráfico de exploración en leads y clics hacia herramientas de mayor valor.
+- **Cambios realizados**:
+  - **Higiene SEO y JSON-LD en las 18 subcategorías (`lib/structuredData.ts` + `components/CategoryHub/SubcategoryPageView.tsx`)**: ampliado `buildCollectionPageJsonLd` para soportar `parent` (emitiendo `BreadcrumbList` de 3 niveles: `Inicio` → sección → subcategoría, `CollectionPage` e `ItemList` con los artículos de la categoría) y creado `buildSubcategoryMetadata` con `canonical` sin `www.`, `locale: "es_CO"`, `type: "website"` y título limpio sin duplicación. Corregidos títulos rotos (`"Impuestos | Mi Sitio Web"`, `"Regulaciones | Monopolombianos"`), URL errónea en `educacion-financiera` y `categoryLabel` copiado en `tips-financieros`.
+  - **CTA contextual en las 18 subcategorías (`lib/articleCta.ts` + `SubcategoryConversionCta.tsx`)**: añadida función compartida `resolveSubcategoryCta` (mapeando las 18 subcategorías a su calculadora exacta — incluyendo `calculadora-de-ahorro` para ahorro/compras —, lead magnet descargable vía `/api/files/[slug]` y oferta de `/recursos`) e integrada en `SubcategoryPageView.tsx` con eventos GA4 (`category_cta_click`, `product_cta_click`, `lead_signup`, `lead_magnet_download`), separada de bloques AdSense.
+  - **CTAs de conversión en Home (`IntroductionSection.tsx`, `Simulators.tsx`, `HomeConversionBar.tsx`)**: agregadas tarjetas directas en Home hacia **Mejor Cuenta Hoy** (`/calculadoras/calculadora-de-rentabilidad`) y **Recursos y Asesoría PRO** (`/recursos`), más barra de atajos debajo del carrusel de simuladores con tracking GA4 (`home_cta_click`, `product_cta_click`).
+  - **Pruebas y validación**: ampliadas `__tests__/monetization-seo.test.ts` y `__tests__/article-cta.test.ts`. Validado localmente con `npx tsc --noEmit`, `npm run lint`, `npm run test` (6 archivos, 33/33 pruebas pasando) y `npm run build` (50+ rutas compiladas y prerenderizadas sin errores).
+- **Archivos tocados**:
+  - `lib/structuredData.ts`, `lib/articleCta.ts`
+  - `components/CategoryHub/SubcategoryPageView.tsx`, `components/CommonComponents/SubcategoryConversionCta.tsx`
+  - `components/Home/HomeConversionBar.tsx`, `components/Simulators/Simulators.tsx`, `components/IntroductionSection/IntroductionSection.tsx`
+  - Las 18 subcategorías `app/economia-hoy/*/page.tsx`, `app/finanzas-personales/*/page.tsx` y `app/tips-financieros/*/page.tsx`
+  - `__tests__/monetization-seo.test.ts`, `__tests__/article-cta.test.ts`, `MONETIZATION_LOG.md`
+- **Métrica esperada**: Mayor indexación y rich breadcrumbs en Google Colombia para las 18 subcategorías, incremento de clics `home_cta_click` / `category_cta_click` hacia `/calculadoras/calculadora-de-rentabilidad` y `/recursos`, y nuevos leads captados directamente desde páginas de categoría.
+- **Próximos pasos**: Ejecutar Exp #15 (auditoría `es_CO` / `canonical` / `FAQPage` en las 15 calculadoras) y activar Exp #9 / Exp #10 en cuanto Gerardo comparta links de afiliado/referido, confirmación de tasas `profitability` y opcionalmente links de pago con tarjeta/PSE.
 
 ### 2026-11-24 — Experimento #11: CTA Contextual en Artículos del Blog y Experimento #12: Cobertura 15/15 de Calculadoras (`conversor-dolares`) + Higiene SEO/JSON-LD en Hubs
 - **Hipótesis**: Conectar los artículos editoriales (`economia-hoy`, `finanzas-personales`, `tips-financieros`) con la calculadora exacta del tema, un lead magnet descargable y una oferta de `/recursos` convierte el tráfico orgánico de lectura en leads y usuarios activos de herramientas; además, cerrar la brecha de `conversor-dolares` (la única calculadora sin CTA de lead magnet) y corregir metadata/JSON-LD en Home y hubs principales mejora el rastreo e indexación en Google Colombia.

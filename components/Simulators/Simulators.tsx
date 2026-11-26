@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "../CommonComponents/Slider";
 import Tag from "../CommonComponents/Tag";
 import Link from "next/link";
+import HomeConversionBar from "../Home/HomeConversionBar";
 
 const Simulators = () => {
   return (
@@ -20,6 +21,8 @@ const Simulators = () => {
       <div className="w-full">
         <Slider />
       </div>
+
+      <HomeConversionBar />
     </div>
   );
 };

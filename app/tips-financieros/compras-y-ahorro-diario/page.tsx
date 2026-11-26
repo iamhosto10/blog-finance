@@ -1,15 +1,20 @@
-import ArticleList from "@/components/ArticleList/ArticleList";
-import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
-import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
-import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
-import { getBlogsByCategory } from "@/lib/queries";
-import { Metadata } from "next";
 import React from "react";
+import type { Metadata } from "next";
+import SubcategoryPageView from "@/components/CategoryHub/SubcategoryPageView";
+import { getBlogsByCategory } from "@/lib/queries";
+import { buildSubcategoryMetadata } from "@/lib/structuredData";
 
-export const metadata: Metadata = {
-  title: "Compras y Ahorro Diario | Monopolombiano",
-  description:
-    "Aprende a optimizar tus gastos y a comprar de forma inteligente. Descubre estrategias para ahorrar en tus compras diarias y mejorar tus finanzas personales.",
+const TITLE = "Compras y Ahorro Diario";
+const DESCRIPTION =
+  "Aprende a optimizar tus gastos y a comprar de forma inteligente. Descubre estrategias para ahorrar en tus compras diarias y mejorar tus finanzas personales.";
+
+export const metadata: Metadata = buildSubcategoryMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraphDescription:
+    "Consejos prácticos para ahorrar en tus compras del día a día. Aprende a gastar menos y aprovechar mejor tu dinero.",
+  twitterDescription:
+    "Aprende a ahorrar todos los días con estrategias simples para tus compras y gastos del hogar.",
   keywords: [
     "ahorro diario",
     "compras inteligentes",
@@ -22,43 +27,22 @@ export const metadata: Metadata = {
     "consumo responsable",
     "ahorro en el hogar",
   ],
-  icons: { icon: "/favicon.ico" },
-  openGraph: {
-    title: "Compras y Ahorro Diario",
-    description:
-      "Consejos prácticos para ahorrar en tus compras del día a día. Aprende a gastar menos y aprovechar mejor tu dinero.",
-    url: "https://monopolombiano.com/tips-financieros/compras-y-ahorro-diario",
-    siteName: "Monopolombiano",
-    images: [
-      {
-        url: "https://monopolombiano.com/og-image.jpg",
-        width: 600,
-        height: 600,
-        alt: "Compras y Ahorro Diario",
-      },
-    ],
-    locale: "es_ES",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Compras y Ahorro Diario",
-    description:
-      "Aprende a ahorrar todos los días con estrategias simples para tus compras y gastos del hogar.",
-    images: ["https://monopolombiano.com/og-image.jpg"],
-  },
-};
+  path: "/tips-financieros/compras-y-ahorro-diario",
+});
 
-const page = async () => {
+export default async function Page() {
   const blogs = await getBlogsByCategory("Compras y ahorro diario");
-  return (
-    <>
-      <div className="container mx-auto flex flex-col gap-16">
-        <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
-          Compras y Ahorro Diario
-        </h1>
 
-        <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
+  return (
+    <SubcategoryPageView
+      title={TITLE}
+      description={DESCRIPTION}
+      sectionPath="tips-financieros"
+      subcategorySlug="compras-y-ahorro-diario"
+      categoryLabel="Compras y Ahorro Diario"
+      blogs={blogs}
+      intro={
+        <>
           Aprende a{" "}
           <span className="font-bold">
             ahorrar dinero en tus compras del día a día
@@ -80,34 +64,8 @@ const page = async () => {
           <span className="font-bold">Temas principales:</span> ahorro diario,
           compras inteligentes, presupuesto, promociones, consumo responsable y
           finanzas del hogar.
-        </p>
-
-        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Compras y Ahorro Diario"
-          indexes={[4, 7]}
-        />
-        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
-        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Compras y Ahorro Diario"
-          indexes={[11, 20]}
-        />
-      </div>
-    </>
+        </>
+      }
+    />
   );
-};
-
-export default page;
+}

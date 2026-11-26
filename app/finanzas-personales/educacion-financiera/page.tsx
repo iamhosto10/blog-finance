@@ -1,15 +1,20 @@
-import ArticleList from "@/components/ArticleList/ArticleList";
-import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
-import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
-import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
-import { getBlogsByCategory } from "@/lib/queries";
-import { Metadata } from "next";
 import React from "react";
+import type { Metadata } from "next";
+import SubcategoryPageView from "@/components/CategoryHub/SubcategoryPageView";
+import { getBlogsByCategory } from "@/lib/queries";
+import { buildSubcategoryMetadata } from "@/lib/structuredData";
 
-export const metadata: Metadata = {
-  title: "Educación Financiera | Monopolombiano",
-  description:
-    "Aprende los fundamentos de la educación financiera: cómo manejar tu dinero, ahorrar, invertir y tomar decisiones económicas inteligentes.",
+const TITLE = "Educación Financiera";
+const DESCRIPTION =
+  "Aprende los fundamentos de la educación financiera: cómo manejar tu dinero, ahorrar, invertir y tomar decisiones económicas inteligentes.";
+
+export const metadata: Metadata = buildSubcategoryMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraphDescription:
+    "Domina los conceptos esenciales del dinero: ahorro, inversión, presupuesto y toma de decisiones financieras conscientes.",
+  twitterDescription:
+    "Aprende a tomar mejores decisiones con tu dinero y desarrolla hábitos financieros sólidos para toda la vida.",
   keywords: [
     "educación financiera",
     "finanzas personales",
@@ -22,44 +27,22 @@ export const metadata: Metadata = {
     "economía personal",
     "alfabetización financiera",
   ],
-  icons: { icon: "/favicon.ico" },
-  openGraph: {
-    title: "Educación Financiera",
-    description:
-      "Domina los conceptos esenciales del dinero: ahorro, inversión, presupuesto y toma de decisiones financieras conscientes.",
-    url: "https://www.monopolombiano.com/educacion-financiera",
-    siteName: "Monopolombiano",
-    images: [
-      {
-        url: "https://monopolombiano.com/og-image.jpg",
-        width: 600,
-        height: 600,
-        alt: "Educación Financiera",
-      },
-    ],
-    locale: "es_ES",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Educación Financiera",
-    description:
-      "Aprende a tomar mejores decisiones con tu dinero y desarrolla hábitos financieros sólidos para toda la vida.",
-    images: ["https://monopolombiano.com/og-image.jpg"],
-  },
-};
+  path: "/finanzas-personales/educacion-financiera",
+});
 
-const page = async () => {
+export default async function Page() {
   const blogs = await getBlogsByCategory("Educación financiera");
 
   return (
-    <>
-      <div className="container mx-auto flex flex-col gap-16">
-        <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
-          Educación Financiera
-        </h1>
-
-        <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
+    <SubcategoryPageView
+      title={TITLE}
+      description={DESCRIPTION}
+      sectionPath="finanzas-personales"
+      subcategorySlug="educacion-financiera"
+      categoryLabel="Educación Financiera"
+      blogs={blogs}
+      intro={
+        <>
           La <span className="font-bold">educación financiera</span> es la base
           para lograr estabilidad económica y tomar decisiones inteligentes con
           tu dinero. Aquí encontrarás conceptos clave explicados de forma
@@ -77,34 +60,8 @@ const page = async () => {
           <span className="font-bold">Temas principales:</span> ahorro,
           inversión, presupuesto, manejo de deudas, planificación financiera y
           hábitos económicos saludables.
-        </p>
-
-        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Educación Financiera"
-          indexes={[4, 7]}
-        />
-        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
-        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Educación Financiera"
-          indexes={[11, 20]}
-        />
-      </div>
-    </>
+        </>
+      }
+    />
   );
-};
-
-export default page;
+}

@@ -1,16 +1,20 @@
-import ArticleList from "@/components/ArticleList/ArticleList";
-import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
-import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
-import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
-import { getBlogsByCategory } from "@/lib/queries";
-import { client } from "@/lib/sanity";
-import { Metadata } from "next";
 import React from "react";
+import type { Metadata } from "next";
+import SubcategoryPageView from "@/components/CategoryHub/SubcategoryPageView";
+import { getBlogsByCategory } from "@/lib/queries";
+import { buildSubcategoryMetadata } from "@/lib/structuredData";
 
-export const metadata: Metadata = {
-  title: "Impuestos | Mi Sitio Web",
-  description:
-    "Guías, noticias y análisis sobre impuestos en Colombia. Aprende sobre declaración de renta, IVA, impuestos empresariales y reformas tributarias.",
+const TITLE = "Impuestos";
+const DESCRIPTION =
+  "Guías, noticias y análisis sobre impuestos en Colombia. Aprende sobre declaración de renta, IVA, impuestos empresariales y reformas tributarias.";
+
+export const metadata: Metadata = buildSubcategoryMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraphDescription:
+    "Aprende todo sobre impuestos en Colombia: declaración de renta, IVA, reformas y cómo optimizar tu carga tributaria.",
+  twitterDescription:
+    "Todo lo que necesitas saber sobre impuestos en Colombia: declaración de renta, IVA, reformas y más.",
   keywords: [
     "impuestos Colombia",
     "declaración de renta",
@@ -23,44 +27,22 @@ export const metadata: Metadata = {
     "retención en la fuente",
     "finanzas fiscales",
   ],
-  icons: { icon: "/favicon.ico" },
-  openGraph: {
-    title: "Impuestos",
-    description:
-      "Aprende todo sobre impuestos en Colombia: declaración de renta, IVA, reformas y cómo optimizar tu carga tributaria.",
-    url: "https://www.monopolombiano.com/economia-hoy/impuestos",
-    siteName: "Monopolombiano",
-    images: [
-      {
-        url: "https://monopolombiano.com/og-image.jpg",
-        width: 600,
-        height: 600,
-        alt: "Impuestos",
-      },
-    ],
-    locale: "es_ES",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Impuestos",
-    description:
-      "Todo lo que necesitas saber sobre impuestos en Colombia: declaración de renta, IVA, reformas y más.",
-    images: ["https://monopolombiano.com/og-image.jpg"],
-  },
-};
+  path: "/economia-hoy/impuestos",
+});
 
-const page = async () => {
+export default async function Page() {
   const blogs = await getBlogsByCategory("Impuestos");
 
   return (
-    <>
-      <div className="container mx-auto flex flex-col gap-16">
-        <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
-          Impuestos
-        </h1>
-
-        <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
+    <SubcategoryPageView
+      title={TITLE}
+      description={DESCRIPTION}
+      sectionPath="economia-hoy"
+      subcategorySlug="impuestos"
+      categoryLabel="Impuestos"
+      blogs={blogs}
+      intro={
+        <>
           Mantente al día con todo lo relacionado con los{" "}
           <span className="font-bold">impuestos en Colombia</span>. En esta
           sección encontrarás guías prácticas, análisis y noticias sobre{" "}
@@ -83,26 +65,8 @@ const page = async () => {
           <span className="font-bold">Temas principales:</span> declaración de
           renta, IVA, retención en la fuente, impuestos empresariales, reformas
           tributarias y finanzas fiscales.
-        </p>
-
-        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList blogs={blogs} category="Impuestos" indexes={[4, 7]} />
-        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
-        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList blogs={blogs} category="Impuestos" indexes={[11, 20]} />
-      </div>
-    </>
+        </>
+      }
+    />
   );
-};
-
-export default page;
+}

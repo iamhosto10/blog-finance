@@ -9,6 +9,7 @@ import {
   buildArticleJsonLd,
   buildCalculatorJsonLd,
   buildCollectionPageJsonLd,
+  buildSubcategoryMetadata,
   buildWebSiteJsonLd,
   formatArticleTitle,
   SITE_URL,
@@ -185,6 +186,45 @@ describe("Datos estructurados JSON-LD (Schema.org)", () => {
     };
     expect(itemList["@type"]).toBe("ItemList");
     expect(itemList.itemListElement[0].url).toBe(`${SITE_URL}/calculadoras/4x1000`);
+
+    const subcategoryJsonLd = buildCollectionPageJsonLd({
+      name: "Impuestos",
+      description: "Guías sobre impuestos en Colombia.",
+      path: "/economia-hoy/impuestos",
+      parent: { name: "Economía Hoy", path: "/economia-hoy" },
+    });
+    const subBreadcrumb = subcategoryJsonLd["@graph"][0] as {
+      "@type": string;
+      itemListElement: Array<{ position: number; name: string; item: string }>;
+    };
+    expect(subBreadcrumb.itemListElement).toHaveLength(3);
+    expect(subBreadcrumb.itemListElement[1]).toEqual({
+      "@type": "ListItem",
+      position: 2,
+      name: "Economía Hoy",
+      item: `${SITE_URL}/economia-hoy`,
+    });
+    expect(subBreadcrumb.itemListElement[2].item).toBe(`${SITE_URL}/economia-hoy/impuestos`);
+  });
+
+  it("estandariza metadata de subcategorías con canonical sin www, locale es_CO y type website", () => {
+    const meta = buildSubcategoryMetadata({
+      title: "Educación Financiera",
+      description: "Fundamentos de educación financiera.",
+      keywords: ["educación financiera"],
+      path: "/finanzas-personales/educacion-financiera",
+    });
+
+    expect(meta.title).toBe("Educación Financiera");
+    expect(meta.alternates?.canonical).toBe(
+      `${SITE_URL}/finanzas-personales/educacion-financiera`,
+    );
+    expect(meta.openGraph).toMatchObject({
+      url: `${SITE_URL}/finanzas-personales/educacion-financiera`,
+      siteName: "Monopolombiano",
+      locale: "es_CO",
+      type: "website",
+    });
   });
 });
 

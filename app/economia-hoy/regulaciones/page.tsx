@@ -1,16 +1,20 @@
-import ArticleList from "@/components/ArticleList/ArticleList";
-import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
-import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
-import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
-import { getBlogsByCategory } from "@/lib/queries";
-import { client } from "@/lib/sanity";
-import { Metadata } from "next";
 import React from "react";
+import type { Metadata } from "next";
+import SubcategoryPageView from "@/components/CategoryHub/SubcategoryPageView";
+import { getBlogsByCategory } from "@/lib/queries";
+import { buildSubcategoryMetadata } from "@/lib/structuredData";
 
-export const metadata: Metadata = {
-  title: "Regulaciones | Monopolombianos",
-  description:
-    "Conoce las leyes, decretos y políticas financieras que regulan la economía colombiana. Entérate cómo las normas afectan a los bancos, inversionistas, fintech y consumidores.",
+const TITLE = "Regulaciones";
+const DESCRIPTION =
+  "Conoce las leyes, decretos y políticas financieras que regulan la economía colombiana. Entérate cómo las normas afectan a los bancos, inversionistas, fintech y consumidores.";
+
+export const metadata: Metadata = buildSubcategoryMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraphDescription:
+    "Noticias y análisis sobre leyes, normas y políticas que afectan el sistema financiero colombiano.",
+  twitterDescription:
+    "Infórmate sobre las normas y regulaciones financieras en Colombia: bancos, impuestos, fintech, cripto y más.",
   keywords: [
     "regulaciones financieras",
     "leyes económicas",
@@ -23,44 +27,22 @@ export const metadata: Metadata = {
     "regulación cripto",
     "mercado de valores",
   ],
-  icons: { icon: "/favicon.ico" },
-  openGraph: {
-    title: "Regulaciones",
-    description:
-      "Noticias y análisis sobre leyes, normas y políticas que afectan el sistema financiero colombiano.",
-    url: "https://www.monopolombiano.com/economia-hoy/regulaciones",
-    siteName: "Monopolombiano",
-    images: [
-      {
-        url: "https://monopolombiano.com/og-image.jpg",
-        width: 600,
-        height: 600,
-        alt: "Regulaciones",
-      },
-    ],
-    locale: "es_ES",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Regulaciones",
-    description:
-      "Infórmate sobre las normas y regulaciones financieras en Colombia: bancos, impuestos, fintech, cripto y más.",
-    images: ["https://monopolombiano.com/og-image.jpg"],
-  },
-};
+  path: "/economia-hoy/regulaciones",
+});
 
-const page = async () => {
+export default async function Page() {
   const blogs = await getBlogsByCategory("Regulaciones");
 
   return (
-    <>
-      <div className="container mx-auto flex flex-col gap-16">
-        <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
-          Regulaciones
-        </h1>
-
-        <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
+    <SubcategoryPageView
+      title={TITLE}
+      description={DESCRIPTION}
+      sectionPath="economia-hoy"
+      subcategorySlug="regulaciones"
+      categoryLabel="Regulaciones"
+      blogs={blogs}
+      intro={
+        <>
           Entérate de las{" "}
           <span className="font-bold">
             regulaciones financieras y económicas
@@ -85,26 +67,8 @@ const page = async () => {
           <span className="font-bold">Temas principales:</span> leyes
           económicas, regulación financiera, impuestos, política fiscal,
           fintech, cripto y protección al consumidor.
-        </p>
-
-        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList blogs={blogs} category="Regulaciones" indexes={[4, 7]} />
-        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
-        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList blogs={blogs} category="Regulaciones" indexes={[11, 20]} />
-      </div>
-    </>
+        </>
+      }
+    />
   );
-};
-
-export default page;
+}

@@ -20,7 +20,7 @@ const IntroductionSection = () => {
             consejos prácticos de ahorro hasta calculadoras que te ayudarán a
             planear tus metas, todo en un solo lugar.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-5 lg:gap-x-16 md:gap-y-7 ">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-5 lg:gap-8">
             <div>
               <FeatureCard
                 url="/finanzas-personales"
@@ -50,6 +50,22 @@ const IntroductionSection = () => {
                 url="/calculadoras"
                 title="Calculadoras"
                 subtitle="Intereses, dólar, ahorro, 4x1000"
+              />
+            </div>
+
+            <div>
+              <FeatureCard
+                url="/calculadoras/calculadora-de-rentabilidad"
+                title="Mejor Cuenta Hoy"
+                subtitle="Compara Nu, Lulo, Pibank, Bold, Global66"
+              />
+            </div>
+
+            <div>
+              <FeatureCard
+                url="/recursos"
+                title="Recursos y Asesoría PRO"
+                subtitle="Plantillas Excel/Sheets y diagnóstico 1-a-1"
               />
             </div>
           </div>

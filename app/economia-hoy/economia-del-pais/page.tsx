@@ -1,16 +1,20 @@
-import ArticleList from "@/components/ArticleList/ArticleList";
-import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
-import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
-import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
-import { getBlogsByCategory } from "@/lib/queries";
-import { client } from "@/lib/sanity";
-import { Metadata } from "next";
 import React from "react";
+import type { Metadata } from "next";
+import SubcategoryPageView from "@/components/CategoryHub/SubcategoryPageView";
+import { getBlogsByCategory } from "@/lib/queries";
+import { buildSubcategoryMetadata } from "@/lib/structuredData";
 
-export const metadata: Metadata = {
-  title: "Economía del País | Monopolombiano",
-  description:
-    "Análisis, noticias y reportes sobre la economía colombiana: inflación, empleo, tasas de interés, crecimiento y decisiones del gobierno que impactan tus finanzas.",
+const TITLE = "Economía del País";
+const DESCRIPTION =
+  "Análisis, noticias y reportes sobre la economía colombiana: inflación, empleo, tasas de interés, crecimiento y decisiones del gobierno que impactan tus finanzas.";
+
+export const metadata: Metadata = buildSubcategoryMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraphDescription:
+    "Infórmate sobre los cambios en la economía colombiana y cómo afectan tu bolsillo: inflación, empleo, tasas y más.",
+  twitterDescription:
+    "Entiende cómo la economía colombiana evoluciona y qué decisiones del gobierno o del Banco de la República pueden afectar tus finanzas.",
   keywords: [
     "economía de Colombia",
     "inflación",
@@ -23,44 +27,22 @@ export const metadata: Metadata = {
     "mercado laboral",
     "política económica",
   ],
-  icons: { icon: "/favicon.ico" },
-  openGraph: {
-    title: "Economía del País",
-    description:
-      "Infórmate sobre los cambios en la economía colombiana y cómo afectan tu bolsillo: inflación, empleo, tasas y más.",
-    url: "https://www.monopolombiano.com/economia-hoy/economia-del-pais",
-    siteName: "Monopolombiano",
-    images: [
-      {
-        url: "https://monopolombiano.com/og-image.jpg",
-        width: 600,
-        height: 600,
-        alt: "Economía del País",
-      },
-    ],
-    locale: "es_ES",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Economía del País",
-    description:
-      "Entiende cómo la economía colombiana evoluciona y qué decisiones del gobierno o del Banco de la República pueden afectar tus finanzas.",
-    images: ["https://monopolombiano.com/og-image.jpg"],
-  },
-};
+  path: "/economia-hoy/economia-del-pais",
+});
 
-const page = async () => {
+export default async function Page() {
   const blogs = await getBlogsByCategory("Economía del pais");
 
   return (
-    <>
-      <div className="container mx-auto flex flex-col gap-16">
-        <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
-          Economía del País
-        </h1>
-
-        <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
+    <SubcategoryPageView
+      title={TITLE}
+      description={DESCRIPTION}
+      sectionPath="economia-hoy"
+      subcategorySlug="economia-del-pais"
+      categoryLabel="Economía del pais"
+      blogs={blogs}
+      intro={
+        <>
           Mantente informado sobre los{" "}
           <span className="font-bold">
             principales indicadores económicos de Colombia
@@ -88,34 +70,8 @@ const page = async () => {
           <span className="font-bold">Temas principales:</span> inflación, PIB,
           tasas, empleo, política económica, Banco de la República y finanzas
           nacionales.
-        </p>
-
-        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Economía del pais"
-          indexes={[4, 7]}
-        />
-        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
-        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Economía del pais"
-          indexes={[11, 20]}
-        />
-      </div>
-    </>
+        </>
+      }
+    />
   );
-};
-
-export default page;
+}

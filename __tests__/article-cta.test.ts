@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { resolveArticleCta } from "../lib/articleCta";
+import { resolveArticleCta, resolveSubcategoryCta } from "../lib/articleCta";
 import { resolveLeadMagnetForSource } from "../lib/emails";
 import { getLeadMagnetBySlug } from "../lib/leadMagnets";
 import { findRecursoById } from "../lib/recursos";
@@ -93,5 +93,38 @@ describe("CTA contextual para artículos del blog (resolveArticleCta)", () => {
     expect(defaultCta.topicKey).toBe("rentabilidad");
     expect(defaultCta.calculatorHref).toBe("/calculadoras/calculadora-de-rentabilidad");
     expect(defaultCta.subscribeSource.length).toBeLessThanOrEqual(80);
+  });
+
+  it("resuelve calculadoras y lead magnets contextuales para subcategorías editoriales", () => {
+    const ahorro = resolveSubcategoryCta(
+      "finanzas-personales",
+      "ahorro-y-presupuesto",
+      "Ahorro y Presupuesto",
+    );
+    expect(ahorro.calculatorHref).toBe("/calculadoras/calculadora-de-ahorro");
+    expect(ahorro.subscribeSource).toBe("category_finanzas-personales_rentabilidad_lead");
+    expect(getLeadMagnetBySlug(ahorro.leadMagnetSlug)).toBeDefined();
+
+    const regulaciones = resolveSubcategoryCta(
+      "economia-hoy",
+      "regulaciones",
+      "Regulaciones",
+    );
+    expect(regulaciones.calculatorHref).toBe("/calculadoras/4x1000");
+
+    const vivienda = resolveSubcategoryCta(
+      "finanzas-personales",
+      "comprar-vivienda",
+      "Comprar Vivienda",
+    );
+    expect(vivienda.calculatorHref).toBe("/calculadoras/simulador-de-leasing-y-vivienda");
+    expect(vivienda.leadMagnetSlug).toBe("checklist-vivienda-vis-colombia");
+
+    const cripto = resolveSubcategoryCta(
+      "economia-hoy",
+      "cripto-y-nuevas-tecnologias",
+      "Cripto y Nuevas Tecnologías",
+    );
+    expect(cripto.calculatorHref).toBe("/calculadoras/simulador-de-inversion");
   });
 });

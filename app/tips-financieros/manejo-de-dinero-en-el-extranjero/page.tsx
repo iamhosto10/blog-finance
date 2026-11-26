@@ -1,15 +1,20 @@
-import ArticleList from "@/components/ArticleList/ArticleList";
-import ArticleShowcase from "@/components/ArticleShowcase/ArticleShowcase";
-import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
-import ArticleHome from "@/components/Home/ArticleHome/ArticleHome";
-import { getBlogsByCategory } from "@/lib/queries";
-import { Metadata } from "next";
 import React from "react";
+import type { Metadata } from "next";
+import SubcategoryPageView from "@/components/CategoryHub/SubcategoryPageView";
+import { getBlogsByCategory } from "@/lib/queries";
+import { buildSubcategoryMetadata } from "@/lib/structuredData";
 
-export const metadata: Metadata = {
-  title: "Manejo de Dinero en el Extranjero | Monopolombiano",
-  description:
-    "Aprende cómo administrar tu dinero en el extranjero: cuentas internacionales, remesas, cambio de divisas, y consejos para evitar comisiones altas.",
+const TITLE = "Manejo de Dinero en el Extranjero";
+const DESCRIPTION =
+  "Aprende cómo administrar tu dinero en el extranjero: cuentas internacionales, remesas, cambio de divisas, y consejos para evitar comisiones altas.";
+
+export const metadata: Metadata = buildSubcategoryMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraphDescription:
+    "Guías y consejos para administrar tu dinero mientras vives, estudias o viajas fuera del país. Aprende sobre remesas, cambio de divisas y bancos internacionales.",
+  twitterDescription:
+    "Descubre cómo manejar tus finanzas en el exterior: transferencias, divisas, remesas y más.",
   keywords: [
     "manejo de dinero en el extranjero",
     "remesas",
@@ -22,43 +27,22 @@ export const metadata: Metadata = {
     "bancos internacionales",
     "pagos globales",
   ],
-  icons: { icon: "/favicon.ico" },
-  openGraph: {
-    title: "Manejo de Dinero en el Extranjero",
-    description:
-      "Guías y consejos para administrar tu dinero mientras vives, estudias o viajas fuera del país. Aprende sobre remesas, cambio de divisas y bancos internacionales.",
-    url: "https://monopolombiano.com/tips-financieros/manejo-de-dinero-en-el-extranjero",
-    siteName: "Monopolombiano",
-    images: [
-      {
-        url: "https://monopolombiano.com/og-image.jpg",
-        width: 600,
-        height: 600,
-        alt: "Manejo de Dinero en el Extranjero",
-      },
-    ],
-    locale: "es_ES",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Manejo de Dinero en el Extranjero",
-    description:
-      "Descubre cómo manejar tus finanzas en el exterior: transferencias, divisas, remesas y más.",
-    images: ["https://monopolombiano.com/og-image.jpg"],
-  },
-};
+  path: "/tips-financieros/manejo-de-dinero-en-el-extranjero",
+});
 
-const page = async () => {
+export default async function Page() {
   const blogs = await getBlogsByCategory("Manejo del dinero en el extranjero");
-  return (
-    <>
-      <div className="container mx-auto flex flex-col gap-16">
-        <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
-          Manejo de Dinero en el Extranjero
-        </h1>
 
-        <p className="text-center font-canva-sans text-tertiary text-lg lg:text-lg 2xl:text-3xl">
+  return (
+    <SubcategoryPageView
+      title={TITLE}
+      description={DESCRIPTION}
+      sectionPath="tips-financieros"
+      subcategorySlug="manejo-de-dinero-en-el-extranjero"
+      categoryLabel="Manejo de Dinero en el Extranjero"
+      blogs={blogs}
+      intro={
+        <>
           Si vives, trabajas o estudias fuera del país, el{" "}
           <span className="font-bold">manejo de dinero en el extranjero</span>{" "}
           es clave para mantener tus finanzas en orden. En esta sección
@@ -81,33 +65,8 @@ const page = async () => {
           <span className="font-bold">Temas principales:</span> remesas,
           transferencias, divisas, bancos internacionales, tarjetas globales,
           ahorro en el exterior y finanzas para expatriados.
-        </p>
-        <ArticleShowcase blogs={blogs} indexes={[0, 4]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Compras y Ahorro Diario"
-          indexes={[4, 7]}
-        />
-        <ArticleHome blog={blogs[Math.floor(Math.random() * blogs.length)]} />
-        <ArticleShowcase blogs={blogs} indexes={[7, 11]} />
-        <AdBanner
-          dataAdFormat="auto"
-          dataFullWidthResponsive={true}
-          dataAdSlot="7506188604"
-        />
-        <ArticleList
-          blogs={blogs}
-          category="Compras y Ahorro Diario"
-          indexes={[11, 20]}
-        />
-      </div>
-    </>
+        </>
+      }
+    />
   );
-};
-
-export default page;
+}

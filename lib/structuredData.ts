@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import type { Blog } from "./interface";
 
 export const SITE_URL = "https://monopolombiano.com";
@@ -195,29 +196,48 @@ export function buildCollectionPageJsonLd(options: {
   name: string;
   description: string;
   path: string;
+  parent?: {
+    name: string;
+    path: string;
+  };
   items?: CollectionItemEntry[];
 }) {
-  const { name, description, path, items } = options;
+  const { name, description, path, parent, items } = options;
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
   const pageUrl = `${SITE_URL}${cleanPath}`;
+
+  const breadcrumbItems: Array<Record<string, unknown>> = [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Inicio",
+      item: SITE_URL,
+    },
+  ];
+
+  if (parent) {
+    const cleanParentPath = parent.path.startsWith("/")
+      ? parent.path
+      : `/${parent.path}`;
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      position: 2,
+      name: parent.name,
+      item: `${SITE_URL}${cleanParentPath}`,
+    });
+  }
+
+  breadcrumbItems.push({
+    "@type": "ListItem",
+    position: breadcrumbItems.length + 1,
+    name,
+    item: pageUrl,
+  });
 
   const graph: Record<string, unknown>[] = [
     {
       "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Inicio",
-          item: SITE_URL,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name,
-          item: pageUrl,
-        },
-      ],
+      itemListElement: breadcrumbItems,
     },
     {
       "@type": "CollectionPage",
@@ -252,5 +272,60 @@ export function buildCollectionPageJsonLd(options: {
   return {
     "@context": "https://schema.org",
     "@graph": graph,
+  };
+}
+
+/**
+ * Construye metadata SEO estandarizada para las subcategorías editoriales de Monopolombiano.
+ */
+export function buildSubcategoryMetadata(options: {
+  title: string;
+  description: string;
+  keywords: string[];
+  path: string;
+  openGraphDescription?: string;
+  twitterDescription?: string;
+}): Metadata {
+  const {
+    title,
+    description,
+    keywords,
+    path,
+    openGraphDescription,
+    twitterDescription,
+  } = options;
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  const canonicalUrl = `${SITE_URL}${cleanPath}`;
+
+  return {
+    title,
+    description,
+    keywords,
+    icons: { icon: "/favicon.ico" },
+    openGraph: {
+      title: `${title} | Monopolombiano`,
+      description: openGraphDescription ?? description,
+      url: canonicalUrl,
+      siteName: "Monopolombiano",
+      images: [
+        {
+          url: `${SITE_URL}/og-image.jpg`,
+          width: 600,
+          height: 600,
+          alt: title,
+        },
+      ],
+      locale: "es_CO",
+      type: "website",
+    },
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | Monopolombiano`,
+      description: twitterDescription ?? description,
+      images: [`${SITE_URL}/og-image.jpg`],
+    },
   };
 }
