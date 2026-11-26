@@ -3,6 +3,7 @@ import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import type { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildBankPageCopy } from "@/lib/profitabilityCopy";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
@@ -54,6 +55,7 @@ export default async function Page() {
     {},
     { next: { tags: ["global-data"] } },
   );
+  const luloRates = data?.lulo || [];
 
   return (
     <>
@@ -63,9 +65,10 @@ export default async function Page() {
           description:
             "Simula los rendimientos de tu dinero en Lulo Bank y sus bolsillos en Colombia.",
           slug: "lulo",
+          faqs: buildBankPageCopy("lulo", luloRates).faq,
         })}
       />
-      <ClientPage profitabilityData={data?.lulo || []} />
+      <ClientPage profitabilityData={luloRates} />
     </>
   );
 }

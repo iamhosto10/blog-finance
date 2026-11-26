@@ -3,6 +3,7 @@ import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import type { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildBankPageCopy } from "@/lib/profitabilityCopy";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
@@ -54,6 +55,7 @@ export default async function Page() {
     {},
     { next: { tags: ["global-data"] } },
   );
+  const nuRates = data?.nu || [];
 
   return (
     <>
@@ -63,9 +65,10 @@ export default async function Page() {
           description:
             "Calcula cuánto puedes ganar con la cuenta de ahorros y cajitas de Nu en Colombia según su tasa EA.",
           slug: "nu",
+          faqs: buildBankPageCopy("nu", nuRates).faq,
         })}
       />
-      <ClientPage profitabilityData={data?.nu || []} />
+      <ClientPage profitabilityData={nuRates} />
     </>
   );
 }

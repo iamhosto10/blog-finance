@@ -3,6 +3,7 @@ import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import type { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildBankPageCopy } from "@/lib/profitabilityCopy";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
@@ -22,9 +23,12 @@ export const metadata: Metadata = {
     description:
       "Aprende cómo funciona la cuenta de ahorros Bold en Colombia, revisa las tasas de interés actualizadas y usa nuestro simulador de inversión.",
     url: "https://monopolombiano.com/calculadoras/bold",
-    siteName: "Simulador de Inversiones en Colombia",
+    siteName: "Monopolombiano",
     locale: "es_CO",
     type: "website",
+  },
+  alternates: {
+    canonical: "https://monopolombiano.com/calculadoras/bold",
   },
 };
 
@@ -34,6 +38,7 @@ export default async function BoldPage() {
     {},
     { next: { tags: ["global-data"] } },
   );
+  const boldRates = data?.bold || [];
 
   return (
     <>
@@ -43,9 +48,10 @@ export default async function BoldPage() {
           description:
             "Simula tus rendimientos con la cuenta de ahorros Bold en Colombia según su tasa efectiva anual.",
           slug: "bold",
+          faqs: buildBankPageCopy("bold", boldRates).faq,
         })}
       />
-      <ClientPage profitabilityData={data?.bold || []} />
+      <ClientPage profitabilityData={boldRates} />
     </>
   );
 }

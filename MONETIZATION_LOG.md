@@ -29,14 +29,32 @@
    - Confirmar y ajustar en Sanity Studio las tasas exactas vigentes de Nu, Lulo, Pibank, Global66, Bold, Rappi y Banco Popular, y poblar `applyUrl` en los 20 documentos `cards` o variables `NEXT_PUBLIC_AFFILIATE_*_URL`.
 2. **Exp #10 — Pasarela de pago automática con tarjeta/PSE en `/recursos` (complemento a Bre-B)**:
    - Activar links de pago de Wompi / Bold / Mercado Pago / Hotmart en `lib/recursos.ts` cuando Gerardo los comparta para complementar el cobro inmediato por Bre-B (`Lulo Bank`) ya activo.
-3. **Exp #15 — Higiene `locale: "es_CO"` / `canonical` en las 15 calculadoras + `FAQPage` JSON-LD extendido**:
-   - Auditar `openGraph.locale` (`es_ES` → `es_CO`), `alternates.canonical` y ampliar `FAQPage` en las calculadoras que aún solo tienen `WebApplication` (ej. `calculadora-de-credito`, `calculadora-de-ahorro`, `simulador-de-inversion`, `comparador-de-tarjetas`, `conversor-dolares`).
-4. **Exp #16 — Lead Magnet de Deuda/Tarjetas + Enlazado interno a `/anunciate` en páginas de alta intención**:
-   - Crear una plantilla `.csv` específica para comparación de tarjetas / bola de nieve de deudas en `lib/leadMagnets.ts` y reforzar el embudo B2B hacia `/anunciate` desde las calculadoras bancarias.
+3. **Exp #17 — Enlazado interno cruzado calculadoras ↔ artículos + Schema `FinancialProduct` en cuentas y tarjetas**:
+   - Enlazar guías editoriales relevantes desde las páginas de calculadoras y emitir marcado `FinancialProduct` / `BankAccount` adicional para aumentar rich results y retención de sesión.
+4. **Exp #18 — Optimización Core Web Vitals (LCP / `next/image`) en calculadoras y páginas legales/sobre-nosotros**:
+   - Reemplazar etiquetas `<img>` críticas con `next/image` en calculadoras de alto tráfico (`4x1000`, `conversor-dolares`, bancos) y revisar `canonical` / `openGraph` en páginas institucionales (`/sobre-nosotros`, `/aviso-legal`, `/politica-de-privacidad`, `/terminos-y-condiciones`).
 
 ---
 
 ## Registro de Experimentos Ejecutados
+
+### 2026-11-26 — Experimento #15: Higiene SEO y FAQPage JSON-LD 15/15 en Calculadoras y Experimento #16: Lead Magnet de Deudas/Tarjetas + Embudo B2B hacia `/anunciate`
+- **Hipótesis**: Llevar la cobertura de `FAQPage` JSON-LD (respaldada por secciones `<FAQ />` visibles en página) de 1/15 a 15/15 calculadoras y corregir `locale: "es_ES"`, `siteName` erróneos y `canonical` faltantes mejora la elegibilidad de rich snippets y CTR orgánico en Colombia; al mismo tiempo, entregar una plantilla específica de control de tarjetas y salida de deudas (Avalancha vs. Bola de Nieve) aumenta la conversión de leads en crédito/tarjetas y añadir un enlace discreto al Media Kit `/anunciate` en los comparadores capta contactos B2B de fintechs y bancos.
+- **Cambios realizados**:
+  - *(Sincronización previa)*: detectado el PR #25 (`2026-11-25`) aún abierto con `revisar-codigo` y Vercel en verde; se completó el merge a `main` antes de crear la rama de hoy.
+  - **Higiene SEO 15/15 en calculadoras**: corregidos `locale: "es_CO"` en `4x1000` y `calculadora-de-ahorro`, `siteName: "Monopolombiano"` en `calculadora-de-ahorro`, `bold` y `simulador-de-inversion`, y añadido `alternates.canonical` en `4x1000` y `bold`.
+  - **`FAQPage` JSON-LD + FAQ visible en 15/15 calculadoras (`lib/calculatorFaqs.ts`)**: conectadas las FAQ dinámicas de `buildBankPageCopy` al JSON-LD de las 7 calculadoras bancarias (`nu`, `lulo`, `pibank`, `global66`, `bold`, `rappi`, `popular`), y creadas + renderizadas con `<FAQ />` y `buildCalculatorJsonLd` las preguntas frecuentes colombianas de las 7 calculadoras restantes (`calculadora-de-rentabilidad`, `calculadora-de-credito`, `calculadora-de-ahorro`, `simulador-de-inversion`, `simulador-de-leasing-y-vivienda`, `comparador-de-tarjetas`, `conversor-dolares`).
+  - **Lead magnet dedicado de Tarjetas y Deudas (`lib/leadMagnets.ts`, `lib/emails.ts`, `lib/articleCta.ts`)**: creada plantilla `.csv` UTF-8 BOM `plan-salida-deudas-y-tarjetas-colombia` (inventario de tarjetas, cuota de manejo, fecha de corte, plan Avalancha vs. Bola de Nieve y checklist de compra de cartera), conectada a `credito`, `comparador-tarjetas`, artículos/subcategorías `deuda-tarjetas` y entrega automática por correo en `resolveLeadMagnetForSource`.
+  - **Embudo B2B hacia `/anunciate` (`B2bSponsorNotice.tsx`)**: creado componente reutilizable con evento GA4 `b2b_media_kit_click` e integrado en `BankAffiliateCta.tsx` (las 7 calculadoras bancarias), `calculadora-de-rentabilidad` y `comparador-de-tarjetas`.
+  - **Pruebas y validación**: ampliadas `__tests__/monetization-seo.test.ts` y `__tests__/article-cta.test.ts`. Validado localmente con `npx tsc --noEmit`, `npm run lint`, `npm run test` (6 archivos, 34/34 pruebas pasando) y `npm run build`.
+- **Archivos tocados**:
+  - `lib/calculatorFaqs.ts`, `lib/leadMagnets.ts`, `lib/emails.ts`, `lib/articleCta.ts`
+  - `components/CommonComponents/B2bSponsorNotice.tsx`, `components/CommonComponents/BankAffiliateCta.tsx`
+  - Las 14 páginas `app/calculadoras/*/page.tsx` actualizadas (`4x1000`, `bold`, `nu`, `lulo`, `pibank`, `global66`, `rappi`, `popular`, `calculadora-de-rentabilidad`, `calculadora-de-credito`, `calculadora-de-ahorro`, `simulador-de-inversion`, `simulador-de-leasing-y-vivienda`, `comparador-de-tarjetas`, `conversor-dolares`)
+  - Los 7 `ClientPage` / `Clientpage` con `<FAQ />` y/o `<B2bSponsorNotice />`
+  - `__tests__/monetization-seo.test.ts`, `__tests__/article-cta.test.ts`, `MONETIZATION_LOG.md`
+- **Métrica esperada**: Rich snippets de `FAQPage` en 15/15 calculadoras, mayor tasa de conversión `lead_signup` / `lead_magnet_download` en crédito/tarjetas y primeros clics `b2b_media_kit_click` hacia `/anunciate`.
+- **Próximos pasos**: Ejecutar Exp #17 (enlazado interno calculadoras ↔ artículos + `FinancialProduct`), y activar Exp #9 / Exp #10 en cuanto Gerardo comparta links de afiliado/referido, confirmación de tasas `profitability` y opcionalmente links de pago con tarjeta/PSE.
 
 ### 2026-11-25 — Experimento #13: Higiene SEO y JSON-LD en las 18 subcategorías del blog y Experimento #14: CTAs de Conversión en Home y Subcategorías
 - **Hipótesis**: Corregir errores críticos de SEO en las 18 subcategorías editoriales (`Mi Sitio Web`, `Monopolombianos`, `www.`, URL equivocada en `educacion-financiera`, `locale: "es_ES"` y `type: "article"`, ausencia de `canonical` y JSON-LD) mejora la indexación y el CTR en Google Colombia; al mismo tiempo, exponer accesos directos al comparador de rentabilidad `#1` y `/recursos` desde el Home y añadir un CTA contextual en cada subcategoría convierte el tráfico de exploración en leads y clics hacia herramientas de mayor valor.

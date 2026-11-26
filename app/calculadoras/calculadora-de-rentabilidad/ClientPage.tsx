@@ -1,11 +1,14 @@
 "use client";
 
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
+import B2bSponsorNotice from "@/components/CommonComponents/B2bSponsorNotice";
 import CalculatorResultCta from "@/components/CommonComponents/CalculatorResultCta";
 import CalculatorCard from "@/components/CommonComponents/Cards/CalculatorCard";
+import { FAQ } from "@/components/CommonComponents/FAQ/FAQ";
 import ProfitabilityRankingComparator from "@/components/CommonComponents/Profitability/ProfitabilityRankingComparator";
 import Tag from "@/components/CommonComponents/Tag";
 import { AFFILIATE_DISCLOSURE_TEXT } from "@/lib/affiliates";
+import { CALCULATOR_FAQS } from "@/lib/calculatorFaqs";
 import {
   buildBankPageCopy,
   formatRentabilidadCardInterest,
@@ -91,9 +94,13 @@ const ClientPage = ({
 
       <CalculatorResultCta calculatorId="rentabilidad" />
 
+      <B2bSponsorNotice placement="calculadora_de_rentabilidad" />
+
       <p className="text-center font-canva-sans text-xs text-tertiary/75">
         {AFFILIATE_DISCLOSURE_TEXT}
       </p>
+
+      <FAQ data={CALCULATOR_FAQS["calculadora-de-rentabilidad"]} />
 
       <AdBanner
         dataAdFormat="auto"

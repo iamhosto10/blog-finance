@@ -14,9 +14,12 @@ import Link from "next/link";
 import Tag from "@/components/CommonComponents/Tag";
 import { formatCOP } from "@/lib/utils";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
+import B2bSponsorNotice from "@/components/CommonComponents/B2bSponsorNotice";
 import CalculatorResultCta from "@/components/CommonComponents/CalculatorResultCta";
+import { FAQ } from "@/components/CommonComponents/FAQ/FAQ";
 import { trackEvent } from "@/lib/gtag";
 import { AFFILIATE_DISCLOSURE_TEXT, isSafeExternalUrl } from "@/lib/affiliates";
+import { CALCULATOR_FAQS } from "@/lib/calculatorFaqs";
 
 const firstBank: Bank = {
   _id: "",
@@ -773,6 +776,10 @@ const ClientPage = ({ banks, franchieses, cards }: ComparadorProps) => {
       </p>
 
       <CalculatorResultCta calculatorId="comparador-tarjetas" />
+
+      <B2bSponsorNotice placement="comparador_de_tarjetas" />
+
+      <FAQ data={CALCULATOR_FAQS["comparador-de-tarjetas"]} />
 
       <AdBanner
         dataAdFormat="auto"

@@ -23,6 +23,7 @@ import {
   formatSelectedRateLabel,
 } from "../lib/profitabilityCopy";
 import { isSafeExternalUrl } from "../lib/affiliates";
+import { CALCULATOR_FAQS, type NonBankCalculatorFaqKey } from "../lib/calculatorFaqs";
 import { GET as getFileRoute } from "../app/api/files/[slug]/route";
 import type { Blog } from "../lib/interface";
 
@@ -49,6 +50,13 @@ describe("Lead Magnets y /api/files/[slug]", () => {
     expect(csvVivienda.startsWith("\uFEFF")).toBe(true);
     expect(csvVivienda).toContain("Leasing Habitacional");
     expect(csvVivienda).toContain("Boleta fiscal");
+
+    const deudas = getLeadMagnetBySlug("plan-salida-deudas-y-tarjetas-colombia");
+    expect(deudas).toBeDefined();
+    const csvDeudas = deudas!.buildContent();
+    expect(csvDeudas.startsWith("\uFEFF")).toBe(true);
+    expect(csvDeudas).toContain("TARJETAS DE CRÉDITO");
+    expect(csvDeudas).toContain("BOLA DE NIEVE");
 
     expect(getLeadMagnetBySlug("slug-que-no-existe")).toBeUndefined();
   });
@@ -257,5 +265,30 @@ describe("Copy dinámico de tasas (profitabilityCopy) y validación de URLs de a
     expect(isSafeExternalUrl("/ruta-relativa")).toBe(false);
     expect(isSafeExternalUrl("")).toBe(false);
     expect(isSafeExternalUrl(undefined)).toBe(false);
+  });
+
+  it("define FAQs válidas para las 7 calculadoras no bancarias y emite FAQPage JSON-LD", () => {
+    const keys: NonBankCalculatorFaqKey[] = [
+      "calculadora-de-rentabilidad",
+      "calculadora-de-credito",
+      "calculadora-de-ahorro",
+      "simulador-de-inversion",
+      "simulador-de-leasing-y-vivienda",
+      "comparador-de-tarjetas",
+      "conversor-dolares",
+    ];
+
+    for (const key of keys) {
+      const faqs = CALCULATOR_FAQS[key];
+      expect(faqs.length).toBeGreaterThanOrEqual(3);
+      const jsonLd = buildCalculatorJsonLd({
+        name: key,
+        description: `Descripción ${key}`,
+        slug: key,
+        faqs,
+      });
+      expect(jsonLd["@graph"]).toHaveLength(3);
+      expect((jsonLd["@graph"][2] as Record<string, unknown>)["@type"]).toBe("FAQPage");
+    }
   });
 });

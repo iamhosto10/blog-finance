@@ -58,6 +58,13 @@ describe("CTA contextual para artículos del blog (resolveArticleCta)", () => {
     const tarjetaCta = resolveArticleCta(tarjetaPost, "tips-financieros");
     expect(tarjetaCta.topicKey).toBe("deuda-tarjetas");
     expect(tarjetaCta.calculatorHref).toBe("/calculadoras/comparador-de-tarjetas");
+    expect(tarjetaCta.leadMagnetSlug).toBe("plan-salida-deudas-y-tarjetas-colombia");
+    expect(resolveLeadMagnetForSource(tarjetaCta.subscribeSource).leadMagnet.slug).toBe(
+      "plan-salida-deudas-y-tarjetas-colombia",
+    );
+    expect(resolveLeadMagnetForSource("calc_credito_lead").leadMagnet.slug).toBe(
+      "plan-salida-deudas-y-tarjetas-colombia",
+    );
 
     const creditoPost = makePost({
       title: "Cómo bajar la cuota de tu préstamo personal",
@@ -66,6 +73,7 @@ describe("CTA contextual para artículos del blog (resolveArticleCta)", () => {
     const creditoCta = resolveArticleCta(creditoPost, "finanzas-personales");
     expect(creditoCta.topicKey).toBe("deuda-tarjetas");
     expect(creditoCta.calculatorHref).toBe("/calculadoras/calculadora-de-credito");
+    expect(creditoCta.leadMagnetSlug).toBe("plan-salida-deudas-y-tarjetas-colombia");
   });
 
   it("asigna conversor de dólares, simulador de inversión y rentabilidad como respaldo", () => {

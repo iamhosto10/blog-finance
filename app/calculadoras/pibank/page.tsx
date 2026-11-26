@@ -3,6 +3,7 @@ import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import { buildBankPageCopy } from "@/lib/profitabilityCopy";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
@@ -54,6 +55,7 @@ export default async function Page() {
     {},
     { next: { tags: ["global-data"] } },
   );
+  const pibankRates = data?.pibank || [];
   return (
     <>
       <JsonLd
@@ -62,9 +64,10 @@ export default async function Page() {
           description:
             "Calcula los rendimientos de la cuenta de ahorros Pibank en Colombia.",
           slug: "pibank",
+          faqs: buildBankPageCopy("pibank", pibankRates).faq,
         })}
       />
-      <ClientPage profitabilityData={data?.pibank || []} />
+      <ClientPage profitabilityData={pibankRates} />
     </>
   );
 }
