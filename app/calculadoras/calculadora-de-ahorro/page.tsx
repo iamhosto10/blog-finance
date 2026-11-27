@@ -2,6 +2,11 @@ import React from "react";
 import ClientPage from "./ClientPage";
 import type { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import CalculatorRelatedGuides from "@/components/CommonComponents/CalculatorRelatedGuides";
+import {
+  fetchBlogsPreviewSafe,
+  resolveCalculatorGuides,
+} from "@/lib/calculatorGuides";
 import { CALCULATOR_FAQS } from "@/lib/calculatorFaqs";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
@@ -47,7 +52,10 @@ export const metadata: Metadata = {
     canonical: "https://monopolombiano.com/calculadoras/calculadora-de-ahorro",
   },
 };
-const page = () => {
+const page = async () => {
+  const blogs = await fetchBlogsPreviewSafe();
+  const guides = resolveCalculatorGuides("calculadora-de-ahorro", blogs);
+
   return (
     <>
       <JsonLd
@@ -60,6 +68,11 @@ const page = () => {
         })}
       />
       <ClientPage />
+      <CalculatorRelatedGuides
+        calculatorSlug="calculadora-de-ahorro"
+        guides={guides}
+        className="container mx-auto px-4 pb-12"
+      />
     </>
   );
 };

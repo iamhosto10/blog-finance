@@ -3,6 +3,11 @@ import ClientPage from "./Clientpage";
 import { client } from "@/lib/sanity";
 import { dolarQuery } from "@/lib/queries"; // Asegúrate de que esta ruta sea correcta
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import CalculatorRelatedGuides from "@/components/CommonComponents/CalculatorRelatedGuides";
+import {
+  fetchBlogsPreviewSafe,
+  resolveCalculatorGuides,
+} from "@/lib/calculatorGuides";
 import { CALCULATOR_FAQS } from "@/lib/calculatorFaqs";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
@@ -50,11 +55,11 @@ export const metadata: Metadata = {
 };
 
 export default async function ConversorDolaresPage() {
-  const dolar = await client.fetch(
-    dolarQuery,
-    {},
-    { next: { tags: ["global-data"] } },
-  );
+  const [dolar, blogs] = await Promise.all([
+    client.fetch(dolarQuery, {}, { next: { tags: ["global-data"] } }),
+    fetchBlogsPreviewSafe(),
+  ]);
+  const guides = resolveCalculatorGuides("conversor-dolares", blogs);
 
   return (
     <>
@@ -68,6 +73,7 @@ export default async function ConversorDolaresPage() {
         })}
       />
       <ClientPage dolar={dolar} />
+      <CalculatorRelatedGuides calculatorSlug="conversor-dolares" guides={guides} />
     </>
   );
 }

@@ -3,8 +3,16 @@ import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import type { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import CalculatorRelatedGuides from "@/components/CommonComponents/CalculatorRelatedGuides";
+import {
+  fetchBlogsPreviewSafe,
+  resolveCalculatorGuides,
+} from "@/lib/calculatorGuides";
 import { buildBankPageCopy } from "@/lib/profitabilityCopy";
-import { buildCalculatorJsonLd } from "@/lib/structuredData";
+import {
+  buildBankFinancialProductNode,
+  buildCalculatorJsonLd,
+} from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Cuenta de Ahorros Bold en Colombia - Simulador y Rentabilidad 2025",
@@ -33,12 +41,12 @@ export const metadata: Metadata = {
 };
 
 export default async function BoldPage() {
-  const data = await client.fetch(
-    profitabilityQuery,
-    {},
-    { next: { tags: ["global-data"] } },
-  );
+  const [data, blogs] = await Promise.all([
+    client.fetch(profitabilityQuery, {}, { next: { tags: ["global-data"] } }),
+    fetchBlogsPreviewSafe(),
+  ]);
   const boldRates = data?.bold || [];
+  const guides = resolveCalculatorGuides("bold", blogs);
 
   return (
     <>
@@ -49,9 +57,20 @@ export default async function BoldPage() {
             "Simula tus rendimientos con la cuenta de ahorros Bold en Colombia según su tasa efectiva anual.",
           slug: "bold",
           faqs: buildBankPageCopy("bold", boldRates).faq,
+          extraNodes: [
+            buildBankFinancialProductNode({
+              name: "Cuenta de Ahorros y Bolsillos Bold",
+              providerName: "Bold",
+              slug: "bold",
+              description:
+                "Cuenta de ahorros digital de Bold en Colombia con bolsillos remunerados y respaldo Fogafín.",
+              rates: boldRates,
+            }),
+          ],
         })}
       />
       <ClientPage profitabilityData={boldRates} />
+      <CalculatorRelatedGuides calculatorSlug="bold" guides={guides} />
     </>
   );
 }

@@ -1,8 +1,32 @@
-"use client";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import {
+  buildInstitutionalPageJsonLd,
+  buildInstitutionalPageMetadata,
+} from "@/lib/structuredData";
+
+export const metadata = buildInstitutionalPageMetadata({
+  title: "Aviso Legal y Exención de Responsabilidad",
+  description:
+    "Consulta el aviso legal, la naturaleza informativa y las condiciones de responsabilidad de Monopolombiano.",
+  keywords: [
+    "aviso legal Monopolombiano",
+    "exención de responsabilidad",
+    "información financiera Colombia",
+  ],
+  path: "/aviso-legal",
+});
 
 export default function AvisoLegal() {
   return (
     <div className="container py-12">
+      <JsonLd
+        data={buildInstitutionalPageJsonLd({
+          name: "Aviso Legal y Exención de Responsabilidad",
+          description:
+            "Aviso legal y alcance informativo del contenido financiero publicado en Monopolombiano.",
+          path: "/aviso-legal",
+        })}
+      />
       <h1 className="text-3xl md:text-4xl font-bold text-secondary text-center mb-6">
         Aviso Legal y Exención de Responsabilidad
       </h1>

@@ -1,6 +1,32 @@
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import {
+  buildInstitutionalPageJsonLd,
+  buildInstitutionalPageMetadata,
+} from "@/lib/structuredData";
+
+export const metadata = buildInstitutionalPageMetadata({
+  title: "Política de Cookies",
+  description:
+    "Conoce qué cookies utilizamos en Monopolombiano, cómo funcionan las de analítica y publicidad y cómo gestionarlas.",
+  keywords: [
+    "política de cookies Monopolombiano",
+    "cookies analítica Colombia",
+    "gestión de cookies",
+  ],
+  path: "/politica-de-cookies",
+});
+
 export default function PoliticaDeCookiesPage() {
   return (
     <div className="container mx-auto flex flex-col gap-5 font-canva-sans text-tertiary">
+      <JsonLd
+        data={buildInstitutionalPageJsonLd({
+          name: "Política de Cookies — Monopolombiano",
+          description:
+            "Información sobre el uso de cookies necesarias, de analítica y de publicidad en Monopolombiano.",
+          path: "/politica-de-cookies",
+        })}
+      />
       <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
         POLÍTICA DE COOKIES
       </h1>
