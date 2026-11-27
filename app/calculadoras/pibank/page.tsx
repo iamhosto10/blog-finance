@@ -3,8 +3,16 @@ import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import CalculatorRelatedGuides from "@/components/CommonComponents/CalculatorRelatedGuides";
+import {
+  fetchBlogsPreviewSafe,
+  resolveCalculatorGuides,
+} from "@/lib/calculatorGuides";
 import { buildBankPageCopy } from "@/lib/profitabilityCopy";
-import { buildCalculatorJsonLd } from "@/lib/structuredData";
+import {
+  buildBankFinancialProductNode,
+  buildCalculatorJsonLd,
+} from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadora de rentabilidad Pibank | Monopolombiano",
@@ -50,12 +58,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const data = await client.fetch(
-    profitabilityQuery,
-    {},
-    { next: { tags: ["global-data"] } },
-  );
+  const [data, blogs] = await Promise.all([
+    client.fetch(profitabilityQuery, {}, { next: { tags: ["global-data"] } }),
+    fetchBlogsPreviewSafe(),
+  ]);
   const pibankRates = data?.pibank || [];
+  const guides = resolveCalculatorGuides("pibank", blogs);
   return (
     <>
       <JsonLd
@@ -65,9 +73,20 @@ export default async function Page() {
             "Calcula los rendimientos de la cuenta de ahorros Pibank en Colombia.",
           slug: "pibank",
           faqs: buildBankPageCopy("pibank", pibankRates).faq,
+          extraNodes: [
+            buildBankFinancialProductNode({
+              name: "Cuenta Pibank Colombia",
+              providerName: "Pibank (Banco Pichincha)",
+              slug: "pibank",
+              description:
+                "Cuenta de ahorros digital de alto rendimiento respaldada por Banco Pichincha y Fogafín.",
+              rates: pibankRates,
+            }),
+          ],
         })}
       />
       <ClientPage profitabilityData={pibankRates} />
+      <CalculatorRelatedGuides calculatorSlug="pibank" guides={guides} />
     </>
   );
 }

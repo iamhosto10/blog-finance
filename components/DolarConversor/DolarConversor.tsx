@@ -6,6 +6,7 @@ import {
   validarNumero,
 } from "@/lib/utils";
 import { ArrowRightLeft, ArrowUpDown, DollarSignIcon } from "lucide-react";
+import Image from "next/image";
 import React, { useState } from "react";
 
 const DolarConversor = ({ dolar }: { dolar: Dolar }) => {
@@ -54,10 +55,12 @@ const DolarConversor = ({ dolar }: { dolar: Dolar }) => {
 
             {/* Moneda */}
             <div className="flex items-center gap-1">
-              <img
+              <Image
                 src="/assets/convertdolar/IconUsa.png"
-                alt="Usa Icon"
-                className="size-6"
+                alt="Bandera Estados Unidos USD"
+                width={24}
+                height={24}
+                className="size-6 shrink-0"
               />
               <p className="text-tertiary font-canva-sans">USD</p>
             </div>
@@ -82,10 +85,12 @@ const DolarConversor = ({ dolar }: { dolar: Dolar }) => {
 
             {/* Moneda */}
             <div className="flex items-center gap-1">
-              <img
+              <Image
                 src="/assets/convertdolar/IconColombia.png"
-                alt="Usa Icon"
-                className="size-6"
+                alt="Bandera Colombia COP"
+                width={24}
+                height={24}
+                className="size-6 shrink-0"
               />
               <p className="text-tertiary font-canva-sans">COP</p>
             </div>

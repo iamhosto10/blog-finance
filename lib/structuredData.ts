@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import type { Blog } from "./interface";
+import type { Blog, Card } from "./interface";
+import { BANK_DIRECTORY, type ProfitabilityRatesMap } from "./profitabilityRanking";
 
 export const SITE_URL = "https://monopolombiano.com";
 
@@ -90,8 +91,9 @@ export function buildCalculatorJsonLd(options: {
   description: string;
   slug: string;
   faqs?: FaqEntry[];
+  extraNodes?: Record<string, unknown>[];
 }) {
-  const { name, description, slug, faqs } = options;
+  const { name, description, slug, faqs, extraNodes } = options;
   const calculatorUrl = `${SITE_URL}/calculadoras/${slug}`;
 
   const graph: Record<string, unknown>[] = [
@@ -150,9 +152,168 @@ export function buildCalculatorJsonLd(options: {
     });
   }
 
+  for (const node of extraNodes ?? []) {
+    if (node && typeof node === "object") {
+      graph.push(node);
+    }
+  }
+
   return {
     "@context": "https://schema.org",
     "@graph": graph,
+  };
+}
+
+function buildInterestRateValue(rates?: number[]) {
+  const validRates = Array.isArray(rates)
+    ? rates.filter((r) => typeof r === "number" && Number.isFinite(r) && r > 0)
+    : [];
+  if (validRates.length === 0) return undefined;
+
+  const minPercent = Number((Math.min(...validRates) * 100).toFixed(2));
+  const maxPercent = Number((Math.max(...validRates) * 100).toFixed(2));
+
+  if (minPercent === maxPercent) {
+    return {
+      "@type": "QuantitativeValue",
+      value: maxPercent,
+      unitText: "% EA",
+    };
+  }
+
+  return {
+    "@type": "QuantitativeValue",
+    minValue: minPercent,
+    maxValue: maxPercent,
+    unitText: "% EA",
+  };
+}
+
+/**
+ * Construye un nodo Schema.org `FinancialProduct` para cuentas de ahorro remuneradas en Colombia.
+ */
+export function buildBankFinancialProductNode(options: {
+  name: string;
+  providerName: string;
+  slug: string;
+  description: string;
+  rates?: number[];
+}): Record<string, unknown> {
+  const { name, providerName, slug, description, rates } = options;
+  const interestRate = buildInterestRateValue(rates);
+
+  return {
+    "@type": "FinancialProduct",
+    additionalType: "https://schema.org/BankAccount",
+    category: "SavingsAccount",
+    name,
+    description,
+    url: `${SITE_URL}/calculadoras/${slug}`,
+    provider: {
+      "@type": "BankOrCreditUnion",
+      name: providerName,
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "Colombia",
+    },
+    feesAndCommissionsSpecification:
+      "Cuenta de ahorros digital en COP; aplica retención en la fuente del 7% sobre rendimientos y 4x1000 salvo cuenta marcada exenta.",
+    ...(interestRate ? { interestRate } : {}),
+  };
+}
+
+/**
+ * Construye un `ItemList` de `FinancialProduct` con las 7 cuentas remuneradas del comparador.
+ */
+export function buildRentabilidadComparisonJsonLd(
+  profitability: Partial<ProfitabilityRatesMap> | null | undefined,
+): Record<string, unknown> {
+  return {
+    "@type": "ItemList",
+    name: "Comparador de Cuentas de Ahorro Rentables en Colombia",
+    itemListElement: BANK_DIRECTORY.map((bank, idx) => {
+      const rates = profitability?.[bank.key];
+      const interestRate = buildInterestRateValue(rates);
+      return {
+        "@type": "ListItem",
+        position: idx + 1,
+        item: {
+          "@type": "FinancialProduct",
+          additionalType: "https://schema.org/BankAccount",
+          category: "SavingsAccount",
+          name: `Cuenta de Ahorros ${bank.label}`,
+          url: `${SITE_URL}${bank.href}`,
+          provider: {
+            "@type": "BankOrCreditUnion",
+            name: bank.label,
+          },
+          areaServed: {
+            "@type": "Country",
+            name: "Colombia",
+          },
+          ...(interestRate ? { interestRate } : {}),
+        },
+      };
+    }),
+  };
+}
+
+/**
+ * Construye un `ItemList` de `FinancialProduct` para tarjetas de crédito y débito en Colombia.
+ */
+export function buildCardComparisonJsonLd(
+  cards: Card[],
+  limit = 20,
+): Record<string, unknown> {
+  const validCards = (cards ?? [])
+    .filter((card) => Boolean(card?.name?.trim()))
+    .slice(0, limit);
+
+  return {
+    "@type": "ItemList",
+    name: "Tarjetas de Crédito y Débito Comparadas en Colombia",
+    itemListElement: validCards.map((card, idx) => {
+      const feeText =
+        typeof card.cuotaManejo === "number" && Number.isFinite(card.cuotaManejo)
+          ? card.cuotaManejo === 0
+            ? "Cuota de manejo $0 COP"
+            : `Cuota de manejo $${Math.round(card.cuotaManejo).toLocaleString("es-CO")} COP`
+          : undefined;
+
+      return {
+        "@type": "ListItem",
+        position: idx + 1,
+        item: {
+          "@type": "FinancialProduct",
+          category: "CreditCard",
+          name: card.name.trim(),
+          url: `${SITE_URL}/calculadoras/comparador-de-tarjetas`,
+          ...(card.bank?.title
+            ? {
+                provider: {
+                  "@type": "BankOrCreditUnion",
+                  name: card.bank.title,
+                },
+              }
+            : {}),
+          ...(typeof card.tasaInteresEfectivaAnual === "number" &&
+          Number.isFinite(card.tasaInteresEfectivaAnual) &&
+          card.tasaInteresEfectivaAnual > 0
+            ? {
+                annualPercentageRate: Number(
+                  card.tasaInteresEfectivaAnual.toFixed(2),
+                ),
+              }
+            : {}),
+          ...(feeText ? { feesAndCommissionsSpecification: feeText } : {}),
+          areaServed: {
+            "@type": "Country",
+            name: "Colombia",
+          },
+        },
+      };
+    }),
   };
 }
 
@@ -327,5 +488,60 @@ export function buildSubcategoryMetadata(options: {
       description: twitterDescription ?? description,
       images: [`${SITE_URL}/og-image.jpg`],
     },
+  };
+}
+
+/**
+ * Construye metadata SEO estandarizada para páginas institucionales y legales de Monopolombiano.
+ */
+export const buildInstitutionalPageMetadata = buildSubcategoryMetadata;
+
+/**
+ * Construye JSON-LD (`BreadcrumbList` + `AboutPage` o `WebPage`) para páginas institucionales y legales.
+ */
+export function buildInstitutionalPageJsonLd(options: {
+  name: string;
+  description: string;
+  path: string;
+  pageType?: "AboutPage" | "WebPage";
+}) {
+  const { name, description, path, pageType = "WebPage" } = options;
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  const pageUrl = `${SITE_URL}${cleanPath}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Inicio",
+            item: SITE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name,
+            item: pageUrl,
+          },
+        ],
+      },
+      {
+        "@type": pageType,
+        name,
+        description,
+        url: pageUrl,
+        inLanguage: "es-CO",
+        isPartOf: {
+          "@type": "WebSite",
+          url: SITE_URL,
+          name: "Monopolombiano",
+        },
+        publisher: PUBLISHER_ORG,
+      },
+    ],
   };
 }

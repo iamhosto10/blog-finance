@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calculator } from "@/components/4x1000/Calculator";
 import { InfoSection } from "@/components/CommonComponents/InfoSection/InfoSection";
@@ -7,6 +8,11 @@ import Tag from "@/components/CommonComponents/Tag";
 import Link from "next/link";
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import CalculatorRelatedGuides from "@/components/CommonComponents/CalculatorRelatedGuides";
+import {
+  fetchBlogsPreviewSafe,
+  resolveCalculatorGuides,
+} from "@/lib/calculatorGuides";
 import { buildCalculatorJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
@@ -101,7 +107,10 @@ const Faq = [
       "Fue creado en 1998 como medida temporal, pero ha sido prorrogado hasta hoy.",
   },
 ];
-export default function Page() {
+export default async function Page() {
+  const blogs = await fetchBlogsPreviewSafe();
+  const guides = resolveCalculatorGuides("4x1000", blogs);
+
   return (
     <div className="container md:-mt-6">
       <JsonLd
@@ -142,10 +151,14 @@ export default function Page() {
               <Tag title="CALCULADORAS" />
             </Link>
           </div>
-          <img
+          <Image
             src="/assets/4x1000/4x1000.png"
-            alt="4x1000"
-            className="mx-auto max-w-5/6 md:max-w-3/6 lg:max-w-2/6"
+            alt="Calculadora 4x1000 en Colombia"
+            width={500}
+            height={500}
+            priority
+            sizes="(min-width: 1024px) 280px, (min-width: 768px) 320px, 260px"
+            className="mx-auto max-w-5/6 md:max-w-3/6 lg:max-w-2/6 h-auto"
           />
           <div className="h-auto hidden md:block ">
             <p className="text-sm lg:text-lg bg-background text-background px-2 py-1 rounded-full font-agrandir font-bold cursor-default">
@@ -169,6 +182,7 @@ export default function Page() {
 
         <FAQ data={Faq} />
       </div>
+      <CalculatorRelatedGuides calculatorSlug="4x1000" guides={guides} />
     </div>
   );
 }

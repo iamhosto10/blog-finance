@@ -3,8 +3,16 @@ import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import CalculatorRelatedGuides from "@/components/CommonComponents/CalculatorRelatedGuides";
+import {
+  fetchBlogsPreviewSafe,
+  resolveCalculatorGuides,
+} from "@/lib/calculatorGuides";
 import { buildBankPageCopy } from "@/lib/profitabilityCopy";
-import { buildCalculatorJsonLd } from "@/lib/structuredData";
+import {
+  buildBankFinancialProductNode,
+  buildCalculatorJsonLd,
+} from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadora de Rentabilidad Global66 | Monopolombiano",
@@ -51,12 +59,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const data = await client.fetch(
-    profitabilityQuery,
-    {},
-    { next: { tags: ["global-data"] } },
-  );
+  const [data, blogs] = await Promise.all([
+    client.fetch(profitabilityQuery, {}, { next: { tags: ["global-data"] } }),
+    fetchBlogsPreviewSafe(),
+  ]);
   const global66Rates = data?.global66 || [];
+  const guides = resolveCalculatorGuides("global66", blogs);
   return (
     <>
       <JsonLd
@@ -66,9 +74,20 @@ export default async function Page() {
             "Simula los intereses de tu cuenta Global66 en Colombia según su tasa efectiva anual.",
           slug: "global66",
           faqs: buildBankPageCopy("global66", global66Rates).faq,
+          extraNodes: [
+            buildBankFinancialProductNode({
+              name: "Cuenta Global66 Colombia",
+              providerName: "Global66",
+              slug: "global66",
+              description:
+                "Cuenta digital multimoneda en Colombia con rendimientos EA y transferencias internacionales.",
+              rates: global66Rates,
+            }),
+          ],
         })}
       />
       <ClientPage profitabilityData={global66Rates} />
+      <CalculatorRelatedGuides calculatorSlug="global66" guides={guides} />
     </>
   );
 }

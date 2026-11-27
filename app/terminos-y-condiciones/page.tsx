@@ -1,8 +1,32 @@
-"use client";
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import {
+  buildInstitutionalPageJsonLd,
+  buildInstitutionalPageMetadata,
+} from "@/lib/structuredData";
+
+export const metadata = buildInstitutionalPageMetadata({
+  title: "Términos y Condiciones",
+  description:
+    "Lee los términos y condiciones de uso de Monopolombiano, propiedad intelectual, limitación de responsabilidad y enlaces externos.",
+  keywords: [
+    "términos y condiciones Monopolombiano",
+    "condiciones de uso",
+    "propiedad intelectual",
+  ],
+  path: "/terminos-y-condiciones",
+});
 
 export default function TerminosYCondiciones() {
   return (
     <div className="container py-12">
+      <JsonLd
+        data={buildInstitutionalPageJsonLd({
+          name: "Términos y Condiciones de Uso — Monopolombiano",
+          description:
+            "Reglas de uso y condiciones aplicables al sitio web y herramientas de Monopolombiano.",
+          path: "/terminos-y-condiciones",
+        })}
+      />
       <h1 className="text-3xl md:text-4xl font-bold text-secondary text-center mb-6">
         Términos y Condiciones de Uso de{" "}
         <span className="text-primary">Monopolombiano</span>

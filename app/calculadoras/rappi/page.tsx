@@ -3,8 +3,16 @@ import type { Metadata } from "next";
 import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import CalculatorRelatedGuides from "@/components/CommonComponents/CalculatorRelatedGuides";
+import {
+  fetchBlogsPreviewSafe,
+  resolveCalculatorGuides,
+} from "@/lib/calculatorGuides";
 import { buildBankPageCopy } from "@/lib/profitabilityCopy";
-import { buildCalculatorJsonLd } from "@/lib/structuredData";
+import {
+  buildBankFinancialProductNode,
+  buildCalculatorJsonLd,
+} from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadora de Rentabilidad RappiPay | Monopolombiano",
@@ -52,12 +60,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const data = await client.fetch(
-    profitabilityQuery,
-    {},
-    { next: { tags: ["global-data"] } },
-  );
+  const [data, blogs] = await Promise.all([
+    client.fetch(profitabilityQuery, {}, { next: { tags: ["global-data"] } }),
+    fetchBlogsPreviewSafe(),
+  ]);
   const rappiRates = data?.rappi || [];
+  const guides = resolveCalculatorGuides("rappi", blogs);
 
   return (
     <>
@@ -68,9 +76,20 @@ export default async function Page() {
             "Simula cuánto ganas ahorrando en las bóvedas y cuenta de RappiPay en Colombia.",
           slug: "rappi",
           faqs: buildBankPageCopy("rappi", rappiRates).faq,
+          extraNodes: [
+            buildBankFinancialProductNode({
+              name: "RappiCuenta y Bóvedas RappiPay",
+              providerName: "RappiPay",
+              slug: "rappi",
+              description:
+                "Cuenta de ahorros digital sin cuota de manejo con bóvedas remuneradas en Colombia.",
+              rates: rappiRates,
+            }),
+          ],
         })}
       />
       <ClientPage profitabilityData={rappiRates} />
+      <CalculatorRelatedGuides calculatorSlug="rappi" guides={guides} />
     </>
   );
 }

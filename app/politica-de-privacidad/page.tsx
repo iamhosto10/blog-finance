@@ -1,6 +1,32 @@
+import JsonLd from "@/components/CommonComponents/JsonLd";
+import {
+  buildInstitutionalPageJsonLd,
+  buildInstitutionalPageMetadata,
+} from "@/lib/structuredData";
+
+export const metadata = buildInstitutionalPageMetadata({
+  title: "Política de Privacidad",
+  description:
+    "Política de privacidad y tratamiento de datos personales de Monopolombiano conforme a la Ley 1581 de 2012 en Colombia.",
+  keywords: [
+    "política de privacidad Monopolombiano",
+    "Ley 1581 de 2012",
+    "protección de datos Colombia",
+  ],
+  path: "/politica-de-privacidad",
+});
+
 export default function PoliticaDePrivacidadPage() {
   return (
     <div className="container mx-auto flex flex-col gap-5 font-canva-sans text-tertiary">
+      <JsonLd
+        data={buildInstitutionalPageJsonLd({
+          name: "Política de Privacidad — Monopolombiano",
+          description:
+            "Cómo recopilamos, protegemos y tratamos tus datos personales en Monopolombiano.",
+          path: "/politica-de-privacidad",
+        })}
+      />
       <h1 className="text-center font-agrandir text-secondary font-bold text-2xl lg:text-4xl 2xl:text-6xl">
         POLÍTICA DE PRIVACIDAD
       </h1>

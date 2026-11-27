@@ -4,8 +4,16 @@ import ClientPage from "./ClientPage";
 import { profitabilityQuery } from "@/lib/queries";
 import { client } from "@/lib/sanity";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import CalculatorRelatedGuides from "@/components/CommonComponents/CalculatorRelatedGuides";
+import {
+  fetchBlogsPreviewSafe,
+  resolveCalculatorGuides,
+} from "@/lib/calculatorGuides";
 import { CALCULATOR_FAQS } from "@/lib/calculatorFaqs";
-import { buildCalculatorJsonLd } from "@/lib/structuredData";
+import {
+  buildCalculatorJsonLd,
+  buildRentabilidadComparisonJsonLd,
+} from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadora de Rentabilidad | Compara cuentas de ahorro en Colombia",
@@ -53,11 +61,11 @@ export const metadata: Metadata = {
 };
 
 export default async function CalculadoraRentabilidadPage() {
-  const profitabilityData = await client.fetch(
-    profitabilityQuery,
-    {},
-    { next: { tags: ["global-data"] } },
-  );
+  const [profitabilityData, blogs] = await Promise.all([
+    client.fetch(profitabilityQuery, {}, { next: { tags: ["global-data"] } }),
+    fetchBlogsPreviewSafe(),
+  ]);
+  const guides = resolveCalculatorGuides("calculadora-de-rentabilidad", blogs);
 
   return (
     <>
@@ -68,9 +76,15 @@ export default async function CalculadoraRentabilidadPage() {
             "Compara la rentabilidad de cuentas de ahorro en Colombia entre Nu, Lulo Bank, Pibank, Bold, Global66, Rappi y Banco Popular.",
           slug: "calculadora-de-rentabilidad",
           faqs: CALCULATOR_FAQS["calculadora-de-rentabilidad"],
+          extraNodes: [buildRentabilidadComparisonJsonLd(profitabilityData)],
         })}
       />
       <ClientPage profitability={profitabilityData} />
+      <CalculatorRelatedGuides
+        calculatorSlug="calculadora-de-rentabilidad"
+        guides={guides}
+        className="container mx-auto px-4 pb-12"
+      />
     </>
   );
 }

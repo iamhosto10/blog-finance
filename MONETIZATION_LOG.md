@@ -29,14 +29,32 @@
    - Confirmar y ajustar en Sanity Studio las tasas exactas vigentes de Nu, Lulo, Pibank, Global66, Bold, Rappi y Banco Popular, y poblar `applyUrl` en los 20 documentos `cards` o variables `NEXT_PUBLIC_AFFILIATE_*_URL`.
 2. **Exp #10 — Pasarela de pago automática con tarjeta/PSE en `/recursos` (complemento a Bre-B)**:
    - Activar links de pago de Wompi / Bold / Mercado Pago / Hotmart en `lib/recursos.ts` cuando Gerardo los comparta para complementar el cobro inmediato por Bre-B (`Lulo Bank`) ya activo.
-3. **Exp #17 — Enlazado interno cruzado calculadoras ↔ artículos + Schema `FinancialProduct` en cuentas y tarjetas**:
-   - Enlazar guías editoriales relevantes desde las páginas de calculadoras y emitir marcado `FinancialProduct` / `BankAccount` adicional para aumentar rich results y retención de sesión.
-4. **Exp #18 — Optimización Core Web Vitals (LCP / `next/image`) en calculadoras y páginas legales/sobre-nosotros**:
-   - Reemplazar etiquetas `<img>` críticas con `next/image` en calculadoras de alto tráfico (`4x1000`, `conversor-dolares`, bancos) y revisar `canonical` / `openGraph` en páginas institucionales (`/sobre-nosotros`, `/aviso-legal`, `/politica-de-privacidad`, `/terminos-y-condiciones`).
+3. **Exp #19 — Optimización de `next/image` en Navbar, GraphicsTable y calculadoras restantes + limpieza de `img` pendientes**:
+   - Reemplazar los `<img>` restantes en `Navbar.tsx`, `GraphicsTable.tsx`, `comparador-de-tarjetas` (imágenes Sanity y SVG/PNG) y formularios de crédito/ahorro/inversión/vivienda para eliminar advertencias `no-img-element` y mejorar CLS/LCP.
+4. **Exp #20 — Lead Magnet de Ahorro/Inversión (CDT vs. Cuenta Remunerada) + Banner sticky/contextual en artículos largos**:
+   - Crear plantilla comparativa CDT vs. cuenta remunerada para `simulador-de-inversion` y `calculadora-de-ahorro` y evaluar micro-barra contextual de acceso a calculadoras en artículos extensos para elevar páginas/sesión.
 
 ---
 
 ## Registro de Experimentos Ejecutados
+
+### 2026-11-27 — Experimento #17: Enlazado interno calculadoras ↔ artículos + Schema `FinancialProduct` y Experimento #18: Core Web Vitals (`next/image`) en calculadoras + SEO en páginas institucionales
+- **Hipótesis**: Conectar las 15 calculadoras de regreso hacia las guías y subcategorías del blog aumenta páginas por sesión y distribuye autoridad SEO interna en ambos sentidos; emitir datos estructurados `FinancialProduct` (`SavingsAccount` con tasas EA dinámicas desde Sanity y `CreditCard` con tasa EA y cuota de manejo) mejora la elegibilidad de rich results financieros; y migrar las imágenes hero de alto tráfico (`4x1000`, `conversor-dolares`, 7 bancos y `CalculatorCard`) a `next/image` junto con canonical/OpenGraph/JSON-LD en las 5 páginas institucionales consolida LCP, CLS e indexación técnica.
+- **Cambios realizados**:
+  - **Enlazado interno 15/15 calculadoras → artículos (`lib/calculatorGuides.ts`, `CalculatorRelatedGuides.tsx`)**: creado motor de resolución temática por palabras clave y fecha (`resolveCalculatorGuides` + `fetchBlogsPreviewSafe`) que enlaza cada una de las 15 calculadoras hacia 2 subcategorías editoriales relevantes y hasta 3 artículos del blog con evento GA4 `calculator_guide_click`.
+  - **Schema `FinancialProduct` en cuentas y tarjetas (`lib/structuredData.ts`)**: ampliado `buildCalculatorJsonLd` con `extraNodes` y creados `buildBankFinancialProductNode` (7 calculadoras bancarias con `interestRate` `QuantitativeValue` en `% EA` desde Sanity), `buildRentabilidadComparisonJsonLd` (`ItemList` de 7 cuentas en `calculadora-de-rentabilidad`) y `buildCardComparisonJsonLd` (`ItemList` de tarjetas con `annualPercentageRate` y `feesAndCommissionsSpecification` en COP en `comparador-de-tarjetas`).
+  - **Core Web Vitals (`next/image`) en calculadoras críticas (`BankCalculatorHero.tsx`, `CalculatorCard.tsx`, `4x1000`, `conversor-dolares`, `DolarConversor.tsx`)**: creado componente compartido `BankCalculatorHero` con `<Image priority />` y dimensiones exactas para las 7 calculadoras bancarias (`nu`, `lulo`, `pibank`, `global66`, `bold`, `rappi`, `popular`), y migradas a `next/image` las imágenes de `4x1000`, `conversor-dolares`, banderas de `DolarConversor` y tarjetas de `CalculatorCard`.
+  - **Higiene SEO y JSON-LD en 5 páginas institucionales/legales**: añadidos `buildInstitutionalPageMetadata` y `buildInstitutionalPageJsonLd` (`BreadcrumbList` + `AboutPage`/`WebPage`, `canonical` sin `www.`, `locale: "es_CO"`, OpenGraph y Twitter) en `/sobre-nosotros`, `/aviso-legal`, `/politica-de-privacidad`, `/politica-de-cookies` y `/terminos-y-condiciones` (eliminando `"use client"` innecesario en `aviso-legal` y `terminos-y-condiciones`).
+  - **Pruebas y validación**: añadida suite `__tests__/calculator-guides.test.ts` (2 pruebas) y ampliada `__tests__/monetization-seo.test.ts` (2 pruebas nuevas). Validado localmente con `npx tsc --noEmit`, `npm run lint`, `npm run test` (7 archivos, 38/38 pruebas pasando) y `npm run build` (50+ rutas compiladas y prerenderizadas sin errores).
+- **Archivos tocados**:
+  - `lib/structuredData.ts`, `lib/calculatorGuides.ts`
+  - `components/CommonComponents/CalculatorRelatedGuides.tsx`, `components/CommonComponents/BankCalculatorHero.tsx`
+  - `components/CommonComponents/Cards/CalculatorCard.tsx`, `components/DolarConversor/DolarConversor.tsx`
+  - Las 15 páginas `app/calculadoras/*/page.tsx` y los 8 `ClientPage` / `Clientpage` (`nu`, `lulo`, `pibank`, `global66`, `bold`, `rappi`, `popular`, `conversor-dolares`)
+  - `app/sobre-nosotros/page.tsx`, `app/aviso-legal/page.tsx`, `app/politica-de-privacidad/page.tsx`, `app/politica-de-cookies/page.tsx`, `app/terminos-y-condiciones/page.tsx`
+  - `__tests__/calculator-guides.test.ts`, `__tests__/monetization-seo.test.ts`, `MONETIZATION_LOG.md`
+- **Métrica esperada**: Mayor páginas/sesión y CTR interno (`calculator_guide_click`) desde calculadoras hacia artículos, mejor LCP/CLS en calculadoras de alto tráfico y cobertura completa de `canonical` + JSON-LD en páginas institucionales y productos financieros.
+- **Próximos pasos**: Activar Exp #9 / Exp #10 en cuanto Gerardo confirme tasas vigentes en Sanity `profitability`, comparta links de afiliado/referido y opcionalmente links de pago con tarjeta/PSE; de forma autónoma continuar con Exp #19 (limpieza restante de `<img>` en `Navbar`, `GraphicsTable` y comparador de tarjetas) y Exp #20 (lead magnet CDT vs. cuenta remunerada).
 
 ### 2026-11-26 — Experimento #15: Higiene SEO y FAQPage JSON-LD 15/15 en Calculadoras y Experimento #16: Lead Magnet de Deudas/Tarjetas + Embudo B2B hacia `/anunciate`
 - **Hipótesis**: Llevar la cobertura de `FAQPage` JSON-LD (respaldada por secciones `<FAQ />` visibles en página) de 1/15 a 15/15 calculadoras y corregir `locale: "es_ES"`, `siteName` erróneos y `canonical` faltantes mejora la elegibilidad de rich snippets y CTR orgánico en Colombia; al mismo tiempo, entregar una plantilla específica de control de tarjetas y salida de deudas (Avalancha vs. Bola de Nieve) aumenta la conversión de leads en crédito/tarjetas y añadir un enlace discreto al Media Kit `/anunciate` en los comparadores capta contactos B2B de fintechs y bancos.

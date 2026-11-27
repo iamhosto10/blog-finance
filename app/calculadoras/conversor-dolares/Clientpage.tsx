@@ -7,6 +7,7 @@ import Tag from "@/components/CommonComponents/Tag";
 import DolarConversor from "@/components/DolarConversor/DolarConversor";
 import { Card, CardContent } from "@/components/ui/card";
 import { CALCULATOR_FAQS } from "@/lib/calculatorFaqs";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Dolar } from "@/lib/interface";
@@ -40,10 +41,14 @@ const ClientPage = ({ dolar }: { dolar: Dolar }) => {
               <Tag title="CALCULADORAS" />
             </Link>
           </div>
-          <img
+          <Image
             src="/assets/convertdolar/dolartopesos.webp"
-            alt="Dolar a pesos"
-            className="mx-auto max-w-5/6 md:max-w-3/6 lg:max-w-2/6"
+            alt="Conversor de dólares a pesos colombianos"
+            width={450}
+            height={450}
+            priority
+            sizes="(min-width: 1024px) 280px, (min-width: 768px) 320px, 260px"
+            className="mx-auto max-w-5/6 md:max-w-3/6 lg:max-w-2/6 h-auto"
           />
           <div className="h-auto hidden md:block ">
             <p className="text-sm lg:text-lg bg-background text-background px-2 py-1 rounded-full font-agrandir font-bold cursor-default">

@@ -3,8 +3,16 @@ import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import type { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import CalculatorRelatedGuides from "@/components/CommonComponents/CalculatorRelatedGuides";
+import {
+  fetchBlogsPreviewSafe,
+  resolveCalculatorGuides,
+} from "@/lib/calculatorGuides";
 import { buildBankPageCopy } from "@/lib/profitabilityCopy";
-import { buildCalculatorJsonLd } from "@/lib/structuredData";
+import {
+  buildBankFinancialProductNode,
+  buildCalculatorJsonLd,
+} from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadora de rentabilidad Lulo Bank | Monopolombiano",
@@ -50,12 +58,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const data = await client.fetch(
-    profitabilityQuery,
-    {},
-    { next: { tags: ["global-data"] } },
-  );
+  const [data, blogs] = await Promise.all([
+    client.fetch(profitabilityQuery, {}, { next: { tags: ["global-data"] } }),
+    fetchBlogsPreviewSafe(),
+  ]);
   const luloRates = data?.lulo || [];
+  const guides = resolveCalculatorGuides("lulo", blogs);
 
   return (
     <>
@@ -66,9 +74,20 @@ export default async function Page() {
             "Simula los rendimientos de tu dinero en Lulo Bank y sus bolsillos en Colombia.",
           slug: "lulo",
           faqs: buildBankPageCopy("lulo", luloRates).faq,
+          extraNodes: [
+            buildBankFinancialProductNode({
+              name: "Lulo Cuenta y Bolsillos Lulo Bank",
+              providerName: "Lulo Bank",
+              slug: "lulo",
+              description:
+                "Cuenta de ahorros digital vigilada por la SFC con bolsillos remunerados en Colombia.",
+              rates: luloRates,
+            }),
+          ],
         })}
       />
       <ClientPage profitabilityData={luloRates} />
+      <CalculatorRelatedGuides calculatorSlug="lulo" guides={guides} />
     </>
   );
 }

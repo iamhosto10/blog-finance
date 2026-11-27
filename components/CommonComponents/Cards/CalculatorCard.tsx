@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -23,24 +24,23 @@ const CalculatorCard = ({
   return (
     <div className="rounded-xl bg-tertiary-foreground  h-full flex flex-col">
       {rentability && (
-        <img
+        <Image
           src={asset}
           alt={label}
           width={800}
           height={533}
-          loading="lazy"
+          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
           className="rounded-xl w-full h-auto"
         />
       )}
       <div className="p-6 text-center flex flex-col items-center justify-between gap-3 h-full">
         <div className="flex flex-col gap-2 items-center">
           {!rentability && (
-            <img
+            <Image
               src={asset}
               alt={label}
               width={80}
               height={80}
-              loading="lazy"
               className="size-20 object-contain"
             />
           )}

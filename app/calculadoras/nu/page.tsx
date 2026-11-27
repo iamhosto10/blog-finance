@@ -3,8 +3,16 @@ import { client } from "@/lib/sanity";
 import { profitabilityQuery } from "@/lib/queries";
 import type { Metadata } from "next";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import CalculatorRelatedGuides from "@/components/CommonComponents/CalculatorRelatedGuides";
+import {
+  fetchBlogsPreviewSafe,
+  resolveCalculatorGuides,
+} from "@/lib/calculatorGuides";
 import { buildBankPageCopy } from "@/lib/profitabilityCopy";
-import { buildCalculatorJsonLd } from "@/lib/structuredData";
+import {
+  buildBankFinancialProductNode,
+  buildCalculatorJsonLd,
+} from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Calculadora de rentabilidad Nu Bank | Monopolombiano",
@@ -50,12 +58,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const data = await client.fetch(
-    profitabilityQuery,
-    {},
-    { next: { tags: ["global-data"] } },
-  );
+  const [data, blogs] = await Promise.all([
+    client.fetch(profitabilityQuery, {}, { next: { tags: ["global-data"] } }),
+    fetchBlogsPreviewSafe(),
+  ]);
   const nuRates = data?.nu || [];
+  const guides = resolveCalculatorGuides("nu", blogs);
 
   return (
     <>
@@ -66,9 +74,20 @@ export default async function Page() {
             "Calcula cuánto puedes ganar con la cuenta de ahorros y cajitas de Nu en Colombia según su tasa EA.",
           slug: "nu",
           faqs: buildBankPageCopy("nu", nuRates).faq,
+          extraNodes: [
+            buildBankFinancialProductNode({
+              name: "Cuenta Nu Colombia y Cajitas de Ahorro",
+              providerName: "Nu Colombia",
+              slug: "nu",
+              description:
+                "Cuenta de ahorros digital sin cuota de manejo y cajitas remuneradas en Colombia.",
+              rates: nuRates,
+            }),
+          ],
         })}
       />
       <ClientPage profitabilityData={nuRates} />
+      <CalculatorRelatedGuides calculatorSlug="nu" guides={guides} />
     </>
   );
 }

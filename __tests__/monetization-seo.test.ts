@@ -7,8 +7,13 @@ import {
 } from "../lib/leadMagnets";
 import {
   buildArticleJsonLd,
+  buildBankFinancialProductNode,
   buildCalculatorJsonLd,
+  buildCardComparisonJsonLd,
   buildCollectionPageJsonLd,
+  buildInstitutionalPageJsonLd,
+  buildInstitutionalPageMetadata,
+  buildRentabilidadComparisonJsonLd,
   buildSubcategoryMetadata,
   buildWebSiteJsonLd,
   formatArticleTitle,
@@ -25,7 +30,7 @@ import {
 import { isSafeExternalUrl } from "../lib/affiliates";
 import { CALCULATOR_FAQS, type NonBankCalculatorFaqKey } from "../lib/calculatorFaqs";
 import { GET as getFileRoute } from "../app/api/files/[slug]/route";
-import type { Blog } from "../lib/interface";
+import type { Blog, Card } from "../lib/interface";
 
 vi.mock("@/lib/sanity", () => ({
   client: {
@@ -290,5 +295,117 @@ describe("Copy dinámico de tasas (profitabilityCopy) y validación de URLs de a
       expect(jsonLd["@graph"]).toHaveLength(3);
       expect((jsonLd["@graph"][2] as Record<string, unknown>)["@type"]).toBe("FAQPage");
     }
+  });
+
+  it("emite FinancialProduct JSON-LD para cuentas de ahorro bancarias, comparador de rentabilidad y tarjetas", () => {
+    const nuNode = buildBankFinancialProductNode({
+      name: "Cuenta Nu Colombia",
+      providerName: "Nu Colombia",
+      slug: "nu",
+      description: "Cuenta de ahorros digital en Colombia.",
+      rates: [0.093],
+    });
+    expect(nuNode["@type"]).toBe("FinancialProduct");
+    expect(nuNode.category).toBe("SavingsAccount");
+    expect(nuNode.interestRate).toEqual({
+      "@type": "QuantitativeValue",
+      value: 9.3,
+      unitText: "% EA",
+    });
+
+    const luloNode = buildBankFinancialProductNode({
+      name: "Cuenta Lulo Bank",
+      providerName: "Lulo Bank",
+      slug: "lulo",
+      description: "Cuenta con bolsillos en Colombia.",
+      rates: [0.075, 0.0925],
+    });
+    expect(luloNode.interestRate).toEqual({
+      "@type": "QuantitativeValue",
+      minValue: 7.5,
+      maxValue: 9.25,
+      unitText: "% EA",
+    });
+
+    const withExtra = buildCalculatorJsonLd({
+      name: "Calculadora Nu",
+      description: "Simula Nu.",
+      slug: "nu",
+      extraNodes: [nuNode],
+    });
+    expect(withExtra["@graph"]).toHaveLength(3);
+    expect((withExtra["@graph"][2] as Record<string, unknown>)["@type"]).toBe(
+      "FinancialProduct",
+    );
+
+    const compList = buildRentabilidadComparisonJsonLd({
+      nu: [0.093],
+      lulo: [0.075, 0.0925],
+      pibank: [0.11],
+    }) as {
+      "@type": string;
+      itemListElement: Array<{ item: Record<string, unknown> }>;
+    };
+    expect(compList["@type"]).toBe("ItemList");
+    expect(compList.itemListElement).toHaveLength(7);
+    expect(compList.itemListElement[0].item["@type"]).toBe("FinancialProduct");
+
+    const mockCards: Card[] = [
+      {
+        _id: "card-1",
+        _type: "cards",
+        name: "Tarjeta Nu",
+        cuotaManejo: 0,
+        tasaInteresEfectivaAnual: 25.4,
+        bank: {
+          _id: "b-1",
+          _type: "banks",
+          title: "Nu Colombia",
+          slug: { _type: "slug", current: "nu" },
+        },
+      },
+    ];
+    const cardsList = buildCardComparisonJsonLd(mockCards) as {
+      "@type": string;
+      itemListElement: Array<{ item: Record<string, unknown> }>;
+    };
+    expect(cardsList["@type"]).toBe("ItemList");
+    expect(cardsList.itemListElement).toHaveLength(1);
+    expect(cardsList.itemListElement[0].item).toMatchObject({
+      "@type": "FinancialProduct",
+      category: "CreditCard",
+      name: "Tarjeta Nu",
+      annualPercentageRate: 25.4,
+      feesAndCommissionsSpecification: "Cuota de manejo $0 COP",
+    });
+  });
+
+  it("construye metadata y JSON-LD estándar para páginas institucionales y legales", () => {
+    const meta = buildInstitutionalPageMetadata({
+      title: "Sobre Nosotros",
+      description: "Equipo de Monopolombiano.",
+      keywords: ["equipo"],
+      path: "/sobre-nosotros",
+    });
+    expect(meta.alternates?.canonical).toBe(`${SITE_URL}/sobre-nosotros`);
+    expect(meta.openGraph).toMatchObject({
+      locale: "es_CO",
+      siteName: "Monopolombiano",
+      url: `${SITE_URL}/sobre-nosotros`,
+    });
+
+    const jsonLd = buildInstitutionalPageJsonLd({
+      name: "Sobre Nosotros — Monopolombiano",
+      description: "Equipo de Monopolombiano.",
+      path: "/sobre-nosotros",
+      pageType: "AboutPage",
+    });
+    expect(jsonLd["@graph"]).toHaveLength(2);
+    expect((jsonLd["@graph"][0] as Record<string, unknown>)["@type"]).toBe(
+      "BreadcrumbList",
+    );
+    expect((jsonLd["@graph"][1] as Record<string, unknown>)["@type"]).toBe(
+      "AboutPage",
+    );
   });
 });

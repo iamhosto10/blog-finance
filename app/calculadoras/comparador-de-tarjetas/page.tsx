@@ -3,8 +3,16 @@ import { Metadata } from "next";
 import { banksQuery, franchieseQuery, cardsQuery } from "@/lib/queries"; // Las queries de Sanity
 import { client } from "@/lib/sanity";
 import JsonLd from "@/components/CommonComponents/JsonLd";
+import CalculatorRelatedGuides from "@/components/CommonComponents/CalculatorRelatedGuides";
+import {
+  fetchBlogsPreviewSafe,
+  resolveCalculatorGuides,
+} from "@/lib/calculatorGuides";
 import { CALCULATOR_FAQS } from "@/lib/calculatorFaqs";
-import { buildCalculatorJsonLd } from "@/lib/structuredData";
+import {
+  buildCalculatorJsonLd,
+  buildCardComparisonJsonLd,
+} from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Comparador de Tarjetas | Monopolombiano",
@@ -52,13 +60,14 @@ export const metadata: Metadata = {
   },
 };
 export default async function ComparadorTarjetasPage() {
-  // Usamos Promise.all para hacer las 3 consultas al mismo tiempo en el servidor
-  // Esto es vital para el rendimiento, tardará los mismos milisegundos que hacer solo 1.
-  const [banks, franchieses, cards] = await Promise.all([
+  // Usamos Promise.all para hacer las consultas al mismo tiempo en el servidor
+  const [banks, franchieses, cards, blogs] = await Promise.all([
     client.fetch(banksQuery, {}, { next: { tags: ["global-data"] } }),
     client.fetch(franchieseQuery, {}, { next: { tags: ["global-data"] } }),
     client.fetch(cardsQuery, {}, { next: { tags: ["global-data"] } }),
+    fetchBlogsPreviewSafe(),
   ]);
+  const guides = resolveCalculatorGuides("comparador-de-tarjetas", blogs);
 
   // Pasamos los datos al Client Component
   return (
@@ -70,12 +79,18 @@ export default async function ComparadorTarjetasPage() {
             "Compara tarjetas de crédito y débito de los principales bancos en Colombia: tasas EA, cuota de manejo, beneficios y recompensas.",
           slug: "comparador-de-tarjetas",
           faqs: CALCULATOR_FAQS["comparador-de-tarjetas"],
+          extraNodes: [buildCardComparisonJsonLd(cards || [])],
         })}
       />
       <ClientPage
         banks={banks || []}
         franchieses={franchieses || []}
         cards={cards || []}
+      />
+      <CalculatorRelatedGuides
+        calculatorSlug="comparador-de-tarjetas"
+        guides={guides}
+        className="container mx-auto px-4 pb-12"
       />
     </>
   );

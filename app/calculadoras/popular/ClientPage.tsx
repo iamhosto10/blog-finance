@@ -2,10 +2,10 @@
 
 import AdBanner from "@/components/CommonComponents/Adsense/AdBanner";
 import BankAffiliateCta from "@/components/CommonComponents/BankAffiliateCta";
+import BankCalculatorHero from "@/components/CommonComponents/BankCalculatorHero";
 import { FAQ } from "@/components/CommonComponents/FAQ/FAQ";
 import { InfoSection } from "@/components/CommonComponents/InfoSection/InfoSection";
 import Profitability from "@/components/CommonComponents/Profitability/Profitability";
-import Tag from "@/components/CommonComponents/Tag";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   buildBankPageCopy,
@@ -30,23 +30,13 @@ const Page = ({ profitabilityData }: { profitabilityData: number[] }) => {
               {formatSelectedRateLabel(profitabilityData, selected)}
             </p>
           </section>
-          <div className="flex flex-col md:flex-row max-md:gap-5 w-full justify-start">
-            <div className="h-auto flex md:block">
-              <Tag title="HERRAMIENTAS" />
-            </div>
-            <div className="relative max-w-4/6 md:max-w-3/6 lg:max-w-2/6 mx-auto my-8">
-              <img
-                src="/assets/popular/popular.png"
-                alt="popular"
-                className="mx-auto w-full"
-              />
-            </div>
-            <div className="h-auto hidden md:block ">
-              <p className="text-sm lg:text-lg bg-background text-background px-2 py-1 rounded-full font-agrandir font-bold cursor-default">
-                HERRAMIENTAS
-              </p>
-            </div>
-          </div>
+          <BankCalculatorHero
+            logoSrc="/assets/popular/popular.png"
+            logoAlt="Banco Popular Colombia"
+            logoWidth={600}
+            logoHeight={315}
+            showCalculatorBadge={false}
+          />
 
           <Card className="shadow-xl bg-tertiary-foreground">
             <CardContent className="p-3 md:p-5 lg:p-8">
